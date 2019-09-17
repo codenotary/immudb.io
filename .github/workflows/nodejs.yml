@@ -1,4 +1,4 @@
-name: Docs - Vuepress Build Workflow
+name: Node CI
 
 on: [push]
 
@@ -21,4 +21,10 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-
+        
+    - name: Commit changes
+      uses: elstudio/actions-js-build/commit@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUSH_BRANCH: "test"
+   
