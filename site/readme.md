@@ -4,7 +4,7 @@ actionText: 🚀Start here
 actionLink: /guide/quick-start
 features:
 - title: First teaser 
-  details: Blablabla.
+  details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
 - title: Another thing
   details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
 - title: Third benefit
