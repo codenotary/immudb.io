@@ -12,7 +12,7 @@ features:
 footer: © vChain Inc.
 ---
 
-## The Trust and Integrity platform for the Cloud native environment
+## CodeNotary - The Trust and Integrity platform for the Cloud native environment
 Give any digital asset a meaningful, globally-unique, immutable identity that is authentic, verifiable, traceable from anywhere. 
 
 When using CodeNotary vcn in source code, release, deployment or at runtime, you allow a continuous trust verification that can be used to detect unusual or unwanted activity in your workload and act on it. 
