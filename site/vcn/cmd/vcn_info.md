@@ -1,23 +1,19 @@
-## vcn login
+## vcn info
 
-Log in to codenotary.io
+Display vcn information
 
 ### Synopsis
 
-Log in to codenotary.io.
-
-VCN_USER and VCN_PASSWORD env vars can be used to pass credentials 
-in a non-interactive environment.
-
+Display vcn information
 
 ```
-vcn login [flags]
+vcn info [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for login
+  -h, --help   help for info
 ```
 
 ### Options inherited from parent commands

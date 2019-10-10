@@ -21,5 +21,6 @@ Name | Description | Example
 `VCN_SIGNERID` | For `vcn authenticate` acts as a list of SignerID(s) (separated by space) to authenticate against | `VCN_SIGNERID="0x0...0 0x0...1" vcn authenticate <asset>` or `VCN_SIGNERID="0x0...0 <asset>` 
 `VCN_ORG` | Organization's ID to authenticate against | `VCN_ORG="vchain.us" vcn authenticate <asset>`
 `VCN_NOTARIZATION_PASSWORD` | Notarization password for non-interactive notarization | `VCN_NOTARIZATION_PASSWORD=<your_notarization_passphrase> vcn notarize <asset>`
+`VCN_NOTARIZATION_PASSWORD_EMPTY` | Instruct `vcn` to use an empty notarization password (`VCN_NOTARIZATION_PASSWORD` will be ignored) | `VCN_NOTARIZATION_PASSWORD_EMPTY=yes vcn notarize <asset>`
 `LOG_LEVEL` | Logging verbosity. Accepted values: `TRACE, DEBUG, INFO, WARN, ERROR, FATAL, PANIC`  | `LOG_LEVEL=TRACE vcn login` 
 `HTTP_PROXY` | HTTP Proxy configuration | `HTTP_PROXY=http://localhost:3128 vcn authenticate <asset>`

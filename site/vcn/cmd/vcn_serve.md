@@ -1,23 +1,23 @@
-## vcn login
+## vcn serve
 
-Log in to codenotary.io
+Start an local API server
 
 ### Synopsis
 
-Log in to codenotary.io.
-
-VCN_USER and VCN_PASSWORD env vars can be used to pass credentials 
-in a non-interactive environment.
-
+Start an local API server
 
 ```
-vcn login [flags]
+vcn serve [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help   help for login
+  -h, --help                   help for serve
+      --host string            host address
+      --port string            port (default "8080")
+      --tls-cert-file string   TLS certificate file
+      --tls-key-file string    TLS key file
 ```
 
 ### Options inherited from parent commands
