@@ -19,12 +19,12 @@ module.exports = {
 				]
 			},
 			{
-				title: 'vcn cli',
+				title: 'vcn CLI',
 				children: [
-					'/vcn/cmd/vcn',
-					'/vcn/user-guide/configuration',
-					'/vcn/user-guide/environments',
 					'/vcn/user-guide/notarization',
+					'/vcn/user-guide/environments',
+					'/vcn/user-guide/formatted-output',
+					'/vcn/cmd/vcn',
 				]
 			},
 			{
