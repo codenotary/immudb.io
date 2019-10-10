@@ -1,4 +1,4 @@
-# Notarization
+# Notarization explained
 
 Notarization is a process of creating an immutable blockchain entry that contains asset metadata so it can be used in the future authentication of a digital asset. It is a three-part process that includes the vetting of a signer's identity, the signer testifying to the asset's [status](#Statuses), and the recording of that asset's metadata (signer identity, unique digital fingerprint, [status](#Statuses), etc.) into an official record stored on the blockchain. This way interested parties can authenticate with certainty if an asset is trusted, who testified to its trust and how they have proven who they are.
 
@@ -33,7 +33,7 @@ Field | Label | Description
 `Timestamp` | **Date** | The date and time of the notarization.
 > *Field*s are names used to map [the data stored onto the blockchain](https://github.com/vchain-us/vcn/blob/0.5.0/pkg/api/verify.go#L26), *Label*s are used by `vcn` when printing results.
 
-# Revocation
+## Revocation
 
 Revocation is the process of removing an asset’s trust by changing its [status](#Statuses). 
 Each change in [status](#Statuses) is an additional blockchain entry and includes the same fields of metadata as notarization does. Trust revocation can made by running the commands:
@@ -41,7 +41,7 @@ Each change in [status](#Statuses) is an additional blockchain entry and include
 - `vcn untrust` to set an asset's [status](#Statuses) to equal **UNTRUSTED**
 - `vcn unsupport` to set an asset's [status](#Statuses) to equal **UNSUPPORTED**
 
-# Authentication
+## Authentication
 
 Authentication is the process of confirming an asset's [status](#Statuses) that is recorded on the blockchain. This is usually done by running `vcn authenticate` against an asset.
 
@@ -49,7 +49,7 @@ Given an asset as an input, the hash is computed in the same way it is in the no
 
 Authentication is always free and can be performed by anyone, anywhere, at any time, regardless of organizational affiliation or customer freemium status.
 
-## Authentication of Co-notarized Assets
+### Authentication of Co-notarized Assets
 
 CodeNotary's `vcn` application allows multiple users to notarize the same asset. The act is known as co-notarization. By default, when running the command `vcn authenticate`, a user’s last blockchain entry for the asset will be returned to them when they are logged in, regardless if the asset was co-notarized. However, all other users will be returned the last blockchain entry made by the user with the highest trust level. 
 
