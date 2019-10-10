@@ -21,6 +21,7 @@ module.exports = {
 			{
 				title: 'vcn CLI',
 				children: [
+					'/vcn/user-guide/quick-start',
 					'/vcn/user-guide/notarization',
 					'/vcn/user-guide/environments',
 					'/vcn/user-guide/formatted-output',
