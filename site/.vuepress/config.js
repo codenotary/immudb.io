@@ -15,7 +15,6 @@ module.exports = {
 				collapsable: false,
 				children: [
 					'/guide/quick-start',
-					'/guide/installation',
 				]
 			},
 			{
