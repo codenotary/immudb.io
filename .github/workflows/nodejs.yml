@@ -14,12 +14,13 @@ jobs:
         npm install
         npm run build --if-present
         
-    - name: Commit files
+    - name: Commit and push files
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Regenerated artifacts" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        git push "https://x-access-token:${GITHUB_TOKEN}@github.com/vchain-us/docs.git" HEAD:master --follow-tags
+        curl -XPOST -H"Authorization: token ${GH_PAT}" -H"Accept: application/vnd.github.mister-fantastic-preview+json" https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds # https://git.io/fjsFk
