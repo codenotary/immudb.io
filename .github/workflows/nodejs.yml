@@ -21,6 +21,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git add -A
         git commit -m "Regenerated artifacts" -a
         git push "https://x-access-token:${GITHUB_TOKEN}@github.com/vchain-us/docs.git" HEAD:master --follow-tags
         curl -XPOST -H"Authorization: token ${GH_PAT}" -H"Accept: application/vnd.github.mister-fantastic-preview+json" https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds # https://git.io/fjsFk
