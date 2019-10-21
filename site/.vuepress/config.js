@@ -14,7 +14,7 @@ module.exports = {
 				title: 'Get started',
 				collapsable: false,
 				children: [
-					'/guide/quick-start',
+					'/guide/quickhelp',
 				]
 			},
 			{
