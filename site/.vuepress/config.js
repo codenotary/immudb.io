@@ -3,6 +3,7 @@ module.exports = {
 	description: 'CodeNotary Documentation',
 	dest: './docs',
 	themeConfig: {
+		logo: '/codenotary-mascot.png',
 		nav: [
 			{ text: 'vcn', link: '/vcn/cmd/vcn' },
 			{ text: 'dashboard', link: '/dashboard/' },
