@@ -2,7 +2,6 @@ module.exports = {
 	title: 'CodeNotary.io Docs',
 	description: 'CodeNotary Documentation',
 	dest: './docs',
-	base: "/docs/",
 	themeConfig: {
 		nav: [
 			{ text: 'vcn', link: '/vcn/cmd/vcn' },
