@@ -42,8 +42,9 @@ module.exports = {
 				collapsable: false,
 				children: [
 					'/integrations/kube-notary',
-					'/integrations/js',
-					'/integrations/java',
+					'/integrations/jsvcn',
+					'/integrations/jvcn',
+					'/integrations/jvcn-maven-plugin',
 				]
 			}
 		]
