@@ -211,7 +211,7 @@ $ helm init --service-account tiller --history-max 200
 
 ### ServiceMonitor for Prometheus Operator
 
-See #11
+See [#11](https://github.com/vchain-us/kube-notary/issues/11).
 
 ## Testing
 ```
