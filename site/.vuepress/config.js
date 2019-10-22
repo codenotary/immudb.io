@@ -17,17 +17,7 @@ module.exports = {
 				]
 			},
 			{
-				title: 'vcn CLI',
-				children: [
-					'/vcn/user-guide/quick-start',
-					'/vcn/user-guide/notarization',
-					'/vcn/user-guide/environments',
-					'/vcn/user-guide/formatted-output',
-					'/vcn/cmd/vcn',
-				]
-			},
-			{
-				title: 'dashboard',
+				title: 'Dashboard',
 				path: '/dashboard/',
 				children: [
 					'/dashboard/onboarding',
@@ -38,9 +28,20 @@ module.exports = {
 				]
 			},
 			{
-				title: 'integrations',
+				title: 'vcn CLI',
+				children: [
+					'/vcn/user-guide/quick-start',
+					'/vcn/user-guide/notarization',
+					'/vcn/user-guide/environments',
+					'/vcn/user-guide/formatted-output',
+					'/vcn/cmd/vcn',
+				]
+			},
+			{
+				title: 'Integrations',
 				collapsable: false,
 				children: [
+					'/integrations/kube-notary/README',
 					'/integrations/js',
 					'/integrations/java',
 				]
