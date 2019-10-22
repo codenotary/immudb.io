@@ -1,5 +1,5 @@
 module.exports = {
-	title: 'CodeNotary.io Docs',
+	title: 'CodeNotary.io',
 	description: 'CodeNotary Documentation',
 	dest: './docs',
 	themeConfig: {
