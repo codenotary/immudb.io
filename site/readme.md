@@ -3,20 +3,22 @@ home: true
 actionText: 🚀Start here 
 actionLink: /guide/quick-start
 features:
-- title: First teaser 
-  details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-- title: Another thing
-  details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-- title: Third benefit
-  details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+- title: Integrity and Authenticity always
+  details: Notarize your software assets and ensure their integrity and authenticity at any time
+
+- title: DevOps discipline
+  details: Add CodeNotary authenticity verification in your DevOps process to avoid running unknown software in your applications, or that of your customers
+
+- title: Ready within seconds
+  details: Sign up with your email or GitHub account and start notarizing and authenticating software assets in 1 step
 footer: © vChain Inc.
 ---
 
 ## CodeNotary - The Trust and Integrity platform for the Cloud native environment
-Give any digital asset a meaningful, globally-unique, immutable identity that is authentic, verifiable, traceable from anywhere. 
+CodeNotary gives any digital asset a meaningful, globally-unique, immutable identity that is verifiable and traceable from anywhere and at any time.
 
-When using CodeNotary vcn in source code, release, deployment or at runtime, you allow a continuous trust verification that can be used to detect unusual or unwanted activity in your workload and act on it. 
-Powered by CodeNotary's digital identity infrastructure, vcn lets you notarize all of your digital assets that add a trust level of your choice, custom attributes and a meaningful status without touching or appending anything (unlike digital certificates).
-That allows change and revocation post-release without breaking any customer environment.
+When using CodeNotary in your DevOps, from source code, to release, to deployment and runtime, you enable a continuous trust verification that can be used to detect unusual or unwanted activities in your workload and act on them.
+CodeNotary lets you notarize your software assets and add a trust status to them, including custom attributes, without modifying or appending anything to the original asset (unlike digital certificates). Changes and revocation to the notarization data are therefore possible post-release without breaking any customer environment.
 
-Everything is done in a global, collaborative way to break the common silo solution architecture. Leveraging an immutable, always-on DLT platform allows you to avoid complex setup of Certificate authorities or digital certificates (that are unfit for DevOps anyway). 
+Everything is global accessible with a collaborative approach that allows to break the typical intra/inter- organization siloed architecture. Leveraging an immutable, always-on DLT platform, CodeNotary allows you to ensure the integrity and authenticity of your software assets without the complexity of certificate authorities and digital certificates (which are unfit for DevOps anyway).
+  
