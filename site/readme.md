@@ -1,7 +1,7 @@
 ---
 home: true
 actionText: 🚀Start here! 
-actionLink: /guide/quick-start
+actionLink: /guide/quickhelp
 features:
 - title: Integrity and Authenticity always
   details: Notarize your software assets and ensure their integrity and authenticity at any time
