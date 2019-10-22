@@ -41,7 +41,7 @@ module.exports = {
 				title: 'Integrations',
 				collapsable: false,
 				children: [
-					'/integrations/kube-notary/README',
+					'/integrations/kube-notary/index',
 					'/integrations/js',
 					'/integrations/java',
 				]
