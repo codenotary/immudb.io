@@ -38,7 +38,7 @@ Codenotary is Open Source and the vcn command is published under GPL3 as Open So
 
 ## Registration
 
-Registering a Codenotary account is performed by visiting the https://dashboard.codenotary.io web site.
+Registering a Codenotary account is performed by visiting the [Codenotary dashboard]{https://dashboard.codenotary.io} web site.
 
 ![signup](./img/signup.png)
 
@@ -52,7 +52,7 @@ Account profile information are given here (but can be changed later). Then the 
 
 ![get started](./img/get-started.png)
 
-This page is shown for convenience and gives the option to download the command line utility vcn for the various supported operating systems. This page can also be accessed later from the dashboard toolbar and also at https://github.com/vchain-us/vcn/releases
+This page is shown for convenience and gives the option to download the command line utility vcn for the various supported operating systems. This page can also be accessed later from the dashboard toolbar and also at [Github]{https://github.com/vchain-us/vcn/releases}
 
 ## Installing the Codenotary tools
 
@@ -66,7 +66,7 @@ This procedure may slightly vary from one version of Chrome to another but is qu
 
 ### Install the Codenotary plugin for Chrome
 
-The prefered way is to head to https://chrome.google.com/webstore/category/extensions
+The prefered way is to head to the [Chrome extension store]{https://chrome.google.com/webstore/category/extensions}
 And then search for “codenotary” - a “vChain Codenotary” extention should show:
 
 ![chrome-ext](./img/chrome-ext-1.png)
@@ -115,7 +115,7 @@ Subsequently opening a new Command (cmd) Window or Powershell window, typing the
 
 ## Download integrity check
 
-We advise to verify the integrity of the vcn CLI download using either the CodeNotary Chrome extension, or by dragging and dropping the file on https://authenticate.codenotary.io/.
+We advise to verify the integrity of the vcn CLI download using either the CodeNotary Chrome extension, or by dragging and dropping the file on [https://authenticate.codenotary.io/i]{https://authenticate.codenotary.io/}.
 
 The vcn Install for Windows has been signed by Digital Certificate release to vChain, Inc., the company behind CodeNotary. As we know, the digital certificate only certifies that the download was not altered, but provides no information on whether it is still trusted or if it has become obsolete, something that the Codenotary product can do.
 
@@ -123,7 +123,7 @@ When using Linux, we advise to verify the checksum of the downloaded file with t
 
     sha256sum vcn-<version downloaded>-linux-amd64
 
-The resulting checksum should be identical to the one found in the description at https://github.com/vchain-us/vcn/releases. Similar to the digital certificate for Windows, the checksum only ensures the file’s contents integrity, not it’s support status which is ensured using CodeNotary itself.
+The resulting checksum should be identical to the one found in the description at [Github]{https://github.com/vchain-us/vcn/releases}. Similar to the digital certificate for Windows, the checksum only ensures the file’s contents integrity, not it’s support status which is ensured using CodeNotary itself.
 
 ## Install vcn CLI for Linux
 
@@ -207,18 +207,18 @@ The output of vcn (all commands) can also be formatted in JSON (Javascript Objec
 
 ## Access to source, opening issues and proposals for enhancements
 
-The Codenotary Command line interface (CLI) is (c) vChain, Inc. but is open source Free Software under a GPLV3 license. The source code is available at https://github.com/vchain-us/vcn . Anyone is welcome to open issues or make pull requests with possible patches which will be reviewed.
+The Codenotary Command line interface (CLI) is (c) vChain, Inc. but is open source Free Software under a GPLV3 license. The source code is available at [Github]{https://github.com/vchain-us/vcn}. Anyone is welcome to open issues or make pull requests with possible patches which will be reviewed.
 
 ## Cheat sheet
 
-The following Cheat Sheet has been compiled to have a quick reference card at hand if needed. The full help is available at https://dashboard.codenotary.io/help
+The following Cheat Sheet has been compiled to have a quick reference card at hand if needed. The full help is available [here]{https://docs.codenotary.io}.
 
 ![refcard](./img/refcard.png)
 
 ## Resources
 
-- Codenotary site/dashboard : https://dashboard.codenotary.io
-- Github repository : https://github.com/vchain-us/vcn which also contains work in progress, the github issue/ticket system, etc.
+- [Codenotary site/dashboard]{https://dashboard.codenotary.io}
+- [Github repository]{https://github.com/vchain-us/vcn} which also contains work in progress, the github issue/ticket system and more.
 
 ## FAQ
 
