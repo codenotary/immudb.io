@@ -40,17 +40,17 @@ Codenotary is Open Source and the vcn command is published under GPL3 as Open So
 
 Registering a Codenotary account is performed by visiting the https://dashboard.codenotary.io web site.
 
-![signup](img/signup.png)
+![signup](./img/signup.png)
 
 Assuming the email entered is not an existing account, clicking the register button registers the email as a new account.
 
 The next page includes a brief presentation and a link to allow the confirmation email to be resent. The confirmation email contains a link that allows the email address to be confirmed and to continue the process.
 
-![onboard1](img/unboard-profile.png)
+![onboard1](./img/unboard-profile.png)
 
 Account profile information are given here (but can be changed later). Then the next button is used to go to the next step.
 
-![get started](img/get-started.png)
+![get started](./img/get-started.png)
 
 This page is shown for convenience and gives the option to download the command line utility vcn for the various supported operating systems. This page can also be accessed later from the dashboard toolbar and also at https://github.com/vchain-us/vcn/releases
 
@@ -69,24 +69,24 @@ This procedure may slightly vary from one version of Chrome to another but is qu
 The prefered way is to head to https://chrome.google.com/webstore/category/extensions
 And then search for “codenotary” - a “vChain Codenotary” extention should show:
 
-![chrome-ext](img/chrome-ext-1.png)
+![chrome-ext](./img/chrome-ext-1.png)
 
 Add it to Chrome when prompted.
 
-![chrome-ext-2](img/chrome-ext-2.png)
+![chrome-ext-2](./img/chrome-ext-2.png)
 
 This extension does not make any modifications to any file. It just inspects downloads to determine if they are notarized, it will be indicated. It however needs to inspect file contents to create a hash.
 
 So the following should be allowed in the extension option :
 
-![file-access](img/chrome-ext-fileaccess.png)
+![file-access](./img/chrome-ext-fileaccess.png)
 
 ## Install VCN for Windows
 
 Installing vcn for windows requires a 64 bit windows 10 or better system.
 The vcn for windows tools have 2 versions. The first is a setup version which provides Windows file explorer integration.
 
-![winext](img/windowsext.png)
+![winext](./img/windowsext.png)
 
 There is also a standalone command line version. The setup version also optionally installs the vcn command line interface, and this is recommended. The vcn command line executable is identical between the setup version and the standalone version for any given release, so installing the two version is not required.
 
@@ -100,18 +100,18 @@ This is an optional step, but allows easier access to vcn from the command line.
 - Click Advanced settings
 - Click the environment variables
 
-![winenvvar1](img/winenvvar1.png)
+![winenvvar1](./img/winenvvar1.png)
 
 - Double click on the environment variable Path for the current user
 - Add an entry named %PROGRAMFILES%\CodeNotary and click OK
 
-![winenvvar2](img/winenvvar2.png)
+![winenvvar2](./img/winenvvar2.png)
 
 The system PATH variable can also be changed in which case the vcn command will be available to all users on that system.
 
 Subsequently opening a new Command (cmd) Window or Powershell window, typing the “vcn” command should yield a help message (this does not have or should not be an administrative shell).
 
-![cmdline](img/cmdline.png)
+![cmdline](./img/cmdline.png)
 
 ## Download integrity check
 
@@ -140,7 +140,7 @@ As root (logging in as root, using su or sudo or whatever is appropriate for the
 
 To ensure vcn is correctly installed, typing “vcn” should display :
 
-![img-lnx-1](img/lnx-vcn-1.png)
+![img-lnx-1](./img/lnx-vcn-1.png)
 
 Or something similar. The actual output may depend on the current version of the Codenotary CLI (vcn).
 
@@ -152,7 +152,7 @@ This can be done by using Windows explorer (if on Windows and the explorer integ
 
 The output should contain this line, or something similar as the date might be different.
 
-![vcn-self-trust](img/vcn-self-trust.png)
+![vcn-self-trust](./img/vcn-self-trust.png)
 
 As a reminder, authenticating (verifying) assets never requires to be logged in to Codenotary.
 
@@ -164,7 +164,7 @@ The next step is to establish a relationship between the Codenotary account crea
 
 This is accomplished using the “vcn login” command and will enable notarization (signing) of assets.
 
-![vcnlogin](img/vcn-login.png)
+![vcnlogin](./img/vcn-login.png)
 
 The login password is the one used during registration.
 
@@ -191,7 +191,7 @@ By default (when not notarized) an asset will be seen as *UNKNOWN* because it wa
 
 When an account holder that is signed in with vcn to Codenotary wants to notarize, untrust or un-support an asset the vcn command is also used :
 
-![notarize](img/notarize.png)
+![notarize](./img/notarize.png)
 
 This is a private notarization. It is also possible to specify the ```-p``` or ```--public``` flag to make it public. The difference between public and private notarization is the amount of metadata (file size, file name, dates, etc) that is visible.
 
@@ -213,7 +213,7 @@ The Codenotary Command line interface (CLI) is (c) vChain, Inc. but is open sour
 
 The following Cheat Sheet has been compiled to have a quick reference card at hand if needed. The full help is available at https://dashboard.codenotary.io/help
 
-![refcard](img/refcard.png)
+![refcard](./img/refcard.png)
 
 ## Resources
 
