@@ -209,6 +209,10 @@ clusterrolebinding "tiller" created
 $ helm init --service-account tiller --history-max 200
 ```
 
+### ServiceMonitor for Prometheus Operator
+
+See #11
+
 ## Testing
 ```
 make test/e2e
