@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: '/img/codenotary-mascot.png'
+heroImage: '/codenotary-mascot.png'
 actionText: 🚀Start here! 
 actionLink: /guide/quickhelp
 features:
