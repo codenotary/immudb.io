@@ -1,6 +1,6 @@
 ---
 home: true
-actionText: 🚀Start here 
+actionText: 🚀Start here! 
 actionLink: /guide/quick-start
 features:
 - title: Integrity and Authenticity always
@@ -21,4 +21,4 @@ When using CodeNotary in your DevOps, from source code, to release, to deploymen
 CodeNotary lets you notarize your software assets and add a trust status to them, including custom attributes, without modifying or appending anything to the original asset (unlike digital certificates). Changes and revocation to the notarization data are therefore possible post-release without breaking any customer environment.
 
 Everything is global accessible with a collaborative approach that allows to break the typical intra/inter- organization siloed architecture. Leveraging an immutable, always-on DLT platform, CodeNotary allows you to ensure the integrity and authenticity of your software assets without the complexity of certificate authorities and digital certificates (which are unfit for DevOps anyway).
-  
+
