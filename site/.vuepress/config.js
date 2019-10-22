@@ -30,6 +30,13 @@ module.exports = {
 			{
 				title: 'dashboard',
 				path: '/dashboard/',
+				children: [
+					'/dashboard/onboarding',
+					'/dashboard/profile',
+					'/dashboard/dashboard',
+					'/dashboard/assets',
+					'/dashboard/organizations',
+				]
 			},
 			{
 				title: 'integrations',
