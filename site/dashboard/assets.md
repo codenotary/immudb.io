@@ -78,3 +78,21 @@ Asset visibility - possible values are: Public / Private
 ## Show and hide columns
 
 To show and hide asset list columns click on the vertical dots icon at the end of the table's headline and select which columns you want to see. The dashboard application automatically saves these settings into your browser's localstorage.
+
+## Howto check the Blockchain transaction
+
+There might be situations where you want to know if and where the notarization transaction happened on the [ZTC blockchain](https://www.zerotrustconsortium.org).
+In that case we got you covered, as you can click on the transaction details icon next to the notarized digital asset:
+
+![Transaction](./img/asset-transaction-view.png "Notarization transaction")
+
+![Transaction details](./img/transaction-view.png "Notarization transaction details")
+
+You'll be forwarded to the ZTC Blockchain explorer and the transaction you clicked on:
+
+![Transaction details on the ZTC Blockchain explorer](./img/copy-inputdata.png "ZTC Blockchain Explorer")
+
+You can also copy the input data to your clipboard to convert it into human readable data.
+Simply paste (1) the copied input data into [decode service of CodeNotary](https://decode.codenotary.io) and click decode (2) and select the hash value (3) to see even more details:
+
+![Decoding the ZTC Blockchain data of CodeNotary](./img/decode.png "CodeNotary Decode Service")
