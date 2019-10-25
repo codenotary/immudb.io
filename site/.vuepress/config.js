@@ -46,6 +46,7 @@ module.exports = {
 					'/integrations/jsvcn',
 					'/integrations/jvcn',
 					'/integrations/jvcn-maven-plugin',
+					'/integrations/vcn-powershell.md',
 				]
 			}
 		]
