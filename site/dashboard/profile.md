@@ -1,11 +1,5 @@
 # My Profile
 
-## Subcription & License
-
-### How to Purchase Subcriptions
-
-Click on the "Purchase Subscription" button and follow the [Paddle Payment](https://paddle.com/) process.
-
 ## Trust Level
 
 CodeNotary.io users can be different trust levels:
