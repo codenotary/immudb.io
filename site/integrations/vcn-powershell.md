@@ -19,6 +19,13 @@ If you want to fully automated, please set the following environment variables:
 
 You can learn more about that here: [CodeNotary vcn environment](https://docs.codenotary.io/vcn/user-guide/environments.html)
 
+## vcn-folder-workflow.ps1
+extension of vcn-folder-watch.ps to support a simple trust workflow, when files are created or moved into the specific folder. Only the last notarization action counts.
+
+- All newly created files in C:\CodeNotary\Production will be trusted
+- All newly created files in C:\CodeNotary\Old will be untrusted
+- All newly created files in C:\CodeNotary\Unwanted will be unsupported
+
 ## function-Get-CNAuthenticate.ps1
 Get-Function to authenticate an existing file with CodeNotary.io and return the result as json
 
