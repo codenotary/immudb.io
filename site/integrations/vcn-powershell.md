@@ -17,4 +17,16 @@ If you want to fully automated, please set the following environment variables:
 - VCN_PASSWORD
 - VCN_NOTARIZATION_PASSWORD
 
+## function-Get-CNAuthenticate.ps1
+Get-Function to authenticate an existing file with CodeNotary.io and return the result as json
+
+Load the function in your PowerShell session
+`. .\function-Get-CNAuthenticate.ps1`
+
+Authenticate file
+`get-item .\codenotary-watcher.ps1 | Get-CNAuthenticate`
+
+Check verification status
+`Get-CNAuthenticate -Path .\codenotary-watcher.ps1 | select -ExpandProperty verification`
+
 You can learn more about that here: [CodeNotary vcn environment](https://docs.codenotary.io/vcn/user-guide/environments.html)
