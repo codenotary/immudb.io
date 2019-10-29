@@ -1,12 +1,11 @@
 module.exports = {
-	title: 'CodeNotary.io',
-	description: 'CodeNotary Documentation',
+	title: 'CodeNotary Documentation',
+	description: ' ',
 	dest: './docs',
 	themeConfig: {
 		logo: '/codenotary-mascot.png',
 		nav: [
-			{ text: 'vcn', link: '/vcn/cmd/vcn' },
-			{ text: 'dashboard', link: '/dashboard/' },
+			{ text: 'Website', link: 'https://www.codenotary.io' },
 			{ text: 'Github', link: 'https://github.com/vchain-us' },
 		],
 		sidebar: [
