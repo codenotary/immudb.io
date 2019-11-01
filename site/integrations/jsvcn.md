@@ -122,6 +122,15 @@ const jsvcn = new Jsvcn({
 
 More information about the response format: [#] (CodeNotary API Documentation])
 
+## Untrust / Unsupport 
+
+In case you want to unsupport/untrust an asset of yours that you no longer have, you can do that exactly the same way like signing one: 
+
+```javascript
+
+jsvcn.untrust(<file or hash>).then((response) => { ...
+
+```
 
 ## FAQ:
 
