@@ -97,6 +97,21 @@ jsvcn.verify(file).then((response) => {
 
 More information about the response format: [#] (CodeNotary API Documentation])
 
+### Authentication with Organization
+
+```javascript
+jsvcn.verify(file, progressCb, "myorg.com").then((response) => {
+ ...
+})
+```
+
+### Authentication with SignerIDs
+
+```javascript
+jsvcn.verify(file, null, ['id1','id2',...]).then((response) => {
+ ...
+})
+```
 
 ## Notarization
 
