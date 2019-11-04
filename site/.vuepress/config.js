@@ -41,6 +41,7 @@ module.exports = {
 				title: 'Integrations',
 				collapsable: false,
 				children: [
+					'/integrations/verify-commit-action',
 					'/integrations/kube-notary',
 					'/integrations/jsvcn',
 					'/integrations/jvcn',
