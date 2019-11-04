@@ -15,7 +15,7 @@
 
 The integration has 3 main steps in what otherwise can be labeled a 10 step process. The 3 main steps are:
 
-## Steps
+# Steps
 
 1. System level configuration
     1. Configure vcn credentials system-wide in Jenkins
@@ -25,30 +25,30 @@ The integration has 3 main steps in what otherwise can be labeled a 10 step proc
 3. Before deployment
     1. Run `vcn authenticate` with asset parameters
 
-### Step 1: System level configuration
+## Step 1: System level configuration
 
 On the Home Screen, locate and click the Credentials link in the sidebar menu to expand the submenu beneath it.
 
 ![001homescreen](./imgs/001-Home-Screen-595x1024.png)
 
-#### Step 1.1 : Select system credentials
+### Step 1.1 : Select system credentials
 
 With the submenu opened up, go ahead and select the credentials type, in this case, select System.
 ![SelectCredentials](./imgs/001a-Select-Credentials-544x1024.png)
 
-#### Step 1.2 : Add domain
+### Step 1.2 : Add domain
 
 After selecting System, click Add Domain and notice the right-hand display shows ‘Global credentials (unrestricted)’. Click the link.
 
 ![SelectCredentialsb](./imgs/001b-System-Credentials-1024x310.png)
 
-#### Step 1.3 : Add credentials
+### Step 1.3 : Add credentials
 
 Create new credentials by selecting the Add Credentials option.
 
 ![CreateCredentials](./imgs/001c-Create-Credentials-300x136.png)
 
-### Step 2: Per build job
+## Step 2: Per build job
 
 Now that you have the credential creation display opened, you will need to create your credential entries for your `vcn` notarization password, `vcn` user account, and `vcn` password.
 
@@ -58,7 +58,7 @@ Once you have all 3, your list of credentials should look something similar to t
 
 ![list](./imgs/list-1024x164.png)
 
-#### Step 2.1 : Login and configure build job
+### Step 2.1 : Login and configure build job
 
 Next, you will need login and to configure the build job environment for each build job you have. This is relatively simple. All you need to do is to tie the vcn credentials in from the system configuration to the local environment variables by setting the appropriate bindings.
 
@@ -70,7 +70,7 @@ application. Click on the ‘Add build step’ drop down and select ‘Execute s
 
 ![addbuildjob](./imgs/005-Add-build-job-build-step-for-signing-294x300.png)
 
-#### Step 2.2 : Configure build step
+### Step 2.2 : Configure build step
 
 Next, after vcn login and entering your credentials in the CLI, you will need to configure your build step for vcn signing by typing in:
 
