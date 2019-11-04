@@ -3,14 +3,14 @@
 ![jenkinslogo](./imgs/Jenkins-Automation.2-768x247.png)
 
 - [Jenkins Integration for vcn](#jenkins-integration-for-vcn)
-  - [Steps](#steps)
-    - [Step 1: System level configuration](#step-1-system-level-configuration)
-      - [Step 1.1 : Select system credentials](#step-11--select-system-credentials)
-      - [Step 1.2 : Add domain](#step-12--add-domain)
-      - [Step 1.3 : Add credentials](#step-13--add-credentials)
-    - [Step 2: Per build job](#step-2-per-build-job)
-      - [Step 2.1 : Login and configure build job](#step-21--login-and-configure-build-job)
-      - [Step 2.2 : Configure build step](#step-22--configure-build-step)
+- [Steps](#steps)
+  - [Step 1: System level configuration](#step-1-system-level-configuration)
+    - [Step 1.1 : Select system credentials](#step-11--select-system-credentials)
+    - [Step 1.2 : Add domain](#step-12--add-domain)
+    - [Step 1.3 : Add credentials](#step-13--add-credentials)
+  - [Step 2: Per build job](#step-2-per-build-job)
+    - [Step 2.1 : Login and configure build job](#step-21--login-and-configure-build-job)
+    - [Step 2.2 : Configure build step](#step-22--configure-build-step)
   - [Step 3: Before deployment](#step-3-before-deployment)
 
 The integration has 3 main steps in what otherwise can be labeled a 10 step process. The 3 main steps are:
