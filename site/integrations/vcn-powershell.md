@@ -1,5 +1,5 @@
 # vcn-powershell
-PowerShell Scripts for CodeNotary vcn
+[PowerShell Scripts for CodeNotary vcn](https://github.com/vchain-us/vcn-powershell)
 
 ## vcn-folder-watch.ps
 That Powershell script watches a defined directory on your system and notarizes files that are stored here using your [CodeNotary.io account ](https://dashboard.codenotary.io/auth/signup)
