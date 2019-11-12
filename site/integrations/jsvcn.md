@@ -4,7 +4,7 @@
 
 > Global, de-centralized signing of code and other digital assets.
 
-This package provides an easy to use javascript client for the [CodeNotary](https://www.codenotary.io)
+This [package](https://github.com/vchain-us/jsvcn) provides an easy to use javascript client for the [CodeNotary](https://www.codenotary.io)
 platform. 
 
 ## Features: 
