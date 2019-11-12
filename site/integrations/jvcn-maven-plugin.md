@@ -2,7 +2,7 @@
 > Maven dependency verification & enforcement via the vChain Code Notary
 platform.
 
-This package provides a maven plugin for verifying the integrity of your
+This |package] (https://github.com/vchain-us/jvcn-maven-plugin) provides a maven plugin for verifying the integrity of your
 project dependencies through [code notary](https://www.codenotary.io).
 
 ## License
