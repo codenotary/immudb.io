@@ -1,2 +1,2 @@
 # docs
-CodeNotary documentation website
+CodeNotary documentation website https://docs.codenotary.io/
