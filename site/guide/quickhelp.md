@@ -24,13 +24,13 @@
   - [Resources](#resources)
   - [FAQ](#faq)
 
-CodeNotary has the ambitious goal to become the standard for modern-age code signing. A true global, decentralized solution to enable secure source to production in your DevOps process in the simplest possible way.
+CodeNotary has the ambitious goal to become the standard for modern-age code notarization. A true global, decentralized solution to enable secure source to production in your DevOps process in the simplest possible way.
 
-This page explains how you can use the CodeNotary dashboard and vcn command line tool to notarize code, documents, and files (globally known as assets) using your CodeNotary account.
+This page explains how you can use the CodeNotary dashboard and vcn command line tool (CLI) to notarize code, documents, and files (globally known as assets) using your CodeNotary account.
 
-When code is notarized, a unique hash is created for the digital asset and signed with your unique identity. This guarantees that the file integrity is stored in a tamper-proof way. File integrity doesn’t judge the file content. What it does do however is ensure the asset has not been modified since it was notarized.
+When code is notarized, a unique hash is created for the digital asset and notarized with your unique identity. This guarantees that the file integrity is stored in a tamper-proof way. File integrity doesn’t judge the file content. What it does do however is ensure the asset has not been modified since it was notarized.
 
-This quick help guide gives a brief explanation and ways to use the Codenotary command line (vcn) and how to notarize (sign) and authenticate (verify)
+This quick help guide gives a brief explanation and ways to use the CodeNotary CLI (vcn), and how to notarize (sign) and authenticate (verify)
 
 ## Open Source
 
