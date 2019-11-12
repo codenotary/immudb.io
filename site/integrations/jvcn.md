@@ -1,7 +1,7 @@
 # JVCN
 > Global, de-centralized signing of code and other digital assets.
 
-This package provides JVM bindings for the [Code Notary](https://www.codenotary.io)
+This [package](https://github.com/vchain-us/jvcn) provides JVM bindings for the [Code Notary](https://www.codenotary.io)
 platform. 
 
 It's designed as a lightweight Java library with a minimum dependency set that
