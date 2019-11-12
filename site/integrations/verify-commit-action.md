@@ -1,9 +1,10 @@
 # Verify commit GitHub action
 > A GitHub action to verify the authenticity of your commits with [CodeNotary.io](https://codenotary.io)
+https://github.com/vchain-us/verify-action
 
 You can sign your work locally using the CodeNotary [vcn](https://github.com/vchain-us/vcn) tool (ie. `vcn notarize git://.`). This action will verify these signatures so other people will know that your commits come from a trusted source.
 
-<img width="50%" src="docs/commit-check.png" />
+<img width="50%" src="./docs/commit-check.png" />
 
 
 # Usage
