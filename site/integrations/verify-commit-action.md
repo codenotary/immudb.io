@@ -1,6 +1,5 @@
 # Verify commit GitHub action
 > A GitHub action to verify the authenticity of your commits with [CodeNotary.io](https://codenotary.io)
-https://github.com/vchain-us/verify-action
 
 You can sign your work locally using the CodeNotary [vcn](https://github.com/vchain-us/vcn) tool (ie. `vcn notarize git://.`). This action will verify these signatures so other people will know that your commits come from a trusted source.
 
@@ -9,7 +8,7 @@ You can sign your work locally using the CodeNotary [vcn](https://github.com/vch
 
 # Usage
 
-Create a workflow `.yml` file in your repositories `.github/workflows` directory (eg. `.github/workflows/verify.yml`). In your workflow  you first need to checkout your repository then use this action:
+Create a workflow `.yml` file in your repositories `.github/workflows` directory (eg. `.github/workflows/verify.yml`). In your workflow  you first need to checkout your repository then use this [action](https://github.com/vchain-us/verify-action):
 
 ```yaml
 name: CodeNotary
