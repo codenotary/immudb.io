@@ -1,0 +1,2 @@
+# docs
+CodeNotary documentation website
