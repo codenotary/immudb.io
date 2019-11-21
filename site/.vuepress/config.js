@@ -41,11 +41,12 @@ module.exports = {
 				title: 'Integrations',
 				collapsable: false,
 				children: [
-					'/integrations/verify-commit-action',
+					'/integrations/vcn-docker',
 					'/integrations/kube-notary',
 					'/integrations/jsvcn',
 					'/integrations/jvcn',
 					'/integrations/jvcn-maven-plugin',
+					'/integrations/verify-commit-action',
 					'/integrations/vcn-jenkins',
 					'/integrations/vcn-powershell',
 				]
