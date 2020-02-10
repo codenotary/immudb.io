@@ -206,7 +206,7 @@ An additional helpful tool is the possibility to get from the command line the l
 
 The output of vcn (all commands) can also be formatted in JSON (Javascript Object Notation) or YAML (Yet Another Markup Language) format if needed for example for scripting or automation since the output will be consistent accross invocations.
 
-## vcn alerts
+## Create alerts on a file or directory integrity check
 
 CodeNotary allows you to monitor and detect changes in files that may indicate a cyber attack. To setup the file/directory integrity monitoring alert, just use the vcn notarize command and include the alert flag. 
 
