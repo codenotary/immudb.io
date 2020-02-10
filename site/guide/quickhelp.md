@@ -19,7 +19,7 @@
     - [vcn notarize/trust/untrust (any asset)](#vcn-notarizetrustuntrust-any-asset)
     - [vcn list](#vcn-list)
     - [vcn output format](#vcn-output-format)
-  - [vcn alerts] (#vcn-alerts)
+  - [Creating alerts] (#Create-alerts-on-a-file-or-directory-integrity-check)
   - [Access to source, opening issues and proposals for enhancements](#access-to-source-opening-issues-and-proposals-for-enhancements)
   - [Cheat sheet](#cheat-sheet)
   - [Resources](#resources)
