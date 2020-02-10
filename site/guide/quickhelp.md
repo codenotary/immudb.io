@@ -19,6 +19,7 @@
     - [vcn notarize/trust/untrust (any asset)](#vcn-notarizetrustuntrust-any-asset)
     - [vcn list](#vcn-list)
     - [vcn output format](#vcn-output-format)
+  - [vcn alerts] (#vcn-alerts)
   - [Access to source, opening issues and proposals for enhancements](#access-to-source-opening-issues-and-proposals-for-enhancements)
   - [Cheat sheet](#cheat-sheet)
   - [Resources](#resources)
@@ -204,6 +205,34 @@ An additional helpful tool is the possibility to get from the command line the l
 ### vcn output format
 
 The output of vcn (all commands) can also be formatted in JSON (Javascript Object Notation) or YAML (Yet Another Markup Language) format if needed for example for scripting or automation since the output will be consistent accross invocations.
+
+## vcn alerts
+
+CodeNotary allows you to monitor and detect changes in files that may indicate a cyber attack. To setup the file/directory integrity monitoring alert, just use the vcn notarize command and include the alert flag. 
+
+### How to create an alert with CodeNotary
+E.g. notarize netplan configuration file:
+vcn notarize --create-alert --alert-name "netplan config of DESKTOP-82S443U" /etc/netplan/50-cloud-init.yaml
+
+You might have seen the –no-ignore-file flag. We used that flag to disable the creation of the .vcnignore file inside of the /etc/ssh directory, because our user has no permission to write into that folder. But that also deactivates the change details, like added, modified or deleted file name.
+
+To make sure the file changes inside the folder (where the user has no write permission) are still tracked, please use the –read-only flag.
+
+vcn notarize --create-alert --alert-name "ssh config of DESKTOP-82S443U" --read-only dir:///etc/ssh
+
+### Activate the file/directory integrity monitoring
+To activate the file integrity monitoring, you can simply run the integrity verification check:
+
+vcn authenticate --alerts
+
+### Add the authentication line to /etc/crontab for periodic autnetication, sudo nano /etc/crontab:
+It also makes sense to add that command to your cron job.
+*/5 * * * * dennis /usr/local/bin/vcn authenticate --alerts
+
+One command, as elivated user:
+echo "*/5 * * * * username /usr/local/bin/vcn authenticate --alerts" >> /etc/crontab
+That cron job runs every 5 minutes the CodeNotary authenticate job. As CodeNotary has a “dead man switch” built in, an alert will be triggered as well, if no authenticate command will be received for one hour.
+
 
 ## Access to source, opening issues and proposals for enhancements
 
