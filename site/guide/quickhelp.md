@@ -215,26 +215,54 @@ CodeNotary allows you to monitor and detect changes in files that may indicate a
 
 ### How to create an alert with CodeNotary
 E.g. notarize netplan configuration file:
-vcn notarize --create-alert --alert-name "netplan config of DESKTOP-82S443U" /etc/netplan/50-cloud-init.yaml
+
+    vcn notarize --create-alert --alert-name "netplan config of DESKTOP-82S443U" /etc/netplan/50-cloud-init.yaml
+
+![alert_dir](./img/vcn-dir.png)
 
 You might have seen the –no-ignore-file flag. We used that flag to disable the creation of the .vcnignore file inside of the /etc/ssh directory, because our user has no permission to write into that folder. But that also deactivates the change details, like added, modified or deleted file name.
 
 To make sure the file changes inside the folder (where the user has no write permission) are still tracked, please use the –read-only flag.
 
-vcn notarize --create-alert --alert-name "ssh config of DESKTOP-82S443U" --read-only dir:///etc/ssh
+    vcn notarize --create-alert --alert-name "ssh config of DESKTOP-82S443U" --read-only dir:///etc/ssh
+    
+![alert-read-only-flag](./img/readonly.png)
 
 ### Activate the file/directory integrity monitoring
 To activate the file integrity monitoring, you can simply run the integrity verification check:
 
-vcn authenticate --alerts
+    vcn authenticate --alerts
 
 ### Add the authentication line to /etc/crontab for periodic autnetication, sudo nano /etc/crontab:
 It also makes sense to add that command to your cron job.
-*/5 * * * * dennis /usr/local/bin/vcn authenticate --alerts
+    
+    # add the following line to /etc/crontab, sudo nano /etc/crontab:
+    */5 * * * * dennis /usr/local/bin/vcn authenticate --alerts
 
-One command, as elivated user:
-echo "*/5 * * * * username /usr/local/bin/vcn authenticate --alerts" >> /etc/crontab
+    # One command, as elivated user:
+    echo "*/5 * * * * username /usr/local/bin/vcn authenticate --alerts" >> /etc/crontab
+
 That cron job runs every 5 minutes the CodeNotary authenticate job. As CodeNotary has a “dead man switch” built in, an alert will be triggered as well, if no authenticate command will be received for one hour.
+
+## Check the existing file integrity alerts
+
+When logging into the CodeNotary dashboard, you can find your configured file integrity monitoring alerts in the Alerts section. That way you can see all the alerts of all your systems.
+
+![check-alerts-on-dashboard](./img/db-alerts.png)
+
+## File integrity changed – triggering the alert
+
+As long as no one tampered with your files or folders, you don’t receive any alerts by email or shown within the dashboard. But when the file integrity changes, you immediately get an email alert:
+
+![alerttriggered](./img/alerttriggered.png)
+
+![email-alert](./img/email.png)
+
+For security reasons, we don’t disclose more information, but you can click the dashboard link and login to see all details.
+
+If you don’t want to receive the alerts anymore, you can either acknowledge it or deactivate the alert completely.
+
+All alert and file integrity data including history is stored immutable, you need to create a new alert if the file or folder changes are ok and intended and deactivate the “old” alert.
 
 
 ## Access to source, opening issues and proposals for enhancements
