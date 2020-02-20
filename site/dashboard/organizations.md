@@ -33,3 +33,10 @@ In case you are an owner of an organization you can edit or delete it with the b
 If you have owner right you can invite new members to your organization.
 On the My-Organization screen you should see an "Add member" link or you can use also the Edit button next to the name of the organization.
 The invited user receives an email which redirects him to My Organizations screen where he is able to select a Notarization Key and accept the invitation.
+
+
+# Embed Authentication
+
+Generate an digital asset authentication app which you can embed into your website. Your customers will be able to authenticate the assets you notarized a seamless way, through your own website.
+If you are an organization owner click on the "Embed" button. If you don't have owner rights, go to https://dashboard.codenotary.io/embed/[organization-name] and generate the html snippets for embedding an interactive way.
+
