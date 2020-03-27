@@ -2,7 +2,7 @@
 
 Notarization and authentication can also be used via a simple HTTP API. You can use:
 
-- the CodeNotary hosted API at https://api.codenotary.it/
+- the CodeNotary hosted API at https://api.codenotary.io/
 - or a local web server exposing the same API by running the `vcn serve` command
 
 All endpoints accept *Basic Auth* with user credentials (mantatory for notarization).
