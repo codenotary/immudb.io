@@ -40,7 +40,7 @@ const jsvcn = new Jsvcn();
 ES5 (bundled): 
 
 ```html
-<script src="https://unpkg.com/jsvcn@2.1.3/dist/jsvcn.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/jsvcn@2.1.6/dist/jsvcn.min.js" type="text/javascript"></script>
 
 ```
 
