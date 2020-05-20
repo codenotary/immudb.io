@@ -8,14 +8,14 @@ module.exports = {
 			{ text: 'Website', link: 'https://www.codenotary.io' },
 			{ text: 'Github', link: 'https://github.com/vchain-us' },
 		],
-		// sidebar: [
-		// 	{
-		// 		title: 'Get started',
-		// 		collapsable: false,
-		// 		children: [
-		// 			'/guide/quickhelp',
-		// 		]
-		// 	},
-		// ]
+		sidebar: [
+			{
+				title: 'Get started',
+				collapsable: false,
+				children: [
+					'/',
+				]
+			},
+		]
 	}
 };

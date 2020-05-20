@@ -2,20 +2,8 @@
 home: true
 heroImage: '/mascot.png'
 actionText: Get started 
-actionLink: /guide/quickhelp
-features:
-- title: Integrity and Authenticity always
-  details: Notarize your software assets and ensure their integrity and authenticity at any time
-
-- title: DevOps discipline
-  details: Add CodeNotary authenticity verification in your DevOps process to avoid running unknown software in your applications, or that of your customers
-
-- title: Ready within seconds
-  details: Sign up with your email or GitHub account and start notarizing and authenticating software assets in 1 step
-footer: © vChain Inc.
+actionLink: /docs/introduction
 ---
-
-## CodeNotary - The Trust and Integrity platform for the Cloud native environment
 
 immudb is a **lightweight, high-speed immutable database** for systems and applications. With immmudb you can
 track changes in sensitive data in your transactional databases and then record those changes permanently in a

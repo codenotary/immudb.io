@@ -4,11 +4,13 @@
   "description": "CodeNotary Documentation",
   "main": "index.js",
   "scripts": {
+    "dev": "vuepress dev src",
     "start": "vuepress dev src",
     "build": "vuepress build src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "vue-github-button": "^1.2.0",
     "vuepress": "^1.4.0"
   },
   "devDependencies": {},

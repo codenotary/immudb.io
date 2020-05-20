@@ -1,183 +1,220 @@
 <template>
-  <main>
-    <header class="hero">
-      <div class="hero-content">
-        <img
-                v-if="data.heroImage"
-                :src="$withBase(data.heroImage)"
-                :alt="data.heroAlt || 'hero'"
-        >
+    <main>
+        <header class="hero">
+            <div class="hero-content">
+                <img v-if="data.heroImage" :src="$withBase(data.heroImage)" :alt="data.heroAlt || 'hero'">
 
-        <h1
-                v-if="data.heroText !== null"
-                id="main-title"
-        >
-          {{ data.heroText || $title || 'Hello' }}
-        </h1>
+                <h1 v-if="data.heroText !== null" id="main-title">
+                    {{ data.heroText || $title || 'Hello' }}
+                </h1>
 
-        <p
-                v-if="data.tagline !== null"
-                class="description"
-        >
-          {{ data.tagline || $description || 'Welcome to your VuePress site' }}
-        </p>
+                <p v-if="data.tagline !== null" class="description">
+                    {{ data.tagline || $description || 'Welcome to your VuePress site' }}
+                </p>
 
-        <p
-                v-if="data.actionText && data.actionLink"
-                class="action"
-        >
-          <NavLink
-                  class="action-button"
-                  :item="actionLink"
-          />
-        </p>
-      </div>
-    </header>
+                <p v-if="data.actionText && data.actionLink" class="action">
+                    <NavLink class="button" :item="actionLink"/>
+                </p>
 
-    <div
-      class="home"
-      aria-labelledby="main-title">
-      <div
-        v-if="data.features && data.features.length"
-        class="features"
-      >
-        <div
-          v-for="(feature, index) in data.features"
-          :key="index"
-          class="feature"
-        >
-          <h2>{{ feature.title }}</h2>
-          <p>{{ feature.details }}</p>
+                <github-button href="https://github.com/codenotary/immudb"
+                   data-icon="octicon-star" data-size="large" data-show-count="true"
+                   aria-label="Star codenotary/immudb on GitHub">
+                    Star
+                </github-button>
+            </div>
+        </header>
+
+        <div class="section" aria-labelledby="main-title">
+            <div class="features">
+                <div class="feature">
+                    <img src="/immutable.svg" alt="Immutable"/>
+                    <h2>Immutable</h2>
+                    <p>Any kind of key-value. Clients can choose how to structure data.</p>
+                    <p><strong>No data mutation APIs</strong> are provided.</p>
+                    <p>Data is never overwritten, so multiple versions of the same key can co-exist and can be inspected.</p>
+                </div>
+                <div class="feature">
+                    <img src="/auditable.svg" alt="Immutable"/>
+                    <h2>Auditable</h2>
+                    <p>Tamper-evident history system.</p>
+                    <p>Clients and auditors ask for <strong>cryptographic proofs</strong>  of data inclusion and historical consistency in real time.</p>
+                    <p>If tampered, clients and auditors will be able to notice that and take actions.</p>
+                </div>
+                <div class="feature">
+                    <img src="/secure.svg" alt="Immutable"/>
+                    <h2>Secure</h2>
+                    <p>If needed, clients and auditors can verify data ownership.</p>
+                    <p>Data can be signed using <strong>Public-Key Cryptography</strong>.</p>
+                    <p>Keys additions and revocations can be immutably stored into the database</p>
+                </div>
+            </div>
+
+            <div v-if="data.footer" class="footer">
+                {{ data.footer }}
+            </div>
         </div>
-      </div>
-      <Content class="theme-default-content custom" />
 
-      <div
-        v-if="data.footer"
-        class="footer"
-      >
-        {{ data.footer }}
-      </div>
-    </div>
-  </main>
+        <div id="video-section" class="section-wrapper -primary">
+            <section class="section">
+                <h2>Why immudb?</h2>
+                <p>
+                    immudb has been developed with performance, scalability and versatility in mind. The user feedback has shown that they love the very high throughput and being able to store hashes as well as data. They see it as a great alternative to using a blockchain or ledger service.
+                </p>
+                <div class="video">
+                    <div class="_embed _embed-16by9">
+                        <iframe width="560" height="315" frameborder="0"
+                                src="https://www.youtube.com/embed/rQ4iZAM14m0?controls=0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <Content class="theme-default-content custom" />
+    </main>
 </template>
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import GithubButton from 'vue-github-button'
 
 export default {
-  name: 'Home',
-
-  components: { NavLink },
-
-  computed: {
-    data () {
-      return this.$page.frontmatter
+    name: 'Home',
+    components: {
+        NavLink,
+        GithubButton
     },
-
-    actionLink () {
-      return {
-        link: this.data.actionLink,
-        text: this.data.actionText
-      }
+    computed: {
+        data () {
+            return this.$page.frontmatter
+        },
+        actionLink () {
+            return {
+                link: this.data.actionLink,
+                text: this.data.actionText
+            }
+        }
     }
-  }
 }
 </script>
 
 <style lang="stylus">
 .hero
-  padding $navbarHeight 2rem 0
-  max-width $homePageWidth
-  text-align center
-  margin 0px auto
-  display block
-
-  img
-    max-width: 100%
-    max-height 280px
+    text-align center
     display block
-    margin 3rem auto 1.5rem
-  h1
-    font-size 3rem
-  h1, .description, .action
-    margin 1.8rem auto
-  .description
-    max-width 35rem
-    font-size 1.6rem
-    line-height 1.3
-    color lighten($textColor, 40%)
-  .action-button
-    display inline-block
-    font-size 1.2rem
-    color #fff
-    background-color $accentColor
-    padding 0.8rem 1.6rem
-    border-radius 4px
-    transition background-color .1s ease
-    box-sizing border-box
-    border-bottom 1px solid darken($accentColor, 10%)
-    &:hover
-      background-color lighten($accentColor, 10%)
+    background-image: url('/header.jpg')
+    background-attachment: static
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: center center
+    padding: $navbarHeight 0 0
 
-.home
-  padding $navbarHeight 2rem 0
-  max-width $homePageWidth
-  margin 0px auto
-  display block
-  .features
-    border-top 1px solid $borderColor
-    padding 1.2rem 0
-    margin-top 2.5rem
+    .hero-content
+        max-width: $homePageWidth
+        padding: 2rem 0 10rem
+        display: block
+        margin 0 auto
+
+    img
+        max-width: 100%
+        max-height 280px
+        display block
+        margin 3rem auto 1.5rem
+
+    h1
+        font-size 3rem
+    h1, .description, .action
+        margin 2rem auto
+
+    .description
+        max-width 35rem
+        font-size 1.2rem
+        line-height 1.5
+        color lighten($textColor, 40%)
+
+.features
     display flex
     flex-wrap wrap
     align-items flex-start
     align-content stretch
     justify-content space-between
-  .feature
+    margin-top: -100px
+
+.feature
     flex-grow 1
     flex-basis 30%
     max-width 30%
+    border: 1px solid $borderColor
+    padding: 1.5rem
+    box-sizing border-box
+    background white
+    margin-bottom: 2rem
+    border-radius: 4px
+    border-bottom: 4px solid $accentColor
+
+    img
+        max-width: 100px
+        margin: 0 auto
+        display: block
+
     h2
-      font-size 1.4rem
-      font-weight 500
-      border-bottom none
-      padding-bottom 0
-      color lighten($textColor, 10%)
+        font-size 1.4rem
+        font-weight 500
+        border-bottom none
+        padding-bottom 0
+        color: $accentColor
+        text-align center
+
+#video-section
+    padding: 2rem 0
+    color: white
+    text-align center
+
+    h2
+        font-size: 2.4rem
+        margin 0 0 1rem
+        border-bottom 0
+        color: white
+
     p
-      color lighten($textColor, 25%)
-  .footer
+        color: rgba(white, 0.8)
+
+.video
+    padding: 1rem
+    margin-top: 4rem
+    background white
+
+.footer
     padding 2.5rem
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
 
-@media (max-width: $MQMobile)
-  .home
+@media (max-width: 980px)
     .features
-      flex-direction column
+        flex-direction column
+        text-align: center
+
     .feature
-      max-width 100%
-      padding 0 2.5rem
+        width 100%
+        max-width 100%
 
 @media (max-width: $MQMobileNarrow)
-  .home
-    padding-left 1.5rem
-    padding-right 1.5rem
     .hero
-      img
-        max-height 210px
-        margin 2rem auto 1.2rem
-      h1
-        font-size 2rem
-      h1, .description, .action
-        margin 1.2rem auto
-      .description
-        font-size 1.2rem
-      .action-button
-        font-size 1rem
-        padding 0.6rem 1.2rem
+        img
+            max-height 210px
+            margin 2rem auto 1.2rem
+        h1
+            font-size 2rem
+        h1, .description, .action
+            margin 1.2rem auto
+        .description
+            font-size 1.2rem
+        .action-button
+            font-size 1rem
+            padding 0.6rem 1.2rem
     .feature
-      h2
-        font-size 1.25rem
+        h2
+            font-size 1.25rem
 </style>
