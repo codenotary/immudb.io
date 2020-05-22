@@ -5,6 +5,10 @@ actionText: Get started
 actionLink: /docs/introduction
 ---
 
+~~~bash
+docker run -it -d -p 3322:3322 -p 9497:9497 — name immudb codenotary/immudb:latest
+~~~
+
 immudb is a **lightweight, high-speed immutable database** for systems and applications. With immmudb you can
 track changes in sensitive data in your transactional databases and then record those changes permanently in a
 tamperproof immudb database. This allows you to keep an indelible history of sensitive data, for example debit/credit card transactions.
