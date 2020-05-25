@@ -152,6 +152,8 @@ Simply run ```./immudb -d``` to start immudb locally in the background.
 
 If you want to stop immudb în that case you need to find the process `ps -ax | grep immudb` and then `kill -15 <pid>`. Windows PowerShell would be `Get-Process immudb* | Stop-Process`.
 
+Immudb is launched by default with a security routine called [consistency checker](immudb/consistency-checker.md) . This solution provides a continuosly corruption check on data stored on server storage. 
+
 ```
 immudb - the lightweight, high-speed immutable database for systems and applications.
 
@@ -166,6 +168,7 @@ Environment variables:
   IMMUDB_MTLS=false
   IMMUDB_AUTH=false
   IMMUDB_DETACHED=false
+  IMMUDB_CONSISTENCY-CHECK=true
   IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
   IMMUDB_CERTIFICATE=./tools/mtls/3_application/certs/localhost.cert.pem
   IMMUDB_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
@@ -184,6 +187,7 @@ Flags:
       --certificate string   server certificate file path (default "./tools/mtls/3_application/certs/localhost.cert.pem")
       --clientcas string     clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
       --config string        config file (default path are configs or $HOME. Default filename is immudb.ini)
+      --consistency-check    enable consistency check monitor routine. To disable: --consistency-check=false (default true)
   -n, --dbname string        db name (default "immudb")
   -d, --detached             run immudb in background
       --dir string           data folder (default "./db")
