@@ -249,9 +249,6 @@ func main() {
 	fmt.Printf("   Count - count keys having the specified prefix (e.g. \"%s\"):\n", prefix)
 	fmt.Printf("	count:		%d\n", itemsCount.Count)
 
-	//===> 5. Prove consistency and inclusion
-	fmt.Println("5. Prove consistency and inclusion ...")
-
 ```
 ## Get current root
 
