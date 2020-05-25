@@ -25,6 +25,18 @@ other systems derived from them, such as **Kubernetes** and **Docker**.
 [![Tweet about
 immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Tweet%20about%20immudb)](https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb)
 
+## Contents
+
+1.  [Quickstart](#quickstart) - How to try it now on your systems, get a Docker container running in seconds
+2.  [Components](#components) - immudb component overview
+3.  [Build the binaries](#build-the-binaries) - How to build the different component binaries
+4.  [immudb first start](#immudb-first-start) - Start immudb
+5.  [Command reference](#command-reference) - Command reference of the components
+6.  [Docker](#docker) - Use docker container to run immudb
+7.  [How immudb works](#how-immudb-works) - How does immudb work internally
+8.  [APIs and interfaces](#apis-and-interfaces) - API reference and code examples
+
+
 ## Quickstart
 
 ### Components
@@ -36,7 +48,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 
 The latest release binaries can be found [here](https://github.com/codenotary/immudb/releases )
 
-#### Build the binaries yourself
+### Build the binaries
 
 To build the binaries yourself, simply clone this repo and run
 
@@ -45,27 +57,27 @@ make all
 ```
 
 
-##### Linux (by component)
+#### Linux (by component)
 
 ```bash
 GOOS=linux GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
 ```
 
-##### MacOS (by component)
+#### MacOS (by component)
 
 ```bash
 GOOS=darwin GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
 ```
 
-##### Windows (by component)
+#### Windows (by component)
 
 ```bash
 GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
 ```
 
-#### immudb first start
+### immudb first start
 
-##### Run immudb binary
+#### Run immudb binary
 
 ```bash
 # run immudb in the foreground
@@ -75,7 +87,7 @@ GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static 
 ./immudb -d
 ```
 
-##### Run immudb as a service (using immuadmin)
+#### Run immudb as a service (using immuadmin)
 
 Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
 
@@ -104,7 +116,7 @@ The linux service is using the following defaults:
 
 
 
-##### Run immugw as a service (using immuadmin)
+#### Run immugw as a service (using immuadmin)
 
 Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.
 
@@ -132,9 +144,9 @@ The linux service is using the following defaults:
 
 
 
-#### Command reference
+### Command reference
 
-##### immudb
+#### immudb
 
 Simply run ```./immudb -d``` to start immudb locally in the background.
 
@@ -187,7 +199,7 @@ Use "immudb [command] --help" for more information about a command.
 
 ```
 
-##### immugw
+#### immugw
 
 Simply run ```./immugw -d``` to start immugw on the same machine as immudb (test or dev environment) or pointing to the remote immudb system ```./immugw --immudbaddress "immudb-server"```.
 
@@ -242,8 +254,7 @@ Use "immugw [command] --help" for more information about a command.
 
 ```
 
-
-##### immuadmin
+#### immuadmin
 
 For security reasons we recommend using immuadmin only on the same system as immudb. User management is restricted to localhost usage. Simply run ```./immuadmin``` on the same machine.
 
@@ -292,7 +303,7 @@ Use "immuadmin [command] --help" for more information about a command.
 
 ```
 
-##### immuclient
+#### immuclient
 
 Simply run ```./immuclient``` on the same machine or ```./immuclient -a <immudb-host>```
 
@@ -429,6 +440,10 @@ immugw proxies REST client communication and gRPC server interface. For security
 
 
 ## APIs and interfaces
+
+### Golang
+[Golang code snippets](immudb-golang.md)
+
 
 ### immudb RESTful API reference
 
