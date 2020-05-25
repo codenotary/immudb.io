@@ -97,19 +97,22 @@ immudb has been developed with performance, scalability and versatility in mind.
 <div class="column">
             
 ## Made for the real world
-Immudb is an indispensable asset when it comes to tamperproof data:
+Immudb is an indispensable asset when it comes to tamper-proof data:
 
 - Store every update to sensitive database fields (credit card or bank account data) of an existing application database
-- Store CI/CD recipes in immudb to protect build and deployment pipelines
-- Store public certificates in immudb
-- Store tamperproof log streams (i. e. audit logs) 
+- Store CI/CD recipes to protect build and deployment pipelines
+- Store public certificates
+- Store tamper-proof log streams (i. e. audit logs) 
 
 </div>
 <div class="column">
 <terminal title="immudb">
 
 ~~~sql
-SELECT * from immudb
+SELECT * from immudb;
+
+INSERT INTO immudb (id, feature) 
+    VALUES (0, immutable);
 ~~~
 
 </terminal>

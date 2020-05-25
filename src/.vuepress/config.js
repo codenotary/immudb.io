@@ -13,7 +13,8 @@ module.exports = {
 				title: 'Get started',
 				collapsable: false,
 				children: [
-					'/',
+					'/docs/introduction',
+					'/docs/quickstart',
 				]
 			},
 		]
