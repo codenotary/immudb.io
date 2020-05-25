@@ -92,7 +92,7 @@ curl --location --request GET 'http://192.168.0.79:3323/v1/immurestproxy/item/co
 
 ```bash
 
-	curl --location --request GET 'http://immugw:3323/v1/immurestproxy/root' \
+curl --location --request GET 'http://immugw:3323/v1/immurestproxy/root' \
   --header 'Authorization: Bearer {{token}}'
 
 ```
