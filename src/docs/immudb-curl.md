@@ -21,8 +21,8 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Authorization: Bearer {{token}}' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-    "key": "client1",
-    "value": "04202020"
+    "key": "Y2xpZW50MQ==",
+    "value": "MDQyMDIwMjA="
 }'
 ```
 
@@ -35,28 +35,26 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe?k1
 --header 'Content-Type: text/plain' \
 --data-raw '{
     "kv": {
-         "key": "client2",
-	     "value": "11232020"
-	}
-}
-'	
+         "key": "Y2xpZW50Mg==",
+	     "value": "MTEyMzIwMjA="
+         }
+}'
 ```
 
 ##  Add reference to existing entries
 
 ```bash
 
-curl --location --request POST 'http://localhost:3323/v1/immurestproxy/safe/reference' \
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/reference' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
     "ro": {
-        "reference":  "reference:client1",
-         "key": "client2"
+        "reference":  "Y2xpZW50Mg==",
+         "key": "Y2xpZW50Mg=="
     }
 }'
-	
 ```
 
 ##  Add secondary index
@@ -68,25 +66,43 @@ curl --location --request POST 'http://localhost:3323/v1/immurestproxy/safe/refe
 ## Read entries without verification
 
 ```bash
-	
+curl --location --request GET 'http://immugw:3323/v1/immurestproxy/item/index/1' \
+--header 'Authorization: Bearer {{token}}'
 ```
 
 ## Read entries with verification
 
 ```bash
-	
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "kv": {
+         "key": "Y2xpZW50Mg==",
+	     "value": "MTEyMzIwMjA="
+         }
+}'
 ```
 ## Scan entries
 
 ```bash
-
+curl --request POST \
+  --url http://localhost:3323/v1/immurestproxy/item/scan \
+  --header 'content-type: application/json' \
+  --data '{
+  "prefix": "MDQyMDIwMjA=",
+  "offset": "Y2xpZW50MmRk",
+	"limit": "2",
+  "reverse": true,
+  "deep": true
+}'
 ```
 ## Count  entries
 
 ```bash
-curl --location --request GET 'http://192.168.0.79:3323/v1/immurestproxy/item/count/a2V5' \
---header 'Authorization: Bearer {{token}}'
-	
+curl --request GET \
+  --url http://localhost:3323/v1/immurestproxy/item/count/Y2xpZW50Mg==
 ```
 ## Get current root
 
@@ -99,17 +115,23 @@ curl --location --request GET 'http://immugw:3323/v1/immurestproxy/root' \
 ### Add a new entry after getting current root
 
 ```bash
-
-	
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' --data-raw '{
+    "key": "Y2xpZW50QQ==",
+    "value": "MDQyMDIwMjA="
+}'
 ```
 ## Check consistency
 
 ```bash
-
-	
+curl --request GET \
+  --url http://immuwg:3323/v1/immurestproxy/consistencyproof/33	
 ```
 ## Check inclusion
 
 ```bash
-
+curl --request GET \
+  --url http://immugw:3323/v1/immurestproxy/inclusionproof/33
 ```
