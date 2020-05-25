@@ -17,7 +17,9 @@
     "vue-github-button": "^1.2.0",
     "vuepress": "^1.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vuepress/plugin-register-components": "^1.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vchain-us/docs.git"
