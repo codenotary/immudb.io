@@ -9,21 +9,21 @@ copyright: Copyright &copy; vChain 2020
 <section class="section" aria-labelledby="main-title">
     <div class="features">
         <div class="feature">
-            <img src="/features/immutable2.svg" alt="Immutable"/>
+            <img :src="$withBase('/features/immutable2.svg')" alt="Immutable"/>
             <h2>Immutable</h2>
             <p>Any kind of key-value. Clients can choose how to structure data.</p>
             <p><strong>No data mutation APIs</strong> are provided.</p>
             <p>Data is never overwritten, so multiple versions of the same key co-exist and are verfiable.</p>
         </div>
         <div class="feature">
-            <img src="/features/auditable3.svg" alt="Immutable"/>
+            <img :src="$withBase('/features/auditable3.svg')" alt="Auditable"/>
             <h2>Auditable</h2>
             <p>Tamper-evident history system.</p>
             <p>Clients and auditors want <strong>cryptographic proofs</strong>  of data inclusion and historical consistency in real time.</p>
             <p>If tampered, clients and auditors will notice that and take actions.</p>
         </div>
         <div class="feature">
-            <img src="/features/secure2.svg" alt="Immutable"/>
+            <img :src="$withBase('/features/secure2.svg')" alt="Secure"/>
             <h2>Secure</h2>
             <p>Data ownership is verifiable by clients and auditors.</p>
             <p>Sign your data using <strong>Public-Key Cryptography</strong>.</p>
@@ -120,7 +120,7 @@ INSERT INTO immudb (id, feature)
     <section class="section" id="usedby">
         <div class="columns">
             <div class="column">
-                <img src="/logos/codenotary.png" width="150" alt="Immudb - Written records per ms" />
+                <img :src="$withBase('/logos/codenotary.png')" width="150" alt="Immudb - Written records per ms" />
             </div>
         </div> 
     </section>
@@ -139,18 +139,18 @@ Immudb is often compared to Amazon QLDB. We compared the performance using a sim
 
 <div class="columns">
     <div class="column">
-        <img src="/benchmark/throughput_read.png" alt="Immudb - Throughput read" />
+        <img :src="$withBase('/benchmark/throughput_read.png')" alt="Immudb - Throughput read" />
     </div>
     <div class="column">
-        <img src="/benchmark/throughput_write.png" alt="Immudb - Throughput write" />
+        <img :src="$withBase('/benchmark/throughput_write.png')" alt="Immudb - Throughput write" />
     </div>
 </div>
 <div class="columns">
     <div class="column">
-        <img src="/benchmark/exectime.png" alt="Immudb - Written records per ms" />
+        <img :src="$withBase('/benchmark/exectime.png')" alt="Immudb - Written records per ms" />
     </div>
     <div class="column">
-        <img src="/benchmark/query_bm.png" alt="Immudb - Queried records per ms" />
+        <img :src="$withBase('/benchmark/query_bm.png')" alt="Immudb - Queried records per ms" />
     </div>
 </div>
     </section>
