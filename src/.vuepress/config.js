@@ -16,6 +16,35 @@ module.exports = {
 					'/docs/introduction',
 				]
 			},
+			{
+				title: 'immudb',
+				collapsable: false,
+				children: [
+                    '/docs/immudb/introduction',
+					'/docs/immudb/consistency-checker',
+				]
+			},
+			{
+				title: 'immugw',
+				collapsable: false,
+				children: [
+					'/docs/immugw/introduction',
+				]
+			},
+			{
+				title: 'immuadmin',
+				collapsable: false,
+				children: [
+					'/docs/immuadmin/introduction',
+				]
+			},
+			{
+				title: 'immuclient',
+				collapsable: false,
+				children: [
+					'/docs/immuclient/introduction',
+				]
+			},
 		]
 	}
 };

@@ -55,6 +55,9 @@ export default {
 </script>
 
 <style lang="stylus">
+*
+    box-sizing border-box
+
 .hero
     text-align center
     display block
@@ -67,7 +70,7 @@ export default {
 
     .hero-content
         max-width: $homePageWidth
-        padding: 2rem 0 10rem
+        padding: 2rem 0.5rem 10rem
         display: block
         margin 0 auto
 
@@ -129,6 +132,8 @@ export default {
         margin-top: 2rem
         width: auto
         display inline-block
+        max-width: 100%
+
 
 pre code
     font-size: 0.9rem
