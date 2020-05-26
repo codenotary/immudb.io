@@ -38,13 +38,11 @@ copyright: Copyright &copy; vChain 2020
         Build Docker images based on the Dockerfiles in the GitHub repository
         for the most common architectures or use the prebuild ones on Dockerhub for Linux.
     </p>
-<div class="language-bash extra-class">
         
 ~~~bash
 docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb codenotary/immudb:latest
 ~~~
         
-</div>
 </section>
 
 <div id="video-section" class="section-wrapper -primary">

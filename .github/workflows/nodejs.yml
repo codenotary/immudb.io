@@ -2,7 +2,7 @@ name: Node CI
 
 on:
   push:
-    branches:    
+    branches:
       - master
 
 jobs:
@@ -12,19 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: npm install, build vuepress
+    - name: Build
       run: |
         npm install
-        npm run build --if-present
-        
-    - name: Commit and push files
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A
-        git commit -m "Regenerated artifacts" -a
-        git push "https://x-access-token:${GITHUB_TOKEN}@github.com/vchain-us/docs.git" HEAD:master --follow-tags
-        curl -XPOST -H"Authorization: token ${GH_PAT}" -H"Accept: application/vnd.github.mister-fantastic-preview+json" https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds # https://git.io/fjsFk
+        npm run build
+
+    -   name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./src/.vuepress/dist
