@@ -11,7 +11,8 @@
  - [Check consistency](#check-consistency)
  - [Check inclusion](#check-inclusion)
 
-The following code snippets explain how to work with 'immugw' (REST proxy for immudb) using 'curl':
+The following code snippets explain how to work with 'immugw' (REST proxy for immudb) using 'curl'.
+immugw HTPP API key/value are base64 encoded.
 
 ## Write transactions without verification
 
@@ -21,8 +22,14 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Authorization: Bearer {{token}}' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-    "key": "client1",
-    "value": "04202020"
+    "key": "'$(echo -n client:Ms. Noelia Jaskolski | bascurl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
+    "value": "'$(echo -n Visa 1514284849020756 09/21 | base64)'"
+    }
 }'
 ```
 
@@ -35,58 +42,98 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe?k1
 --header 'Content-Type: text/plain' \
 --data-raw '{
     "kv": {
-         "key": "client2",
-	     "value": "11232020"
-	}
-}
-'	
+         "key": "'$(echo -n client:Ms. Maci Schuppe | base64)'",
+    "value": "'$(echo -n MasterCard 2232703813463070 12/19 | base64)'"
+         }
+}'
 ```
 
 ##  Add reference to existing entries
 
 ```bash
 
-curl --location --request POST 'http://localhost:3323/v1/immurestproxy/safe/reference' \
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/reference' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
     "ro": {
-        "reference":  "reference:client1",
-         "key": "client2"
+        "reference":  "'$(echo -n reference:Ms. Maci Schuppe | base64)'",
+         "key": "'$(echo -n client:Ms. Maci Schuppe | base64)'"
     }
 }'
-	
 ```
 
 ##  Add secondary index
 
 ```bash
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/zadd' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "zopts": {
+        "set":  "'$(echo -n SetOfClientsThatAreWomen | base64)'",
+        "score": 1.0,
+        "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'"
+    }
+}'
+```
 
+```bash
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/zadd' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "zopts": {
+        "set":  "'$(echo -n SetOfClientsThatAreWomen | base64)'",
+        "score": 3.0,
+        "key": "'$(echo -n client:Ms. Maci Schuppe | base64)'"
+    }
+}'
 ```
 
 ## Read entries without verification
 
 ```bash
-	
+curl --location --request GET 'http://immugw:3323/v1/immurestproxy/item/index/1' \
+--header 'Authorization: Bearer {{token}}'
 ```
 
 ## Read entries with verification
 
 ```bash
-	
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "kv": {
+         "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
+         "value": "'$(echo -n Visa 1514284849020756 09/21 | base64)'"
+         }
+}'
 ```
 ## Scan entries
 
 ```bash
-
+curl --request POST \
+  --url http://localhost:3323/v1/immurestproxy/item/scan \
+  --header 'content-type: application/json' \
+  --data '{
+  "prefix": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
+  "offset": "'$(echo -n client:Ms. Maci Schuppe | base64)'",
+  "limit": "2",
+  "reverse": true,
+  "deep": true
+}'
 ```
 ## Count  entries
 
 ```bash
-curl --location --request GET 'http://192.168.0.79:3323/v1/immurestproxy/item/count/a2V5' \
---header 'Authorization: Bearer {{token}}'
-	
+curl --request GET \
+  --url http://localhost:3323/v1/immurestproxy/item/count/Y2xpZW50Mg==
 ```
 ## Get current root
 
@@ -99,17 +146,23 @@ curl --location --request GET 'http://immugw:3323/v1/immurestproxy/root' \
 ### Add a new entry after getting current root
 
 ```bash
-
-	
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{token}}' \
+--header 'Content-Type: text/plain' --data-raw '{
+    "key": "'$(echo -n client:Mr. Valentin Padurean | base64)'",
+    "value": "'$(echo -n MasterCard 2232703813463070 01/24 | base64)'",
+}'
 ```
 ## Check consistency
 
 ```bash
-
-	
+curl --request GET \
+  --url http://immuwg:3323/v1/immurestproxy/consistencyproof/33	
 ```
 ## Check inclusion
 
 ```bash
-
+curl --request GET \
+  --url http://immugw:3323/v1/immurestproxy/inclusionproof/33
 ```
