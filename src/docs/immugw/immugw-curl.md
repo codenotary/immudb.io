@@ -114,7 +114,7 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe' \
 
 ```bash
 curl --request POST \
-  --url http://localhost:3323/v1/immurestproxy/item/scan \
+  --url http://immugw:3323/v1/immurestproxy/item/scan \
   --header 'content-type: application/json' \
   --data '{
   "prefix": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
@@ -128,7 +128,7 @@ curl --request POST \
 
 ```bash
 curl --request GET \
-  --url http://localhost:3323/v1/immurestproxy/item/count/Y2xpZW50Mg==
+  --url http://immugw:3323/v1/immurestproxy/item/count/Y2xpZW50Mg==
 ```
 ## Get current root
 
