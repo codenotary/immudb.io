@@ -61,7 +61,7 @@ export default {
 .hero
     text-align center
     display block
-    background-image: url('/header3.jpg')
+    background-image: url('../../public/header3.jpg')
     background-attachment: static
     background-repeat: no-repeat
     background-size: cover
@@ -142,7 +142,7 @@ pre code
     padding: 2rem 0
     color: white
     text-align center
-    background-image: url('/corner-left-right-asymmetric.png')
+    background-image: url('../../public/corner-left-right-asymmetric.png')
     background-size: 100% auto
     background-repeat no-repeat
     background-position: top center
