@@ -1,5 +1,5 @@
 module.exports = {
-    base: 'https://codenotary.github.io/immudb-docs/',
+    base: '/immudb-docs/',
     dest: 'docs',
 	title: 'immudb',
 	description: 'The lightweight, high-speed immutable database for systems and applications.',
