@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Introduction | immudb</title>
+    <meta name="description" content="The lightweight, high-speed immutable database for systems and applications.">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/immudb-docs/assets/css/0.styles.aa6968e6.css" as="style"><link rel="preload" href="/immudb-docs/assets/js/app.a0671d09.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/3.127a2d9d.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/2.1238a104.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/13.44f2faab.js" as="script"><link rel="prefetch" href="/immudb-docs/assets/js/10.1a82d827.js"><link rel="prefetch" href="/immudb-docs/assets/js/11.707ae97e.js"><link rel="prefetch" href="/immudb-docs/assets/js/12.928c94c7.js"><link rel="prefetch" href="/immudb-docs/assets/js/14.04aa5ca0.js"><link rel="prefetch" href="/immudb-docs/assets/js/15.3f4ada8a.js"><link rel="prefetch" href="/immudb-docs/assets/js/16.fed2114c.js"><link rel="prefetch" href="/immudb-docs/assets/js/17.1102bc94.js"><link rel="prefetch" href="/immudb-docs/assets/js/4.b2e766c1.js"><link rel="prefetch" href="/immudb-docs/assets/js/5.33679b39.js"><link rel="prefetch" href="/immudb-docs/assets/js/6.c0d8b6a1.js"><link rel="prefetch" href="/immudb-docs/assets/js/7.68a4dbfc.js"><link rel="prefetch" href="/immudb-docs/assets/js/8.22a43c22.js"><link rel="prefetch" href="/immudb-docs/assets/js/9.ae41cf90.js">
+    <link rel="stylesheet" href="/immudb-docs/assets/css/0.styles.aa6968e6.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/immudb-docs/" class="home-link router-link-active"><img src="/immudb-docs/logo.png" alt="immudb" class="logo"> <span class="site-name can-hide">
+            immudb
+        </span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://www.immudb.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+    Website
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://www.immudb.io" target="_blank" rel="noopener noreferrer" class="nav-link external">
+    Website
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+    Github
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Get started</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb-docs/docs/introduction.html" class="sidebar-link">Introduction</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>immudb</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb-docs/docs/immudb/introduction.html" class="active sidebar-link">Introduction</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#table-of-contents" class="sidebar-link">Table of Contents</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#import" class="sidebar-link">Import</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#start-immudb" class="sidebar-link">Start immudb</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#connect-a-new-client" class="sidebar-link">Connect a new client</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#write-transactions-without-verification" class="sidebar-link">Write transactions without verification</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#write-transactions-with-verification" class="sidebar-link">Write transactions with verification</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#add-reference-to-existing-entries" class="sidebar-link">Add reference to existing entries</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#add-secondary-index" class="sidebar-link">Add secondary index</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#read-entries-without-verification" class="sidebar-link">Read entries without verification</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#read-entries-with-verification" class="sidebar-link">Read entries with verification</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#scan-entries" class="sidebar-link">Scan entries</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#count-entries" class="sidebar-link">Count  entries</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#get-current-root" class="sidebar-link">Get current root</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#check-consistency" class="sidebar-link">Check consistency</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#check-inclusion" class="sidebar-link">Check inclusion</a></li><li class="sidebar-sub-header"><a href="/immudb-docs/docs/immudb/introduction.html#error-handling-and-cleanup" class="sidebar-link">Error handling and cleanup</a></li></ul></li><li><a href="/immudb-docs/docs/immudb/consistency-checker.html" class="sidebar-link">Consistency checker</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immugw</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb-docs/docs/immugw/introduction.html" class="sidebar-link">Introduction</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immuadmin</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb-docs/docs/immuadmin/introduction.html" class="sidebar-link">Introduction</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immuclient</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb-docs/docs/immuclient/introduction.html" class="sidebar-link">Introduction</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h1> <h2 id="table-of-contents"><a href="#table-of-contents" class="header-anchor">#</a> Table of Contents</h2> <ul><li><a href="#import">Import</a></li> <li><a href="#start-immudb">Start immudb</a></li> <li><a href="#connect-a-new-client">Connect a new client</a></li> <li><a href="#write-transactions-without-verification">Write transactions without verification</a></li> <li><a href="#write-transactions-with-verification">Write transactions with verification</a></li> <li><a href="#add-reference-to-existing-entries"> Add reference to existing entries</a></li> <li><a href="#Add-secondary-index">Add secondary index</a></li> <li><a href="#read-entries-without-verification">Read entries without verification</a></li> <li><a href="#read-entries-with-verification">Read entries with verification</a></li> <li><a href="#scan-entries">Scan entries</a></li> <li><a href="#count-entries">Count entries</a></li> <li><a href="#get-current-root">Get current root</a></li> <li><a href="#check-consistency">Check consistency</a></li> <li><a href="#check-inclusion">Check inclusion</a></li> <li><a href="#error-handling-and-cleanup">Error handling and cleanup</a></li></ul> <p>The following code snippets explain how to work with immudb from start to finish using Golang:</p> <h2 id="import"><a href="#import" class="header-anchor">#</a> Import</h2> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">&quot;context&quot;</span>
+	<span class="token string">&quot;fmt&quot;</span>
+	<span class="token string">&quot;os&quot;</span>
+	<span class="token string">&quot;path/filepath&quot;</span>
+	<span class="token string">&quot;time&quot;</span>
+
+	immuapi <span class="token string">&quot;github.com/codenotary/immudb/pkg/api&quot;</span>
+	immuschema <span class="token string">&quot;github.com/codenotary/immudb/pkg/api/schema&quot;</span>
+	immuclient <span class="token string">&quot;github.com/codenotary/immudb/pkg/client&quot;</span>
+	immulogger <span class="token string">&quot;github.com/codenotary/immudb/pkg/logger&quot;</span>
+	immuserver <span class="token string">&quot;github.com/codenotary/immudb/pkg/server&quot;</span>
+	immustore <span class="token string">&quot;github.com/codenotary/immudb/pkg/store&quot;</span>
+<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="start-immudb"><a href="#start-immudb" class="header-anchor">#</a> Start immudb</h2> <div class="language-go extra-class"><pre class="language-go"><code><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">//===&gt; 1. Start a new server</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;1. Start immudb server ...&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token keyword">const</span> logfile <span class="token operator">=</span> <span class="token string">&quot;immuserver.log&quot;</span>
+	flogger<span class="token punctuation">,</span> file<span class="token punctuation">,</span> err <span class="token operator">:=</span>
+		immulogger<span class="token punctuation">.</span><span class="token function">NewFileLogger</span><span class="token punctuation">(</span><span class="token string">&quot;immuserver &quot;</span><span class="token punctuation">,</span> logfile<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> err <span class="token operator">=</span> file<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	serverOptions <span class="token operator">:=</span> immuserver<span class="token punctuation">.</span><span class="token function">DefaultOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">WithLogfile</span><span class="token punctuation">(</span>logfile<span class="token punctuation">)</span>
+	server <span class="token operator">:=</span> immuserver<span class="token punctuation">.</span><span class="token function">DefaultServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">WithOptions</span><span class="token punctuation">(</span>serverOptions<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">WithLogger</span><span class="token punctuation">(</span>flogger<span class="token punctuation">)</span>
+	<span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> err <span class="token operator">:=</span> server<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		err <span class="token operator">:=</span> server<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token comment">// NOTE: this cleanup must NOT be done in a real-world scenario!</span>
+		<span class="token function">cleanup</span><span class="token punctuation">(</span>server<span class="token punctuation">.</span>Options<span class="token punctuation">.</span>Dir<span class="token punctuation">,</span> server<span class="token punctuation">.</span>Options<span class="token punctuation">.</span>Logfile<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">// wait for server to start</span>
+	time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">100</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Millisecond<span class="token punctuation">)</span>
+	
+</code></pre></div><h2 id="connect-a-new-client"><a href="#connect-a-new-client" class="header-anchor">#</a> Connect a new client</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;2. Connect immudb client ...&quot;</span><span class="token punctuation">)</span>
+
+	client<span class="token punctuation">,</span> err <span class="token operator">:=</span> immuclient<span class="token punctuation">.</span><span class="token function">NewImmuClient</span><span class="token punctuation">(</span>immuclient<span class="token punctuation">.</span><span class="token function">DefaultOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	ctx <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="write-transactions-without-verification"><a href="#write-transactions-without-verification" class="header-anchor">#</a> Write transactions without verification</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; Set</span>
+	key1<span class="token punctuation">,</span> value1 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Ms. Noelia Jaskolski&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Visa 1514284849020756 09/21&quot;</span><span class="token punctuation">)</span>
+	index<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key1<span class="token punctuation">,</span> value1<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Set - add entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key1<span class="token punctuation">,</span> value1<span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="write-transactions-with-verification"><a href="#write-transactions-with-verification" class="header-anchor">#</a> Write transactions with verification</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; SafeSet</span>
+	key2<span class="token punctuation">,</span> value2 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Mr. Archibald Beatty&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;Visa 6679499384784022 11/23&quot;</span><span class="token punctuation">)</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">SafeSet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key2<span class="token punctuation">,</span> value2<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeSet - add and verify entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key2<span class="token punctuation">,</span> value2<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+	key3<span class="token punctuation">,</span> value3 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Ms. Maci Schuppe&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;MasterCard 2232703813463070 12/19&quot;</span><span class="token punctuation">)</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeSet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key3<span class="token punctuation">,</span> value3<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeSet - add and verify entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key3<span class="token punctuation">,</span> value3<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+	value3 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;MasterCard 8069498678459876 10/22&quot;</span><span class="token punctuation">)</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeSet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key3<span class="token punctuation">,</span> value3<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeSet - update and verify entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key3<span class="token punctuation">,</span> value3<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="add-reference-to-existing-entries"><a href="#add-reference-to-existing-entries" class="header-anchor">#</a> Add reference to existing entries</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; SafeReference</span>
+	key3Ref <span class="token operator">:=</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;reference:&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key3<span class="token operator">...</span><span class="token punctuation">)</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeReference</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key3Ref<span class="token punctuation">,</span> key3<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeReference - add and verify a reference key to an existing entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key3Ref<span class="token punctuation">,</span> value3<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="add-secondary-index"><a href="#add-secondary-index" class="header-anchor">#</a> Add secondary index</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; SafeZAdd</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeZAdd - add and verify scores for existing keys to a new or existing sorted set:&quot;</span><span class="token punctuation">)</span>
+	set1 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;SetOfClientsThatAreWomen&quot;</span><span class="token punctuation">)</span>
+	key1Score <span class="token operator">:=</span> <span class="token number">1.</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeZAdd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> set1<span class="token punctuation">,</span> key1Score<span class="token punctuation">,</span> key1<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">printSetItem</span><span class="token punctuation">(</span>set1<span class="token punctuation">,</span> key1<span class="token punctuation">,</span> key1Score<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+	key3Score <span class="token operator">:=</span> <span class="token number">3.</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeZAdd</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> set1<span class="token punctuation">,</span> key3Score<span class="token punctuation">,</span> key3<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;	------&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printSetItem</span><span class="token punctuation">(</span>set1<span class="token punctuation">,</span> key3<span class="token punctuation">,</span> key3Score<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="read-entries-without-verification"><a href="#read-entries-without-verification" class="header-anchor">#</a> Read entries without verification</h2> <div class="language-go extra-class"><pre class="language-go"><code>	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;4. Read entries ...&quot;</span><span class="token punctuation">)</span>
+
+	<span class="token comment">//------&gt; Get</span>
+	item<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key1<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Get - fetch entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="read-entries-with-verification"><a href="#read-entries-with-verification" class="header-anchor">#</a> Read entries with verification</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; SafeGet</span>
+	verifiedItem<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">SafeGet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key2<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeGet - fetch and verify entry:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> verifiedItem<span class="token punctuation">)</span>
+
+	verifiedItem<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeGet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key3Ref<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeGet - fetch and verify entry by reference key:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> verifiedItem<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="scan-entries"><a href="#scan-entries" class="header-anchor">#</a> Scan entries</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">// zscan             Iterate over a sorted set</span>
+	structuredItemList<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">ZScan</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> set1<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   ZScan - iterate over a sorted set:&quot;</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> item <span class="token operator">:=</span> <span class="token keyword">range</span> structuredItemList<span class="token punctuation">.</span>Items <span class="token punctuation">{</span>
+		<span class="token function">printItem</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;	------&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token comment">//------&gt; Scan</span>
+	prefix <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Mr.&quot;</span><span class="token punctuation">)</span>
+	structuredItemList<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">Scan</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> prefix<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;   Scan - iterate over keys having the specified prefix (e.g. \&quot;%s\&quot;):\n&quot;</span><span class="token punctuation">,</span> prefix<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> item <span class="token operator">:=</span> <span class="token keyword">range</span> structuredItemList<span class="token punctuation">.</span>Items <span class="token punctuation">{</span>
+		<span class="token function">printItem</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> item<span class="token punctuation">)</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;	------&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="count-entries"><a href="#count-entries" class="header-anchor">#</a> Count  entries</h2> <div class="language-go extra-class"><pre class="language-go"><code>	<span class="token comment">//------&gt; Count</span>
+	prefix <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Ms.&quot;</span><span class="token punctuation">)</span>
+	itemsCount<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Count</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> prefix<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;   Count - count keys having the specified prefix (e.g. \&quot;%s\&quot;):\n&quot;</span><span class="token punctuation">,</span> prefix<span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	count:		%d\n&quot;</span><span class="token punctuation">,</span> itemsCount<span class="token punctuation">.</span>Count<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="get-current-root"><a href="#get-current-root" class="header-anchor">#</a> Get current root</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	<span class="token comment">//------&gt; Current tree root</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Current root - return the last merkle tree root and index stored locally&quot;</span><span class="token punctuation">)</span>
+	currentRoot<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">CurrentRoot</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> currentRoot<span class="token punctuation">.</span>Root <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;no root found: immudb is empty&quot;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	index:		%d\n	hash:		%x\n&quot;</span><span class="token punctuation">,</span> currentRoot<span class="token punctuation">.</span>Index<span class="token punctuation">,</span> currentRoot<span class="token punctuation">.</span>Root<span class="token punctuation">)</span>
+
+</code></pre></div><h3 id="add-a-new-entry-after-getting-current-root"><a href="#add-a-new-entry-after-getting-current-root" class="header-anchor">#</a> Add a new entry after getting current root</h3> <div class="language-go extra-class"><pre class="language-go"><code>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Add a new entry after getting current root:&quot;</span><span class="token punctuation">)</span>
+	key4<span class="token punctuation">,</span> value4 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;client:Mr. Valentin Padurean&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">&quot;MasterCard 2232703813463070 01/24&quot;</span><span class="token punctuation">)</span>
+	verifiedIndex<span class="token punctuation">,</span> err <span class="token operator">=</span> client<span class="token punctuation">.</span><span class="token function">SafeSet</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key4<span class="token punctuation">,</span> value4<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   SafeSet - add and verify an entry after getting the current root:&quot;</span><span class="token punctuation">)</span>
+	<span class="token function">printItem</span><span class="token punctuation">(</span>key4<span class="token punctuation">,</span> value4<span class="token punctuation">,</span> verifiedIndex<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="check-consistency"><a href="#check-consistency" class="header-anchor">#</a> Check consistency</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Consistency - check consistency between the previous root and latest root:&quot;</span><span class="token punctuation">)</span>
+	proof<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Consistency</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> currentRoot<span class="token punctuation">.</span>Index<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	verified:	%t\n	firstRoot:	%x at index: %d\n	secondRoot:	%x at index: %d\n&quot;</span><span class="token punctuation">,</span>
+		proof<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span>immuschema<span class="token punctuation">.</span>Root<span class="token punctuation">{</span>Index<span class="token punctuation">:</span> currentRoot<span class="token punctuation">.</span>Index<span class="token punctuation">,</span> Root<span class="token punctuation">:</span> currentRoot<span class="token punctuation">.</span>Root<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		proof<span class="token punctuation">.</span>FirstRoot<span class="token punctuation">,</span>
+		proof<span class="token punctuation">.</span>First<span class="token punctuation">,</span>
+		proof<span class="token punctuation">.</span>SecondRoot<span class="token punctuation">,</span>
+		proof<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
+
+</code></pre></div><h2 id="check-inclusion"><a href="#check-inclusion" class="header-anchor">#</a> Check inclusion</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;   Inclusion - check if specified index is included in the current tree:&quot;</span><span class="token punctuation">)</span>
+	structuredItem<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> key2<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	inclusionProof<span class="token punctuation">,</span> err <span class="token operator">:=</span> client<span class="token punctuation">.</span><span class="token function">Inclusion</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> structuredItem<span class="token punctuation">.</span>Index<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token function">exit</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	hash<span class="token punctuation">,</span> err <span class="token operator">:=</span> structuredItem<span class="token punctuation">.</span><span class="token function">Hash</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	verified:	%t\n	hash:		%x at index: %d\n	root:		%x at index: %d\n&quot;</span><span class="token punctuation">,</span>
+		inclusionProof<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span>structuredItem<span class="token punctuation">.</span>Index<span class="token punctuation">,</span> hash<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		inclusionProof<span class="token punctuation">.</span>Leaf<span class="token punctuation">,</span>
+		inclusionProof<span class="token punctuation">.</span>Index<span class="token punctuation">,</span>
+		inclusionProof<span class="token punctuation">.</span>Root<span class="token punctuation">,</span>
+		inclusionProof<span class="token punctuation">.</span>At<span class="token punctuation">)</span>
+
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">&quot;\nDONE. ¯\\_(ツ)_/¯&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="error-handling-and-cleanup"><a href="#error-handling-and-cleanup" class="header-anchor">#</a> Error handling and cleanup</h2> <div class="language-go extra-class"><pre class="language-go"><code>
+<span class="token keyword">func</span> <span class="token function">exit</span><span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">=</span> fmt<span class="token punctuation">.</span><span class="token function">Fprintln</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Stderr<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+	os<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">cleanup</span><span class="token punctuation">(</span>dbDir <span class="token builtin">string</span><span class="token punctuation">,</span> logfile <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// remove db</span>
+	os<span class="token punctuation">.</span><span class="token function">RemoveAll</span><span class="token punctuation">(</span>dbDir<span class="token punctuation">)</span>
+	<span class="token comment">// remove log file</span>
+	os<span class="token punctuation">.</span><span class="token function">Remove</span><span class="token punctuation">(</span>logfile<span class="token punctuation">)</span>
+	<span class="token comment">// remove root</span>
+	files<span class="token punctuation">,</span> err <span class="token operator">:=</span> filepath<span class="token punctuation">.</span><span class="token function">Glob</span><span class="token punctuation">(</span><span class="token string">&quot;./\\.root*&quot;</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> f <span class="token operator">:=</span> <span class="token keyword">range</span> files <span class="token punctuation">{</span>
+			os<span class="token punctuation">.</span><span class="token function">Remove</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">printItem</span><span class="token punctuation">(</span>key <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> value <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> message <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> index <span class="token builtin">uint64</span>
+	ts <span class="token operator">:=</span> <span class="token function">uint64</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Unix</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">var</span> verified<span class="token punctuation">,</span> isVerified <span class="token builtin">bool</span>
+	<span class="token keyword">var</span> hash <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+	<span class="token keyword">switch</span> m <span class="token operator">:=</span> message<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuschema<span class="token punctuation">.</span>Index<span class="token punctuation">:</span>
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		dig <span class="token operator">:=</span> immuapi<span class="token punctuation">.</span><span class="token function">Digest</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+		hash <span class="token operator">=</span> dig<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuclient<span class="token punctuation">.</span>VerifiedIndex<span class="token punctuation">:</span>
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		dig <span class="token operator">:=</span> immuapi<span class="token punctuation">.</span><span class="token function">Digest</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+		hash <span class="token operator">=</span> dig<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+		verified <span class="token operator">=</span> m<span class="token punctuation">.</span>Verified
+		isVerified <span class="token operator">=</span> <span class="token boolean">true</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuschema<span class="token punctuation">.</span>Item<span class="token punctuation">:</span>
+		key <span class="token operator">=</span> m<span class="token punctuation">.</span>Key
+		value <span class="token operator">=</span> m<span class="token punctuation">.</span>Value
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		hash <span class="token operator">=</span> m<span class="token punctuation">.</span><span class="token function">Hash</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuschema<span class="token punctuation">.</span>StructuredItem<span class="token punctuation">:</span>
+		key <span class="token operator">=</span> m<span class="token punctuation">.</span>Key
+		value <span class="token operator">=</span> m<span class="token punctuation">.</span>Value<span class="token punctuation">.</span>Payload
+		ts <span class="token operator">=</span> m<span class="token punctuation">.</span>Value<span class="token punctuation">.</span>Timestamp
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		hash<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">=</span> m<span class="token punctuation">.</span><span class="token function">Hash</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuclient<span class="token punctuation">.</span>VerifiedItem<span class="token punctuation">:</span>
+		key <span class="token operator">=</span> m<span class="token punctuation">.</span>Key
+		value <span class="token operator">=</span> m<span class="token punctuation">.</span>Value
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		ts <span class="token operator">=</span> m<span class="token punctuation">.</span>Time
+		verified <span class="token operator">=</span> m<span class="token punctuation">.</span>Verified
+		isVerified <span class="token operator">=</span> <span class="token boolean">true</span>
+		me<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> immuschema<span class="token punctuation">.</span><span class="token function">Merge</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> ts<span class="token punctuation">)</span>
+		dig <span class="token operator">:=</span> immuapi<span class="token punctuation">.</span><span class="token function">Digest</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token punctuation">,</span> me<span class="token punctuation">)</span>
+		hash <span class="token operator">=</span> dig<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token operator">!</span>isVerified <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	index:		%d\n	key:		%s\n	value:		%s\n	hash:		%x\n	time:		%s\n&quot;</span><span class="token punctuation">,</span>
+			index<span class="token punctuation">,</span>
+			key<span class="token punctuation">,</span>
+			value<span class="token punctuation">,</span>
+			hash<span class="token punctuation">,</span>
+			time<span class="token punctuation">.</span><span class="token function">Unix</span><span class="token punctuation">(</span><span class="token function">int64</span><span class="token punctuation">(</span>ts<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	index:		%d\n	key:		%s\n	value:		%s\n	hash:		%x\n	time:		%s\n	verified:	%t\n&quot;</span><span class="token punctuation">,</span>
+		index<span class="token punctuation">,</span>
+		key<span class="token punctuation">,</span>
+		value<span class="token punctuation">,</span>
+		hash<span class="token punctuation">,</span>
+		time<span class="token punctuation">.</span><span class="token function">Unix</span><span class="token punctuation">(</span><span class="token function">int64</span><span class="token punctuation">(</span>ts<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		verified<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">printSetItem</span><span class="token punctuation">(</span>set <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> rkey <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> score <span class="token builtin">float64</span><span class="token punctuation">,</span> message <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> index <span class="token builtin">uint64</span>
+	<span class="token keyword">var</span> verified<span class="token punctuation">,</span> isVerified <span class="token builtin">bool</span>
+	<span class="token keyword">switch</span> m <span class="token operator">:=</span> message<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuschema<span class="token punctuation">.</span>Index<span class="token punctuation">:</span>
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+	<span class="token keyword">case</span> <span class="token operator">*</span>immuclient<span class="token punctuation">.</span>VerifiedIndex<span class="token punctuation">:</span>
+		index <span class="token operator">=</span> m<span class="token punctuation">.</span>Index
+		verified <span class="token operator">=</span> m<span class="token punctuation">.</span>Verified
+		isVerified <span class="token operator">=</span> <span class="token boolean">true</span>
+	<span class="token punctuation">}</span>
+	key<span class="token punctuation">,</span> err <span class="token operator">:=</span> immustore<span class="token punctuation">.</span><span class="token function">SetKey</span><span class="token punctuation">(</span>rkey<span class="token punctuation">,</span> set<span class="token punctuation">,</span> score<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token operator">!</span>isVerified <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	index:		%d\n	set:		%s\n	key:		%s\n	score:		%f\n	value:		%s\n	hash:		%x\n&quot;</span><span class="token punctuation">,</span>
+			index<span class="token punctuation">,</span>
+			set<span class="token punctuation">,</span>
+			key<span class="token punctuation">,</span>
+			score<span class="token punctuation">,</span>
+			rkey<span class="token punctuation">,</span>
+			immuapi<span class="token punctuation">.</span><span class="token function">Digest</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token punctuation">,</span> rkey<span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">&quot;	index:		%d\n	set:		%s\n	key:		%s\n	score:		%f\n	value:		%s\n	hash:		%x\n	verified:	%t\n&quot;</span><span class="token punctuation">,</span>
+		index<span class="token punctuation">,</span>
+		set<span class="token punctuation">,</span>
+		key<span class="token punctuation">,</span>
+		score<span class="token punctuation">,</span>
+		rkey<span class="token punctuation">,</span>
+		immuapi<span class="token punctuation">.</span><span class="token function">Digest</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> key<span class="token punctuation">,</span> rkey<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		verified<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+            ←
+            <a href="/immudb-docs/docs/introduction.html" class="prev">
+                Introduction
+            </a></span> <span class="next"><a href="/immudb-docs/docs/immudb/consistency-checker.html">
+                Consistency checker
+            </a>
+            →
+        </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/immudb-docs/assets/js/app.a0671d09.js" defer></script><script src="/immudb-docs/assets/js/3.127a2d9d.js" defer></script><script src="/immudb-docs/assets/js/2.1238a104.js" defer></script><script src="/immudb-docs/assets/js/13.44f2faab.js" defer></script>
+  </body>
+</html>
