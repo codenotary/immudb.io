@@ -1,5 +1,6 @@
 module.exports = {
     base: '/immudb-docs/',
+    dest: 'docs',
 	title: 'immudb',
 	description: 'The lightweight, high-speed immutable database for systems and applications.',
 	extend: '@vuepress/theme-default',

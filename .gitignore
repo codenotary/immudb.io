@@ -2,4 +2,4 @@ node_modules
 .idea
 .DS_Store
 
-src/.vuepress/dist
+src/.vuepress/docs
