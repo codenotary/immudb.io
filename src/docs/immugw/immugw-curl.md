@@ -12,7 +12,7 @@
  - [Check inclusion](#check-inclusion)
 
 The following code snippets explain how to work with 'immugw' (REST proxy for immudb) using 'curl'.
-immugw HTPP API key/value are base64 encoded.
+immugw HTTP API key/value are base64 encoded.
 
 ## Write transactions without verification
 
