@@ -22,11 +22,6 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Authorization: Bearer {{token}}' \
 --header 'Content-Type: text/plain' \
 --data-raw '{
-    "key": "'$(echo -n client:Ms. Noelia Jaskolski | bascurl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
---data-raw '{
     "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
     "value": "'$(echo -n Visa 1514284849020756 09/21 | base64)'"
     }
