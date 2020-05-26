@@ -5,8 +5,8 @@ module.exports = {
 	themeConfig: {
 		logo: '/logo.png',
 		nav: [
-			{ text: 'Website', link: 'https://www.codenotary.io' },
-			{ text: 'Github', link: 'https://github.com/vchain-us' },
+			{ text: 'Website', link: 'https://www.immudb.io' },
+			{ text: 'Github', link: 'https://github.com/codenotary/immudb' },
 		],
 		sidebar: [
 			{
@@ -14,7 +14,6 @@ module.exports = {
 				collapsable: false,
 				children: [
 					'/docs/introduction',
-					'/docs/quickstart',
 				]
 			},
 		]

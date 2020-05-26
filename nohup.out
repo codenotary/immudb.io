@@ -1,0 +1,117 @@
+
+> codenotary-docs@1.0.0 dev /home/bitnami/immudb-docs
+> vuepress dev src
+
+wait Extracting site metadata...
+tip Apply local theme at /home/bitnami/immudb-docs/src/.vuepress/theme...
+tip Apply theme local ...
+tip Apply plugin container (i.e. "vuepress-plugin-container") ...
+tip Apply plugin @vuepress/register-components (i.e. "@vuepress/plugin-register-components") ...
+tip Apply plugin @vuepress/active-header-links (i.e. "@vuepress/plugin-active-header-links") ...
+tip Apply plugin @vuepress/search (i.e. "@vuepress/plugin-search") ...
+tip Apply plugin @vuepress/nprogress (i.e. "@vuepress/plugin-nprogress") ...
+ℹ Compiling Client
+[34mℹ[39m [90m｢wds｣[39m: Project is running at http://0.0.0.0:8080/
+[34mℹ[39m [90m｢wds｣[39m: webpack output is served from /
+[34mℹ[39m [90m｢wds｣[39m: Content not from webpack is served from /home/bitnami/immudb-docs/src/.vuepress/public
+[34mℹ[39m [90m｢wds｣[39m: 404s will fallback to /index.html
+events.js:288
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event on ReadStream instance at:
+    at internal/fs/streams.js:186:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:487:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! codenotary-docs@1.0.0 dev: `vuepress dev src`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the codenotary-docs@1.0.0 dev script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2020-05-26T06_28_38_624Z-debug.log
+
+> codenotary-docs@1.0.0 dev /home/bitnami/immudb-docs
+> vuepress dev src
+
+wait Extracting site metadata...
+tip Apply local theme at /home/bitnami/immudb-docs/src/.vuepress/theme...
+tip Apply theme local ...
+tip Apply plugin container (i.e. "vuepress-plugin-container") ...
+tip Apply plugin @vuepress/register-components (i.e. "@vuepress/plugin-register-components") ...
+tip Apply plugin @vuepress/active-header-links (i.e. "@vuepress/plugin-active-header-links") ...
+tip Apply plugin @vuepress/search (i.e. "@vuepress/plugin-search") ...
+tip Apply plugin @vuepress/nprogress (i.e. "@vuepress/plugin-nprogress") ...
+ℹ Compiling Client
+[34mℹ[39m [90m｢wds｣[39m: Project is running at http://0.0.0.0:8080/
+[34mℹ[39m [90m｢wds｣[39m: webpack output is served from /
+[34mℹ[39m [90m｢wds｣[39m: Content not from webpack is served from /home/bitnami/immudb-docs/src/.vuepress/public
+[34mℹ[39m [90m｢wds｣[39m: 404s will fallback to /index.html
+events.js:288
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event on ReadStream instance at:
+    at internal/fs/streams.js:186:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:487:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! codenotary-docs@1.0.0 dev: `vuepress dev src`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the codenotary-docs@1.0.0 dev script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2020-05-26T06_30_00_560Z-debug.log
+
+> codenotary-docs@1.0.0 dev /home/bitnami/immudb-docs
+> vuepress dev src
+
+wait Extracting site metadata...
+tip Apply local theme at /home/bitnami/immudb-docs/src/.vuepress/theme...
+tip Apply theme local ...
+tip Apply plugin container (i.e. "vuepress-plugin-container") ...
+tip Apply plugin @vuepress/register-components (i.e. "@vuepress/plugin-register-components") ...
+tip Apply plugin @vuepress/active-header-links (i.e. "@vuepress/plugin-active-header-links") ...
+tip Apply plugin @vuepress/search (i.e. "@vuepress/plugin-search") ...
+tip Apply plugin @vuepress/nprogress (i.e. "@vuepress/plugin-nprogress") ...
+ℹ Compiling Client
+[34mℹ[39m [90m｢wds｣[39m: Project is running at http://0.0.0.0:8080/
+[34mℹ[39m [90m｢wds｣[39m: webpack output is served from /
+[34mℹ[39m [90m｢wds｣[39m: Content not from webpack is served from /home/bitnami/immudb-docs/src/.vuepress/public
+[34mℹ[39m [90m｢wds｣[39m: 404s will fallback to /index.html
+events.js:288
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event on ReadStream instance at:
+    at internal/fs/streams.js:186:12
+    at FSReqCallback.wrapper [as oncomplete] (fs.js:487:5) {
+  errno: -9,
+  code: 'EBADF',
+  syscall: 'read'
+}
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! codenotary-docs@1.0.0 dev: `vuepress dev src`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the codenotary-docs@1.0.0 dev script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/bitnami/.npm/_logs/2020-05-26T06_30_11_717Z-debug.log

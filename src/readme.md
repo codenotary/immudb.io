@@ -3,7 +3,7 @@ home: true
 heroImage: '/mascot.png'
 actionText: Get started 
 actionLink: /docs/introduction
-copyright: Copyright &copy; CodeNotary 2020
+copyright: Copyright &copy; vChain 2020
 ---
 
 <section class="section" aria-labelledby="main-title">
@@ -13,21 +13,21 @@ copyright: Copyright &copy; CodeNotary 2020
             <h2>Immutable</h2>
             <p>Any kind of key-value. Clients can choose how to structure data.</p>
             <p><strong>No data mutation APIs</strong> are provided.</p>
-            <p>Data is never overwritten, so multiple versions of the same key can co-exist and can be inspected.</p>
+            <p>Data is never overwritten, so multiple versions of the same key co-exist and are verfiable.</p>
         </div>
         <div class="feature">
             <img src="/features/auditable3.svg" alt="Immutable"/>
             <h2>Auditable</h2>
             <p>Tamper-evident history system.</p>
-            <p>Clients and auditors ask for <strong>cryptographic proofs</strong>  of data inclusion and historical consistency in real time.</p>
-            <p>If tampered, clients and auditors will be able to notice that and take actions.</p>
+            <p>Clients and auditors want <strong>cryptographic proofs</strong>  of data inclusion and historical consistency in real time.</p>
+            <p>If tampered, clients and auditors will notice that and take actions.</p>
         </div>
         <div class="feature">
             <img src="/features/secure2.svg" alt="Immutable"/>
             <h2>Secure</h2>
-            <p>If needed, clients and auditors can verify data ownership.</p>
-            <p>Data can be signed using <strong>Public-Key Cryptography</strong>.</p>
-            <p>Keys additions and revocations can be immutably stored into the database</p>
+            <p>Data ownership is verifiable by clients and auditors.</p>
+            <p>Sign your data using <strong>Public-Key Cryptography</strong>.</p>
+            <p>Keys additions and revocations is immutably stored into the database</p>
         </div>
     </div>
 </section>
@@ -35,7 +35,7 @@ copyright: Copyright &copy; CodeNotary 2020
 <section id="easy-setup-section" class="section _text-center _padding-top-0">
     <h2>Easy setup</h2>
     <p>
-        You can either build Docker images based on the Dockerfiles in the GitHub repository
+        Build Docker images based on the Dockerfiles in the GitHub repository
         for the most common architectures or use the prebuild ones on Dockerhub for Linux.
     </p>
 <div class="language-bash extra-class">
