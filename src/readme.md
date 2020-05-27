@@ -19,7 +19,7 @@ copyright: Copyright &copy; vChain 2020
             <img :src="$withBase('/features/auditable3.svg')" alt="Auditable"/>
             <h2>Auditable</h2>
             <p>Tamper-evident history system.</p>
-            <p>Clients and auditors want <strong>cryptographic proofs</strong>  of data inclusion and historical consistency in real time.</p>
+            <p>Clients and auditors want <strong>cryptographic proof</strong>  of data inclusion and historical consistency in real time.</p>
             <p>If tampered, clients and auditors will notice that and take actions.</p>
         </div>
         <div class="feature">
