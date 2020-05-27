@@ -1,6 +1,6 @@
 # Introduction
 
-immudb is a **lightweight, high-speed immutable database** for systems and applications. Written in Go.
+immudb is a **lightweight, high-speed immutable database** for systems and applications, written in Go.
 With immudb you can track changes in sensitive data in your transactional databases and then record those changes permanently in a
 tamperproof immudb database. This allows you to keep an indelible history of sensitive data, for example debit/credit card transactions.
 <img align="right" src="https://raw.githubusercontent.com/codenotary/immudb/master/img/immudb-mascot-small.png" width="256px"/>
@@ -10,7 +10,7 @@ Traditional transaction logs are hard to scale and are mutable. So there is no w
 As such, immudb provides **unparalleled insights** **retroactively** of changes to your sensitive data, even
 if your perimeter has been compromised. immudb guarantees immutability by using a **Merkle tree structure** internally.
 
-immudb gives you the same **cryptographic verification** of the integrity of data written with **SHA-256** like a classic blockchain without the cost and complexity associated with blockchains today.
+immudb gives you the same **cryptographic verification** of the integrity of data written with **SHA-256** as a classic blockchain without the cost and complexity associated with blockchains today.
 
 immudb has 4 main benefits:
 
@@ -33,7 +33,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 4.  [immudb first start](#immudb-first-start) - Start immudb
 5.  [Command reference](#command-reference) - Command reference of the components
 6.  [Docker](#docker) - Use docker container to run immudb
-7.  [How immudb works](#how-immudb-works) - How does immudb work internally
+7.  [How immudb works](#how-immudb-works) - How does immudb work internally?
 8.  [APIs and interfaces](#apis-and-interfaces) - API reference and code examples
 
 
@@ -52,7 +52,7 @@ The latest release binaries can be found [here](https://github.com/codenotary/im
 
 To build the binaries yourself, simply clone this repo and run
 
-```
+```bash
 make all
 ```
 
@@ -91,7 +91,7 @@ GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static 
 
 Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
 
-```
+```bash
 # install immudb service
 ./immuadmin service immudb install
 
@@ -111,7 +111,7 @@ The linux service is using the following defaults:
 | ----------------------- | ------------------ |
 | all configuration files | /etc/immudb        |
 | all data files          | /var/lib/immudb    |
-| pid file                | /var/run/immdb.pid |
+| pid file                | /var/run/immudb.pid |
 | log files               | /var/log/immudb    |
 
 
@@ -120,7 +120,7 @@ The linux service is using the following defaults:
 
 Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.
 
-```
+```bash
 # install immugw service
 ./immuadmin service immugw install
 
@@ -139,7 +139,7 @@ The linux service is using the following defaults:
 | File or configuration   | location           |
 | ----------------------- | ------------------ |
 | all configuration files | /etc/immudb        |
-| pid file                | /var/run/immgw.pid |
+| pid file                | /var/run/immugw.pid |
 | log files               | /var/log/immudb    |
 
 
@@ -152,9 +152,9 @@ Simply run ```./immudb -d``` to start immudb locally in the background.
 
 If you want to stop immudb în that case you need to find the process `ps -ax | grep immudb` and then `kill -15 <pid>`. Windows PowerShell would be `Get-Process immudb* | Stop-Process`.
 
-immudb is launched by default with a security routine called [consistency checker](immudb/consistency-checker.md) . This solution provides a continuosly corruption check on data stored on server storage. 
+immudb is launched by default with a security routine called [consistency checker](immudb/consistency-checker.md) . This solution provides a continuous corruption check on data stored on server storage. 
 
-```
+```bash
 immudb - the lightweight, high-speed immutable database for systems and applications.
 
 Environment variables:
@@ -205,11 +205,11 @@ Use "immudb [command] --help" for more information about a command.
 
 #### immugw
 
-Simply run ```./immugw -d``` to start immugw on the same machine as immudb (test or dev environment) or pointing to the remote immudb system ```./immugw --immudbaddress "immudb-server"```.
+Simply run `./immugw -d` to start immugw on the same machine as immudb (test or dev environment) or point to the remote immudb system `./immugw --immudbaddress "immudb-server"`.
 
 If you want to stop immugw în that case you need to find the process `ps -ax | grep immugw` and then `kill -15 <pid>`. Windows PowerShell would be `Get-Process immugw* | Stop-Process`.
 
-```
+```bash
 immu gateway: a smart REST proxy for immudb - the lightweight, high-speed immutable database for systems and applications.
 It exposes all gRPC methods with a REST interface while wrapping all SAFE endpoints with a verification service.
 
@@ -262,7 +262,7 @@ Use "immugw [command] --help" for more information about a command.
 
 For security reasons we recommend using immuadmin only on the same system as immudb. User management is restricted to localhost usage. Simply run ```./immuadmin``` on the same machine.
 
-```
+```bash
 CLI admin client for immudb - the lightweight, high-speed immutable database for systems and applications.
 
 Environment variables:
@@ -309,9 +309,9 @@ Use "immuadmin [command] --help" for more information about a command.
 
 #### immuclient
 
-Simply run ```./immuclient``` on the same machine or ```./immuclient -a <immudb-host>```
+Simply run `./immuclient` on the same machine or connect to a remote immudb `./immuclient -a <immudb-host>`
 
-```
+```bash
 CLI client for immudb - the lightweight, high-speed immutable database for systems and applications.
 Environment variables:
   IMMUCLIENT_IMMUDB-ADDRESS=127.0.0.1
@@ -366,13 +366,11 @@ Flags:
       --value-only              returning only values for get operations
 
 Use "immuclient [command] --help" for more information about a command.
-
 ```
-
 
 ### Docker
 
-All services and cli components are also available as docker images on dockerhub.com.
+All services and CLI components are also available as Docker images on [dockerhub](https://hub.docker.com/).
 
 | Component | Container image                               |
 | --------- | --------------------------------------------- |
@@ -389,31 +387,31 @@ docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb codenotary/immudb:late
 
 #### Run immugw
 
-```
+```bash
 docker run -it -d -p 3323:3323 --name immugw --env IMMUGW_IMMUDB-ADDRESS=immudb codenotary/immugw:latest
 ```
 
 #### Run immuadmin
 
-You can either find immuadmin in the immudb container (/usr/local/bin/immuadmin) or run the docker container to connect to the local immudb.
+You can either find immuadmin in the immudb container (/usr/local/bin/immuadmin) or run the Docker container to connect to the local immudb.
 
-```
+```bash
 docker run -it --rm --name immuadmin codenotary/immuadmin:latest status
 ```
 
 #### Run immuclient
 
-You can either find immuclient in the immudb container (/usr/local/bin/immuclient) or run the docker container to connect to the local or remote immudb.
+You can either find immuclient in the immudb container (/usr/local/bin/immuclient) or run the Docker container to connect to the local or remote immudb.
 
-```
+```bash
 docker run -it --rm --name immuclient codenotary/immuclient:latest -a <immudb-host>
 ```
 
 #### Build the container images yourself
 
-If you want to build the container images yourself, simply clone this repo and run
+If you want to build the container images yourself, simply clone this repo and run:
 
-```
+```bash
 docker build -t myown/immudb:latest -f Dockerfile .
 docker build -t myown/immugw:latest -f Dockerfile.immugw .
 docker build -t myown/immuadmin:latest -f Dockerfile.immuadmin .
@@ -422,13 +420,13 @@ docker build -t myown/immuclient:latest -f Dockerfile.immuclient .
 
 ## How immudb works
 
-### adding data
+### Adding data
 
-When adding data the merkle tree changes as well as shown in the diagram
+When adding data, the Merkle tree changes as well, as shown in the diagram.
 
 ![the merkle tree changes with every new data](https://raw.githubusercontent.com/codenotary/immudb/master/img/immudb-adding-data-diagram.png)
 
-### checking data consistency
+### Checking data consistency
 
 The following diagram explains how data is inserted, verified and consistency checked.
 
@@ -438,29 +436,29 @@ The following diagram explains how data is inserted, verified and consistency ch
 
 ### immugw communication
 
-immugw proxies REST client communication and gRPC server interface. For security purposes immugw should not run on the same server as immudb. The following diagram shows how the communication works:
+immugw proxies REST client communication and gRPC server interface. For security purposes, immugw should not run on the same server as immudb. The following diagram shows how the communication works:
 
-![immugw communication explained](https://github.com/codenotary/immudb/blob/master/img/immugw-diagram.png)
+![immugw communication explained](https://raw.githubusercontent.com/codenotary/immudb/master/img/immugw-diagram.png)
 
 
 ## APIs and interfaces
 
 ### Golang immudb
-[Golang code snippets](immudb/immudb-golang.md)
+[Golang code snippets](immudb/introduction.md)
 
 ### Curl examples immugw
-[Curl code snippets](immugw/immugw-curl.md)
+[Curl code snippets](immugw/introduction.md)
 
 
 ### immudb RESTful API reference
 
 You can find the swagger schema here:
 
-https://github.com/codenotary/immudb/blob/master/pkg/api/schema/schema.swagger.json
+[swagger immudb](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/schema.swagger.json)
 
-If you want to run the Swagger UI, simply run the following docker command after you cloned this repo:
+If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
-```
+```bash
 docker run -d -it -p 8080:8080 --name swagger-immudb -v ${PWD}/pkg/api/schema/schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
 ```
 
@@ -472,11 +470,11 @@ coming soon
 
 You can find the swagger schema here:
 
-https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json
+[swagger immudb](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json)
 
-If you want to run the Swagger UI, simply run the following docker command after you cloned this repo:
+If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
-```
+```bash
 docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/schema/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
 ```
 
