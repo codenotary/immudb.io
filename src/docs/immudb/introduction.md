@@ -438,3 +438,7 @@ func printSetItem(set []byte, rkey []byte, score float64, message interface{}) {
 		verified)
 }
 ```
+
+## License
+
+immudb is [Apache v2.0 License](LICENSE).
