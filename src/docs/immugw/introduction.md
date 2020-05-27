@@ -160,3 +160,7 @@ curl --request GET \
 curl --request GET \
   --url http://immugw:3323/v1/immurestproxy/inclusionproof/33
 ```
+
+## License
+
+immudb is [Apache v2.0 License](LICENSE).
