@@ -112,7 +112,8 @@ Immudb is an indispensable asset when it comes to tamper-proof data:
 	index, err := client.Set(ctx, key1, value1)
 	if err != nil {
 		exit(err)
-	}~~~
+	}
+~~~
 
 </terminal>
 </div>
