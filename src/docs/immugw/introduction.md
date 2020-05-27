@@ -163,4 +163,4 @@ curl --request GET \
 
 ## License
 
-immudb is [Apache v2.0 License](LICENSE).
+immugw is [Apache v2.0 License](LICENSE).
