@@ -106,12 +106,13 @@ Immudb is an indispensable asset when it comes to tamper-proof data:
 <div class="column">
 <terminal title="immudb">
 
-~~~sql
-SELECT * from immudb;
-
-INSERT INTO immudb (id, feature) 
-    VALUES (0, immutable);
-~~~
+~~~go
+	// Write value
+	key1, value1 := []byte("client:Client1"), []byte("Visa 1514284849020756 09/21")
+	index, err := client.Set(ctx, key1, value1)
+	if err != nil {
+		exit(err)
+	}~~~
 
 </terminal>
 </div>
