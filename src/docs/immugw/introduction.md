@@ -100,7 +100,7 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe/ge
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
 --data-raw '{
-         "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
+         "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'"
 }'
 ```
 ## Scan entries
@@ -141,7 +141,7 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Authorization: Bearer {{token}}' \
 --data-raw '{
     "key": "'$(echo -n client:Mr. Valentin Padurean | base64)'",
-    "value": "'$(echo -n MasterCard 2232703813463070 01/24 | base64)'",
+    "value": "'$(echo -n MasterCard 2232703813463070 01/24 | base64)'"
 }'
 ```
 ## Check consistency
