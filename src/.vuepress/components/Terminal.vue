@@ -9,7 +9,7 @@
                 </div>
                 <div class="title">{{ title }}</div>
             </div>
-            <div class="body" :style="{ minHeight }">
+            <div class="body">
                 <slot />
             </div>
         </div>
@@ -20,10 +20,6 @@
 export default {
     name: 'Terminal',
     props: {
-        minHeight: {
-            type: String,
-            default: '285px'
-        },
         title: {
             type: String,
             default: 'bash'
@@ -85,6 +81,7 @@ export default {
     .body {
         background: #282c34;
         border-radius: 0 0 5px 5px
+        overflow: hidden
     }
 
     div[class*="language-"] {
@@ -96,6 +93,7 @@ export default {
             box-sizing border-box
             overflow: auto;
             margin: 0;
+            min-height: 350px;
         }
     }
 }
