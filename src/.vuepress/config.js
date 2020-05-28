@@ -20,37 +20,48 @@ module.exports = {
                     '/docs/quickstart',
                     '/docs/command-reference',
                     '/docs/apis-and-interfaces',
-				]
+                ]
 			},
 			{
-				title: 'immudb',
+				title: 'Compoments',
 				collapsable: false,
 				children: [
-                    '/docs/immudb/introduction',
-					'/docs/immudb/consistency-checker',
+                    '/docs/immudb/',
+                    '/docs/immugw/',
+                    '/docs/immuadmin/',
+                    '/docs/immuclient/',
+                    '/docs/immudb/consistency-checker',
 				]
 			},
-			{
-				title: 'immugw',
-				collapsable: false,
-				children: [
-					'/docs/immugw/introduction',
-				]
-			},
-			{
-				title: 'immuadmin',
-				collapsable: false,
-				children: [
-					'/docs/immuadmin/introduction',
-				]
-			},
-			{
-				title: 'immuclient',
-				collapsable: false,
-				children: [
-					'/docs/immuclient/introduction',
-				]
-			},
+			// {
+			// 	title: 'immudb',
+			// 	collapsable: false,
+			// 	children: [
+            //         '/docs/immudb/introduction',
+			// 		'/docs/immudb/consistency-checker',
+			// 	]
+			// },
+			// {
+			// 	title: 'immugw',
+			// 	collapsable: false,
+			// 	children: [
+			// 		'/docs/immugw/introduction',
+			// 	]
+			// },
+			// {
+			// 	title: 'immuadmin',
+			// 	collapsable: false,
+			// 	children: [
+			// 		'/docs/immuadmin/introduction',
+			// 	]
+			// },
+			// {
+			// 	title: 'immuclient',
+			// 	collapsable: false,
+			// 	children: [
+			// 		'/docs/immuclient/introduction',
+			// 	]
+			// },
 		]
 	}
 };
