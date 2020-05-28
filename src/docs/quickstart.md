@@ -1,5 +1,9 @@
 # Quickstart
 
+## Download the binaries
+
+[Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
+
 ## Build the binaries
 
 To build the binaries yourself, simply clone this repo and run
