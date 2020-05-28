@@ -7,7 +7,7 @@
     <meta name="generator" content="VuePress 1.5.0">
     
     <meta name="description" content="The lightweight, high-speed immutable database for systems and applications.">
-    <link rel="preload" href="/immudb-docs/assets/css/0.styles.5d610f59.css" as="style"><link rel="preload" href="/immudb-docs/assets/js/app.4703c26f.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/2.683a2d2d.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/3.45e2a264.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/15.85aac0c4.js" as="script"><link rel="prefetch" href="/immudb-docs/assets/js/10.b360f58a.js"><link rel="prefetch" href="/immudb-docs/assets/js/11.f83add6f.js"><link rel="prefetch" href="/immudb-docs/assets/js/12.32bb535f.js"><link rel="prefetch" href="/immudb-docs/assets/js/13.08f089e1.js"><link rel="prefetch" href="/immudb-docs/assets/js/14.a45b13c9.js"><link rel="prefetch" href="/immudb-docs/assets/js/16.113bd646.js"><link rel="prefetch" href="/immudb-docs/assets/js/17.735336d5.js"><link rel="prefetch" href="/immudb-docs/assets/js/4.287878a1.js"><link rel="prefetch" href="/immudb-docs/assets/js/5.25a54ae0.js"><link rel="prefetch" href="/immudb-docs/assets/js/6.affa880f.js"><link rel="prefetch" href="/immudb-docs/assets/js/7.c4adb9b8.js"><link rel="prefetch" href="/immudb-docs/assets/js/8.2c21299e.js"><link rel="prefetch" href="/immudb-docs/assets/js/9.706b7c0a.js">
+    <link rel="preload" href="/immudb-docs/assets/css/0.styles.5d610f59.css" as="style"><link rel="preload" href="/immudb-docs/assets/js/app.ac996849.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/2.683a2d2d.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/3.45e2a264.js" as="script"><link rel="preload" href="/immudb-docs/assets/js/15.daef8a4d.js" as="script"><link rel="prefetch" href="/immudb-docs/assets/js/10.b360f58a.js"><link rel="prefetch" href="/immudb-docs/assets/js/11.f83add6f.js"><link rel="prefetch" href="/immudb-docs/assets/js/12.32bb535f.js"><link rel="prefetch" href="/immudb-docs/assets/js/13.08f089e1.js"><link rel="prefetch" href="/immudb-docs/assets/js/14.a45b13c9.js"><link rel="prefetch" href="/immudb-docs/assets/js/16.113bd646.js"><link rel="prefetch" href="/immudb-docs/assets/js/17.735336d5.js"><link rel="prefetch" href="/immudb-docs/assets/js/4.287878a1.js"><link rel="prefetch" href="/immudb-docs/assets/js/5.25a54ae0.js"><link rel="prefetch" href="/immudb-docs/assets/js/6.affa880f.js"><link rel="prefetch" href="/immudb-docs/assets/js/7.c4adb9b8.js"><link rel="prefetch" href="/immudb-docs/assets/js/8.2c21299e.js"><link rel="prefetch" href="/immudb-docs/assets/js/9.706b7c0a.js">
     <link rel="stylesheet" href="/immudb-docs/assets/css/0.styles.5d610f59.css">
   </head>
   <body>
@@ -25,16 +25,14 @@
 immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-without-verification"><a href="#write-transactions-without-verification" class="header-anchor">#</a> Write transactions without verification</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/item'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
     &quot;key&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Ms. Noelia Jaskolski <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
     &quot;value&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n Visa <span class="token number">1514284849020756</span> 09/21 <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;
     }
 }'</span>
-</code></pre></div><h2 id="write-transactions-with-verification"><a href="#write-transactions-with-verification" class="header-anchor">#</a> Write transactions with verification</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/item/safe?k1=v5'</span> <span class="token punctuation">\</span>
+</code></pre></div><h2 id="write-transactions-with-verification"><a href="#write-transactions-with-verification" class="header-anchor">#</a> Write transactions with verification</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/item/safe'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
     &quot;kv&quot;: {
          &quot;key&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Ms. Maci Schuppe <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
@@ -45,7 +43,6 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
 <span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/safe/reference'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
     &quot;ro&quot;: {
         &quot;reference&quot;:  &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n reference:Ms. Maci Schuppe <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
@@ -55,7 +52,6 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
 </code></pre></div><h2 id="add-secondary-index"><a href="#add-secondary-index" class="header-anchor">#</a> Add secondary index</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/safe/zadd'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
     &quot;zopts&quot;: {
         &quot;set&quot;:  &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n SetOfClientsThatAreWomen <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
@@ -66,7 +62,6 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
 </code></pre></div><div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/safe/zadd'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
     &quot;zopts&quot;: {
         &quot;set&quot;:  &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n SetOfClientsThatAreWomen <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
@@ -79,12 +74,12 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
 </code></pre></div><h2 id="read-entries-with-verification"><a href="#read-entries-with-verification" class="header-anchor">#</a> Read entries with verification</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/item/safe/get'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> <span class="token punctuation">\</span>
 --data-raw <span class="token string">'{
-         &quot;key&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Ms. Noelia Jaskolski <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
+         &quot;key&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Ms. Noelia Jaskolski <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;
 }'</span>
 </code></pre></div><h2 id="scan-entries"><a href="#scan-entries" class="header-anchor">#</a> Scan entries</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
   --url http://immugw:3323/v1/immurestproxy/item/scan <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
   --header <span class="token string">'content-type: application/json'</span> <span class="token punctuation">\</span>
   --data <span class="token string">'{
   &quot;prefix&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Ms. Noelia Jaskolski <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
@@ -94,7 +89,8 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
   &quot;deep&quot;: true
 }'</span>
 </code></pre></div><h2 id="count-entries"><a href="#count-entries" class="header-anchor">#</a> Count  entries</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request GET <span class="token punctuation">\</span>
-  --url http://immugw:3323/v1/immurestproxy/item/count/Y2xpZW50Mg<span class="token operator">==</span>
+  --url http://immugw:3323/v1/immurestproxy/item/count/Y2xpZW50Mg<span class="token operator">==</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Bearer {{token}}'</span>
 </code></pre></div><h2 id="get-current-root"><a href="#get-current-root" class="header-anchor">#</a> Get current root</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>
 <span class="token function">curl</span> --location --request GET <span class="token string">'http://immugw:3323/v1/immurestproxy/root'</span> <span class="token punctuation">\</span>
   --header <span class="token string">'Authorization: Bearer {{token}}'</span>
@@ -102,14 +98,16 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
 </code></pre></div><h3 id="add-a-new-entry-after-getting-current-root"><a href="#add-a-new-entry-after-getting-current-root" class="header-anchor">#</a> Add a new entry after getting current root</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --location --request POST <span class="token string">'http://immugw:3323/v1/immurestproxy/item'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
 --header <span class="token string">'Authorization: Bearer {{token}}'</span> <span class="token punctuation">\</span>
---header <span class="token string">'Content-Type: text/plain'</span> --data-raw <span class="token string">'{
+--data-raw <span class="token string">'{
     &quot;key&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n client:Mr. Valentin Padurean <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
-    &quot;value&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n MasterCard <span class="token number">2232703813463070</span> 01/24 <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;,
+    &quot;value&quot;: &quot;'</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> -n MasterCard <span class="token number">2232703813463070</span> 01/24 <span class="token operator">|</span> base64<span class="token variable">)</span></span><span class="token string">'&quot;
 }'</span>
 </code></pre></div><h2 id="check-consistency"><a href="#check-consistency" class="header-anchor">#</a> Check consistency</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request GET <span class="token punctuation">\</span>
-  --url http://immuwg:3323/v1/immurestproxy/consistencyproof/33	
+  --url http://immuwg:3323/v1/immurestproxy/consistencyproof/33	<span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Bearer {{token}}'</span>
 </code></pre></div><h2 id="check-inclusion"><a href="#check-inclusion" class="header-anchor">#</a> Check inclusion</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request GET <span class="token punctuation">\</span>
-  --url http://immugw:3323/v1/immurestproxy/inclusionproof/33
+  --url http://immugw:3323/v1/immurestproxy/inclusionproof/33 <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Bearer {{token}}'</span>
 </code></pre></div><h2 id="license"><a href="#license" class="header-anchor">#</a> License</h2> <p>immugw is <a href="LICENSE">Apache v2.0 License</a>.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
             ←
             <a href="/immudb-docs/docs/immudb/consistency-checker.html" class="prev">
@@ -119,6 +117,6 @@ immugw HTTP API key/value are base64 encoded.</p> <h2 id="write-transactions-wit
             </a>
             →
         </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/immudb-docs/assets/js/app.4703c26f.js" defer></script><script src="/immudb-docs/assets/js/2.683a2d2d.js" defer></script><script src="/immudb-docs/assets/js/3.45e2a264.js" defer></script><script src="/immudb-docs/assets/js/15.85aac0c4.js" defer></script>
+    <script src="/immudb-docs/assets/js/app.ac996849.js" defer></script><script src="/immudb-docs/assets/js/2.683a2d2d.js" defer></script><script src="/immudb-docs/assets/js/3.45e2a264.js" defer></script><script src="/immudb-docs/assets/js/15.daef8a4d.js" defer></script>
   </body>
 </html>
