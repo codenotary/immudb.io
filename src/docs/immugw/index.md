@@ -63,13 +63,13 @@ If you want to stop immugw în that case you need to find the process `ps -ax | 
 
 immuadmin can be used to install and manage the immugw service for Windows and Linux
 
-##### Linux
+### Linux
 
 ```bash
 GOOS=linux GOARCH=amd64 make immuadmin-static 
 ```
 
-##### Windows (by component)
+### Windows (by component)
 
 ```bash
 GOOS=windows GOARCH=amd64 make immuadmin-static
