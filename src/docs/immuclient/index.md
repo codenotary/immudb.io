@@ -1,7 +1,9 @@
 # immuclient
 
+work in progress
+
 
 
 ## License
 
-immuclient is [Apache v2.0 License](LICENSE).
+immuadmin is [Apache v2.0 License](LICENSE).
