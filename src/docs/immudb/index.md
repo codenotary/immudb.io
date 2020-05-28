@@ -14,8 +14,6 @@
  - [Architecture](#architecture)
  - [Consistency Checker](#consistency-checker)
 
-The following code snippets explain how to work with immudb from start to finish using Golang:
-
 ## Build
 
 clone the immudb repository locally
