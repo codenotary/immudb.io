@@ -1,5 +1,5 @@
 module.exports = {
-    base: '/immudb-docs/',
+    base: '/docs/',
     dest: 'docs',
 	title: 'immudb',
 	description: 'The lightweight, high-speed immutable database for systems and applications.',
