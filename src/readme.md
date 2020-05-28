@@ -97,7 +97,7 @@ immudb has been developed with performance, scalability and versatility in mind.
 <img :src="$withBase('/features/real-world.svg')" alt="Immudb - Made for the real world" />
 
 ## Made for the real world
-Immudb is an indispensable asset when it comes to tamper-proof data:
+immudb is an indispensable asset when it comes to tamper-proof data:
 - Store every update to sensitive database fields (credit card or bank account data) of an existing application database
 - Store CI/CD recipes to build and deployment pipelines
 - Store public certificates
@@ -108,12 +108,14 @@ Immudb is an indispensable asset when it comes to tamper-proof data:
 <terminal title="immudb">
 
 ~~~go
-// Write value
-key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
-index, err := client.Set(ctx, key1, value1)
+// Store any key, value auditproof and tamperproof
+key2, value2 := []byte("myClient"), []byte("Visa 6679499384784022 11/23")
+verifiedIndex, err := client.SafeSet(ctx, key2, value2)
 if err != nil {
-    exit(err)
+   exit(err)
 }
+fmt.Println("   SafeSet - add and verify entry:")
+printItem(key2, value2, verifiedIndex)
 ~~~
 
 </terminal>
@@ -126,24 +128,32 @@ if err != nil {
 <div class="column terminal-column">
 <terminal title="immudb">
 
-~~~go
-// Write value
-key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
-index, err := client.Set(ctx, key1, value1)
-if err != nil {
-    exit(err)
-}
+~~~bash
+# install immugw service
+./immuadmin service immugw install
+
+# check current immugw service status
+./immuadmin service immugw status
+
+# stop immugw service
+./immuadmin service immugw stop
+
+# start immugw service
+./immuadmin service immugw start
 ~~~
 
 </terminal>
 </div>
 <div class="column _padding-left-2">
-<img :src="$withBase('/features/intuitive-setup4.svg')" alt="Immudb - Made for the real world" />
+<img :src="$withBase('/features/intuitive-setup4.svg')" alt="immudb - intuitive setup" />
 
 ## Intuitive setup 
-Lorem ipsum dolor sit amet:
-- Aeneur cetir met
-- Savem lorem livem
+immudb is build with simplicity in mind:
+- Use the prebuild binaries or Docker container images for a fast start
+- Install, manage and run immudb and immugw as services (use 'immuadmin service')
+- Simple make command integration if you want to build the applications yourself
+- RESTful interfaces and easy to use clients
+- Combine with any existing application 
 
 </div>
 </div>
@@ -154,22 +164,25 @@ Lorem ipsum dolor sit amet:
 <div class="column _padding-right-2">
 <img :src="$withBase('/features/consistency-check2.svg')" alt="Immudb - Made for the real world" />
     
-## Consistency check
-Lorem ipsum dolor sit amet:
-- Aeneur cetir met
-- Savem lorem livem
+## Consistency check built-in
+immudb architecture has built-in verification and audit functionality:
+- immudb server is continuously checking disk/memory consistency 
+- immugw is continuously checking the data consistency and integrity
+- immuclient has built-in data consistency and integrity checks
+- API's provide data ownership proof, verification and integrity functions
 
 </div>
 <div class="column terminal-column">
 <terminal title="immudb">
 
 ~~~go
-// Write value
-key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
-index, err := client.Set(ctx, key1, value1)
+// built-in verification for every entry
+verifiedItem, err := client.SafeGet(ctx, key2)
 if err != nil {
     exit(err)
 }
+fmt.Println("   SafeGet - fetch and verify entry:")
+printItem(nil, nil, verifiedItem)
 ~~~
 
 </terminal>
