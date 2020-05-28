@@ -22,7 +22,7 @@ Environment variables:
   IMMUDB_MTLS=false
   IMMUDB_AUTH=false
   IMMUDB_DETACHED=false
-  IMMUDB_CONSISTENCY-CHECK=true
+  IMMUDB_CONSISTENCY_CHECK=true
   IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
   IMMUDB_CERTIFICATE=./tools/mtls/3_application/certs/localhost.cert.pem
   IMMUDB_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
@@ -91,25 +91,27 @@ Available Commands:
   version     Show the immugw version
 
 Flags:
-  -a, --address string          immugw host address (default "127.0.0.1")
-      --certificate string      server certificate file path (default "./tools/mtls/4_client/certs/localhost.cert.pem")
-      --clientcas string        clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
-      --config string           config file (default path are configs or $HOME. Default filename is immugw.toml)
-  -d, --detached                run immudb in background
-      --dir string              program files folder (default ".")
-  -h, --help                    help for immugw
-  -k, --immudb-address string   immudb host address (default "127.0.0.1")
-  -j, --immudb-port int         immudb port number (default 3322)
-      --logfile string          log path with filename. E.g. /tmp/immugw/immugw.log
-  -m, --mtls                    enable mutual tls
-      --pidfile string          pid path with filename. E.g. /var/run/immugw.pid
-      --pkey string             server private key path (default "./tools/mtls/4_client/private/localhost.key.pem")
-  -p, --port int                immugw port number (default 3323)
-      --servername string       used to verify the hostname on the returned certificates (default "localhost")
+  -a, --address string            immugw host address (default "127.0.0.1")
+      --audit                     enable audit mode (continuously fetches latest root from server, checks consistency against a local root and saves the latest root locally)
+      --audit-interval duration   interval at which audit should run (default 5m0s)
+      --audit-password string     immudb password used to login during audit
+      --audit-username string     immudb username used to login during audit (default "immugwauditor")
+      --certificate string        server certificate file path (default "./tools/mtls/4_client/certs/localhost.cert.pem")
+      --clientcas string          clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
+      --config string             config file (default path are configs or $HOME. Default filename is immugw.toml)
+  -d, --detached                  run immudb in background
+      --dir string                program files folder (default ".")
+  -h, --help                      help for immugw
+  -k, --immudb-address string     immudb host address (default "127.0.0.1")
+  -j, --immudb-port int           immudb port number (default 3322)
+      --logfile string            log path with filename. E.g. /tmp/immugw/immugw.log
+  -m, --mtls                      enable mutual tls
+      --pidfile string            pid path with filename. E.g. /var/run/immugw.pid
+      --pkey string               server private key path (default "./tools/mtls/4_client/private/localhost.key.pem")
+  -p, --port int                  immugw port number (default 3323)
+      --servername string         used to verify the hostname on the returned certificates (default "localhost")
 
 Use "immugw [command] --help" for more information about a command.
-
-
 ```
 
 ## immuadmin
@@ -142,7 +144,7 @@ Available Commands:
   set         Update server config items: auth (none|password|cryptosig), mtls (true|false)
   stats       Show statistics as text or visually with the '-v' option. Run 'immuadmin stats -h' for details.
   status      Show heartbeat status
-  user        Perform various user-related operations: list, create, delete, change password
+  user        Perform various user-related operations: list, create, deactivate, change password, set permissions
   version     Show the immuadmin version
 
 Flags:
@@ -181,11 +183,13 @@ Usage:
   immuclient [command]
 
 Available Commands:
+  audit-mode        Starts immuclient as daemon in auditor mode. Run 'immuclient audit-mode help' for details
   check-consistency Check consistency for the specified index and hash
   count             Count keys having the specified prefix
   current           Return the last merkle tree root and index stored locally
   get               Get item having the specified key
   getByIndex        Return an element by index
+  getRawBySafeIndex Return an element by index
   help              Help about any command
   history           Fetch history for the item having the specified key
   inclusion         Check if specified index is included in the current tree
@@ -207,17 +211,24 @@ Available Commands:
   zscan             Iterate over a sorted set
 
 Flags:
-      --certificate string      server certificate file path (default "./tools/mtls/4_client/certs/localhost.cert.pem")
-      --clientcas string        clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
-      --config string           config file (default path are configs or $HOME. Default filename is immuclient.toml)
-  -h, --help                    help for immuclient
-  -a, --immudb-address string   immudb host address (default "127.0.0.1")
-  -p, --immudb-port int         immudb port number (default 3322)
-  -m, --mtls                    enable mutual tls
-      --pkey string             server private key path (default "./tools/mtls/4_client/private/localhost.key.pem")
-      --servername string       used to verify the hostname on the returned certificates (default "localhost")
-      --tokenfile string        authentication token file (default path is $HOME or binary location; default filename is token) (default "token")
-      --value-only              returning only values for get operations
+      --audit-password string    immudb password used to login during audit
+      --audit-username string    immudb username used to login during audit
+      --certificate string       server certificate file path (default "./tools/mtls/4_client/certs/localhost.cert.pem")
+      --clientcas string         clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
+      --config string            config file (default path are configs or $HOME. Default filename is immuclient.toml)
+      --dir string               Main directory for audit process tool to initialize (default "/tmp")
+  -h, --help                     help for immuclient
+  -a, --immudb-address string    immudb host address (default "127.0.0.1")
+  -p, --immudb-port int          immudb port number (default 3322)
+  -m, --mtls                     enable mutual tls
+      --pkey string              server private key path (default "./tools/mtls/4_client/private/localhost.key.pem")
+      --prometheus-host string   Launch host of the Prometheus server. (default "127.0.0.1")
+      --prometheus-port string   Launch port of the Prometheus server. (default "9477")
+      --roots-filepath string    Filepath for storing root hashes after every successful audit loop. Default is tempdir of every OS. (default "/tmp/")
+      --servername string        used to verify the hostname on the returned certificates (default "localhost")
+      --tokenfile string         authentication token file (default path is $HOME or binary location; default filename is token) (default "token")
+      --value-only               returning only values for get operations
 
 Use "immuclient [command] --help" for more information about a command.
+
 ```
