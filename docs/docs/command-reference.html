@@ -7,7 +7,7 @@
     <meta name="generator" content="VuePress 1.5.0">
     
     <meta name="description" content="The lightweight, high-speed immutable database for systems and applications.">
-    <link rel="preload" href="/assets/css/0.styles.0d730eff.css" as="style"><link rel="preload" href="/assets/js/app.3aa4c1ba.js" as="script"><link rel="preload" href="/assets/js/2.ec9d4911.js" as="script"><link rel="preload" href="/assets/js/3.45e2a264.js" as="script"><link rel="preload" href="/assets/js/11.a115f566.js" as="script"><link rel="prefetch" href="/assets/js/10.2c7e7345.js"><link rel="prefetch" href="/assets/js/12.26fac5ce.js"><link rel="prefetch" href="/assets/js/13.995d680b.js"><link rel="prefetch" href="/assets/js/14.25f91bdb.js"><link rel="prefetch" href="/assets/js/15.c40e93f8.js"><link rel="prefetch" href="/assets/js/16.4d5d15a0.js"><link rel="prefetch" href="/assets/js/17.3325104f.js"><link rel="prefetch" href="/assets/js/18.4f5b7d68.js"><link rel="prefetch" href="/assets/js/19.f564976c.js"><link rel="prefetch" href="/assets/js/20.f1823fdc.js"><link rel="prefetch" href="/assets/js/21.fce3d7c3.js"><link rel="prefetch" href="/assets/js/22.85c81c70.js"><link rel="prefetch" href="/assets/js/4.5856f422.js"><link rel="prefetch" href="/assets/js/5.862a61c8.js"><link rel="prefetch" href="/assets/js/6.3ee8c1a1.js"><link rel="prefetch" href="/assets/js/7.1dbe62a1.js"><link rel="prefetch" href="/assets/js/8.2c21299e.js"><link rel="prefetch" href="/assets/js/9.706b7c0a.js">
+    <link rel="preload" href="/assets/css/0.styles.0d730eff.css" as="style"><link rel="preload" href="/assets/js/app.cb1de680.js" as="script"><link rel="preload" href="/assets/js/2.ec9d4911.js" as="script"><link rel="preload" href="/assets/js/3.45e2a264.js" as="script"><link rel="preload" href="/assets/js/11.a7d3360c.js" as="script"><link rel="prefetch" href="/assets/js/10.2c7e7345.js"><link rel="prefetch" href="/assets/js/12.26fac5ce.js"><link rel="prefetch" href="/assets/js/13.995d680b.js"><link rel="prefetch" href="/assets/js/14.25f91bdb.js"><link rel="prefetch" href="/assets/js/15.c40e93f8.js"><link rel="prefetch" href="/assets/js/16.4d5d15a0.js"><link rel="prefetch" href="/assets/js/17.3325104f.js"><link rel="prefetch" href="/assets/js/18.4f5b7d68.js"><link rel="prefetch" href="/assets/js/19.f564976c.js"><link rel="prefetch" href="/assets/js/20.f1823fdc.js"><link rel="prefetch" href="/assets/js/21.fce3d7c3.js"><link rel="prefetch" href="/assets/js/22.85c81c70.js"><link rel="prefetch" href="/assets/js/4.5856f422.js"><link rel="prefetch" href="/assets/js/5.862a61c8.js"><link rel="prefetch" href="/assets/js/6.3ee8c1a1.js"><link rel="prefetch" href="/assets/js/7.1dbe62a1.js"><link rel="prefetch" href="/assets/js/8.2c21299e.js"><link rel="prefetch" href="/assets/js/9.706b7c0a.js">
     <link rel="stylesheet" href="/assets/css/0.styles.0d730eff.css">
   </head>
   <body>
@@ -34,7 +34,7 @@ Environment variables:
   <span class="token assign-left variable">IMMUDB_MTLS</span><span class="token operator">=</span>false
   <span class="token assign-left variable">IMMUDB_AUTH</span><span class="token operator">=</span>false
   <span class="token assign-left variable">IMMUDB_DETACHED</span><span class="token operator">=</span>false
-  IMMUDB_CONSISTENCY-CHECK<span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_CONSISTENCY_CHECK</span><span class="token operator">=</span>true
   <span class="token assign-left variable">IMMUDB_PKEY</span><span class="token operator">=</span>./tools/mtls/3_application/private/localhost.key.pem
   <span class="token assign-left variable">IMMUDB_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/3_application/certs/localhost.cert.pem
   <span class="token assign-left variable">IMMUDB_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
@@ -94,25 +94,27 @@ Available Commands:
   version     Show the immugw version
 
 Flags:
-  -a, --address string          immugw <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
-      --certificate string      server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
-      --clientcas string        clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
-      --config string           config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immugw.toml<span class="token punctuation">)</span>
-  -d, --detached                run immudb <span class="token keyword">in</span> background
-      --dir string              program files folder <span class="token punctuation">(</span>default <span class="token string">&quot;.&quot;</span><span class="token punctuation">)</span>
-  -h, --help                    <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immugw
-  -k, --immudb-address string   immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
-  -j, --immudb-port int         immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
-      --logfile string          log path with filename. E.g. /tmp/immugw/immugw.log
-  -m, --mtls                    <span class="token builtin class-name">enable</span> mutual tls
-      --pidfile string          pid path with filename. E.g. /var/run/immugw.pid
-      --pkey string             server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
-  -p, --port int                immugw port number <span class="token punctuation">(</span>default <span class="token number">3323</span><span class="token punctuation">)</span>
-      --servername string       used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+  -a, --address string            immugw <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+      --audit                     <span class="token builtin class-name">enable</span> audit mode <span class="token punctuation">(</span>continuously fetches latest root from server, checks consistency against a <span class="token builtin class-name">local</span> root and saves the latest root locally<span class="token punctuation">)</span>
+      --audit-interval duration   interval at <span class="token function">which</span> audit should run <span class="token punctuation">(</span>default 5m0s<span class="token punctuation">)</span>
+      --audit-password string     immudb password used to login during audit
+      --audit-username string     immudb username used to login during audit <span class="token punctuation">(</span>default <span class="token string">&quot;immugwauditor&quot;</span><span class="token punctuation">)</span>
+      --certificate string        server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string          clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string             config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immugw.toml<span class="token punctuation">)</span>
+  -d, --detached                  run immudb <span class="token keyword">in</span> background
+      --dir string                program files folder <span class="token punctuation">(</span>default <span class="token string">&quot;.&quot;</span><span class="token punctuation">)</span>
+  -h, --help                      <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immugw
+  -k, --immudb-address string     immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -j, --immudb-port int           immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+      --logfile string            log path with filename. E.g. /tmp/immugw/immugw.log
+  -m, --mtls                      <span class="token builtin class-name">enable</span> mutual tls
+      --pidfile string            pid path with filename. E.g. /var/run/immugw.pid
+      --pkey string               server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+  -p, --port int                  immugw port number <span class="token punctuation">(</span>default <span class="token number">3323</span><span class="token punctuation">)</span>
+      --servername string         used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
 
 Use <span class="token string">&quot;immugw [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
-
-
 </code></pre></div><h2 id="immuadmin"><a href="#immuadmin" class="header-anchor">#</a> immuadmin</h2> <p>For security reasons we recommend using immuadmin only on the same system as immudb. User management is restricted to localhost usage. Simply run <code>./immuadmin</code> on the same machine.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>CLI admin client <span class="token keyword">for</span> immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
 
 Environment variables:
@@ -138,7 +140,7 @@ Available Commands:
   <span class="token builtin class-name">set</span>         Update server config items: auth <span class="token punctuation">(</span>none<span class="token operator">|</span>password<span class="token operator">|</span>cryptosig<span class="token punctuation">)</span>, mtls <span class="token punctuation">(</span>true<span class="token operator">|</span><span class="token boolean">false</span><span class="token punctuation">)</span>
   stats       Show statistics as text or visually with the <span class="token string">'-v'</span> option. Run <span class="token string">'immuadmin stats -h'</span> <span class="token keyword">for</span> details.
   status      Show heartbeat status
-  user        Perform various user-related operations: list, create, delete, change password
+  user        Perform various user-related operations: list, create, deactivate, change password, <span class="token builtin class-name">set</span> permissions
   version     Show the immuadmin version
 
 Flags:
@@ -170,11 +172,13 @@ Usage:
   immuclient <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
 
 Available Commands:
+  audit-mode        Starts immuclient as daemon <span class="token keyword">in</span> auditor mode. Run <span class="token string">'immuclient audit-mode help'</span> <span class="token keyword">for</span> details
   check-consistency Check consistency <span class="token keyword">for</span> the specified index and <span class="token builtin class-name">hash</span>
   count             Count keys having the specified prefix
   current           Return the last merkle tree root and index stored locally
   get               Get item having the specified key
   getByIndex        Return an element by index
+  getRawBySafeIndex Return an element by index
   <span class="token builtin class-name">help</span>              Help about any <span class="token builtin class-name">command</span>
   <span class="token function">history</span>           Fetch <span class="token function">history</span> <span class="token keyword">for</span> the item having the specified key
   inclusion         Check <span class="token keyword">if</span> specified index is included <span class="token keyword">in</span> the current tree
@@ -196,19 +200,26 @@ Available Commands:
   zscan             Iterate over a sorted <span class="token builtin class-name">set</span>
 
 Flags:
-      --certificate string      server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
-      --clientcas string        clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
-      --config string           config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immuclient.toml<span class="token punctuation">)</span>
-  -h, --help                    <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immuclient
-  -a, --immudb-address string   immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
-  -p, --immudb-port int         immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
-  -m, --mtls                    <span class="token builtin class-name">enable</span> mutual tls
-      --pkey string             server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
-      --servername string       used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
-      --tokenfile string        authentication token <span class="token function">file</span> <span class="token punctuation">(</span>default path is <span class="token environment constant">$HOME</span> or binary location<span class="token punctuation">;</span> default filename is token<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;token&quot;</span><span class="token punctuation">)</span>
-      --value-only              returning only values <span class="token keyword">for</span> get operations
+      --audit-password string    immudb password used to login during audit
+      --audit-username string    immudb username used to login during audit
+      --certificate string       server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string         clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string            config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immuclient.toml<span class="token punctuation">)</span>
+      --dir string               Main directory <span class="token keyword">for</span> audit process tool to initialize <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp&quot;</span><span class="token punctuation">)</span>
+  -h, --help                     <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immuclient
+  -a, --immudb-address string    immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -p, --immudb-port int          immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+  -m, --mtls                     <span class="token builtin class-name">enable</span> mutual tls
+      --pkey string              server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+      --prometheus-host string   Launch <span class="token function">host</span> of the Prometheus server. <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+      --prometheus-port string   Launch port of the Prometheus server. <span class="token punctuation">(</span>default <span class="token string">&quot;9477&quot;</span><span class="token punctuation">)</span>
+      --roots-filepath string    Filepath <span class="token keyword">for</span> storing root hashes after every successful audit loop. Default is tempdir of every OS. <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp/&quot;</span><span class="token punctuation">)</span>
+      --servername string        used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+      --tokenfile string         authentication token <span class="token function">file</span> <span class="token punctuation">(</span>default path is <span class="token environment constant">$HOME</span> or binary location<span class="token punctuation">;</span> default filename is token<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;token&quot;</span><span class="token punctuation">)</span>
+      --value-only               returning only values <span class="token keyword">for</span> get operations
 
 Use <span class="token string">&quot;immuclient [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+
 </code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
             ←
             <a href="/docs/quickstart.html" class="prev">
@@ -218,6 +229,6 @@ Use <span class="token string">&quot;immuclient [command] --help&quot;</span> <s
             </a>
             →
         </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.3aa4c1ba.js" defer></script><script src="/assets/js/2.ec9d4911.js" defer></script><script src="/assets/js/3.45e2a264.js" defer></script><script src="/assets/js/11.a115f566.js" defer></script>
+    <script src="/assets/js/app.cb1de680.js" defer></script><script src="/assets/js/2.ec9d4911.js" defer></script><script src="/assets/js/3.45e2a264.js" defer></script><script src="/assets/js/11.a7d3360c.js" defer></script>
   </body>
 </html>
