@@ -30,7 +30,6 @@ module.exports = {
                     '/docs/immugw/',
                     '/docs/immuadmin/',
                     '/docs/immuclient/',
-                    '/docs/immudb/consistency-checker',
 				]
 			},
 			// {
