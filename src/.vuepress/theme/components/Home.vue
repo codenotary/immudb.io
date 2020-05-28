@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main id="homepage">
         <header class="hero">
             <div class="hero-content">
                 <img v-if="data.heroImage" :src="$withBase(data.heroImage)" :alt="data.heroAlt || 'hero'">
@@ -58,8 +58,9 @@ export default {
 *
     box-sizing border-box
 
-.header-anchor
-    display none
+#homepage
+    .header-anchor
+        display none
 
 .hero
     text-align center
