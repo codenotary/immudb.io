@@ -94,7 +94,7 @@ immudb has been developed with performance, scalability and versatility in mind.
 <section class="section">
 <div class="columns">
 <div class="column _padding-right-2">
-<font-awesome-icon icon="globe-americas"></font-awesome-icon>
+<img :src="$withBase('/features/real-world.svg')" alt="Immudb - Made for the real world" />
 
 ## Made for the real world
 Immudb is an indispensable asset when it comes to tamper-proof data:
@@ -138,8 +138,8 @@ if err != nil {
 </terminal>
 </div>
 <div class="column _padding-left-2">
-<font-awesome-icon icon="paper-plane"></font-awesome-icon>
-   
+<img :src="$withBase('/features/intuitive-setup4.svg')" alt="Immudb - Made for the real world" />
+
 ## Intuitive setup 
 Lorem ipsum dolor sit amet:
 - Aeneur cetir met
@@ -152,8 +152,8 @@ Lorem ipsum dolor sit amet:
 <section class="section">
 <div class="columns">
 <div class="column _padding-right-2">
-<font-awesome-icon icon="link"></font-awesome-icon>
-     
+<img :src="$withBase('/features/consistency-check2.svg')" alt="Immudb - Made for the real world" />
+    
 ## Consistency check
 Lorem ipsum dolor sit amet:
 - Aeneur cetir met

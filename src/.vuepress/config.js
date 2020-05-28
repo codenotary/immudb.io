@@ -23,7 +23,7 @@ module.exports = {
                 ]
 			},
 			{
-				title: 'Compoments',
+				title: 'Components',
 				collapsable: false,
 				children: [
                     '/docs/immudb/',
