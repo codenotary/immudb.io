@@ -96,7 +96,7 @@ immudb has been developed with performance, scalability and versatility in mind.
 <div class="column _padding-right-2">
 <img :src="$withBase('/features/real-world.svg')" alt="Immudb - Made for the real world" />
 
-## Very high throughput, append-only database
+## Very high throughput, immutable database with cryptographic verification
 immudb is an indispensable asset when it comes to tamper-proof data:
 - Store every update to sensitive database fields (credit card or bank account data) of an existing application database
 - Store CI/CD recipes to build and deployment pipelines
