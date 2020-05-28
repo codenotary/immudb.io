@@ -15,7 +15,11 @@ module.exports = {
 				title: 'Get started',
 				collapsable: false,
 				children: [
-					'/docs/introduction',
+                    '/docs/introduction',
+                    '/docs/how-it-works',
+                    '/docs/quickstart',
+                    '/docs/command-reference',
+                    '/docs/apis-and-interfaces',
 				]
 			},
 			{
