@@ -1,4 +1,4 @@
-# Introduction
+# immudb
 
 ## Contents
  - [Build](#build)
