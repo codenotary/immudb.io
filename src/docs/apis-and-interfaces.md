@@ -4,7 +4,7 @@
 [Golang code snippets](immudb/golang.md)
 
 ## Curl examples immugw
-[Curl code snippets](immugw/index.md)
+[Curl code snippets](immugw/curl.md)
 
 
 ## immudb RESTful API reference
