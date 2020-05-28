@@ -3,6 +3,7 @@
 work in progress
 
 ## Contents
+ - [Latest binaries](#latest-binaries)
  - [Build](#build)
  - [Docker](#docker)
  - [Run immugw](#run-immugw)
@@ -12,6 +13,10 @@ work in progress
  - [API](#api)
  - [Authentication](#authentication)
  - [Auditor](#auditor)
+
+## Latest binaries
+
+[Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
 
 ## Build
 
