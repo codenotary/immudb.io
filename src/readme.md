@@ -129,17 +129,17 @@ printItem(key2, value2, verifiedIndex)
 <terminal title="immudb">
 
 ~~~bash
+# install immudb service
+./immuadmin service immudb install
+
+# check current immudb service status
+./immuadmin service immudb status
+
 # install immugw service
 ./immuadmin service immugw install
 
-# check current immugw service status
+# check immugw service
 ./immuadmin service immugw status
-
-# stop immugw service
-./immuadmin service immugw stop
-
-# start immugw service
-./immuadmin service immugw start
 ~~~
 
 </terminal>
