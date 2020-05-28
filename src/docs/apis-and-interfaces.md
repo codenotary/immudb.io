@@ -1,10 +1,10 @@
 # APIs and interfaces
 
 ## Golang immudb
-[Golang code snippets](immudb/introduction.md)
+[Golang code snippets](immudb/golang.md)
 
 ## Curl examples immugw
-[Curl code snippets](immugw/introduction.md)
+[Curl code snippets](immugw/index.md)
 
 
 ## immudb RESTful API reference
