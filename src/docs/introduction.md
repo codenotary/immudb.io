@@ -38,9 +38,9 @@ The latest release binaries can be found [here](https://github.com/codenotary/im
 
 ## Contents
 
-1.  [Quickstart](/docs/quickstart) - How to try it now on your systems, get a Docker container running in seconds
-2.  [Command reference](/docs/command-reference) - Command reference of the components
-3.  [How it works](/docs/how-it-works) - How does immudb work internally?
+1.  [How it works](/docs/how-it-works) - How does immudb work internally?
+2.  [Quickstart](/docs/quickstart) - How to try it now on your systems, get a Docker container running in seconds
+3.  [Command reference](/docs/command-reference) - Command reference of the components
 4.  [APIs and interfaces](/docs/apis-and-interfaces) - API reference and code examples
 
 ## License
