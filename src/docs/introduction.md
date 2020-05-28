@@ -39,7 +39,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 
 The latest release binaries can be found [here](https://github.com/codenotary/immudb/releases )
 
-## Contents
+## Further readings
 
 1.  [How it works](how-it-works.md) - How does immudb work internally?
 2.  [Quickstart](quickstart.md) - How to try it now on your systems, get a Docker container running in seconds
