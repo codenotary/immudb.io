@@ -1,6 +1,6 @@
 # Introduction
 
-## Table of Contents
+## Contents
  - [Import](#import)
  - [Start immudb](#start-immudb)
  - [Connect a new client](#connect-a-new-client)
