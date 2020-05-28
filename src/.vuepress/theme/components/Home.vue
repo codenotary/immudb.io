@@ -58,6 +58,9 @@ export default {
 *
     box-sizing border-box
 
+.header-anchor
+    display none
+
 .hero
     text-align center
     display block

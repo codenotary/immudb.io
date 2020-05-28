@@ -88,37 +88,99 @@ immudb has been developed with performance, scalability and versatility in mind.
     </section>
 </div>
 
+<!-- TERMINAL SECTIONS START -->
+<div class="section-wrapper" id="code-examples">
+<!-- TERMINAL SECTION 1 -->
+<section class="section">
+<div class="columns">
+<div class="column _padding-right-2">
+<font-awesome-icon icon="globe-americas"></font-awesome-icon>
 
-<div class="section-wrapper">
-    <section class="section">
-        <div class="columns">
-<div class="column">
-            
 ## Made for the real world
 Immudb is an indispensable asset when it comes to tamper-proof data:
-
 - Store every update to sensitive database fields (credit card or bank account data) of an existing application database
-- Store CI/CD recipes to protect build and deployment pipelines
+- Store CI/CD recipes to build and deployment pipelines
 - Store public certificates
 - Store tamper-proof log streams (i. e. audit logs) 
 
 </div>
-<div class="column">
+<div class="column terminal-column">
 <terminal title="immudb">
 
 ~~~go
-	// Write value
-	key1, value1 := []byte("client:Client1"), []byte("Visa 1514284849020756 09/21")
-	index, err := client.Set(ctx, key1, value1)
-	if err != nil {
-		exit(err)
-	}
+// Write value
+key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
+index, err := client.Set(ctx, key1, value1)
+if err != nil {
+    exit(err)
+}
 ~~~
 
 </terminal>
 </div>
-        </div>
-    </section>
+</div>
+</section>
+<!-- TERMINAL SECTION 2 -->
+<section class="section">
+<div class="columns">
+<div class="column terminal-column">
+<terminal title="immudb">
+
+~~~go
+// Write value
+key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
+index, err := client.Set(ctx, key1, value1)
+if err != nil {
+    exit(err)
+}
+~~~
+
+</terminal>
+</div>
+<div class="column _padding-left-2">
+<font-awesome-icon icon="paper-plane"></font-awesome-icon>
+   
+## Intuitive setup 
+Lorem ipsum dolor sit amet:
+- Aeneur cetir met
+- Savem lorem livem
+
+</div>
+</div>
+</section>
+<!-- TERMINAL SECTION 3 -->
+<section class="section">
+<div class="columns">
+<div class="column _padding-right-2">
+<font-awesome-icon icon="link"></font-awesome-icon>
+     
+## Consistency check
+Lorem ipsum dolor sit amet:
+- Aeneur cetir met
+- Savem lorem livem
+
+</div>
+<div class="column terminal-column">
+<terminal title="immudb">
+
+~~~go
+// Write value
+key1, value1 := []byte("client"), []byte("Visa 1514284849020756 09/21")
+index, err := client.Set(ctx, key1, value1)
+if err != nil {
+    exit(err)
+}
+~~~
+
+</terminal>
+</div>
+</div>
+</section>
+</div>
+<!-- TERMINAL SECTIONS END -->
+
+
+<div class="section-wrapper">
     <section class="section" id="usedby">
         <div class="columns">
             <div class="column">
@@ -131,14 +193,12 @@ Immudb is an indispensable asset when it comes to tamper-proof data:
 
 <div class="section-wrapper -gray-10" id="performance">
     <section class="section">
-            
-<div class="section-center">
+        <div class="section-center">
 
 ## Unmatched performance
 Immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
 
 </div>
-
 <div class="columns">
     <div class="column">
         <img :src="$withBase('/benchmark/throughput_read.png')" alt="Immudb - Throughput read" />
