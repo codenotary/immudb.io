@@ -16,6 +16,10 @@ module.exports = {
 				collapsable: false,
 				children: [
 					'/docs/introduction',
+					'/docs/quickstart',
+					'/docs/command-reference',
+					'/docs/how-it-works',
+					'/docs/apis-and-interfaces',
 				]
 			},
 			{
