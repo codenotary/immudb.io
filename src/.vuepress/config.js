@@ -1,6 +1,6 @@
 const websiteUrl = 'https://immudb.io';
 const title = 'immudb - The lightweight, high-speed immutable database';
-const description = 'The lightweight, high-speed immutable database for systems and applications.';
+const description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.';
 const schemaOrg = `{
     "@context": "https://schema.org",
     "@type": "WebSite",
