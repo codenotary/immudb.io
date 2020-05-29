@@ -176,7 +176,7 @@ The important lines to change are `auth = true` and `address = "0.0.0.0"` to ena
 
 Then restart/start immudb.
 
-### Receive the admin credentials
+### Get the admin credentials
 
 You need to run `immuadmin` locally on the same system as immudb (for security reasons) and connect to immudb:
 
@@ -262,7 +262,7 @@ work in progress
 Starting version 0.6.0 of immudb, you can use immugw (REST API), immuclient (interactive) or GoLang as immudb database clients.
 Depending on the user settings and permissions, you can have read-only and read-write clients.
 
-[APIs and interfaces](apis-and-interfaces.md) - API reference and code examples
+[APIs and interfaces](/apis-and-interfaces.md) - API reference and code examples
 
 More driver libraries are coming soon (Java, Node.js, Python, .net aso.)
 
