@@ -248,6 +248,17 @@ The results of the auditors are provided by a Prometheus end point.
 Start interactive:
 `immugw --audit`
 
+Service configuration:
+To enable auditor, you need to edit /etc/immudb/immugw.toml and add the following section:
+
+```bash
+audit = true # false is default
+audit-interval = "5m" # suffixes: "s", "m", "h", examples: 10s, 5m 1h
+audit-username = "" # when immudb authentication is enabled, use read-only user credentials here
+audit-password = "" # and the password
+```
+Restart the immugw service afterwards - `immuadmin service immugw restart`
+
 **immugw Port: 9476 - http://immugw-auditor:9476/metrics**
 
 example output: 
@@ -275,7 +286,7 @@ Start interactive:
 Install service:
 `immuclient audit-mode install`
 
-**immugw Port: 9477 - http://immuclient-auditor:9477/metrics **
+**immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
 example output: 
 
