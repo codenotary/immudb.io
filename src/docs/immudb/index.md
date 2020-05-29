@@ -79,7 +79,31 @@ docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb -e IMMUDB_ADDRESS="0.0
 
 ## Configuration
 
-work in progress
+immudb can be configured using environment variables, flags or a config file.
+
+* `immudb --help` shows you all available flags and environment variables.
+* `/etc/immudb/immudb.toml` is used as a default configuration file
+
+### Environment variables
+
+The environment variables are the most popular way to configure Docker container:
+
+```bash
+  IMMUDB_DIR=.
+  IMMUDB_NETWORK=tcp
+  IMMUDB_ADDRESS=127.0.0.1
+  IMMUDB_PORT=3322
+  IMMUDB_DBNAME=immudb
+  IMMUDB_PIDFILE=
+  IMMUDB_LOGFILE=
+  IMMUDB_MTLS=false
+  IMMUDB_AUTH=false
+  IMMUDB_DETACHED=false
+  IMMUDB_CONSISTENCY_CHECK=true
+  IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
+  IMMUDB_CERTIFICATE=./tools/mtls/3_application/certs/localhost.cert.pem
+  IMMUDB_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+```
 
 ## immuadmin
 
@@ -235,7 +259,12 @@ work in progress
 
 ## Clients
 
-work in progress
+Starting version 0.6.0 of immudb, you can use immugw (REST API), immuclient (interactive) or GoLang as immudb database clients.
+Depending on the user settings and permissions, you can have read-only and read-write clients.
+
+[APIs and interfaces](apis-and-interfaces.md) - API reference and code examples
+
+More driver libraries are coming soon (Java, Node.js, Python, .net aso.)
 
 ## Auditors
 
