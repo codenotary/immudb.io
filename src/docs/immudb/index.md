@@ -101,7 +101,7 @@ GOOS=windows GOARCH=amd64 make immuadmin-static
 
 Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
 
-```
+```bash
 # install immudb service
 ./immuadmin service immudb install
 
@@ -126,7 +126,106 @@ The linux service is using the following defaults:
 
 ## Authentication
 
-work in progress
+immudb supports multiple user accounts that can have admin, read-only or read-write permission.
+All permissions are stored in a different database and each gRPC call has an associated minimum permissions.
+
+To enable authentication you need to change the configuration file `/etc/immudb/immudb.toml`
+
+Example:
+```toml
+dir = "/var/lib/immudb"
+network = "tcp"
+address = "0.0.0.0"
+port = 3322
+dbname = "data"
+pidfile = "/var/lib/immudb/immudb.pid"
+logfile = "/var/log/immudb/immudb.log"
+mtls = false
+detached = false
+auth = true
+pkey = "/etc/immudb/mtls/3_application/private/localhost.key.pem"
+certificate = "/etc/immudb/mtls/3_application/certs/localhost.cert.pem"
+clientcas = "/etc/immudb/mtls/2_intermediate/certs/ca-chain.cert.pem"
+```
+
+The important lines to change are `auth = true` and `address = "0.0.0.0"` to enable authentication and listening on all interfaces.
+
+Then restart/start immudb.
+
+### Receive the admin credentials
+
+You need to run `immuadmin` locally on the same system as immudb (for security reasons) and connect to immudb:
+
+`immuadmin login immu`
+
+You^ll receive the following message:
+
+```bash
+Using config file: /etc/immudb/immudb.toml
+===============
+This looks like the very first admin login attempt, hence the following credentials have been generated:
+---
+username: immu
+password: yourpassword
+---
+IMPORTANT: This is the only time they are shown, so make sure you remember them.
+NOTE: You have not been automatically logged in. To login please run the command 'immuadmin login immu' with the above-mentioned password. You can change your password at any time with one of your liking using the command 'immuadmin user change-password immu'
+===============
+```
+
+**make sure to note that the password for the immu user as its your master password**
+
+### User management
+
+To manage user, run `immuadmin user` after you logged in `immuadmin login immu`
+
+```bash
+Please specify a user action.
+Usage: immuadmin user list|create|change-password|set-permission|deactivate [username] [read|readwrite]
+Help : immuadmin user -h
+```
+
+#### List user 
+
+To get a list of all existing user including their permissions, run `immuadmin user list`
+
+#### Add user 
+
+Let's create a read-only user, called ro `immuadmin user create <username> read`
+
+```bash
+immuadmin user create ro read
+NOTE: password must have between 8 and 32 letters, digits and special characters of which at least 1 uppercase letter, 1 digit and 1 special character.
+Choose a password for ro:
+Confirm password:
+User ro created
+```
+
+and a read-write user, called rw `immuadmin user create rw readwrite`
+
+#### Change user permission
+
+To change the ro user permission from read-only to read-write, run `immuadmin user set-permission ro readwrite`
+Check the change, using `immuadmin user list`
+
+```bash
+immuadmin user list
+Using config file: /etc/immudb/immudb.toml
+3 user(s):
+-  --------  ----    -----------
+#  Username  Role    Permissions
+-  --------  ----    -----------
+1  immu      admin   admin
+2  ro        client  readwrite
+3  rw        client  readwrite
+-  --------  ----    -----------
+```
+
+#### Deactivate user 
+
+To deactivate an existing user, run `immuadmin user deactivate ro`
+
+
 
 ## Backup and Restore
 
