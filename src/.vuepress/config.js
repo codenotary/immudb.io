@@ -120,9 +120,24 @@ module.exports = {
 			// },
 		]
 	},
-    plugins: {
-        sitemap: {
+    plugins: [
+        ['@vuepress/blog', {
+            directories: [
+                {
+                    id: 'post',
+                    dirname: '_blog',
+                    path: '/blog/',
+                    layout: 'Blog',
+                    itemLayout: 'BlogPost',
+                    itemPermalink: '/blog/:year/:month/:day/:slug',
+                    pagination: {
+                        perPagePosts: 10,
+                    }
+                },
+            ]
+        }],
+        ['sitemap', {
             hostname: 'https://immudb.io'
-        }
-    }
+        }]
+    ]
 };

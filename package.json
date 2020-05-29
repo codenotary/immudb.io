@@ -15,9 +15,10 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "highlight.js": "^10.0.3",
     "vue-github-button": "^1.2.0",
-    "vuepress": "^1.4.0"
+    "vuepress": "^1.5.0"
   },
   "devDependencies": {
+    "@vuepress/plugin-blog": "^1.9.2",
     "@vuepress/plugin-register-components": "^1.5.0",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
