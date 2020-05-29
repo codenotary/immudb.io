@@ -1,11 +1,39 @@
+const websiteUrl = 'https://immudb.io';
+const title = 'immudb - The lightweight, high-speed immutable database';
+const description = 'The lightweight, high-speed immutable database for systems and applications.';
+const schemaOrg = `{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "${title}",
+        "url": "${websiteUrl}",
+        "logo": {
+            "@type": "ImageObject",
+            "url": {
+                "@type": "ImageObject",
+                "url": "https://immudb.io/logo.png",
+                "width": 1036,
+                "height": 367
+            }
+        }
+    },
+    "url": "${websiteUrl}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "${websiteUrl}"
+    },
+    "description": "${description}"
+}`;
+
 module.exports = {
     base: '/',
     dest: 'docs',
-	title: 'immudb - The lightweight, high-speed immutable database',
-	description: 'The lightweight, high-speed immutable database for systems and applications.',
+	title,
+	description,
 	extend: '@vuepress/theme-default',
     head: [
-        ['link', { rel: "canonical", href: "https://immudb.io/" }],
+        ['link', { rel: "canonical", href: websiteUrl }],
         ['link', { rel: "shortcut icon", type: "image/png", href: "/favicon/favicon.ico" }],
         ['link', { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" }],
         ['link', { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32x32.png" }],
@@ -19,17 +47,18 @@ module.exports = {
         ['meta', { name: "referrer", content: "no-referrer-when-downgrade" }],
         ['meta', { property: "og:site_name", content: "immudb" }],
         ['meta', { property: "og:type", content: "website" }],
-        ['meta', { property: "og:title", content: "immudb - The lightweight, high-speed immutable database" }],
-        ['meta', { property: "og:description", content: "Immudb is the lightweight, high-speed immutable database for systems and applications." }],
-        ['meta', { property: "og:url", content: "https://immudb.io/" }],
-        ['meta', { property: "article:publisher", content: "https://immudb.io" }],
+        ['meta', { property: "og:title", content: title }],
+        ['meta', { property: "og:description", content: description }],
+        ['meta', { property: "og:url", content: websiteUrl }],
+        ['meta', { property: "article:publisher", content: websiteUrl }],
         ['meta', { name: "twitter:card", content: "summary" }],
-        ['meta', { name: "twitter:title", content: "immudb - The lightweight, high-speed immutable database" }],
-        ['meta', { name: "twitter:description", content: "Immudb is the lightweight, high-speed immutable database for systems and applications." }],
-        ['meta', { name: "twitter:url", content: "https://immudb.io/" }],
+        ['meta', { name: "twitter:title", content: title }],
+        ['meta', { name: "twitter:description", content: description }],
+        ['meta', { name: "twitter:url", content: websiteUrl }],
         ['meta', { name: "twitter:site", content: "@immudb" }],
         ['meta', { name: "HandheldFriendly", content: "True" }],
-        ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }]
+        ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
+        ['script', { type: "application/ld+json" }, schemaOrg]
     ],
 	themeConfig: {
 		logo: '/logo.png',
@@ -90,5 +119,10 @@ module.exports = {
 			// 	]
 			// },
 		]
-	}
+	},
+    plugins: {
+        sitemap: {
+            hostname: 'https://immudb.io'
+        }
+    }
 };
