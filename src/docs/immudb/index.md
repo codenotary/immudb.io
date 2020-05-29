@@ -1,6 +1,7 @@
 # immudb
 
 ## Contents
+ - [Latest binaries](#latest-binaries)
  - [Build](#build)
  - [Docker](#docker)
  - [Run immudb](#run-immudb)
@@ -13,6 +14,13 @@
  - [Auditors](#auditors)
  - [Architecture](#architecture)
  - [Consistency Checker](#consistency-checker)
+
+## Latest binaries
+
+[Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
+
+If you run macOS you can also use Homebrew:
+'brew install immudb'
 
 ## Build
 
