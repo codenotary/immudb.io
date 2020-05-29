@@ -20,7 +20,8 @@
 [Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
 
 If you run macOS you can also use Homebrew:
-'brew install immudb'
+
+`brew install immudb`
 
 ## Build
 
