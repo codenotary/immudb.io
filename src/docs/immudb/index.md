@@ -225,7 +225,9 @@ Using config file: /etc/immudb/immudb.toml
 
 To deactivate an existing user, run `immuadmin user deactivate ro`
 
+#### Reactivate user 
 
+To reactivate a deactivated user account, you can simply set user permission again. Run `immuadmin user set-permission ro readwrite`
 
 ## Backup and Restore
 
@@ -237,11 +239,70 @@ work in progress
 
 ## Auditors
 
-work in progress
+Auditors make sure that the data consistency is guaranteed inside immudb. They do a random key value verification and a interval-based Merkle-tree consistency check (5 minutes default). The immugw and the immuclient provide auditor functionality that runs as a daemon process. It is recommended to run immugw and immuclient on different machines than immudb, so any tampering on the immudb server is automatically detected.
+
+The results of the auditors are provided by a Prometheus end point.
+
+### immugw auditor
+
+Start interactive:
+`immugw --audit`
+
+**immugw Port: 9476 - http://immugw-auditor:9476/metrics**
+
+example output: 
+
+```bash
+# HELP immugw_audit_curr_root_per_server Current root index used for the latest audit.
+# TYPE immugw_audit_curr_root_per_server gauge
+immugw_audit_curr_root_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 2
+# HELP immugw_audit_prev_root_per_server Previous root index used for the latest audit.
+# TYPE immugw_audit_prev_root_per_server gauge
+immugw_audit_prev_root_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 2
+# HELP immugw_audit_result_per_server Latest audit result (1 = ok, 0 = tampered).
+# TYPE immugw_audit_result_per_server gauge
+immugw_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1
+# HELP immugw_audit_run_at_per_server Timestamp in unix seconds at which latest audit run.
+# TYPE immugw_audit_run_at_per_server gauge
+immugw_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.590757033502689e+09
+```
+
+### immuclient auditor
+
+Start interactive:
+`immuclient audit-mode`
+
+Install service:
+`immuclient audit-mode install`
+
+**immugw Port: 9477 - http://immuclient-auditor:9477/metrics **
+
+example output: 
+
+```bash
+# HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.
+# TYPE immuclient_audit_curr_root_per_server gauge
+immuclient_audit_curr_root_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 2
+# HELP immuclient_audit_prev_root_per_server Previous root index used for the latest audit.
+# TYPE immuclient_audit_prev_root_per_server gauge
+immuclient_audit_prev_root_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} -1
+# HELP immuclient_audit_result_per_server Latest audit result (1 = ok, 0 = tampered).
+# TYPE immuclient_audit_result_per_server gauge
+immuclient_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} -1
+# HELP immuclient_audit_run_at_per_server Timestamp in unix seconds at which latest audit run.
+# TYPE immuclient_audit_run_at_per_server gauge
+immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.5907565337454605e+09
+```
+
 
 ## Architecture
 
-work in progress
+The different components of immudb are communicating as follows:
+![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/docs/immudb/component-diagram.png)
+
+Please check How it works, to learn more about the data structure and the Merkle-tree:
+
+[How it works](how-it-works.md)
 
 ## Consistency checker
 
