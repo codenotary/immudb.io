@@ -1,8 +1,6 @@
 ## CodeNotary Docs 
 
-Site: [docs.codenotary.io](https://docs.codenotary.io/)
-
-Repository: vchain-us/docs
+Site: [immudb.io](https://immudb.io/)
 
 This project is an auto-updating readme hub for all the user manuals we have in our projects. 
 

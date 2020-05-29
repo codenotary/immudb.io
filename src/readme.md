@@ -1,5 +1,6 @@
 ---
 home: true
+heroText: 'immudb'
 heroImage: '/mascot.png'
 actionText: Get started 
 actionLink: /docs/introduction
