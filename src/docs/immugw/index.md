@@ -10,6 +10,7 @@ immugw is the intelligent REST proxy that connects to immudb and provides a REST
  - [Configuration](#configuration)
  - [immuadmin](#immuadmin)
  - [immugw service](#immugw-service)
+ - [Use immugw](#user-immugw)
  - [API](#api)
  - [Authentication](#authentication)
  - [Auditor](#auditor)
