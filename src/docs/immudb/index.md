@@ -373,3 +373,6 @@ go build tools/nimmu/nimmu.go
 ```
 Then restart immudb and should see the consistency check printing an error.
 
+## License
+
+immudb is [Apache v2.0 License](LICENSE).
