@@ -13,6 +13,7 @@ immugw is the intelligent REST proxy that connects to immudb and provides a REST
  - [API](#api)
  - [Authentication](#authentication)
  - [Auditor](#auditor)
+ - [License](#license)
 
 ## Latest binaries
 
@@ -163,3 +164,7 @@ immugw_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br8eug
 # TYPE immugw_audit_run_at_per_server gauge
 immugw_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.590757033502689e+09
 ```
+
+## License
+
+immugw is [Apache v2.0 License](LICENSE).
