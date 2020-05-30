@@ -2,8 +2,6 @@
 
 immuadmin is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.
 
-work in progress
-
 ## Contents
  - [Latest binaries](#latest-binaries)
  - [Build](#build)
@@ -18,7 +16,7 @@ work in progress
 
 clone the immudb repository locally
 
-'git clone https://github.com/codenotary/immudb.git'
+`git clone https://github.com/codenotary/immudb.git`
 
 ### Linux
 
