@@ -63,4 +63,4 @@ You can now use the interactive mode of immuclient and type commands until you t
 
 ## License
 
-immuadmin is [Apache v2.0 License](LICENSE).
+immuclient is [Apache v2.0 License](LICENSE).
