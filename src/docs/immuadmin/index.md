@@ -7,6 +7,7 @@ immuadmin is the admin CLI for immudb and immugw. You can install and manage the
  - [Build](#build)
  - [Docker](#docker)
  - [Use immuadmin](#use-immuadmin)
+ - [License](#license)
 
 ## Latest binaries
 
