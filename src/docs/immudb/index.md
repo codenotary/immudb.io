@@ -14,6 +14,7 @@
  - [Auditors](#auditors)
  - [Architecture](#architecture)
  - [Consistency Checker](#consistency-checker)
+ - [License](#license)
 
 ## Latest binaries
 
