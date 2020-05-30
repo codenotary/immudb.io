@@ -51,10 +51,10 @@ docker build -t myown/immugw:latest -f Dockerfile.immugw .
 ```
 
 ### run immugw in a container
-Make sure to point to the immudb system using the environment variable IMMUGW_IMMUDB-ADDRESS
+Make sure to point to the immudb system using the environment variable IMMUGW_IMMUDB_ADDRESS
 
 ```
-docker run -it -d -p 3323:3323 --name immugw --env IMMUGW_IMMUDB-ADDRESS=immudb codenotary/immugw:latest
+docker run -it -d -p 3323:3323 --name immugw --env IMMUGW_IMMUDB_ADDRESS=immudb codenotary/immugw:latest
 ```
 
 ## Run immugw
@@ -106,6 +106,65 @@ The linux service is using the following defaults:
 | all configuration files | /etc/immudb        |
 | pid file                | /var/lib/immudb/immugw.pid |
 | log files               | /var/log/immudb    |
+
+## Use immugw
+
+`immugw help` is a good starting point
+
+```bash
+immu gateway: a smart REST proxy for immudb - the lightweight, high-speed immutable database for systems and applications.
+It exposes all gRPC methods with a REST interface while wrapping all SAFE endpoints with a verification service.
+
+Environment variables:
+  IMMUGW_ADDRESS=127.0.0.1
+  IMMUGW_PORT=3323
+  IMMUGW_IMMUDB_ADDRESS=127.0.0.1
+  IMMUGW_IMMUDB_PORT=3322
+  IMMUGW_DIR=.
+  IMMUGW_PIDFILE=
+  IMMUGW_LOGFILE=
+  IMMUGW_DETACHED=false
+  IMMUGW_MTLS=false
+  IMMUGW_SERVERNAME=localhost
+  IMMUGW_PKEY=./tools/mtls/4_client/private/localhost.key.pem
+  IMMUGW_CERTIFICATE=./tools/mtls/4_client/certs/localhost.cert.pem
+  IMMUGW_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+  IMMUGW_AUDIT="false"
+  IMMUGW_AUDIT_INTERVAL = "5m"
+  IMMUGW_AUDIT_USERNAME=""
+  IMMUGW_AUDIT_PASSWORD=""
+
+Usage:
+  immugw [flags]
+  immugw [command]
+
+Available Commands:
+  help        Help about any command
+  version     Show the immugw version
+
+Flags:
+  -a, --address string            immugw host address (default "127.0.0.1")
+      --audit                     enable audit mode (continuously fetches latest root from server, checks consistency against a local root and saves the latest root locally)
+      --audit-interval duration   interval at which audit should run (default 5m0s)
+      --audit-password string     immudb password used to login during audit
+      --audit-username string     immudb username used to login during audit (default "immugwauditor")
+      --certificate string        server certificate file path (default "./tools/mtls/4_client/certs/localhost.cert.pem")
+      --clientcas string          clients certificates list. Aka certificate authority (default "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem")
+      --config string             config file (default path are configs or $HOME. Default filename is immugw.toml)
+  -d, --detached                  run immudb in background
+      --dir string                program files folder (default ".")
+  -h, --help                      help for immugw
+  -k, --immudb-address string     immudb host address (default "127.0.0.1")
+  -j, --immudb-port int           immudb port number (default 3322)
+      --logfile string            log path with filename. E.g. /tmp/immugw/immugw.log
+  -m, --mtls                      enable mutual tls
+      --pidfile string            pid path with filename. E.g. /var/run/immugw.pid
+      --pkey string               server private key path (default "./tools/mtls/4_client/private/localhost.key.pem")
+  -p, --port int                  immugw port number (default 3323)
+      --servername string         used to verify the hostname on the returned certificates (default "localhost")
+
+Use "immugw [command] --help" for more information about a command.
+```
 
 ## API
 
