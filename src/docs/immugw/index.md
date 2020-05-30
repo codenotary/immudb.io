@@ -109,7 +109,7 @@ The linux service is using the following defaults:
 
 ## API
 
-## immugw RESTful API reference
+### immugw RESTful API reference
 
 You can find the swagger schema here:
 
@@ -120,7 +120,7 @@ If you want to run the Swagger UI, simply run the following Docker command after
 ```bash
 docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/schema/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
 ```
-## Curl examples
+### Curl examples
 
 [Curl code snippets](curl.md)
 
