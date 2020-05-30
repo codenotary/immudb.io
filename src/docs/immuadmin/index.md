@@ -41,7 +41,7 @@ GOOS=windows GOARCH=amd64 make immuadmin-static
 
 ### build your own Docker container image
 ```bash
-docker build -t myown/immuimmuadmin:latest -f Dockerfile.immuadmin .
+docker build -t myown/immuadmin:latest -f Dockerfile.immuadmin .
 ```
 
 ### run immuadmin in a container
