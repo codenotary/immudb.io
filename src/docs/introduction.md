@@ -48,4 +48,4 @@ The latest release binaries can be found [here](https://github.com/codenotary/im
 
 ## License
 
-immudb is [Apache v2.0 License](LICENSE).
+immudb is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
