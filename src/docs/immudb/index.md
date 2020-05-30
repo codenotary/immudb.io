@@ -68,6 +68,16 @@ or listen on all interfaces
 docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb -e IMMUDB_ADDRESS="0.0.0.0" codenotary/immudb
 ```
 
+listen on all interfaces, auth enabled, persistent data
+
+```bash
+docker volume create immudb-data
+docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb-data:/var/lib/immudb --name immudb -e IMMUDB_ADDRESS="0.0.0.0" -e IMMUDB_AUTH=true codenotary/immudb
+```
+
+
+
+
 ## Run immudb
 
 ```bash
