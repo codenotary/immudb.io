@@ -372,7 +372,7 @@ In order to produce a corrupted entry that is only on disk and not in the Merkle
 go build tools/nimmu/nimmu.go 
 ./nimmu rawset key1 tamper
 ```
-Then restart immudb and should see the consistency check printing an error.
+Then restart immudb and you should see the consistency check printing an error.
 
 ## License
 
