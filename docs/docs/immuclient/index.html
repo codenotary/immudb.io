@@ -55,7 +55,7 @@
     <meta name="twitter:site" content="@immudb">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preload" href="/assets/css/0.styles.0d730eff.css" as="style"><link rel="preload" href="/assets/js/app.ee30ad41.js" as="script"><link rel="preload" href="/assets/js/12.47a02718.js" as="script"><link rel="preload" href="/assets/js/1.ebc1cc8a.js" as="script"><link rel="preload" href="/assets/js/2.9be5b7f2.js" as="script"><link rel="preload" href="/assets/js/18.1a9af223.js" as="script"><link rel="prefetch" href="/assets/js/10.3db16e0e.js"><link rel="prefetch" href="/assets/js/11.ce51d4c4.js"><link rel="prefetch" href="/assets/js/13.3af37535.js"><link rel="prefetch" href="/assets/js/14.4829db10.js"><link rel="prefetch" href="/assets/js/15.036a0b58.js"><link rel="prefetch" href="/assets/js/16.b42b6678.js"><link rel="prefetch" href="/assets/js/17.cc3f6e38.js"><link rel="prefetch" href="/assets/js/19.87504968.js"><link rel="prefetch" href="/assets/js/20.deee6bee.js"><link rel="prefetch" href="/assets/js/21.fd4dbdde.js"><link rel="prefetch" href="/assets/js/22.84ad2632.js"><link rel="prefetch" href="/assets/js/23.c2c9d057.js"><link rel="prefetch" href="/assets/js/24.59734429.js"><link rel="prefetch" href="/assets/js/25.d3e9b09e.js"><link rel="prefetch" href="/assets/js/26.936f8d55.js"><link rel="prefetch" href="/assets/js/4.ad24df39.js"><link rel="prefetch" href="/assets/js/5.c1fc48db.js"><link rel="prefetch" href="/assets/js/6.08c26ceb.js"><link rel="prefetch" href="/assets/js/7.3c8418a9.js"><link rel="prefetch" href="/assets/js/8.a3956db2.js"><link rel="prefetch" href="/assets/js/9.38cece27.js">
+    <link rel="preload" href="/assets/css/0.styles.0d730eff.css" as="style"><link rel="preload" href="/assets/js/app.e3750b7c.js" as="script"><link rel="preload" href="/assets/js/12.47a02718.js" as="script"><link rel="preload" href="/assets/js/1.ebc1cc8a.js" as="script"><link rel="preload" href="/assets/js/2.9be5b7f2.js" as="script"><link rel="preload" href="/assets/js/18.7e0f1bc0.js" as="script"><link rel="prefetch" href="/assets/js/10.3db16e0e.js"><link rel="prefetch" href="/assets/js/11.ce51d4c4.js"><link rel="prefetch" href="/assets/js/13.3af37535.js"><link rel="prefetch" href="/assets/js/14.4829db10.js"><link rel="prefetch" href="/assets/js/15.036a0b58.js"><link rel="prefetch" href="/assets/js/16.b42b6678.js"><link rel="prefetch" href="/assets/js/17.cc3f6e38.js"><link rel="prefetch" href="/assets/js/19.87504968.js"><link rel="prefetch" href="/assets/js/20.deee6bee.js"><link rel="prefetch" href="/assets/js/21.fd4dbdde.js"><link rel="prefetch" href="/assets/js/22.84ad2632.js"><link rel="prefetch" href="/assets/js/23.c2c9d057.js"><link rel="prefetch" href="/assets/js/24.59734429.js"><link rel="prefetch" href="/assets/js/25.d3e9b09e.js"><link rel="prefetch" href="/assets/js/26.936f8d55.js"><link rel="prefetch" href="/assets/js/4.ad24df39.js"><link rel="prefetch" href="/assets/js/5.c1fc48db.js"><link rel="prefetch" href="/assets/js/6.08c26ceb.js"><link rel="prefetch" href="/assets/js/7.3c8418a9.js"><link rel="prefetch" href="/assets/js/8.a3956db2.js"><link rel="prefetch" href="/assets/js/9.38cece27.js">
     <link rel="stylesheet" href="/assets/css/0.styles.0d730eff.css">
   </head>
   <body>
@@ -78,7 +78,69 @@
 </code></pre></div><h3 id="windows"><a href="#windows" class="header-anchor">#</a> Windows</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>windows <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immuclient-static
 </code></pre></div><h2 id="docker"><a href="#docker" class="header-anchor">#</a> Docker</h2> <h3 id="build-your-own-docker-container-image"><a href="#build-your-own-docker-container-image" class="header-anchor">#</a> build your own Docker container image</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>docker build -t myown/immuclient:latest -f Dockerfile.immuclient <span class="token builtin class-name">.</span>
 </code></pre></div><h3 id="run-immuclient-in-a-container"><a href="#run-immuclient-in-a-container" class="header-anchor">#</a> run immuclient in a container</h3> <p>As immuclient has a direct command and interactive, you can simply add the immuclient command after docker run.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker run -it --rm -name immuclient codenotary/immuclient:latest -a <span class="token operator">&lt;</span>immudb host<span class="token operator">&gt;</span>
-</code></pre></div><p>You can now use the interactive mode of immuclient and type commands until you type exit. Use help to get a command reference.</p> <h2 id="use-immuclient"><a href="#use-immuclient" class="header-anchor">#</a> Use immuclient</h2> <h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h2 id="auditor"><a href="#auditor" class="header-anchor">#</a> Auditor</h2> <p>Start interactive:
+</code></pre></div><p>You can now use the interactive mode of immuclient and type commands until you type exit. Use help to get a command reference.</p> <h2 id="use-immuclient"><a href="#use-immuclient" class="header-anchor">#</a> Use immuclient</h2> <p><code>immuclient help</code> is a good starting point</p> <div class="language-bash extra-class"><pre class="language-bash"><code>CLI client <span class="token keyword">for</span> immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
+Environment variables:
+  <span class="token assign-left variable">IMMUCLIENT_IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">127.0</span>.0.1
+  <span class="token assign-left variable">IMMUCLIENT_IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUCLIENT_AUTH</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUCLIENT_MTLS</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUCLIENT_SERVERNAME</span><span class="token operator">=</span>localhost
+  <span class="token assign-left variable">IMMUCLIENT_PKEY</span><span class="token operator">=</span>./tools/mtls/4_client/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUCLIENT_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/4_client/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUCLIENT_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+
+Usage:
+  immuclient <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
+
+Available Commands:
+  audit-mode        Starts immuclient as daemon <span class="token keyword">in</span> auditor mode. Run <span class="token string">'immuclient audit-mode help'</span> <span class="token keyword">for</span> details
+  check-consistency Check consistency <span class="token keyword">for</span> the specified index and <span class="token builtin class-name">hash</span>
+  count             Count keys having the specified prefix
+  current           Return the last merkle tree root and index stored locally
+  get               Get item having the specified key
+  getByIndex        Return an element by index
+  getRawBySafeIndex Return an element by index
+  <span class="token builtin class-name">help</span>              Help about any <span class="token builtin class-name">command</span>
+  <span class="token function">history</span>           Fetch <span class="token function">history</span> <span class="token keyword">for</span> the item having the specified key
+  inclusion         Check <span class="token keyword">if</span> specified index is included <span class="token keyword">in</span> the current tree
+  iscan             Iterate over all elements by insertion order
+  login             Login using the specified username and password
+  <span class="token builtin class-name">logout</span>
+  rawsafeget        Get item having the specified key, without parsing structured values
+  rawsafeset        Set a value <span class="token keyword">for</span> the item having the specified key, without setup structured values
+  reference         Add new reference to an existing key
+  safeget           Get and verify item having the specified key
+  safereference     Add and verify new reference to an existing key
+  safeset           Add and verify new item having the specified key and value
+  safezadd          Add and verify new key with score to a new or existing sorted <span class="token builtin class-name">set</span>
+  scan              Iterate over keys having the specified prefix
+  <span class="token builtin class-name">set</span>               Add new item having the specified key and value
+  status            Ping to check <span class="token keyword">if</span> server connection is alive
+  version           Show the immuclient version
+  zadd              Add new key with score to a new or existing sorted <span class="token builtin class-name">set</span>
+  zscan             Iterate over a sorted <span class="token builtin class-name">set</span>
+
+Flags:
+      --audit-password string    immudb password used to login during audit
+      --audit-username string    immudb username used to login during audit
+      --certificate string       server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string         clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string            config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immuclient.toml<span class="token punctuation">)</span>
+      --dir string               Main directory <span class="token keyword">for</span> audit process tool to initialize <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp&quot;</span><span class="token punctuation">)</span>
+  -h, --help                     <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immuclient
+  -a, --immudb-address string    immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -p, --immudb-port int          immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+  -m, --mtls                     <span class="token builtin class-name">enable</span> mutual tls
+      --pkey string              server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+      --prometheus-host string   Launch <span class="token function">host</span> of the Prometheus server. <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+      --prometheus-port string   Launch port of the Prometheus server. <span class="token punctuation">(</span>default <span class="token string">&quot;9477&quot;</span><span class="token punctuation">)</span>
+      --roots-filepath string    Filepath <span class="token keyword">for</span> storing root hashes after every successful audit loop. Default is tempdir of every OS. <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp/&quot;</span><span class="token punctuation">)</span>
+      --servername string        used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+      --tokenfile string         authentication token <span class="token function">file</span> <span class="token punctuation">(</span>default path is <span class="token environment constant">$HOME</span> or binary location<span class="token punctuation">;</span> default filename is token<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;token&quot;</span><span class="token punctuation">)</span>
+      --value-only               returning only values <span class="token keyword">for</span> get operations
+
+Use <span class="token string">&quot;immuclient [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+</code></pre></div><h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h2 id="auditor"><a href="#auditor" class="header-anchor">#</a> Auditor</h2> <p>Start interactive:
 <code>immuclient audit-mode</code></p> <p>Install service:
 <code>immuclient audit-mode install</code></p> <p>**immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **</p> <p>example output:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.</span>
 <span class="token comment"># TYPE immuclient_audit_curr_root_per_server gauge</span>
@@ -97,6 +159,6 @@ immuclient_audit_run_at_per_server<span class="token punctuation">{</span>server
             <a href="/docs/immuadmin/" class="prev">
                 immuadmin
             </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.ee30ad41.js" defer></script><script src="/assets/js/12.47a02718.js" defer></script><script src="/assets/js/1.ebc1cc8a.js" defer></script><script src="/assets/js/2.9be5b7f2.js" defer></script><script src="/assets/js/18.1a9af223.js" defer></script>
+    <script src="/assets/js/app.e3750b7c.js" defer></script><script src="/assets/js/12.47a02718.js" defer></script><script src="/assets/js/1.ebc1cc8a.js" defer></script><script src="/assets/js/2.9be5b7f2.js" defer></script><script src="/assets/js/18.7e0f1bc0.js" defer></script>
   </body>
 </html>
