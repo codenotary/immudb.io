@@ -27,7 +27,7 @@ coming soon
 
 You can find the swagger schema here:
 
-[swagger immudb](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json)
+[swagger immugw](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json)
 
 If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
