@@ -386,4 +386,4 @@ Then restart immudb and you should see the consistency check printing an error.
 
 ## License
 
-immudb is [Apache v2.0 License](LICENSE).
+immudb is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
