@@ -155,4 +155,4 @@ immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br
 
 ## License
 
-immuclient is [Apache v2.0 License](LICENSE).
+immuclient is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
