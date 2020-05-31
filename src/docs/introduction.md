@@ -29,7 +29,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 
 ## Components
 
-- **immudb** is the server binary that listens on port 3322 on localhost and provides a gRPC interface
+- **immudb** is the server binary that listens on port 3322 and provides a gRPC interface
 - **immugw** is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend to run immudb and immugw on separate machines to enhance security
 - **immuadmin** is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.
 - **immuclient** is the CLI client for immudb. You can read, write data into immudb from the commandline using direct or interactive mode.
