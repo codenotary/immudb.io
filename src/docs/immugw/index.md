@@ -227,4 +227,4 @@ immugw_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eug
 
 ## License
 
-immugw is [Apache v2.0 License](LICENSE).
+immugw is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
