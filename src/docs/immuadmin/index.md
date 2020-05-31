@@ -103,4 +103,4 @@ You can also use the help functionality for specific commands, i. e. `immuadmin 
 
 ## License
 
-immuadmin is [Apache v2.0 License](LICENSE).
+immuadmin is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
