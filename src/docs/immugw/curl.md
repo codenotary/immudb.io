@@ -13,13 +13,24 @@
 The following code snippets explain how to work with 'immugw' (REST proxy for immudb) using 'curl'.
 immugw HTTP API key/value are base64 encoded.
 
+## Login, the login password is obtained by creating a user with immuadmin or first login of immu user with immuadmin
+
+```bash
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "user": "'$(echo -n immu | base64)'",
+    "password": "'$(echo -n TWdn4TK0ACq8amSeYBW!9E9h3S0am?G! | base64)'"
+    }
+}'
+```
+
 ## Write transactions without verification
 
 ```bash
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
     "value": "'$(echo -n Visa 1514284849020756 09/21 | base64)'"
@@ -30,10 +41,9 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 ## Write transactions with verification
 
 ```bash
-curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe?k1=v5' \
+curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "kv": {
          "key": "'$(echo -n client:Ms. Maci Schuppe | base64)'",
@@ -49,7 +59,6 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe?k1
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/reference' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "ro": {
         "reference":  "'$(echo -n reference:Ms. Maci Schuppe | base64)'",
@@ -64,7 +73,6 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/referen
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/zadd' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "zopts": {
         "set":  "'$(echo -n SetOfClientsThatAreWomen | base64)'",
@@ -78,7 +86,6 @@ curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/zadd' \
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/safe/zadd' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "zopts": {
         "set":  "'$(echo -n SetOfClientsThatAreWomen | base64)'",
@@ -101,9 +108,8 @@ curl --location --request GET 'http://immugw:3323/v1/immurestproxy/item/index/1'
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item/safe/get' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' \
 --data-raw '{
-         "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'",
+         "key": "'$(echo -n client:Ms. Noelia Jaskolski | base64)'"
 }'
 ```
 ## Scan entries
@@ -140,7 +146,7 @@ curl --location --request GET 'http://immugw:3323/v1/immurestproxy/root' \
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/item' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{token}}' \
---header 'Content-Type: text/plain' --data-raw '{
+--data-raw '{
     "key": "'$(echo -n client:Mr. Valentin Padurean | base64)'",
     "value": "'$(echo -n MasterCard 2232703813463070 01/24 | base64)'",
 }'
