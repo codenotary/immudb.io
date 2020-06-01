@@ -4,6 +4,7 @@
   "description": "CodeNotary Documentation",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "dev": "vuepress dev src",
     "start": "vuepress dev src",
     "build": "vuepress build src",
@@ -19,8 +20,12 @@
   },
   "devDependencies": {
     "@vuepress/plugin-blog": "^1.9.2",
+    "@vuepress/plugin-google-analytics": "^1.5.0",
     "@vuepress/plugin-register-components": "^1.5.0",
     "vuepress-plugin-sitemap": "^2.3.1"
+  },
+  "resolutions": {
+    "watchpack": "1.6.1"
   },
   "repository": {
     "type": "git",

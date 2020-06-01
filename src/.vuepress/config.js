@@ -31,7 +31,6 @@ module.exports = {
     dest: 'docs',
 	title,
 	description,
-	extend: '@vuepress/theme-default',
     head: [
         ['link', { rel: "canonical", href: websiteUrl }],
         ['link', { rel: "shortcut icon", type: "image/png", href: "/favicon/favicon.ico" }],
@@ -133,11 +132,15 @@ module.exports = {
                     pagination: {
                         perPagePosts: 10,
                     }
-                },
+                }
             ]
         }],
         ['sitemap', {
             hostname: 'https://immudb.io'
+        }],
+        ['@vuepress/google-analytics', {
+            ga: 'UA-168112067-1'
         }]
-    ]
+    ],
+    // extraWatchFiles: ["./src/**/*.md", "./src**/*.vue", "./src/**/*.styl"],
 };

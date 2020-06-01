@@ -48,7 +48,7 @@ export default {
             return {
                 link: this.data.actionLink,
                 text: this.data.actionText
-            }
+            };
         }
     }
 }
@@ -108,7 +108,7 @@ export default {
     flex-basis 30%
     max-width 30%
     border: 1px solid $borderColor
-    padding: 1.5rem
+    padding: 1.2rem
     box-sizing border-box
     background white
     margin-bottom: 2rem
@@ -244,4 +244,15 @@ pre code
 #performance
     img
         margin: 1rem auto 0
+
+#get-started-end
+    .button
+        margin-top: 2rem
+
+    .section-center
+        margin-bottom 0
+
+    background-image: url(/rocket.jpg)
+    background-repeat: no-repeat
+    background-position: bottom right
 </style>
