@@ -252,7 +252,12 @@ pre code
     .section-center
         margin-bottom 0
 
-    background-image: url(/rocket.jpg)
-    background-repeat: no-repeat
-    background-position: bottom right
+    .section
+        background-image: url(/rocket.jpg)
+        background-repeat: no-repeat
+        background-position: bottom right
+        padding: 8rem 1rem
+
+        @media screen and (max-width: 989px)
+            background-image none
 </style>
