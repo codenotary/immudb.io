@@ -29,8 +29,8 @@ const schemaOrg = `{
 module.exports = {
     base: '/',
     dest: 'docs',
-	title,
-	description,
+    title,
+    description,
     head: [
         ['link', { rel: "canonical", href: websiteUrl }],
         ['link', { rel: "shortcut icon", type: "image/png", href: "/favicon/favicon.ico" }],
@@ -59,66 +59,37 @@ module.exports = {
         ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
         ['script', { type: "application/ld+json" }, schemaOrg]
     ],
-	themeConfig: {
-		logo: '/logo.png',
-		nav: [
-			{ text: 'Home', link: '/' },
-			{ text: 'Documentation', link: '/docs/introduction' },
-			{ text: 'Github', link: 'https://github.com/codenotary/immudb' },
-		],
-		sidebar: [
-			{
-				title: 'Get started',
-				collapsable: false,
-				children: [
-                    '/docs/introduction',
+    themeConfig: {
+        logo: '/logo.png',
+        nav: [
+            { text: 'Home', link: '/' },
+            { text: 'Documentation', link: '/docs/' },
+            { text: 'Github', link: 'https://github.com/codenotary/immudb' },
+        ],
+        sidebar: [
+            {
+                title: 'Get started',
+                collapsable: false,
+                children: [
+                    '/docs/',
                     '/docs/how-it-works',
                     '/docs/quickstart',
                     '/docs/command-reference',
                     '/docs/apis-and-interfaces',
                 ]
-			},
-			{
-				title: 'Components',
-				collapsable: false,
-				children: [
+            },
+            {
+                title: 'Components',
+                collapsable: false,
+                children: [
                     '/docs/immudb/',
                     '/docs/immugw/',
                     '/docs/immuadmin/',
                     '/docs/immuclient/',
-				]
-			},
-			// {
-			// 	title: 'immudb',
-			// 	collapsable: false,
-			// 	children: [
-            //         '/docs/immudb/introduction',
-			// 		'/docs/immudb/consistency-checker',
-			// 	]
-			// },
-			// {
-			// 	title: 'immugw',
-			// 	collapsable: false,
-			// 	children: [
-			// 		'/docs/immugw/introduction',
-			// 	]
-			// },
-			// {
-			// 	title: 'immuadmin',
-			// 	collapsable: false,
-			// 	children: [
-			// 		'/docs/immuadmin/introduction',
-			// 	]
-			// },
-			// {
-			// 	title: 'immuclient',
-			// 	collapsable: false,
-			// 	children: [
-			// 		'/docs/immuclient/introduction',
-			// 	]
-			// },
-		]
-	},
+                ]
+            }
+        ]
+    },
     plugins: [
         ['@vuepress/blog', {
             directories: [
@@ -141,6 +112,5 @@ module.exports = {
         ['@vuepress/google-analytics', {
             ga: 'UA-168112067-1'
         }]
-    ],
-    // extraWatchFiles: ["./src/**/*.md", "./src**/*.vue", "./src/**/*.styl"],
+    ]
 };

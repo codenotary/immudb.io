@@ -13,12 +13,12 @@
                 </p>
 
                 <p v-if="data.actionText && data.actionLink" class="action">
-                    <NavLink class="button" :item="actionLink"/>
+                    <i-button size="lg" variant="primary" :to="data.actionLink">{{data.actionText}}</i-button>
                 </p>
 
                 <github-button href="https://github.com/codenotary/immudb"
-                   data-icon="octicon-star" data-size="large" data-show-count="true"
-                   aria-label="Star codenotary/immudb on GitHub">
+                               data-icon="octicon-star" data-size="large" data-show-count="true"
+                               aria-label="Star codenotary/immudb on GitHub">
                     Star
                 </github-button>
             </div>
@@ -35,220 +35,115 @@ import NavLink from '@theme/components/NavLink.vue'
 import GithubButton from 'vue-github-button'
 
 export default {
-    name: 'Home',
-    components: {
-        NavLink,
-        GithubButton
+  name: 'Home',
+
+  components: {
+      NavLink,
+      GithubButton
+  },
+
+  computed: {
+    data () {
+      return this.$page.frontmatter
     },
-    computed: {
-        data () {
-            return this.$page.frontmatter
-        },
-        actionLink () {
-            return {
-                link: this.data.actionLink,
-                text: this.data.actionText
-            };
-        }
+
+    actionLink () {
+      return {
+        link: this.data.actionLink,
+        text: this.data.actionText
+      }
     }
+  }
 }
 </script>
 
 <style lang="stylus">
-*
-    box-sizing border-box
-
-#homepage
-    .header-anchor
-        display none
-
-.hero
+.home
+  padding $navbarHeight 2rem 0
+  max-width $homePageWidth
+  margin 0px auto
+  display block
+  .hero
     text-align center
-    display block
-    background-image: url('../../public/header3.jpg')
-    background-attachment: static
-    background-repeat: no-repeat
-    background-size: cover
-    background-position: center center
-    padding: $navbarHeight 0 0
-
-    .hero-content
-        max-width: $homePageWidth
-        padding: 2rem 0.5rem 10rem
-        display: block
-        margin 0 auto
-
     img
-        max-width: 100%
-        max-height 280px
-        display block
-        margin 3rem auto 1.5rem
-
+      max-width: 100%
+      max-height 280px
+      display block
+      margin 3rem auto 1.5rem
     h1
-        font-size 3rem
+      font-size 3rem
     h1, .description, .action
-        margin 2rem auto
-
+      margin 1.8rem auto
     .description
-        max-width 35rem
-        font-size 1.2rem
-        line-height 1.5
-        color lighten($textColor, 40%)
-
-.features
+      max-width 35rem
+      font-size 1.6rem
+      line-height 1.3
+      color lighten($textColor, 40%)
+    .action-button
+      display inline-block
+      font-size 1.2rem
+      color #fff
+      background-color $accentColor
+      padding 0.8rem 1.6rem
+      border-radius 4px
+      transition background-color .1s ease
+      box-sizing border-box
+      border-bottom 1px solid darken($accentColor, 10%)
+      &:hover
+        background-color lighten($accentColor, 10%)
+  .features
+    border-top 1px solid $borderColor
+    padding 1.2rem 0
+    margin-top 2.5rem
     display flex
     flex-wrap wrap
     align-items flex-start
     align-content stretch
     justify-content space-between
-    margin-top: -130px
-
-.feature
+  .feature
     flex-grow 1
     flex-basis 30%
     max-width 30%
-    border: 1px solid $borderColor
-    padding: 1.2rem
-    box-sizing border-box
-    background white
-    margin-bottom: 2rem
-    border-radius: 4px
-    border-bottom: 4px solid $accentColor
-
-    img
-        max-width: 100px
-        margin: 0 auto
-        display: block
-
     h2
-        font-size 1.4rem
-        font-weight 500
-        border-bottom none
-        padding-bottom 0
-        color: $accentColor
-        text-align center
-
-#easy-setup-section
-    margin-top: -2rem
-    max-width: 980px
-
-    > .language-bash
-        margin-top: 2rem
-        width: auto
-        display inline-block
-        max-width: 100%
-
-
-pre code
-    font-size: 0.9rem
-
-#video-section
-    padding: 2rem 0
-    color: white
-    text-align center
-    background-image: url('../../public/corner-left-right-asymmetric.png')
-    background-size: 100% auto
-    background-repeat no-repeat
-    background-position: top center
-
-    h2
-        font-size: 2.4rem
-        margin 0 0 1rem
-        border-bottom 0
-        color: white
-
+      font-size 1.4rem
+      font-weight 500
+      border-bottom none
+      padding-bottom 0
+      color lighten($textColor, 10%)
     p
-        color: rgba(white, 0.8)
-
-    .video-features
-        display: flex
-        width: 100%
-        margin-top: 4rem
-
-        ul
-            width: 33%
-            text-align: left
-            margin-left: 2rem
-            list-style: none
-            font-size: 1.2rem
-
-            li
-                display: flex
-                align-items center
-                margin-bottom: 0.5rem
-
-            svg
-                margin-right: 1rem
-
-        .video
-            padding: 1rem
-            background white
-            display: block
-            width: 67%
-            box-sizing border-box
-
-        @media screen and (max-width: 979px)
-            flex-direction column
-
-            ul,
-            .video
-                width: 100%
-                margin-left: 0
-
-.footer
+      color lighten($textColor, 25%)
+  .footer
     padding 2.5rem
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
 
-@media (max-width: 980px)
+@media (max-width: $MQMobile)
+  .home
     .features
-        flex-direction column
-        text-align: center
-
+      flex-direction column
     .feature
-        width 100%
-        max-width 100%
+      max-width 100%
+      padding 0 2.5rem
 
 @media (max-width: $MQMobileNarrow)
+  .home
+    padding-left 1.5rem
+    padding-right 1.5rem
     .hero
-        img
-            max-height 210px
-            margin 2rem auto 1.2rem
-        h1
-            font-size 2rem
-        h1, .description, .action
-            margin 1.2rem auto
-        .description
-            font-size 1.2rem
-        .action-button
-            font-size 1rem
-            padding 0.6rem 1.2rem
+      img
+        max-height 210px
+        margin 2rem auto 1.2rem
+      h1
+        font-size 2rem
+      h1, .description, .action
+        margin 1.2rem auto
+      .description
+        font-size 1.2rem
+      .action-button
+        font-size 1rem
+        padding 0.6rem 1.2rem
     .feature
-        h2
-            font-size 1.25rem
-
-#usedby
-    padding-top: 0
-    justify-content space-between
-
-    img
-        margin: 0 auto
-        display block
-        opacity: 0.3
-        transition: opacity 0.3s ease
-
-        &:hover
-            opacity: 0.6
-
-#performance
-    img
-        margin: 1rem auto 0
-
-#get-started-end
-    .button
-        margin-top: 2rem
-
-    .section-center
-        margin-bottom 0
+      h2
+        font-size 1.25rem
 </style>

@@ -1,3 +1,84 @@
+@require './hero.styl'
+@require './section.styl'
+@require './extend.styl'
+
+#homepage
+    .header-anchor
+        display none
+
+#features
+    margin-top: -40px
+
+    @media (max-width: 980px)
+        flex-direction column
+        text-align: center
+
+#easy-setup-section
+    margin-top: -2rem
+    text-align: center
+
+    .container
+        max-width: 980px
+
+    div.language-bash
+        margin-top: 2rem
+        width: auto
+        display inline-block
+        max-width: 100%
+
+#video-section
+    color: white
+    background-color: $accentColor
+    text-align center
+    background-image: url('/corner-left-right-asymmetric.png')
+    background-size: 100% auto
+    background-repeat no-repeat
+    background-position: top center
+
+    h2
+        margin-top: 0
+        border-bottom 0
+        color: white
+
+    p
+        color: rgba(white, 0.8)
+
+    .video-features
+        display: flex
+        width: 100%
+        margin-top: 4rem
+
+        ul
+            width: 33%
+            text-align: left
+            margin-left: 2rem
+
+            li
+                display: flex
+                align-items center
+                margin-bottom: 0.5rem
+
+            svg
+                margin-right: 1rem
+
+        .video
+            padding: 1rem
+            background white
+            display: block
+            width: 67%
+            box-sizing border-box
+
+        @media screen and (max-width: 979px)
+            flex-direction column
+
+            ul,
+            .video
+                width: 100%
+                margin-left: 0
+
+            ul
+                margin-top: 2rem
+
 #code-examples
     svg
         width: 3rem
@@ -10,11 +91,48 @@
     h2
         margin-top: 1rem
 
-    .columns
+    .row
         align-items center
 
-        .terminal-column
-            max-width: 65%
+    @media screen and (max-width: 979px)
+        text-align center
 
-            @media screen and (max-width: 767px)
-                max-width: 100%
+        .inverse
+            flex-direction column-reverse
+
+        p, ul
+            text-align left
+
+        .terminal-wrapper
+            margin-bottom: 1rem
+
+
+#usedby
+    padding-top: 4rem
+    justify-content space-between
+
+    img
+        margin: 0 auto
+        display block
+        opacity: 0.3
+        transition: opacity 0.3s ease
+
+        &:hover
+            opacity: 0.6
+
+#performance
+    img
+        margin: 1rem auto 0
+
+#get-started-end
+    .button
+        margin-top: 2rem
+
+    .section-center
+        margin-bottom 0
+
+.footer
+    padding 2.5rem
+    border-top 1px solid $borderColor
+    text-align center
+    color lighten($textColor, 25%)

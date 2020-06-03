@@ -4,16 +4,22 @@
         @touchend="onTouchEnd">
         <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar"/>
 
-        <h1>BLOG</h1>
-        <ul id="default-layout">
-            <li v-for="page in $pagination.pages">
-                <router-link class="page-link" :to="page.path">{{ page.title }}</router-link>
-            </li>
-        </ul>
-        <div id="pagination">
-            <router-link v-if="$pagination.hasPrev" :to="$pagination.prevLink">Prev</router-link>
-            <router-link v-if="$pagination.hasNext" :to="$pagination.nextLink">Next</router-link>
-        </div>
+        <i-container class="_margin-top-2">
+            <i-row>
+                <i-column>
+                    <h1>Blog</h1>
+                    <ul id="default-layout">
+                        <li v-for="page in $pagination.pages">
+                            <router-link class="page-link" :to="page.path">{{ page.title }}</router-link>
+                        </li>
+                    </ul>
+                    <div id="pagination">
+                        <router-link v-if="$pagination.hasPrev" :to="$pagination.prevLink">Prev</router-link>
+                        <router-link v-if="$pagination.hasNext" :to="$pagination.nextLink">Next</router-link>
+                    </div>
+                </i-column>
+            </i-row>
+        </i-container>
     </div>
 </template>
 
