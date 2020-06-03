@@ -271,7 +271,7 @@ Run immudb easily on Linux, FreeBSD, Windows, and MacOS, along with other system
 </i-row>
 <i-row class="_text-center">
 <i-column>
-    <i-button variant="primary" size="lg" href="docs/introduction">Get started today</i-button>
+    <i-button variant="primary" size="lg" href="docs/">Get started today</i-button>
 </i-column>
 </i-row>
 </i-container>
