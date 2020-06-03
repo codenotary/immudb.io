@@ -209,7 +209,7 @@ printItem(nil, nil, verifiedItem)
     <section class="section">
         <div class="section-center">
 
-## Unmatched performance
+## Unmatched performance 
 Immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
 
 </div>
@@ -228,6 +228,22 @@ Immudb is often compared to Amazon QLDB. We compared the performance using a sim
     <div class="column">
         <img :src="$withBase('/benchmark/query_bm.png')" alt="Immudb - Queried records per ms" />
     </div>
+</div>
+    </section>
+</div>
+
+<div class="section-wrapper" id="get-started-end">
+    <section class="section">
+        <div class="section-center">
+
+## The open-source immutable database
+Run immudb easily on Linux, FreeBSD, Windows, and MacOS, along with other systems derived from them, such as Kubernetes and Docker.
+
+<div class="columns"> 
+    <div class="column">   
+        <a class="button -light" href="docs/introduction">Get started today</a>
+    </div>
+</div>
 </div>
     </section>
 </div>
