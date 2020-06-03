@@ -1,70 +1,31 @@
-## CodeNotary Docs 
+<p align="center">
+    <a href="http://inkline.io/">
+        <img src="https://immudb.io/mascot.png" alt="immudb logo" width=200>
+    </a>
+</p>
 
-Site: [immudb.io](https://immudb.io/)
+<h1 align="center">immudb docs</h1>
+    
+<p align="center">
+    <a href="https://immudb.io">Immudb</a> is the open-source immutable database. Immudb's documentation and homepage is built with Vuepress and publicly hosted on GitHub Pages. 
+    <br/>
+    <br/>
+    <a href="https://immudb.io">Homepage</a>
+    ·
+    <a href="https://immudb.io/docs/">Documentation</a>
+    ·
+    <a href="https://github.com/codenotary/immudb/issues">Issue Tracker</a>
+</p>
 
-This project is an auto-updating readme hub for all the user manuals we have in our projects. 
+<br/>
+<br/>
 
-You can find two different types of source files (md files) in this repository: 
+## Running documentation locally
 
-- Project specific user guides which are synced from other repositories (eg. vchain-us/vcn, vchain-us/docs) 
-- Other generic user guides
+1. First, install dependencies using `npm install`.
+2. From the root directory, run `npm run dev` in the command line.
+3. Open `http://localhost:8080` in your browser.
 
-## Editing 
-
-IMPORTANT! Synced content should be edited in the source repository
-The generic user guides are directly editable in the vchain-us/docs repo.
-
-#### Github 
-
-The best and most convenient way to edit the documentation site is to use Github's UI: browse for the markdown files under the /site folder and edit them via Github's md editor directly. 
-
-Please be careful, in the master branch all the saved (commited) changes are getting published immediately. 
-
-#### Local 
-
-You can also clone the project and edit the markdown files locally. 
-Also you can run Vuepress locally to have a full-featured preview: 
-
-```
-npm i 
-npm run build
-
-```
-
-## Auto sync 
-
-To reduce duplications between repositories and the documentation website we have Github Actions in place which are syncing markdown files from other repositories (eg. vcn, dashboard) to the docs repository.
-
-This way 
-
-- the documentation is always up-to-date in both places
-- the markdown files can stay in the source repo and evolutionary change with the code/product 
-- the documentation stays accessible via Github's UI as well (for both users and Google).
-
-These Github Actions you can find in the source repositories!
-Syncing is usually triggered on every push on the source repo's master branch.
-
-
-## Auto build
-
-The project has it's own automatic build process which is also powered by Github Actions. 
-On every commit (push) or direct manual editing on Github's UI the GH Action executes the VuePress build process and builds a new version.   
-
-
-## Auto publishing - hosting
-
-The static built site is served by Github Pages from the /docs folder. 
-Publication is automatic on every change in the repo because the output of the build process is the /docs folder.  
-
-Please note Github's caching is causing some seconds (sometimes minutes) of delay and you need to wait a little bit before you see the newly built site on docs.codenotary.io.
-
-
-## Implementation details, development
-
-
-The  application was built with the popular VuePress Static Site Generator. 
-It uses the default template and follows the standard VuePress structure. 
-
-You can find more information about VuePress here:
-[VuePress Official Website](https://vuepress.vuejs.org/)
-
+## Copyright and license
+Homepage and documentation copyright 2017-2020 [Immudb Authors](https://github.com/codenotary/immudb/graphs/contributors). 
+Docs released under [Creative Commons](https://github.com/codenotary/immudb.io/blob/master/docs/LICENSE).

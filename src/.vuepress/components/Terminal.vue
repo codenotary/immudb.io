@@ -1,8 +1,8 @@
 <template>
     <div class="terminal-wrapper">
         <div class="terminal">
-            <div class="top">
-                <div class="btns">
+            <div class="bar">
+                <div class="buttons">
                     <span class="circle red"></span>
                     <span class="circle yellow"></span>
                     <span class="circle green"></span>
@@ -57,17 +57,19 @@ export default {
     border-radius: 5px;
     position: relative;
 
-    .top {
+    .bar {
         background: #E8E6E8;
         color: black;
         padding: 5px;
         border-radius: 5px 5px 0 0;
     }
-    .btns {
+
+    .buttons {
         position: absolute;
         top: 7px;
         left: 5px;
     }
+
     .circle {
         width: 12px;
         height: 12px;

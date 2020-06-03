@@ -1,11 +1,15 @@
 <template>
-    <div class="theme-container">
-        <div class="theme-default-content">
-            <h1>404</h1>
-            <blockquote>{{ getMsg() }}</blockquote>
-            <RouterLink to="/">Take me home.</RouterLink>
-        </div>
+  <div class="theme-container">
+    <div class="theme-default-content">
+      <h1>404</h1>
+
+      <blockquote>{{ getMsg() }}</blockquote>
+
+      <RouterLink to="/">
+        Take me home.
+      </RouterLink>
     </div>
+  </div>
 </template>
 
 <script>
@@ -14,7 +18,7 @@ const msgs = [
   `How did we get here?`,
   `That's a Four-Oh-Four.`,
   `Looks like we've got some broken links.`
-];
+]
 
 export default {
   methods: {

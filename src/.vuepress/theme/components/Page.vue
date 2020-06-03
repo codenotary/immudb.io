@@ -1,14 +1,14 @@
 <template>
-    <main class="page">
-        <slot name="top" />
+  <main class="page">
+    <slot name="top" />
 
-        <Content class="theme-default-content" />
-        <PageEdit />
+    <Content class="theme-default-content" />
+    <PageEdit />
 
-        <PageNav v-bind="{ sidebarItems }" />
+    <PageNav v-bind="{ sidebarItems }" />
 
-        <slot name="bottom" />
-    </main>
+    <slot name="bottom" />
+  </main>
 </template>
 
 <script>
@@ -16,8 +16,8 @@ import PageEdit from '@theme/components/PageEdit.vue'
 import PageNav from '@theme/components/PageNav.vue'
 
 export default {
-    components: { PageEdit, PageNav },
-    props: ['sidebarItems']
+  components: { PageEdit, PageNav },
+  props: ['sidebarItems']
 }
 </script>
 
@@ -25,7 +25,7 @@ export default {
 @require '../styles/wrapper.styl'
 
 .page
-    padding-bottom 2rem
-    display block
+  padding-bottom 2rem
+  display block
 
 </style>
