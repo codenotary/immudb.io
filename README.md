@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="http://inkline.io/">
+    <a href="http://immudb.io/">
         <img src="https://immudb.io/mascot.png" alt="immudb logo" width=200>
     </a>
 </p>
