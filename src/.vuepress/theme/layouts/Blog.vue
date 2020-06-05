@@ -28,7 +28,8 @@
                     <i-column lg="4" md="6">
                         <i-card class="blog-entry">
                             <router-link slot="image" class="blog-entry-image" :to="page.path">
-                                <img class="image -fluid" :src="$withBase(page.frontmatter.image)" :alt="page.frontmatter.title" />
+                                <img class="foreground image -fluid" :src="thumbnail($withBase(page.frontmatter.image))" :alt="page.frontmatter.title" />
+                                <img class="background image -fluid" :src="thumbnail($withBase('/blog/background.jpg'))" :alt="page.frontmatter.title" />
                             </router-link>
                             <router-link class="blog-entry-title" :to="page.path">
                                 <h2>{{ page.frontmatter.title }}</h2>
@@ -69,6 +70,9 @@ export default {
     methods: {
         date(date) {
             return new Date(date);
+        },
+        thumbnail(url) {
+            return url.replace(/^\/blog/, '/blog/thumbnail')
         }
     }
 }

@@ -26,7 +26,7 @@
                         </ul>
 
                         <div class="blog-post-image">
-                            <img class="image -fluid" :src="$withBase($page.frontmatter.image)" :alt="$page.title" />
+                            <img class="image -fluid" :src="fullsize($withBase($page.frontmatter.image))" :alt="$page.title" />
                         </div>
 
                         <Content class="theme-default-content" />
@@ -53,6 +53,11 @@ export default {
     computed: {
         date() {
             return new Date(this.$page.frontmatter.date);
+        }
+    },
+    methods: {
+        fullsize(url) {
+            return url.replace(/^\/blog/, '/blog/fullsize')
         }
     }
 }

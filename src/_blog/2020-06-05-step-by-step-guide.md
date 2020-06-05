@@ -1,9 +1,9 @@
 ---
 title: Step by Step Guide to immudb
-image: https://github.com/codenotary/immudb/raw/master/img/immudb-mascot-small.png
+image: /blog/mascot.jpg
 excerpt: 
     Learn how to use immudb and store your first entries tamperproof
-date: 2019-06-06
+date: 2020-06-05
 tags: 
   - Bash
   - Go
