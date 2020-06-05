@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vuepress dev src",
     "build": "vuepress build src",
-    "postbuild": "npm run images",
+    "prebuild": "npm run images",
     "preinstall": "npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i src/.vuepress/public/blog/*.jpg -o src/.vuepress/public/blog/fullsize/ resize 1920",
