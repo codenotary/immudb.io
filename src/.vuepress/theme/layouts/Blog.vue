@@ -16,7 +16,7 @@
         <i-container id="blog-post">
             <i-row>
                 <i-column>
-                    <h1 class="blog-post-title">immudb</h1>
+                    <h1 class="blog-post-title">immudb blog</h1>
                     <p class="blog-post-excerpt">{{ $description }}</p>
                 </i-column>
             </i-row>
