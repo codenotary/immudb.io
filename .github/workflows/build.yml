@@ -6,9 +6,10 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
-    steps:
-        -   uses: actions/checkout@v1
-        -   name: Build
-            run: |
-                npm install
-                npm run build
+        steps:
+            - uses: actions/checkout@v1
+
+            - name: Build
+              run: |
+                  npm install
+                  npm run build
