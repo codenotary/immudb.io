@@ -64,8 +64,9 @@ module.exports = {
         ['meta', { name: "HandheldFriendly", content: "True" }],
         ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
         ['script', { type: "application/ld+json" }, schemaOrg],
+    ].concat(process.env.NODE_ENV === 'production' ? [
         ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
-    ],
+    ] : []),
     themeConfig: {
         logo: '/logo.png',
         nav: [
