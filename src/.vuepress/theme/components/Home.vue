@@ -26,12 +26,13 @@
 
         <Content />
 
-        <div v-if="data.copyright" v-html="data.copyright" class="footer"></div>
+        <Footer />
     </main>
 </template>
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import Footer from '@theme/components/Footer.vue'
 import GithubButton from 'vue-github-button'
 
 export default {
@@ -39,7 +40,8 @@ export default {
 
   components: {
       NavLink,
-      GithubButton
+      GithubButton,
+      Footer
   },
 
   computed: {

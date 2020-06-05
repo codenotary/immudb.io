@@ -1,4 +1,5 @@
 import Inkline from '@inkline/inkline';
+import VueFilterDateFormat from 'vue-filter-date-format';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
     faCheckCircle,
@@ -16,5 +17,6 @@ library.add(faLink);
 
 export default ({ Vue }) => {
     Vue.use(Inkline);
+    Vue.use(VueFilterDateFormat);
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 }
