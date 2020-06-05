@@ -2,7 +2,7 @@
 title: Step by Step Guide to immudb
 image: https://github.com/codenotary/immudb/raw/master/img/immudb-mascot-small.png
 excerpt: 
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+    Learn how to use immudb and store your first entries tamperproof
 date: 2019-06-06
 tags: 
   - Bash
