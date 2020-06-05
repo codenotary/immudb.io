@@ -3,7 +3,7 @@ title: Hello World
 image: /blog/2019-05-06-writing-a-vuepress-theme.jpg
 excerpt: 
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-date: 2019-05-06
+date: 2019-05-05
 tags: 
   - JavaScript
   - Vue
