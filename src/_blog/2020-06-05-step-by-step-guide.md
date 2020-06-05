@@ -354,7 +354,7 @@ verified:       true
 
 the command is a bit more complex
     
-~~~bash
+~~~bash 
 ./immuclient safeget Dockerfile1 | grep "^value" | cut -d":" -f2 | xargs echo -n | base64 -di
 ~~~
 
