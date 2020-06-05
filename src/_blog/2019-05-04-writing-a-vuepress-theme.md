@@ -1,6 +1,6 @@
 ---
 title: Step by Step Guide to immudb
-image: /blog/2019-05-06-writing-a-vuepress-theme.jpg
+image: https://github.com/codenotary/immudb/raw/master/img/immudb-mascot-small.png
 excerpt: 
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 date: 2019-06-06
