@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev src",
-    "build": "vuepress build src",
     "prebuild": "npm run images",
+    "build": "vuepress build src",
     "preinstall": "npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
-    "images:fullsize": "sharp -i src/.vuepress/public/blog/*.jpg -o src/.vuepress/public/blog/fullsize/ resize 1920",
-    "images:thumbnail": "sharp -i src/.vuepress/public/blog/*.jpg -o src/.vuepress/public/blog/thumbnail/ resize 560"
+    "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
+    "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560"
   },
   "repository": {
     "type": "git",
