@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Step by Step Guide to immudb | immudb - The lightweight, high-speed immutable database</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="canonical" href="https://immudb.io">
+    <link rel="shortcut icon" type="image/png" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4d4d4d">
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "immudb - The lightweight, high-speed immutable database",
+        "url": "https://immudb.io",
+        "logo": {
+            "@type": "ImageObject",
+            "url": {
+                "@type": "ImageObject",
+                "url": "https://immudb.io/logo.png",
+                "width": 1036,
+                "height": 367
+            }
+        }
+    },
+    "url": "https://immudb.io",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://immudb.io"
+    },
+    "description": "immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application."
+}</script>
+    <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-168112067-1"></script>
+    <meta name="description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="apple-mobile-web-app-title" content="immudb">
+    <meta name="application-name" content="immudb">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta property="og:site_name" content="immudb">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta property="og:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta property="og:url" content="https://immudb.io">
+    <meta property="article:publisher" content="https://immudb.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta name="twitter:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="twitter:url" content="https://immudb.io">
+    <meta name="twitter:site" content="@immudb">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="/assets/css/0.styles.f285731b.css" as="style"><link rel="preload" href="/assets/js/app.0caf060d.js" as="script"><link rel="preload" href="/assets/js/1.59e99e03.js" as="script"><link rel="preload" href="/assets/js/7.1436b767.js" as="script"><link rel="preload" href="/assets/js/2.7ff6dbfe.js" as="script"><link rel="preload" href="/assets/js/11.5d30c6df.js" as="script"><link rel="prefetch" href="/assets/js/10.4788fa36.js"><link rel="prefetch" href="/assets/js/12.176b1b26.js"><link rel="prefetch" href="/assets/js/13.b6dabe24.js"><link rel="prefetch" href="/assets/js/14.4d352d85.js"><link rel="prefetch" href="/assets/js/15.571c6348.js"><link rel="prefetch" href="/assets/js/16.967f173b.js"><link rel="prefetch" href="/assets/js/17.c499858c.js"><link rel="prefetch" href="/assets/js/18.2b14e79a.js"><link rel="prefetch" href="/assets/js/19.02cb2700.js"><link rel="prefetch" href="/assets/js/20.25525daf.js"><link rel="prefetch" href="/assets/js/21.aafc022b.js"><link rel="prefetch" href="/assets/js/22.3f67e74d.js"><link rel="prefetch" href="/assets/js/23.6d1f6c15.js"><link rel="prefetch" href="/assets/js/4.7d0a3027.js"><link rel="prefetch" href="/assets/js/5.ac9f0ee8.js"><link rel="prefetch" href="/assets/js/6.95e7a8c7.js"><link rel="prefetch" href="/assets/js/8.492aaaf8.js"><link rel="prefetch" href="/assets/js/9.13cd9a8b.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.f285731b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="blog" class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="immudb - The lightweight, high-speed immutable database" class="logo"> <span class="site-name can-hide">immudb - The lightweight, high-speed immutable database</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/docs/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/docs/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Get started</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/" class="sidebar-link">Introduction</a></li><li><a href="/docs/how-it-works.html" class="sidebar-link">How it works</a></li><li><a href="/docs/quickstart.html" class="sidebar-link">Quickstart</a></li><li><a href="/docs/command-reference.html" class="sidebar-link">Command reference</a></li><li><a href="/docs/apis-and-interfaces.html" class="sidebar-link">APIs and interfaces</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Components</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/immudb/" class="sidebar-link">immudb</a></li><li><a href="/docs/immugw/" class="sidebar-link">immugw</a></li><li><a href="/docs/immuadmin/" class="sidebar-link">immuadmin</a></li><li><a href="/docs/immuclient/" class="sidebar-link">immuclient</a></li></ul></section></li></ul> </aside> <div id="blog-post" class="container"><div class="row"><div class="column"><article><h1 class="blog-post-title">Step by Step Guide to immudb</h1> <p class="blog-post-excerpt">Learn how to use immudb and store your first entries tamperproof</p> <ul class="blog-post-meta list -inline"><li>Published on June 05, 2020</li> <li>·</li> <li>8 min read</li></ul> <div class="blog-post-image"><img src="/blog/fullsize/mascot.jpg" alt="Step by Step Guide to immudb" class="image -fluid"></div> <div class="theme-default-content content__default"><h1 id="a-step-by-step-guide-to-immudb-the-open-source-immutable-database"><a href="#a-step-by-step-guide-to-immudb-the-open-source-immutable-database" class="header-anchor">#</a> A Step by Step Guide to immudb — the open source immutable database</h1> <p><strong>immudb</strong> is <strong>lightweight, high-speed immutable database</strong> for systems and applications.</p> <p>With <a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer">immudb<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> you can track changes in sensitive data in your transactional databases and then record those changes indelibly in a the tamperproof immudb database.</p> <p>This allows you to keep an indelible history of, say, your debit/credit transactions.</p> <p>immudb is open source under the <a href="https://github.com/codenotary/immudb/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">Apache v2.0 License<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, and can be found here (there is also a more comprehensive documentation):</p> <p>Traditional transaction logs are hard to scale, and are not immutable. So there is no way to know for sure if your data has been compromised.</p> <p>You can find an example video here:</p> <h2 id="how-it-works"><a href="#how-it-works" class="header-anchor">#</a> How it works</h2> <p>As such immudb provides <strong>unparalleled insights</strong> <strong>retro-actively</strong>, of what happened to your sensitive data, even if your perimiter was compromised. immudb provides the guarantatee of immutability by using internally a <strong>Merkle tree structure</strong>.</p> <p>immudb gives you the same <strong>cyrptographic verification</strong> of the integrity of data written with <strong>SHA-256</strong> like classic blockchain without the cost and complexity associated with blockchains today.</p> <p>immudb has 4 main benefits:</p> <ul><li><strong>immudb is immutable</strong>. You can only add records, but <strong>never change or delete records</strong>.</li> <li>data stored in immudb is <strong>cryptographically coherent and verifiable</strong>, like blockchains, just without all the complexity and at high speed.</li> <li>Anyone can get <strong>started with immudb in minutes</strong>. Wether in node.js, Java, Python, Golang, .Net, or any other language. It's very easy to use and you can have your immutable database running in just a few minutes.</li> <li>Finally, immudb is <strong>Open Source</strong>. You can run it <strong>on premise</strong>, or in the <strong>cloud</strong> and it's completely free. immudb is governed by the Apache 2.0 License.</li></ul> <p>immudb is currently runs on <strong>Linux</strong>, <strong>FreeBSD</strong>, <strong>Windows</strong>, and <strong>MacOS</strong>, along with other systems derived from them, such as <strong>Kubernetes</strong> and <strong>Docker</strong>.</p> <h2 id="immudb-high-level"><a href="#immudb-high-level" class="header-anchor">#</a> <strong>immudb High-level</strong></h2> <h2 id="the-components"><a href="#the-components" class="header-anchor">#</a> The components</h2> <ul><li><strong>immudb</strong> is the server binary that listens on port 3322 on localhost and provides a gRPC interface</li> <li><strong>immugw</strong> is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend to run immudb and immugw on separate machines to enhance security</li> <li><strong>immuadmin</strong> is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.</li></ul> <h2 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> <strong>Getting started</strong></h2> <p>You can either build Docker images based on the Dockerfiles in the GitHub repository for the most common architectures or use the prebuild ones on Dockerhub for Linux.</p> <h2 id="build-it-yourself"><a href="#build-it-yourself" class="header-anchor">#</a> Build it yourself</h2> <div class="language- extra-class"><pre><code>docker build -t myown/immudb:latest -f Dockerfile .
+docker build -t myown/immugw:latest -f Dockerfile.immugw .
+docker build -t myown/immuadmin:latest -f Dockerfile.immuadmin .
+</code></pre></div><h2 id="immudb-dockerhub"><a href="#immudb-dockerhub" class="header-anchor">#</a> immudb <strong>Dockerhub</strong></h2> <div class="language- extra-class"><pre><code>docker run -it -d -p 3322:3322 -p 9497:9497 — name immudb codenotary/immudb:latest
+</code></pre></div><h2 id="immugw-dockerhub"><a href="#immugw-dockerhub" class="header-anchor">#</a> <strong>immugw Dockerhub</strong></h2> <div class="language- extra-class"><pre><code>docker run -it -d -p 3323:3323 --name immugw --env IMMUGW_IMMUDB-ADDRESS=immudb codenotary/immugw:latest
+</code></pre></div><h2 id="standalone-binaries"><a href="#standalone-binaries" class="header-anchor">#</a> standalone Binaries</h2> <p>If you want to build the **binaries **yourself, simply <a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer">clone this repo<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and run one of the following commands based on your operating system.</p> <div class="language- extra-class"><pre><code># Linux
+GOOS=linux GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+# macOS
+GOOS=darwin GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+# Microsoft Windows
+GOOS=windows GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+</code></pre></div><p>Then you can run immudb the immudb server</p> <div class="language- extra-class"><pre><code># run immudb in the foreground 
+./immudb
+# run immudb in the background 
+./immudb -d
+</code></pre></div><h2 id="install-immudb-as-a-service"><a href="#install-immudb-as-a-service" class="header-anchor">#</a> <strong>install immudb as a service</strong></h2> <p>Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.</p> <div class="language- extra-class"><pre><code># install immudb service 
+./immuadmin service immudb install
+# check current immudb service status 
+./immuadmin service immudb status
+# stop immudb service 
+./immuadmin service immudb stop
+# start immudb service 
+./immuadmin service immudb start
+</code></pre></div><p>The immud linux service is using the following defaults:</p> <ul><li>user: immu</li> <li>group: immu</li> <li>configuration: /etc/immudb</li> <li>data: /var/lib/immudb</li> <li>logs: /var/log/immudb</li> <li>Service Port: 3322 (immudb), 3323 (immugw)</li> <li>Prometheus Port: 9497</li></ul> <p>You can do the same with the immugw API Gateway that should be installed on a separate system for security reasons.</p> <p>Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.</p> <div class="language- extra-class"><pre><code># install immugw service 
+./immuadmin service immugw install
+# check current immugw service status 
+./immuadmin service immugw status
+# stop immugw service 
+./immuadmin service immugw stop
+# start immugw service 
+./immuadmin service immugw start
+</code></pre></div><p>As immudb is often compared to Amazon QLDB, we did a performance benchmark using a simple demo application to write data (without using any unfair optimization).</p> <p>Test setup:</p> <ul><li>4 CPU cores</li> <li>Intel(R) Xeon(R) CPU E3–1275 v6 @ 3.80GHz</li> <li>64 GB memory</li> <li>SSD</li></ul> <p><img src="https://github.com/codenotary/immudb/raw/master/img/throughput_read.png" alt="immudb throughput read Benchmark" title="Throughput read (higher is better)"></p> <p><img src="https://github.com/codenotary/immudb/raw/master/img/throughput_write.png" alt="immudb Throughput write Benchmark" title="Throughput write (higher is better)"></p> <h2 id="immudb-statistics"><a href="#immudb-statistics" class="header-anchor">#</a> immudb statistics</h2> <p>To check the statistics at any time, please use <code>immuadmin stats</code>:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>./immuadmin stats -t
+Database path              <span class="token builtin class-name">:</span>    db/immudb
+Uptime                     <span class="token builtin class-name">:</span>    1m38.64s
+Number of entries          <span class="token builtin class-name">:</span>    <span class="token number">12</span>
+LSM size                   <span class="token builtin class-name">:</span>    <span class="token number">701</span> B
+VLog size                  <span class="token builtin class-name">:</span>    <span class="token number">1.1</span> kB
+Total size                 <span class="token builtin class-name">:</span>    <span class="token number">1.8</span> kB
+Number of clients          <span class="token builtin class-name">:</span>    <span class="token number">1</span>
+Queries per client         <span class="token builtin class-name">:</span>
+   <span class="token number">127.0</span>.0.1               <span class="token builtin class-name">:</span>    <span class="token number">26</span>
+      Last query           <span class="token builtin class-name">:</span>    <span class="token number">749</span>.641765ms ago
+Avg. duration <span class="token punctuation">(</span>nb calls<span class="token punctuation">)</span>   <span class="token builtin class-name">:</span>    µs
+   ByIndex <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ByIndexSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ChangePassword <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>      <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Consistency <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>         <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Count <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   CreateUser <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>          <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   CurrentRoot <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>         <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   DeactivateUser <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>      <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Dump <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>                <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Get <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>                 <span class="token builtin class-name">:</span>    <span class="token number">20</span>
+   GetBatch <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>            <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   GetBatchSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>          <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   GetSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Health <span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">33</span>
+   History <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   HistorySV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   IScan <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   IScanSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Inclusion <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Login <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Reference <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeGet <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeGetSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeReference <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>       <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeSet <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeSetSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>           <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SafeZAdd <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>            <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Scan <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>                <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ScanSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>              <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   Set <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>                 <span class="token builtin class-name">:</span>    <span class="token number">76</span>
+   SetBatch <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>            <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SetBatchSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>          <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   SetSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ZAdd <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>                <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ZScan <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>               <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+   ZScanSV <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>             <span class="token builtin class-name">:</span>    <span class="token number">0</span>
+
+</code></pre></div><p>or visual (default)</p> <p><img src="https://github.com/codenotary/immudb/raw/master/img/stats-v.png" alt="immuadmin stats"></p> <h2 id="prometheus-and-grafana-monitoring"><a href="#prometheus-and-grafana-monitoring" class="header-anchor">#</a> Prometheus and Grafana monitoring</h2> <p>immudb has a built-in prometheus exporter that publishes all metrics at port 9497 (:9497/metrics) by default. When running a Prometheus instance, you can configure the target like in this example:</p> <div class="language- extra-class"><pre><code>- job_name: 'immudbmetrics'
+    scrape_interval: 60s
+    static_configs:
+         - targets: ['my-immudb-server:9497']
+</code></pre></div><p><img src="https://github.com/codenotary/immudb/raw/master/img/grafana-dashboard.png" alt="Grafana Dashboard"></p> <p>You can find the Grafana dashboard here: <a href="https://grafana.com/grafana/dashboards/12026" target="_blank" rel="noopener noreferrer">https://grafana.com/grafana/dashboards/12026<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="common-use-cases"><a href="#common-use-cases" class="header-anchor">#</a> Common Use Cases</h2> <p>We already learned about the following use cases from users:</p> <ul><li>use immudb to immutably store every update to sensitive database fields (credit card or bank account data) of an existing application database</li> <li>store CI/CD recipes in immudb to protect build and deployment pipelines</li> <li>store public certificates in immudb</li> <li>use immudb as an additional hash storage for digital objects checksums</li> <li>store log streams (i. e. audit logs) tamperproof</li></ul> <p><a href="https://www.opvizor.com" target="_blank" rel="noopener noreferrer">Opvizor<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> — immutable log (syslog) solution for VMware vSphere</p> <h2 id="api-documentation-and-how-to-use-it"><a href="#api-documentation-and-how-to-use-it" class="header-anchor">#</a> API Documentation and how to use it</h2> <p>You can find the swagger schema for immudb here:</p> <p>If you want to run the Swagger UI, simply run the following docker command after you cloned this repo:</p> <div class="language- extra-class"><pre><code>docker run -d -it -p 8080:8080 --name swagger-immudb -v ${PWD}/pkg/api/schema/schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json swaggerapi/swagger-ui
+</code></pre></div><p>or immugw:</p> <p>some procedure, different schema:</p> <div class="language- extra-class"><pre><code>docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/schema/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json swaggerapi/swagger-ui
+</code></pre></div><h2 id="no-programmer"><a href="#no-programmer" class="header-anchor">#</a> No programmer?</h2> <p>Actually in case you're not a programmer but still want to use immudb just to play around or within scripts, you can use immuclient.</p> <div class="language- extra-class"><pre><code># Linux
+GOOS=linux GOARCH=amd64 make immuclient-static
+# Microsoft Windows
+GOOS=windows GOARCH=amd64 make immuclient-static
+</code></pre></div><p>In case you have no idea how to build it, you can use the following Docker command and procedurel:</p> <div class="language- extra-class"><pre><code># Linux
+docker run -it --rm -v $(pwd):/src golang:1.13-stretch sh -c 'cd /src &amp;&amp; GOOS=linux GOARCH=amd64 make immuclient-static'
+# Microsoft Windows
+docker run -it --rm -v $(pwd):/src golang:1.13-stretch sh -c 'cd /src &amp;&amp; GOOS=windows GOARCH=amd64 make immuclient-static'
+</code></pre></div><p>Now you'll find the immuclient binary in the repository folder and ready to be used.</p> <div class="language- extra-class"><pre><code>./immuclient --help
+</code></pre></div><p>gives you details how to use it.</p> <h2 id="add-a-record-to-immudb"><a href="#add-a-record-to-immudb" class="header-anchor">#</a> Add a record to immudb</h2> <div class="language- extra-class"><pre><code># same system where immudb server is running
+./immuclient safeset mykey myvalue
+# immudb server runs on a remote system
+./immuclient -a  safeset mykey myvalue
+</code></pre></div><p>You'll receive something similar to:</p> <div class="language- extra-class"><pre><code>./immuclient safeset k1 v1
+index: 307
+key: k1
+value: v1
+hash: 4a6a18172eba5a3ea49a3caf147ac405c874ed4c922cc7dafe0dce5ff85f35aa
+time: 2020–05–13 04:01:30 -0400 EDT
+verified: true
+</code></pre></div><h2 id="get-the-record-from-immudb"><a href="#get-the-record-from-immudb" class="header-anchor">#</a> Get the record from immudb</h2> <div class="language- extra-class"><pre><code># same system where immudb server is running
+./immuclient safeget mykey
+# get the value history
+./immuclient history mykey
+# immudb server runs on a remote system
+./immuclient -a  safeget mykey
+</code></pre></div><p>The</p> <div class="language- extra-class"><pre><code>safeGet 
+</code></pre></div><p>and</p> <div class="language- extra-class"><pre><code>safeSet 
+</code></pre></div><p>commands do a consistency check for the values as well.</p> <p>Now you could store any kind of data, like the content of a sensitive database field, public certificate or a even a configuration file.</p> <p>Let's try with a local Dockerfile and make sure there are not new lines or special characters in our value.</p> <div class="language- extra-class"><pre><code>./immuclient safeset Dockerfile1 $(echo -n &quot;$(cat Dockerfile)&quot; | base64 -w 0)
+</code></pre></div><p>To get the data back, you need to make sure to convert it again.</p> <p>As the output of safeget contains more than just the value, as seen here:</p> <div class="language- extra-class"><pre><code>./immuclient safeget Dockerfile1
+index:          309
+key:            Dockerfile1
+value:          RlJPTSBnb2xhbmc6MS4xMy1zdHJldGNoIGFzIGJ1aWxkCldPUktESVIgL3NyYwpDT1BZIC4gLgpSVU4gR09PUz1saW51eCBHT0FSQ0g9YW1kNjQgbWFrZSBpbW11YWRtaW4tc3RhdGljCkZST00gdWJ1bnR1OjE4LjA0Ck1BSU5UQUlORVIgdkNoYWluLCBJbmMuICA8aW5mb0B2Y2hhaW4udXM+CgpDT1BZIC0tZnJvbT1idWlsZCAvc3JjL2ltbXVhZG1pbiAvdXNyL2xvY2FsL2Jpbi9pbW11YWRtaW4KCkFSRyBJTU1VX1VJRD0iMzMyMiIKQVJHIElNTVVfR0lEPSIzMzIyIgoKRU5WIElNTVVBRE1JTl9JTU1VREItQUREUkVTUz0iMTI3LjAuMC4xIiBcCiAgICBJTU1VQURNSU5fSU1NVURCLVBPUlQ9IjMzMjIiIFwKICAgIElNTVVEQl9NVExTPSJmYWxzZSIgCgpSVU4gYWRkZ3JvdXAgLS1zeXN0ZW0gLS1naWQgJElNTVVfR0lEIGltbXUgJiYgXAogICAgYWRkdXNlciAtLXN5c3RlbSAtLXVpZCAkSU1NVV9VSUQgLS1uby1jcmVhdGUtaG9tZSAtLWluZ3JvdXAgaW1tdSBpbW11ICYmIFwKICAgIGNobW9kICt4IC91c3IvbG9jYWwvYmluL2ltbXVhZG1pbgoKVVNFUiBpbW11CkVOVFJZUE9JTlQgWyIvdXNyL2xvY2FsL2Jpbi9pbW11YWRtaW4iXQ==
+hash:           dfca217e2d87dccb8fd3fe8c1b49e620cc4ece8dc9c9fc2384cb6f6c9617eddb
+time:           2020-05-13 05:19:19 -0400 EDT
+verified:       true
+</code></pre></div><p>the command is a bit more complex</p> <div class="language- extra-class"><pre><code>./immuclient safeget Dockerfile1 | grep &quot;^value&quot; | cut -d&quot;:&quot; -f2 | xargs echo -n | base64 -di
+</code></pre></div><p>There will be easier options in the future for non developers and also SDK driver for .net, Java, Node.js, Python aso.</p></div></article></div></div></div> <div class="footer">Copyright © vChain 2020</div></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0caf060d.js" defer></script><script src="/assets/js/1.59e99e03.js" defer></script><script src="/assets/js/7.1436b767.js" defer></script><script src="/assets/js/2.7ff6dbfe.js" defer></script><script src="/assets/js/11.5d30c6df.js" defer></script>
+  </body>
+</html>
