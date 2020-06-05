@@ -4,7 +4,6 @@ heroText: 'immudb'
 heroImage: '/mascot.png'
 actionText: Get started 
 actionLink: /docs/
-copyright: Copyright &copy; vChain 2020
 ---
 
 <section id="features">
