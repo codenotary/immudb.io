@@ -1,6 +1,7 @@
 const websiteUrl = 'https://immudb.io';
 const title = 'immudb - The lightweight, high-speed immutable database';
 const description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.';
+
 const schemaOrg = `{
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -25,6 +26,11 @@ const schemaOrg = `{
     },
     "description": "${description}"
 }`;
+
+const googleAnalytics = `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-168112067-1');`;
 
 module.exports = {
     base: '/',
@@ -57,7 +63,8 @@ module.exports = {
         ['meta', { name: "twitter:site", content: "@immudb" }],
         ['meta', { name: "HandheldFriendly", content: "True" }],
         ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
-        ['script', { type: "application/ld+json" }, schemaOrg]
+        ['script', { type: "application/ld+json" }, schemaOrg],
+        ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
     ],
     themeConfig: {
         logo: '/logo.png',
@@ -98,6 +105,7 @@ module.exports = {
                     dirname: '_blog',
                     path: '/blog/',
                     layout: 'Blog',
+                    lengthPerPage: 10,
                     itemLayout: 'BlogPost',
                     itemPermalink: '/blog/:year/:month/:day/:slug',
                     pagination: {
@@ -111,6 +119,7 @@ module.exports = {
         }],
         ['@vuepress/google-analytics', {
             ga: 'UA-168112067-1'
-        }]
+        }],
+        ['vuepress-plugin-reading-time']
     ]
 };
