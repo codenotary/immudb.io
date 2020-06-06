@@ -71,6 +71,7 @@ module.exports = {
         logo: '/logo.png',
         nav: [
             { text: 'Home', link: '/' },
+            { text: 'Blog', link: '/blog/' },
             { text: 'Documentation', link: '/docs/' },
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
