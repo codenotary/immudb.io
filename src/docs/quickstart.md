@@ -4,6 +4,16 @@
 
 [Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
 
+### macOS
+
+The community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb), therefore you can simply run 
+```bash
+brew install immudb
+```
+
+In case you want to run immudb as a service, please check the following [guideline](https://medium.com/swlh/how-to-use-launchd-to-run-services-in-macos-b972ed1e352).
+
+
 ## Build the binaries
 
 To build the binaries yourself, simply clone this repo and run
