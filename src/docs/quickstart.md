@@ -2,9 +2,11 @@
 
 ## Download the binaries
 
+### General
+
 [Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
 
-### macOS
+### macOS specific
 
 The community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb), therefore you can simply run 
 ```bash
