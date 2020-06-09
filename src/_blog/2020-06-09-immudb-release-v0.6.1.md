@@ -35,15 +35,15 @@ Release v0.6.1 fixes some important bugs and has many improvements - we recommen
 - **cmd/immuclient:** nil pointer when audit-mode used with immudb running as daemon
 - **cmd/immutest:** add new line at the end of output message
 - **pkg/ring:** return nil on inconsistent access to buffer rings elements
-- **pkg/store:** fix visualization of not frozen nodes inside print tree command
-- **pkg/store/treestore:** fix overwriting on not freezes nodes
+- **pkg/store:** fix visualization of non frozen nodes inside print tree command
+- **pkg/store/treestore:** fix overwriting on non frozen nodes
 
 ### Changes
 - add license to tests ([#288](https://github.com/codenotary/immudb/issues/288))
 - update statement about traditional DBs in README
 - remove immugw configs from immudb config file [#302](https://github.com/codenotary/immudb/issues/302)
 - **cmd/immuadmin/command:** improve visualization ui in merkle tree print command
-- **cmd/immuadmin/command/service:** syntax error, fail build on windows
+- **cmd/immuadmin/command/service:** syntax error, build fails on windows
 - **cmd/immuclient/audit:** code cleanup and renaming
 - **pkg/store/treestore:** improve cache invalidation
 
