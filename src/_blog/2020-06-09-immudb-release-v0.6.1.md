@@ -1,5 +1,6 @@
 ---
 title: immudb release v0.6.1
+image: /blog/mascot.jpg
 excerpt: 
     Release v0.6.1 fixes some important bugs and has many improvements - we recommend updating to it 
 date: 2020-06-09
