@@ -388,36 +388,37 @@ We have carefully designed immudb to be the one-stop intuitive immutable databas
                 </li>
             </ul>
         </template>
-<i-tab title="Tab 1">
+<i-tab title="Connect to immudb">
 
 ~~~go
-tab1, err := client.SafeGet(ctx, key2)
-if err != nil {
-    exit(err)
-}
-fmt.Println("   SafeGet - fetch and verify entry:")
-printItem(nil, nil, verifiedItem)
+fmt.Println("2. Connect immudb client ...")
+client, err := immuclient.NewImmuClient(immuclient.DefaultOptions())
+ if err != nil {
+	exit(err)
+ }
+ctx := context.Background()
 ~~~
 
 </i-tab>
-<i-tab title="Tab 2">
+<i-tab title="Store verified items">
 
 ~~~go
-tab2, err := client.SafeGet(ctx, key2)
+key2, value2 := []byte("client:Mr. Archibald Beatty"), []byte("Visa 6679499384784022 11/23")
+verifiedIndex, err := client.SafeSet(ctx, key2, value2)
 if err != nil {
-    exit(err)
+	exit(err)
 }
-fmt.Println("   SafeGet - fetch and verify entry:")
-printItem(nil, nil, verifiedItem)
+fmt.Println("   SafeSet - add and verify entry:")
+printItem(key2, value2, verifiedIndex)
 ~~~
 
 </i-tab>
-<i-tab title="Tab 3">
+<i-tab title="Get verified items">
 
 ~~~go
-tab3, err := client.SafeGet(ctx, key2)
+verifiedItem, err := client.SafeGet(ctx, key2)
 if err != nil {
-    exit(err)
+	exit(err)
 }
 fmt.Println("   SafeGet - fetch and verify entry:")
 printItem(nil, nil, verifiedItem)
