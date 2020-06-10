@@ -391,7 +391,6 @@ We have carefully designed immudb to be the one-stop intuitive immutable databas
 <i-tab title="Connect to immudb">
 
 ~~~go
-fmt.Println("2. Connect immudb client ...")
 client, err := immuclient.NewImmuClient(immuclient.DefaultOptions())
  if err != nil {
 	exit(err)
