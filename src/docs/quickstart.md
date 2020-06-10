@@ -117,15 +117,20 @@ All services and CLI components are also available as Docker images on [dockerhu
 
 | Component | Container image                               |
 | --------- | --------------------------------------------- |
-| immudb    | https://hub.docker.com/r/codenotary/immudb    |
-| immugw    | https://hub.docker.com/r/codenotary/immugw    |
-| immuadmin | https://hub.docker.com/r/codenotary/immuadmin |
-| immuclient | https://hub.docker.com/r/codenotary/immuclient |
+| immudb    | [https://hub.docker.com/r/codenotary/immudb](https://hub.docker.com/r/codenotary/immudb) |
+| immugw    | [https://hub.docker.com/r/codenotary/immugw](https://hub.docker.com/r/codenotary/immugw) |
+| immuadmin | [https://hub.docker.com/r/codenotary/immuadmin](https://hub.docker.com/r/codenotary/immuadmin) |
+| immuclient | [https://hub.docker.com/r/codenotary/immuclient](https://hub.docker.com/r/codenotary/immuclient) |
 
 ### Run immudb
 
 ```bash
 docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb codenotary/immudb:latest
+```
+
+run it with persistent data and listening to all interfaces:
+```bash
+docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb:/var/lib/immudb --env IMMUDB_ADDRESS=0.0.0.0 --name immudb codenotary/immudb:latest
 ```
 
 ### Run immugw
