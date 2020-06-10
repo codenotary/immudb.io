@@ -145,3 +145,26 @@
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
+
+.jobs
+    ul
+        border: 1px solid $borderColor
+        list-style: none
+        padding-left: 0 !important
+
+        li
+            border-bottom: 1px solid $borderColor
+            margin: 0
+
+            &:last-child
+                border-bottom 0
+
+            a
+                display: block
+                padding: 1rem
+                text-decoration none !important
+
+                &:hover, &:focus
+                    background: #f9f9f9
+
+

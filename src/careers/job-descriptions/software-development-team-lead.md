@@ -1,8 +1,12 @@
-**Software Development Team Lead**
+---
+sidebar: false
+---
+
+# Software Development Team Lead
 
 **LOCATION: REMOTE (within Europe)**
 
-We are looking for a Software Development Team Lead as part of an agile development team, building and working on our Open Source trust solutions: [immudb](http://www.immudb.io/) and [CodeNotary](http://www.codenotary.io/)..
+We are looking for a Software Development Team Lead as part of an agile development team, building and working on our Open Source trust solutions: [immudb](http://www.immudb.io/) and [CodeNotary](http://www.codenotary.io/).
 
 The Software Development Team Lead will provide technical and team leadership through coaching and mentorship to a highly motivated team of distributed engineers working across a variety of systems, locations, and cultures. You will be responsible for delivering solutions successfully on-time and on-budget, adhering to high-quality development principles, and facilitating growth and improvement within the team.
 

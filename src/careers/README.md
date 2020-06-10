@@ -1,3 +1,7 @@
+---
+sidebar: false
+---
+
 # Careers
 
 vChain is the Open Source leader for immutable trust solutions such as immudb and CodeNotary. 
@@ -22,9 +26,13 @@ Our Values
 
 We're hiring! Check out our open positions:
 
+<div class="jobs">
+
 - [Software Development Team Lead](job-descriptions/software-development-team-lead.md)
 - [Senior Go Engineer](job-descriptions/senior-software-engineer-go.md)
 - [QA Automation Engineer](job-descriptions/qa-automation-engineer.md)
+
+</div>
 
 Apply by following the directions in the job description.
 
@@ -39,6 +47,9 @@ Our team consists of talented, collaborative,experienced, driven individuals who
 Most of our work, including our main product, is open source, i. e. [immudb](https://github.com/immudb)! You can check out our code to see the kinds of problems that we work on, file an issue if you run into any problems, or even submit a PR if you want to help make our projects better.
 
 ## Benefits
+
+<br/>
+
 * Full-time position
 * Competitive compensation package with a stock option plan
 * Flexible hours

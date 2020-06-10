@@ -1,4 +1,8 @@
-**Senior Golang Developer**
+---
+sidebar: false
+---
+
+# Senior Golang Developer
 
 ***LOCATION: REMOTE (within Europe)***
 
