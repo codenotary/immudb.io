@@ -107,17 +107,25 @@
         .terminal-wrapper
             margin-bottom: 1rem
 
+#comingsoon
+    ul
+        li._text-muted
+            @media screen and (max-width: 767px)
+                display none
 
 #usedby
     padding-top: 4rem
-    padding-bottom: 4rem
+    padding-bottom: 2rem
     justify-content space-between
+    text-align: center
 
     img
-        margin: 0 auto
+        margin: 0 auto 2rem
         display block
         opacity: 0.5
         transition: opacity 0.3s ease
+        height: 45px;
+        width: auto;
 
         &:hover
             opacity: 0.6

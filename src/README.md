@@ -248,9 +248,34 @@ We're working hard every day to improve immudb and everything it has to offer. H
 <section class="section" id="usedby">
     <i-container>
         <i-row>
-            <i-column>
+            <i-column xs="12" sm="4" lg="2">
                 <a href="https://codenotary.io" target="_blank">
-                    <img :src="$withBase('/logos/codenotary.png')" width="150" alt="CodeNotary" />
+                    <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
+                </a>
+            </i-column>
+            <i-column xs="12" sm="4" lg="2">
+                <a href="https://opvizor.com" target="_blank">
+                    <img :src="$withBase('/logos/opvizor.png')" alt="Opvizor" />
+                </a>
+            </i-column>
+            <i-column xs="12" sm="4" lg="2">
+                <a href="https://www.ta.capital/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/tacapital.png')" alt="TA Captial" />
+                </a>
+            </i-column>
+            <i-column xs="12" sm="4" lg="2">
+                <a href="https://www.esoftthings.com/en/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/esoftthings.png')" alt="eSoftThings" />
+                </a>
+            </i-column>
+            <i-column xs="12" sm="4" lg="2">
+                <a href="https://www.greentube.com/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/greentube.svg')" alt="GreenTube" />
+                </a>
+            </i-column>
+            <i-column xs="12" sm="4" lg="2">
+                <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
                 </a>
             </i-column>
         </i-row>
