@@ -232,13 +232,13 @@ printItem(nil, nil, verifiedItem)
 <div class="section-center _padding-bottom-4">
 
 ## Unmatched performance
-Immudb has been designed from the ground up with performance in mind. Discover a high-speed, lightweight database that covers all of your immutability needs. 
+immudb has been designed with read and write performance in mind while being tamper-proof. The benchmarks we've done show great results.
 
 </div>
 </i-column>
 </i-row>
 
-<i-row class="_padding-bottom-6">
+<i-row>
 <i-column md="6">
 
 ~~~bash
@@ -251,7 +251,7 @@ Throughput: 326626 tx/sec
 ~~~
 
 </i-column>
-<i-column md="6">
+<i-column md="6" class="_margin-top-sm-1 _margin-top-xs-1">
 
 ~~~bash
 batch write (async commit)
@@ -266,11 +266,23 @@ Throughput: 2772181 tx/sec
 </i-row>
 
 <i-row>
+<i-column class="_text-center _padding-top-1 _padding-bottom-6">
+<ul class="list -inline _text-muted _font-size-sm">
+    <li>4 cores</li>
+    <li>&middot;</li>
+    <li>16GB memory</li>
+    <li>&middot;</li>
+    <li>single SSD drive</li>
+</ul>
+</i-column>
+</i-row>
+
+<i-row>
 <i-column>
 <div class="section-center lead" id="qldb-comparison">
 <font-awesome-icon icon="bolt" class="_text-primary" />
 
-Immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
+immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
 
 </div>
 </i-column>
