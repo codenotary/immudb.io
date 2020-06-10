@@ -1,4 +1,4 @@
-![](RackMultipart20200610-4-87rg9t_html_4863c1a2d739f273.png) **Software Development Team Lead**
+**Software Development Team Lead**
 
 **LOCATION: REMOTE (within Europe)**
 
