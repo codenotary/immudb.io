@@ -231,7 +231,45 @@ printItem(nil, nil, verifiedItem)
 <i-column>
 <div class="section-center _padding-bottom-4">
 
-## Unmatched performance 
+## Unmatched performance
+Immudb has been designed from the ground up with performance in mind. Discover a high-speed, lightweight database that covers all of your immutability needs. 
+
+</div>
+</i-column>
+</i-row>
+
+<i-row class="_padding-bottom-6">
+<i-column md="6">
+
+~~~bash
+sequential write
+---
+Concurrency: 128
+Iterations: 1000000
+Elapsed t.: 3.06 sec
+Throughput: 326626 tx/sec
+~~~
+
+</i-column>
+<i-column md="6">
+
+~~~bash
+batch write (async commit)
+---
+Concurrency: 16
+Iterations: 1000000
+Elapsed t.: 0.36 sec
+Throughput: 2772181 tx/sec
+~~~
+
+</i-column>
+</i-row>
+
+<i-row>
+<i-column>
+<div class="section-center lead" id="qldb-comparison">
+<font-awesome-icon icon="bolt" class="_text-primary" />
+
 Immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
 
 </div>
