@@ -2,7 +2,7 @@
 
 **LOCATION: REMOTE (within Europe)**
 
-We are looking for a Software Development Team Lead as part of an agile development team, building and working on our Open Source trust solutions: [www.codenotary.io](about:blank) and [www.immudb.io](http://www.immudb.io/).
+We are looking for a Software Development Team Lead as part of an agile development team, building and working on our Open Source trust solutions: [immudb](http://www.immudb.io/) and [CodeNotary](http://www.codenotary.io/)..
 
 The Software Development Team Lead will provide technical and team leadership through coaching and mentorship to a highly motivated team of distributed engineers working across a variety of systems, locations, and cultures. You will be responsible for delivering solutions successfully on-time and on-budget, adhering to high-quality development principles, and facilitating growth and improvement within the team.
 
@@ -10,15 +10,15 @@ vChain is the Open Source leader for immutable trust solutions such as immudb an
 
 We use the following environments and systems: JavaScript, Vue, Nodejs and Go, Java, Linux, and low-level operating system technologies, as well as complex cloud infrastructure.
 
-_ **Our Values** _
+**Our Values**
 
-_Excellence_ – Ensure what we do, we do amazingly
+* **Excellence** – Ensure what we do, we do amazingly
 
-_Intellectual Honesty_ – Be sincere towards yourself and the team
+* **Intellectual Honesty** – Be sincere towards yourself and the team
 
-_Speed_ – Be proactive and get things done in a flash
+* **Speed** – Be proactive and get things done in a flash
 
-_ **Qualifications** _
+***Qualifications***
 
 - You have 7+ years&#39; experience as a Software Developer in Java and/or C/C++
 - You have outstanding knowledge of Linux and container solutions
@@ -28,6 +28,10 @@ _ **Qualifications** _
 
 Please note that the technical knowledge will be tested in an interview.
 
-Curious? Visit our website!
+Curious? 
+Apply at <amelie@vchain.us>
+
+
+Visit our website!
 
 [www.vchain.us](http://www.vchain.us/)

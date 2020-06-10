@@ -2,7 +2,7 @@
 
 ***LOCATION: REMOTE***
 
-vChain is the Open Source leader for immutable trust solutions such as immudb ([www.immudb.io](http://www.immudb.io/)) and CodeNotary ([www.codenotary.io](http://www.codenotary.io/)). We process tens of millions of transactions every month and are growing fast to new markets and use cases.
+vChain is the Open Source leader for immutable trust solutions such as [immudb](http://www.immudb.io/) and [CodeNotary](http://www.codenotary.io/).. We process tens of millions of transactions every month and are growing fast to new markets and use cases.
 
 We are looking for a smart, hard-working, and experienced engineer to join vChain and to help us deliver high quality products and take our infrastructure to the next level. You should be able to thrive in a fast-paced environment, and have a good eye for detail and passion for improving the end user experience as your input has a crucial impact on the final product design. We are offering a competitive salary as well as a stock option plan.
 
@@ -19,6 +19,9 @@ We are looking for a smart, hard-working, and experienced engineer to join vChai
 * Experience with DevOps tools such as Jenkins, Kubernetes, Docker, etc.
 * Good team player and communication skills
 
-Curious? Visit our website!
+Curious? 
+Apply at <amelie@vchain.us>
+
+Visit our website!
 
 [www.vchain.us](http://www.vchain.us/)
