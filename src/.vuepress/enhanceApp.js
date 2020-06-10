@@ -5,7 +5,8 @@ import {
     faCheckCircle,
     faGlobeAmericas,
     faPaperPlane,
-    faLink
+    faLink,
+    faBolt
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
@@ -14,6 +15,7 @@ library.add(faCheckCircle);
 library.add(faGlobeAmericas);
 library.add(faPaperPlane);
 library.add(faLink);
+library.add(faBolt);
 
 export default ({ Vue }) => {
     Vue.use(Inkline);
