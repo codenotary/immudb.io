@@ -39,8 +39,15 @@ Our team consists of talented, collaborative,experienced, driven individuals who
 Most of our work, including our main product, is open source, i. e. [immudb](https://github.com/immudb)! You can check out our code to see the kinds of problems that we work on, file an issue if you run into any problems, or even submit a PR if you want to help make our projects better.
 
 ## Benefits
+* Full-time position
+* Competitive compensation package with a stock option plan
 * Flexible hours
 * Flexible location (EU or North American time zone preferred)
 * Work from home
-* The equipment you need to get the job done
+* Motivated, highly engaged team that’s supportive and open to constructive feedback
+* The feeling of making an impact on the community as you help building Open Source tools for people like us
+* Fun and fast-paced environment
+* Opportunity to grow in multiple dimensions
+
+
 
