@@ -107,11 +107,11 @@ immudb has been developed with performance, scalability and versatility in mind.
 
 
 <!-- TERMINAL SECTIONS START -->
-<section id="code-examples">
+<section class="section" id="code-examples">
 <i-container>
 
 <!-- TERMINAL SECTION 1 START -->
-<i-row class="section">
+<i-row class="section _padding-top-0">
 <i-column lg="5">
 <img :src="$withBase('/features/real-world.svg')" alt="Immudb - Made for the real world" />
 
@@ -213,12 +213,45 @@ printItem(nil, nil, verifiedItem)
 </section>
 <!-- TERMINAL SECTIONS END -->
 
+<hr/>
+
+<section class="section" id="comingsoon">
+<i-container>
+<i-row>
+<i-column>
+<div class="section-center _padding-bottom-4">
+
+<img class="_margin-bottom-4" width="400" :src="$withBase('/rocket.jpg')" alt="Coming Soon" />
+
+## Coming soon
+We're working hard every day to improve immudb and everything it has to offer. Here are some of the features we're planning to release:
+
+</div>
+</i-column>
+</i-row>
+<i-row>
+<i-column class="_text-center lead  _font-weight-semibold">
+    <ul class="list -inline">
+        <li>rsyslog integration</li>
+        <li class="_text-muted">&middot;</li>
+        <li>log4j integration</li>
+        <li class="_text-muted">&middot;</li>
+        <li>PostgreSQL listener</li>
+    </ul>
+</i-column>
+</i-row>
+</i-container>
+</section>
+
+<hr class="_margin-0"/>
 
 <section class="section" id="usedby">
     <i-container>
         <i-row>
             <i-column>
-                <img :src="$withBase('/logos/codenotary.png')" width="150" alt="Immudb - Written records per ms" />
+                <a href="https://codenotary.io" target="_blank">
+                    <img :src="$withBase('/logos/codenotary.png')" width="150" alt="CodeNotary" />
+                </a>
             </i-column>
         </i-row>
     </i-container>
