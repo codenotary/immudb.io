@@ -364,6 +364,74 @@ immudb is often compared to Amazon QLDB. We compared the performance using a sim
 </i-container>
 </section>
 
+<section class="section" id="code-tabs">
+<i-container>
+<i-row>
+<i-column>
+<div class="section-center">
+
+## By developers, for developers
+We have carefully designed immudb to be the one-stop intuitive immutable database solution, simple to write and simple to use.
+
+</div>
+</i-column>
+</i-row>
+<i-row class="_margin-top-6">
+<i-column>
+    <i-tabs custom class="-code">
+        <template v-slot:header="{ tabs, active, setActive }">
+            <ul class="list -unstyled">
+                <li v-for="tab in tabs" :key="tab.id">
+                    <i-button block :active="tab.id === active" @click="setActive(tab)">
+                        {{ tab.title }}
+                    </i-button>
+                </li>
+            </ul>
+        </template>
+<i-tab title="Tab 1">
+
+~~~go
+tab1, err := client.SafeGet(ctx, key2)
+if err != nil {
+    exit(err)
+}
+fmt.Println("   SafeGet - fetch and verify entry:")
+printItem(nil, nil, verifiedItem)
+~~~
+
+</i-tab>
+<i-tab title="Tab 2">
+
+~~~go
+tab2, err := client.SafeGet(ctx, key2)
+if err != nil {
+    exit(err)
+}
+fmt.Println("   SafeGet - fetch and verify entry:")
+printItem(nil, nil, verifiedItem)
+~~~
+
+</i-tab>
+<i-tab title="Tab 3">
+
+~~~go
+tab3, err := client.SafeGet(ctx, key2)
+if err != nil {
+    exit(err)
+}
+fmt.Println("   SafeGet - fetch and verify entry:")
+printItem(nil, nil, verifiedItem)
+~~~
+
+</i-tab>
+    </i-tabs>
+</i-column>
+</i-row>
+</i-container>
+</section>
+
+<hr />
+
 <section class="section" id="get-started-end">
 <i-container>
 <i-row>
