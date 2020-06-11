@@ -13,6 +13,8 @@
 The following code snippets explain how to work with 'immugw' (REST proxy for immudb) using 'curl'.
 immugw HTTP API key/value are base64 encoded.
 
+**important: all get and safeget functions return base64-encoded keys and values, while all set and get functions expect base64-encoded inputs** 
+
 ## Login, the login password is obtained by creating a user with immuadmin or first login of immu user with immuadmin
 
 ```bash
