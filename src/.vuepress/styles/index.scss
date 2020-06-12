@@ -21,11 +21,20 @@ $button-padding-base: 0.5rem 2rem;
     flex-direction: row;
 
     .header {
-        flex: 33%;
+        flex: 25%;
         margin-right: $spacer;
     }
 
     .tab {
         flex: 100%;
+        max-width: 75%;
+    }
+
+    @media screen and (max-width: 979px) {
+        flex-direction: column;
+
+        .tab {
+            max-width: 100%;
+        }
     }
 }
