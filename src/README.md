@@ -249,7 +249,7 @@ We're working hard every day to improve immudb and everything it has to offer. H
     <i-container>
         <i-row>
             <i-column>
-                <owl-carousel :autoplay="true" :nav="false" :responsive="{ 0:{items:1}, 560:{items:3}, 960:{items:4}, 1200:{items:6} }">
+                <carousel :autoplay="true" :nav="false" :responsive="{ 0:{items:1}, 560:{items:3}, 960:{items:4}, 1200:{items:6} }">
                     <a href="https://codenotary.io" target="_blank">
                         <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
                     </a>
@@ -268,7 +268,7 @@ We're working hard every day to improve immudb and everything it has to offer. H
                     <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
                         <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
                     </a>
-                </owl-carousel>
+                </carousel>
             </i-column>
         </i-row>
     </i-container>
