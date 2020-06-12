@@ -1,4 +1,5 @@
 import Inkline from '@inkline/inkline';
+import Carousel from 'vue-owl-carousel'
 import VueFilterDateFormat from 'vue-filter-date-format';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -21,4 +22,5 @@ export default ({ Vue }) => {
     Vue.use(Inkline);
     Vue.use(VueFilterDateFormat);
     Vue.component('font-awesome-icon', FontAwesomeIcon);
+    Vue.component('owl-carousel', Carousel);
 }

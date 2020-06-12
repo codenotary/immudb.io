@@ -248,35 +248,27 @@ We're working hard every day to improve immudb and everything it has to offer. H
 <section class="section" id="usedby">
     <i-container>
         <i-row>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://codenotary.io" target="_blank">
-                    <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
-                </a>
-            </i-column>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://opvizor.com" target="_blank">
-                    <img :src="$withBase('/logos/opvizor.png')" alt="Opvizor" />
-                </a>
-            </i-column>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://www.ta.capital/" target="_blank" rel="nofollow">
-                    <img :src="$withBase('/logos/tacapital.png')" alt="TA Captial" />
-                </a>
-            </i-column>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://www.esoftthings.com/en/" target="_blank" rel="nofollow">
-                    <img :src="$withBase('/logos/esoftthings.png')" alt="eSoftThings" />
-                </a>
-            </i-column>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://www.greentube.com/" target="_blank" rel="nofollow">
-                    <img :src="$withBase('/logos/greentube.svg')" alt="GreenTube" />
-                </a>
-            </i-column>
-            <i-column xs="12" sm="4" lg="2">
-                <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
-                    <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
-                </a>
+            <i-column>
+                <owl-carousel :autoplay="true" :nav="false" :responsive="{ 0:{items:1}, 560:{items:3}, 960:{items:4}, 1200:{items:6} }">
+                    <a href="https://codenotary.io" target="_blank">
+                        <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
+                    </a>
+                    <a href="https://opvizor.com" target="_blank">
+                        <img :src="$withBase('/logos/opvizor.png')" alt="Opvizor" />
+                    </a>
+                    <a href="https://www.ta.capital/" target="_blank" rel="nofollow">
+                        <img :src="$withBase('/logos/tacapital.png')" alt="TA Captial" />
+                    </a>
+                    <a href="https://www.esoftthings.com/en/" target="_blank" rel="nofollow">
+                        <img :src="$withBase('/logos/esoftthings.png')" alt="eSoftThings" />
+                    </a>
+                    <a href="https://www.greentube.com/" target="_blank" rel="nofollow">
+                        <img :src="$withBase('/logos/greentube.svg')" alt="GreenTube" />
+                    </a>
+                    <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
+                        <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
+                    </a>
+                </owl-carousel>
             </i-column>
         </i-row>
     </i-container>
