@@ -232,9 +232,9 @@ We're working hard every day to improve immudb and everything it has to offer. H
 <i-row>
 <i-column class="_text-center lead  _font-weight-semibold">
     <ul class="list -inline">
-        <li>rsyslog integration</li>
+        <li>rsyslog support</li>
         <li class="_text-muted">&middot;</li>
-        <li>log4j integration</li>
+        <li>Log4j integration</li>
         <li class="_text-muted">&middot;</li>
         <li>PostgreSQL listener</li>
     </ul>
@@ -431,7 +431,7 @@ printItem(nil, nil, verifiedItem)
 <div class="section-center">
 
 ## The open-source immutable database
-Run immudb easily on Linux, FreeBSD, Windows, and MacOS, along with other systems derived from them, such as Kubernetes and Docker.
+Run immudb easily on Linux, FreeBSD, Microsoft Windows, and macOS, along with other systems derived from them, such as Kubernetes and Docker.
 
 </div>
 </i-column>
