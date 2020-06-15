@@ -25,6 +25,13 @@
     .column
         display flex
         justify-content space-between
+
+        @media screen and (max-width: 767px)
+            flex-direction: column-reverse
+            align-items center
+
+            .nav
+                margin-bottom: 1rem
 </style>
 
 <script>
