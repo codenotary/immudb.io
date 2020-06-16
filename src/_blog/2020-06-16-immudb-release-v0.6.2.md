@@ -2,7 +2,7 @@
 title: immudb release v0.6.2
 image: /blog/mascot.jpg
 excerpt: 
-    Release v0.6.2: ringbuffer management fix, improved user management for automatic deployment, improved container support
+    Release v0.6.2 - ringbuffer management fix, improved user management for automatic deployment, improved container support
 date: 2020-06-16
 tags: 
   - Release
@@ -16,7 +16,7 @@ location: Switzerland
 
 # immudb release v0.6.2
 
-Release v0.6.2: ringbuffer management fix, improved user management for automatic deployment, improved container support
+Release v0.6.2 - ringbuffer management fix, improved user management for automatic deployment, improved container support
 
 # Changelog
 
