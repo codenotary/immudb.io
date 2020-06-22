@@ -221,7 +221,7 @@ printItem(nil, nil, verifiedItem)
 <i-column>
 <div class="section-center _padding-bottom-4">
 
-<img class="_margin-bottom-4" width="400" :src="$withBase('/rocket.jpg')" alt="Coming Soon" />
+<img class="image -responsive _margin-bottom-4" width="400" :src="$withBase('/rocket.jpg')" alt="Coming Soon" />
 
 ## Coming soon
 We're working hard every day to improve immudb and everything it has to offer. Here are some of the features we're planning to release:
