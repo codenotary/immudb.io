@@ -134,6 +134,10 @@ Start interactive:
 Install service:
 `immuclient audit-mode install`
 
+When installing audit-mode as a service, all parameters are written into the `immuclient` configuration file:
+* Linux: `/etc/immudb/immuclient.toml`
+* Windows: `C:\ProgramData\ImmuClient\config\immuclient.toml`
+
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
 example output: 
