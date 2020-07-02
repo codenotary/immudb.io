@@ -141,7 +141,7 @@ immudb is often compared to Amazon QLDB. We compared the performance using a sim
 <div class="section-center">
         
 ## Why immudb?
-immudb has been developed with performance, scalability and versatility in mind. The user feedback has shown that they love the very high throughput and being able to store hashes as well as data. They see it as a great alternative to using a blockchain or ledger service.
+immudb is a ledger database that has been developed with performance, scalability and versatility in mind. The user feedback has shown that they love the very high throughput and being able to store hashes as well as data. They see it as a great alternative to using a blockchain or ledger service.
         
 </div>
 </i-column>  
@@ -317,6 +317,8 @@ We're working hard every day to improve immudb and everything it has to offer. H
         <li>Log4j integration</li>
         <li class="_text-muted">&middot;</li>
         <li>PostgreSQL listener</li>
+        <li class="_text-muted">&middot;</li>
+        <li>Ledger DBMS</li>
     </ul>
 </i-column>
 </i-row>
