@@ -318,7 +318,7 @@ We're working hard every day to improve immudb and everything it has to offer. H
         <li class="_text-muted">&middot;</li>
         <li>PostgreSQL listener</li>
         <li class="_text-muted">&middot;</li>
-        <li>Ledger DBMS</li>
+        <li>Managed ledger DBMS</li>
     </ul>
 </i-column>
 </i-row>
