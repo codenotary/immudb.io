@@ -53,6 +53,86 @@ docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb codenotary/immudb:late
 </i-container>    
 </section>
 
+<section class="section _background-gray-10" id="performance">
+<i-container>
+<i-row>
+<i-column>
+<div class="section-center _padding-bottom-4">
+
+## Unmatched performance
+immudb has been designed with read and write performance in mind while being tamper-proof. The benchmarks we've done show great results.
+
+</div>
+</i-column>
+</i-row>
+
+<i-row>
+<i-column md="6">
+
+~~~bash
+sequential write
+---
+Concurrency: 128
+Iterations: 1000000
+Elapsed t.: 3.06 sec
+Throughput: 326626 tx/sec
+~~~
+
+</i-column>
+<i-column md="6" class="_margin-top-sm-1 _margin-top-xs-1">
+
+~~~bash
+batch write (async commit)
+---
+Concurrency: 16
+Iterations: 1000000
+Elapsed t.: 0.36 sec
+Throughput: 2772181 tx/sec
+~~~
+
+</i-column>
+</i-row>
+
+<i-row>
+<i-column class="_text-center _padding-top-1 _padding-bottom-6">
+<ul class="list -inline _text-muted _font-size-sm">
+    <li>4 cores</li>
+    <li>&middot;</li>
+    <li>16GB memory</li>
+    <li>&middot;</li>
+    <li>single SSD drive</li>
+</ul>
+</i-column>
+</i-row>
+
+<i-row>
+<i-column>
+<div class="section-center lead" id="qldb-comparison">
+<font-awesome-icon icon="bolt" class="_text-primary" />
+
+immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
+
+</div>
+</i-column>
+</i-row>
+<i-row>
+    <i-column md="6">
+        <img class="image -responsive" :src="$withBase('/benchmark/throughput_read.png')" alt="Immudb - Throughput read" />
+    </i-column>
+    <i-column md="6">
+        <img class="image -responsive" :src="$withBase('/benchmark/throughput_write.png')" alt="Immudb - Throughput write" />
+    </i-column>
+</i-row>
+<i-row>
+    <i-column md="6">
+        <img class="image -responsive" :src="$withBase('/benchmark/exectime.png')" alt="Immudb - Written records per ms" />
+    </i-column>
+    <i-column md="6">
+        <img class="image -responsive" :src="$withBase('/benchmark/query_bm.png')" alt="Immudb - Queried records per ms" />
+    </i-column>
+</i-row>
+</i-container>
+</section>
 
 <section class="section" id="video-section">
 <i-container>
@@ -274,87 +354,7 @@ We're working hard every day to improve immudb and everything it has to offer. H
     </i-container>
 </section>
 
-
-<section class="section _background-gray-10" id="performance">
-<i-container>
-<i-row>
-<i-column>
-<div class="section-center _padding-bottom-4">
-
-## Unmatched performance
-immudb has been designed with read and write performance in mind while being tamper-proof. The benchmarks we've done show great results.
-
-</div>
-</i-column>
-</i-row>
-
-<i-row>
-<i-column md="6">
-
-~~~bash
-sequential write
----
-Concurrency: 128
-Iterations: 1000000
-Elapsed t.: 3.06 sec
-Throughput: 326626 tx/sec
-~~~
-
-</i-column>
-<i-column md="6" class="_margin-top-sm-1 _margin-top-xs-1">
-
-~~~bash
-batch write (async commit)
----
-Concurrency: 16
-Iterations: 1000000
-Elapsed t.: 0.36 sec
-Throughput: 2772181 tx/sec
-~~~
-
-</i-column>
-</i-row>
-
-<i-row>
-<i-column class="_text-center _padding-top-1 _padding-bottom-6">
-<ul class="list -inline _text-muted _font-size-sm">
-    <li>4 cores</li>
-    <li>&middot;</li>
-    <li>16GB memory</li>
-    <li>&middot;</li>
-    <li>single SSD drive</li>
-</ul>
-</i-column>
-</i-row>
-
-<i-row>
-<i-column>
-<div class="section-center lead" id="qldb-comparison">
-<font-awesome-icon icon="bolt" class="_text-primary" />
-
-immudb is often compared to Amazon QLDB. We compared the performance using a simple demo application to write data (without using any unfair optimization).
-
-</div>
-</i-column>
-</i-row>
-<i-row>
-    <i-column md="6">
-        <img class="image -responsive" :src="$withBase('/benchmark/throughput_read.png')" alt="Immudb - Throughput read" />
-    </i-column>
-    <i-column md="6">
-        <img class="image -responsive" :src="$withBase('/benchmark/throughput_write.png')" alt="Immudb - Throughput write" />
-    </i-column>
-</i-row>
-<i-row>
-    <i-column md="6">
-        <img class="image -responsive" :src="$withBase('/benchmark/exectime.png')" alt="Immudb - Written records per ms" />
-    </i-column>
-    <i-column md="6">
-        <img class="image -responsive" :src="$withBase('/benchmark/query_bm.png')" alt="Immudb - Queried records per ms" />
-    </i-column>
-</i-row>
-</i-container>
-</section>
+<hr class="_margin-bottom-0" />
 
 <section class="section" id="code-tabs">
 <i-container>
@@ -422,7 +422,7 @@ printItem(nil, nil, verifiedItem)
 </i-container>
 </section>
 
-<hr />
+<hr class="_margin-top-0" />
 
 <section class="section" id="get-started-end">
 <i-container>
