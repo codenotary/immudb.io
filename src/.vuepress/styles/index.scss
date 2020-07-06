@@ -7,6 +7,7 @@ $button-padding-base: 0.5rem 2rem;
 
 @import '~@inkline/inkline/src/inkline';
 @import '~@inkline/inkline/src/components/IButton/style';
+@import '~@inkline/inkline/src/components/IBadge/style';
 @import '~@inkline/inkline/src/components/IContainer/style';
 @import '~@inkline/inkline/src/components/IRow/style';
 @import '~@inkline/inkline/src/components/IColumn/style';
@@ -15,6 +16,11 @@ $button-padding-base: 0.5rem 2rem;
 @import '~@inkline/inkline/src/components/IListGroupItem/style';
 @import '~@inkline/inkline/src/components/ITabs/style';
 @import '~@inkline/inkline/src/components/ITab/style';
+@import '~@inkline/inkline/src/components/IModal/style';
+@import '~@inkline/inkline/src/components/IFormGroup/style';
+@import '~@inkline/inkline/src/components/IFormError/style';
+@import '~@inkline/inkline/src/components/IIcon/style';
+@import '~@inkline/inkline/src/components/IInput/style';
 
 .tabs.-code {
     display: flex;

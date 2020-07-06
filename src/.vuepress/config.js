@@ -1,3 +1,6 @@
+require('dotenv').config();
+const webpack = require('webpack');
+
 const websiteUrl = 'https://immudb.io';
 const title = 'immudb - The lightweight, high-speed immutable database';
 const description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.';
@@ -135,5 +138,10 @@ module.exports = {
             ga: 'UA-168112067-1'
         }],
         ['vuepress-plugin-reading-time']
-    ]
+    ],
+    configureWebpack: {
+        plugins: [
+            new webpack.EnvironmentPlugin({ ...process.env })
+        ]
+    }
 };
