@@ -27,7 +27,7 @@ sidebar: false
 <i-column>
 <i-card class="link-card">
     <font-awesome-icon class="icon" icon="chevron-right"></font-awesome-icon>
-    <a class="_overlay-link" href="https://ppp.immudb.io"><strong>Paycheck Protection Program</strong></a>
+    <a class="_overlay-link" href="https://ppp.immudb.io"><strong>U.S. Federal Reserve Payment Protection Program</strong></a>
 </i-card>
 </i-column>
 </i-row>
