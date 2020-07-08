@@ -73,6 +73,7 @@ module.exports = {
             { text: 'Home', link: '/' },
             { text: 'Blog', link: '/blog/' },
             { text: 'Documentation', link: '/docs/' },
+            { text: 'Immutable Data Science', link: '/immutable-data-science' },
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
         sidebar: [
