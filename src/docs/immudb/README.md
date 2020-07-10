@@ -68,11 +68,11 @@ or listen on all interfaces
 docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb -e IMMUDB_ADDRESS="0.0.0.0" codenotary/immudb
 ```
 
-listen on all interfaces, auth enabled, persistent data
+listen on all interfaces, persistent data
 
 ```bash
 docker volume create immudb-data
-docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb-data:/var/lib/immudb --name immudb -e IMMUDB_ADDRESS="0.0.0.0" -e IMMUDB_AUTH=true codenotary/immudb
+docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb-data:/var/lib/immudb --name immudb -e IMMUDB_ADDRESS="0.0.0.0" codenotary/immudb
 ```
 
 
@@ -108,7 +108,7 @@ The environment variables are the most popular way to configure Docker container
   IMMUDB_PIDFILE=
   IMMUDB_LOGFILE=
   IMMUDB_MTLS=false
-  IMMUDB_AUTH=false
+  IMMUDB_AUTH=true
   IMMUDB_DETACHED=false
   IMMUDB_CONSISTENCY_CHECK=true
   IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
@@ -191,7 +191,7 @@ Then restart/start immudb.
 
 You need to run `immuadmin` locally on the same system as immudb (for security reasons) and connect to immudb:
 
-`immuadmin login immu`
+`immuadmin login immudb`
 
 You^ll receive the following message:
 
@@ -212,7 +212,7 @@ NOTE: You have not been automatically logged in. To login please run the command
 
 ### User management
 
-To manage user, run `immuadmin user` after you logged in `immuadmin login immu`
+To manage user, run `immuadmin user` after you logged in `immuadmin login immudb`
 
 ```bash
 Please specify a user action.
