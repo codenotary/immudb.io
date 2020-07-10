@@ -15,13 +15,13 @@ immugw HTTP API key/value are base64 encoded.
 
 **important: all get and safeget functions return base64-encoded keys and values, while all set and get functions expect base64-encoded inputs** 
 
-## Login, the login password is obtained by creating a user with immuadmin or first login of immu user with immuadmin
+## Login: you can either create another user with immuadmin or user the built-in immudb user (default pw: immudb)
 
 ```bash
 curl --location --request POST 'http://immugw:3323/v1/immurestproxy/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "user": "'$(echo -n immu | base64)'",
+    "user": "'$(echo -n immudb | base64)'",
     "password": "'$(echo -n TWdn4TK0ACq8amSeYBW!9E9h3S0am?G! | base64)'"
     }
 }'
