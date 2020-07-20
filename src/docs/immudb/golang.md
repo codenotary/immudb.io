@@ -6,6 +6,7 @@
  - [Connect a new client](#connect-a-new-client)
  - [Write transactions without verification](#write-transactions-without-verification)
  - [Write transactions with verification](#write-transactions-with-verification)
+ - [Structured values](#structured-values)
  - [ Add reference to existing entries](#add-reference-to-existing-entries)
  - [Add secondary index](#Add-secondary-index)
  - [Read entries without verification](#read-entries-without-verification)
@@ -154,7 +155,7 @@ message Content {
 ```
 Though content is never unmarshal by the server, current definition are located in protobuffer schema and they can be easily extended.
 
-In convert.go there is the application logic used by the client:
+In convert.go there is the logic used by the client:
 ```
 func (item *Item) ToSItem() (*StructuredItem, error) {
 	c := Content{}
