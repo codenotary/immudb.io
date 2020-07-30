@@ -76,11 +76,8 @@ The suggest approach to detect malicious action is to use an SDK and safe* famil
 | ----------- | ------------ | ------------- | ------------|
 | Health | [.google.protobuf.Empty](#google.protobuf.Empty) | [HealthResponse](#immudb.schema.HealthResponse) |  |
 | ListUsers | [.google.protobuf.Empty](#google.protobuf.Empty) | [UserList](#immudb.schema.UserList) |  |
-| GetUser | [UserRequest](#immudb.schema.UserRequest) | [UserResponse](#immudb.schema.UserResponse) |  |
 | CreateUser | [CreateUserRequest](#immudb.schema.CreateUserRequest) | [UserResponse](#immudb.schema.UserResponse) |  |
 | ChangePassword | [ChangePasswordRequest](#immudb.schema.ChangePasswordRequest) | [.google.protobuf.Empty](#google.protobuf.Empty) |  |
-| SetPermission | [Item](#immudb.schema.Item) | [.google.protobuf.Empty](#google.protobuf.Empty) |  |
-| DeactivateUser | [UserRequest](#immudb.schema.UserRequest) | [.google.protobuf.Empty](#google.protobuf.Empty) |  |
 | UpdateAuthConfig | [AuthConfig](#immudb.schema.AuthConfig) | [.google.protobuf.Empty](#google.protobuf.Empty) |  |
 | UpdateMTLSConfig | [MTLSConfig](#immudb.schema.MTLSConfig) | [.google.protobuf.Empty](#google.protobuf.Empty) |  |
 | PrintTree | [.google.protobuf.Empty](#google.protobuf.Empty) | [Tree](#immudb.schema.Tree) |  |
