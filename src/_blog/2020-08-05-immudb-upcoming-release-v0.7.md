@@ -30,4 +30,4 @@ Thrilled by the amazing community feedback and contribution, we worked extra har
 
 Good news, you don't need to wait long as it's already scheduled for 10th of August 2020.
 
-Stay tuned and watch for our full release announcement.
+Stay tuned and watch out for our full release announcement.
