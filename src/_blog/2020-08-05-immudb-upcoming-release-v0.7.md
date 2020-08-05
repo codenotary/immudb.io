@@ -2,7 +2,7 @@
 title: immudb release 0.7 is around the corner
 image: /blog/mascot.jpg
 excerpt: 
-    Release v0.7 - multi-database support, robustness, faster cryptographic proofs, improved documentation
+    Release v0.7 - multi-database support, more resilience, even better performance, improved documentation
 date: 2020-08-05
 tags: 
   - Release
@@ -26,5 +26,8 @@ All the details will be released in the official announcement of the release, bu
 - 100+ times faster cryptographic proofs (we completely revised and optimized the methods for entry validation; but don't worry, the API methods didn't change)
 - Improved documentation for gRPC and structured value
 
-Thrilled by the amazing community feedback and contribution, we worked extra hard to deliver an amazing the new release 0.7, already scheduled for 10th of August 2020.
-So, just around the corner - Stay tuned and watch for our full release announcement.
+Thrilled by the amazing community feedback and contribution, we worked extra hard to deliver an amazing release 0.7. 
+
+Good news, you don't need to wait long as it's already scheduled for 10th of August 2020.
+
+Stay tuned and watch for our full release announcement.
