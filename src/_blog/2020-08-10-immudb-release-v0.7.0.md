@@ -55,7 +55,7 @@ Thanks for the amazing community feedback and contribution!
 - **pkg/client:** use database set internally database name
 - **pkg/client:** inherit dial options that came from constructor
 - **pkg/fs:** don't overwrite copy error on Close malfunction. Sync seals the operation–not Close.
-- **pkg/gw:** fix client option construction with missing homedirservice
+- **pkg/gw:** fix client option construction with missing homedir
 - **pkg/server:** added os file separator and db root path
 - **pkg/server:** avoid recursion on never ending functionality. Further improvements can be done ([#427](https://github.com/vchain-us/immudb/issues/427))
 - **pkg/server/server:** change user pass , old password check
@@ -101,7 +101,7 @@ Thanks for the amazing community feedback and contribution!
 - add empty clientTest constructor
 - user list client return a printable string
 - add unexpectedNotStructuredValue error. fixes [#402](https://github.com/vchain-us/immudb/issues/402)
-- add failfast option in test command
+- add fail fast option in test command
 - fix contributing.md styling
 - remove tests from windows CI
 - add go-acc to calculate code coverage and fix go version to 1.13
@@ -129,13 +129,13 @@ Thanks for the amazing community feedback and contribution!
 - **cmd/immutest/command:** inject homedir service as dependency
 - **pkg/client/options:** add options fields and test
 - **pkg/client/timestamp:** removed unused ntp timestamp
-- **pkg/fs:** utilise filepath directory walk for copy
+- **pkg/fs:** utilize filepath directory walk for copy
 - **pkg/fs:** traceable copy errors
 - **pkg/fs:** create file copy with flags from the start, in write-only mode
 - **pkg/server:** add corruption checker random indexes generator  missing dependency
 - **pkg/server:** improve tests
 - **pkg/server:** mtls test certificates system db as immuserver property improve tests
-- **pkg/server:** make DevMode default false and cleanup call to action message shwon right after immudb start
+- **pkg/server:** make DevMode default false and cleanup call to action message shown right after immudb start
 - **pkg/server:** immudb struct implements immudbIf interface, fixes previous tests
 - **pkg/server:** add corruption checker random indexes generator dependency
 - **pkg/store/sysstore:** remove useless method
