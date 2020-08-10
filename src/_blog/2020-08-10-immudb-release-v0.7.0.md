@@ -3,7 +3,7 @@ title: immudb release v0.7.0
 image: /blog/mascot.jpg
 excerpt: 
     Release v0.7.0 - multi-database support, more resilience, even better performance, improved documentation
-date: 2020-06-16
+date: 2020-08-10
 tags: 
   - Release
   - GitHub
