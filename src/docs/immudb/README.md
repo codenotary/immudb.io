@@ -102,7 +102,7 @@ The environment variables are the most popular way to configure Docker container
 ```bash
   IMMUDB_DIR=.
   IMMUDB_NETWORK=tcp
-  IMMUDB_ADDRESS=127.0.0.1
+  IMMUDB_ADDRESS=0.0.0.0
   IMMUDB_PORT=3322
   IMMUDB_DBNAME=immudb
   IMMUDB_PIDFILE=
@@ -114,6 +114,10 @@ The environment variables are the most popular way to configure Docker container
   IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
   IMMUDB_CERTIFICATE=./tools/mtls/3_application/certs/localhost.cert.pem
   IMMUDB_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+  IMMUDB_DEVMODE=true
+  IMMUDB_MAINTENANCE=false
+  IMMUDB_ADMIN_PASSWORD=immudb
+
 ```
 
 ## immuadmin
