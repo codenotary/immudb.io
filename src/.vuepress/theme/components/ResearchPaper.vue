@@ -67,7 +67,9 @@ export default {
                 email
             };
 
-            await axios.post(`${API_URL}/research-paper`, data);
+            await axios.post(`${API_URL}/research-paper`, data, {
+                withCredentials: true
+            });
 
             this.$emit('input', false);
         }
