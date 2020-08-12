@@ -80,6 +80,7 @@ module.exports = {
         ['script', { type: "text/javascript" }, tawkTo],
     ].concat(process.env.NODE_ENV === 'production' ? [
         ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
+        ['script', { async: true, src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" }],
     ] : []),
     themeConfig: {
         logo: '/logo.png',

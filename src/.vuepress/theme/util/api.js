@@ -1,5 +1,5 @@
-// export const API_URL = 'http://localhost:7070';
-export const API_URL = 'https://api.codenotary.io/immudb-beta';
+export const API_URL = 'http://localhost:7070';
+// export const API_URL = 'https://api.codenotary.io/immudb-beta';
 export const API_CONFIG = {
     returnRejectedPromiseOnError: true,
     withCredentials: true,
