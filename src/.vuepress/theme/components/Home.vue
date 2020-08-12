@@ -17,7 +17,7 @@
                     <i-button size="lg" variant="primary" :to="data.actionLink">{{data.actionText}}</i-button>
                 </p>
 
-                <p v-if="beta">
+                <p v-show="beta">
                     <i-button link variant="primary" @click="researchPaperModalVisible = true">
                         <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Download Research Paper
                     </i-button>
