@@ -17,7 +17,7 @@
                     <i-button size="lg" variant="primary" :to="data.actionLink">{{data.actionText}}</i-button>
                 </p>
 
-                <p>
+                <p v-if="beta">
                     <i-button link variant="primary" @click="researchPaperModalVisible = true">
                         <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Download Research Paper
                     </i-button>
@@ -57,7 +57,8 @@ export default {
 
   data() {
     return {
-        researchPaperModalVisible: false
+        researchPaperModalVisible: false,
+        beta: Object.keys(this.$route.query).includes('beta')
     };
   },
 
