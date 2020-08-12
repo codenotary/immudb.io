@@ -1,6 +1,6 @@
 <template>
     <main id="homepage">
-        <subscribe v-model="subscribeModalVisible" />
+        <research-paper v-model="researchPaperModalVisible" />
         <header class="hero">
             <div class="hero-content">
                 <img v-if="data.heroImage" :src="$withBase(data.heroImage)" :alt="data.heroAlt || 'hero'">
@@ -18,8 +18,8 @@
                 </p>
 
                 <p>
-                    <i-button link variant="primary" @click="subscribeModalVisible = true">
-                        <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Sign up for beta of Cloud Ledger DB
+                    <i-button link variant="primary" @click="researchPaperModalVisible = true">
+                        <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Download Research Paper
                     </i-button>
                 </p>
 
@@ -43,13 +43,13 @@
 import NavLink from '@theme/components/NavLink.vue'
 import Footer from '@theme/components/Footer.vue'
 import GithubButton from 'vue-github-button'
-import Subscribe from "./Subscribe";
+import ResearchPaper from "./ResearchPaper";
 
 export default {
   name: 'Home',
 
   components: {
-      Subscribe,
+      ResearchPaper,
       NavLink,
       GithubButton,
       Footer
@@ -57,7 +57,7 @@ export default {
 
   data() {
     return {
-        subscribeModalVisible: false
+        researchPaperModalVisible: false
     };
   },
 
