@@ -61,7 +61,7 @@ There are countless ways how accounting, bookkeeping and document management is 
 
 The beauty of immudb is, that it can easily be used either as a document storage or simply as a immutable ledger that tracks the unique document identity and its updates or changes.
 
-### The data structure (base)
+## The data structure (base)
 
 Let's assume your software is either storing all invoices and other documents in a file system or a database (PostgreSQL, Microsoft SQL, ...) and tracks also  changes (cancellation, reimbursement aso.).
 
@@ -75,7 +75,7 @@ Many software products allow to consume events using scripts or software. That f
 
 
 
-### Introducing immudb
+## Introducing immudb
 
 immudb is a lightweight yet highly scalable immutable database. Providing low-latency and high-throughput comparable to a raw key-value store but ensuring any tampering is not only properly identified but scoped. 
 
@@ -91,13 +91,13 @@ Immutability is ensured by following a well-defined update protocol. Clients and
 
 
 
-### Implementing immudb
+## Implementing immudb
 
 There are 3 different ways our users shared with us, how they make sure that all documents are stored immutably and tamper-proof.
 
 Keep in mind that immudb is currently a key value store and not a relational database. Nevertheless, the relational database features are on our roadmap. 
 
-#### Alternative 1: Value=document checksum
+### Alternative 1: Value=document checksum
 
 The idea of that alternative is, that the query to verify the document is based on the transaction id or some other identifier of your software.
 
@@ -142,7 +142,7 @@ The idea of that alternative is, that the query to verify the document is based 
 
 
 
-#### Alternative 2: Key=document checksum
+### Alternative 2: Key=document checksum
 
 The idea of that alternative is, that the query to verify the document is based on the SHA-256 checksum of the document itself.
 
@@ -178,7 +178,7 @@ The idea of that alternative is, that the query to verify the document is based 
 
 * very flexible and allows for simple workflows; very fast queries based on the checksum
 
-**Disadvantage: **
+**Disadvantage:**
 
 * needs an implementation of the update procedure
 
@@ -186,7 +186,7 @@ The idea of that alternative is, that the query to verify the document is based 
 
 
 
-#### Alternative 3: Full storage
+### Alternative 3: Full storage
 
 Like Alternative 2, but Instead of storing only metadata, the complete file is stored (base64 encoded) in the value as well. One way to do that is creating a json structure, that contains project or process data and having one field (b64content in the example below) that contains the encoded file.
 
@@ -214,11 +214,11 @@ Like Alternative 2, but Instead of storing only metadata, the complete file is s
 }
 ```
 
-**Advantage: **
+**Advantage:**
 
 * no need for an additional data storage
 
-**Disadvantage: **
+**Disadvantage:**
 
 * immudb grows much faster in size
 
