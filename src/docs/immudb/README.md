@@ -10,6 +10,7 @@
  - [immudb service](#immudb-service)
  - [Authentication](#authentication)
  - [Backup and Restore](#backup-and-restore)
+ - [Multi-Database](#multi-database)
  - [Clients](#clients)
  - [Auditors](#auditors)
  - [Architecture](#architecture)
@@ -269,6 +270,54 @@ To deactivate an existing user, run `immuadmin user deactivate ro`
 To reactivate a deactivated user account, you can simply set user permission again. Run `immuadmin user set-permission ro readwrite`
 
 ## Backup and Restore
+
+The simplest way to backup immudb is to use your operating system tools like tar or zip.
+You can stop immudb and backup the data directory (default: `/var/lib/immudb`) and start immudb again.
+
+The other alternative is using the `immuadmin backup` command. Please keep in mind, that `immuadmin backup` is stopping immudb as well and a manual start is required.
+
+## Multi-Database
+
+Starting immudb version 0.7.0 we introduced a multi-database support. By default the first database is either called defaultdb or based on the environment variable `IMMUDB_DBNAME`.
+
+### Database management
+We recommend using `immuadmin` to create additional user and databases.
+
+```
+immuadmin login immudb  # Authentication is enabled by default, default user is immudb and password immudb; 
+                        # first login asks for a password change and must contain upper and lower case letters, digits, punctuation mark or symbol
+
+immuadmin database list          # show all existing databases
+immuadmin database create testdb # database testdb created
+```
+
+immuclient can be used to test the setup or in scripts. Of course the API supports multi-db handling as well.
+
+```
+immuclient login immudb   # login to immudb with user immudb
+immuclient use testdb     # use testdb for all following commands
+immuclient safeset k0 v0  # set a key value in testdb
+```
+
+### Database user management
+
+You can create additional user using the immuadmin and grant database permissions automatically.
+
+`immuadmin user help` shows you all information about the command usage.
+
+Permissions are: *read*, *readwrite* and *admin*
+
+```
+# create an user for the newly created database
+immuadmin user create myuser readwrite testdb       # create user myuser (password will be requested) and grant readwrite permissions to testdb
+
+immuadmin user permission grant myuser admin testdb # change permissions to admin for user myuser on testdb
+immuadmin user permission grant myuser readwrite testdb # change permissions to readwrite for user myuser on testdb
+immuadmin user permission revoke myuser readwrite testdb # revoke permissions for user myuser on testdb
+```
+
+
+### API examples
 
 work in progress
 
