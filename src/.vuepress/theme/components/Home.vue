@@ -1,5 +1,6 @@
 <template>
     <main id="homepage">
+        <subscribe v-model="subscribeModalVisible" />
         <header class="hero">
             <div class="hero-content">
                 <img v-if="data.heroImage" :src="$withBase(data.heroImage)" :alt="data.heroAlt || 'hero'">
@@ -16,11 +17,19 @@
                     <i-button size="lg" variant="primary" :to="data.actionLink">{{data.actionText}}</i-button>
                 </p>
 
-                <github-button href="https://github.com/codenotary/immudb"
-                               data-icon="octicon-star" data-size="large" data-show-count="true"
-                               aria-label="Star codenotary/immudb on GitHub">
-                    Star
-                </github-button>
+                <p>
+                    <i-button link variant="primary" @click="subscribeModalVisible = true">
+                        <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Sign up for beta of Cloud Ledger DB
+                    </i-button>
+                </p>
+
+                <div id="github-button">
+                    <github-button href="https://github.com/codenotary/immudb"
+                                   data-icon="octicon-star" data-size="large" data-show-count="true"
+                                   aria-label="Star codenotary/immudb on GitHub">
+                        Star
+                    </github-button>
+                </div>
             </div>
         </header>
 
@@ -34,14 +43,22 @@
 import NavLink from '@theme/components/NavLink.vue'
 import Footer from '@theme/components/Footer.vue'
 import GithubButton from 'vue-github-button'
+import Subscribe from "./Subscribe";
 
 export default {
   name: 'Home',
 
   components: {
+      Subscribe,
       NavLink,
       GithubButton,
       Footer
+  },
+
+  data() {
+    return {
+        subscribeModalVisible: false
+    };
   },
 
   computed: {
@@ -119,6 +136,9 @@ export default {
     border-top 1px solid $borderColor
     text-align center
     color lighten($textColor, 25%)
+
+#github-button
+    height: 28px
 
 @media (max-width: $MQMobile)
   .home
