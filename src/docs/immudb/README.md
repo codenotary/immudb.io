@@ -316,6 +316,7 @@ immuadmin user permission grant myuser readwrite testdb # change permissions to 
 immuadmin user permission revoke myuser readwrite testdb # revoke permissions for user myuser on testdb
 ```
 
+To check all database permissions use `immuadmin user list`
 
 ### API examples
 
