@@ -1,6 +1,6 @@
 ---
 title: Immutably store or guarantee the immutability of documents and invoices for compliance reasons
-image: /blog/mascot.jpg
+image: /blog/bookkeeper.jpg
 excerpt: 
     immudb - a new way to stay compliant with the principles for properly maintaining, keeping and storing books, records and documents in electronic form
 date: 2020-08-12
