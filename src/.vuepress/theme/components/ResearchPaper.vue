@@ -115,7 +115,7 @@ export default {
                     this.sent = false;
                     this.error = false;
                     this.$emit('input', false);
-                }, 4000);
+                }, 3000);
             }
         },
         async onVerify(response) {
