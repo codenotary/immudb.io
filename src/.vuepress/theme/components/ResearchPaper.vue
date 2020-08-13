@@ -3,9 +3,21 @@
         <template slot="header">
             Download Research Paper
         </template>
+
+        <i-alert variant="success" class="_margin-bottom-1" v-if="sent">
+            <template slot="icon"><font-awesome-icon icon="check-circle"></font-awesome-icon></template>
+            <p>Email sent successfully!</p>
+        </i-alert>
+
+        <i-alert variant="danger" class="_margin-bottom-1" v-if="error">
+            <template slot="icon"><font-awesome-icon icon="times-circle"></font-awesome-icon></template>
+            <p>Something went wrong. Please try again later!</p>
+        </i-alert>
+
         <p class="_margin-top-0">
             We'll send you the research paper via email.
         </p>
+
         <i-form v-model="form" @submit.prevent="onSubmit">
             <i-form-group>
                 <i-input :schema="form.contactEmail" placeholder="Enter your email" />
@@ -14,7 +26,9 @@
                 <vue-recaptcha ref="recaptcha" :loadRecaptchaScript="true" :sitekey="sitekey" @verify="onVerify" />
             </i-form-group>
             <i-form-group>
-                <i-button type="submit" variant="primary" :disabled="!verified" block>Send me the document</i-button>
+                <i-button type="submit" variant="primary" :disabled="!verified || sending" block>
+                    {{ sending ? 'Sending..' : 'Send me the document' }}
+                </i-button>
             </i-form-group>
         </i-form>
     </i-modal>
@@ -55,6 +69,9 @@ export default {
     data() {
         return {
             verified: false,
+            sending: false,
+            error: false,
+            sent: false,
             sitekey: '6LeHGL4ZAAAAALlN7PGMzqnNBM6GVwhlJ-ZeiCV8',
             form: this.$inkline.form({
                 contactEmail: {
@@ -75,16 +92,31 @@ export default {
                 return;
             }
 
+            this.sending = true;
+
             const email = this.form.contactEmail.value;
             const data = {
                 email
             };
 
-            await axios.post(`${API_URL}/research-paper`, data, {
-                withCredentials: true
-            });
+            try {
+                await axios.post(`${API_URL}/research-paper`, data, {
+                    withCredentials: true
+                });
 
-            this.$emit('input', false);
+                this.sent = true;
+            } catch (error) {
+                this.error = true;
+            } finally {
+                this.sending = false;
+                this.verified = false;
+
+                setTimeout(() => {
+                    this.sent = false;
+                    this.error = false;
+                    this.$emit('input', false);
+                }, 4000);
+            }
         },
         async onVerify(response) {
             if (response) {

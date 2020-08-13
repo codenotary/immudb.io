@@ -8,12 +8,14 @@ import {
     faLink,
     faBolt,
     faSearch,
-    faChevronRight
+    faChevronRight,
+    faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
 
 library.add(faCheckCircle);
+library.add(faTimesCircle);
 library.add(faGlobeAmericas);
 library.add(faPaperPlane);
 library.add(faLink);
