@@ -331,26 +331,36 @@ We're working hard every day to improve immudb and everything it has to offer. H
     <i-container>
         <i-row>
             <i-column>
-                <carousel :autoplay="true" :nav="false" :responsive="{ 0:{items:1}, 560:{items:3}, 960:{items:4}, 1200:{items:6} }">
-                    <a href="https://codenotary.io" target="_blank">
-                        <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
-                    </a>
-                    <a href="https://opvizor.com" target="_blank">
-                        <img :src="$withBase('/logos/opvizor.png')" alt="Opvizor" />
-                    </a>
-                    <a href="https://www.ta.capital/" target="_blank" rel="nofollow">
-                        <img :src="$withBase('/logos/tacapital.png')" alt="TA Captial" />
-                    </a>
-                    <a href="https://www.esoftthings.com/en/" target="_blank" rel="nofollow">
-                        <img :src="$withBase('/logos/esoftthings.png')" alt="eSoftThings" />
-                    </a>
-                    <a href="https://www.greentube.com/" target="_blank" rel="nofollow">
-                        <img :src="$withBase('/logos/greentube.svg')" alt="GreenTube" />
-                    </a>
-                    <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
-                        <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
-                    </a>
-                </carousel>
+                <a href="https://codenotary.io" target="_blank">
+                    <img :src="$withBase('/logos/codenotary.png')" alt="CodeNotary" />
+                </a>
+                <a href="https://opvizor.com" target="_blank">
+                    <img :src="$withBase('/logos/opvizor.png')" alt="Opvizor" />
+                </a>
+                <a href="https://www.ta.capital/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/tacapital.png')" alt="TA Captial" />
+                </a>
+                <a href="https://www.esoftthings.com/en/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/esoftthings.png')" alt="eSoftThings" />
+                </a>
+                <a href="https://www.greentube.com/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/greentube.svg')" alt="GreenTube" />
+                </a>
+                <a href="https://www.tinaba.bancaprofilo.it/" target="_blank" rel="nofollow">
+                    <img :src="$withBase('/logos/tinaba.png')" alt="Tinaba" />
+                </a>
+                <a rel="nofollow">
+                    <img :src="$withBase('/logos/la-logo.png')" alt="Lord Abbett" />
+                </a>
+                <a rel="nofollow">
+                    <img :src="$withBase('/logos/logo_naveum.svg')" alt="Naveum" />
+                </a>
+                <a rel="nofollow">
+                    <img :src="$withBase('/logos/logo_truecore.svg')" alt="TrueCore" />
+                </a>
+                <a rel="nofollow">
+                    <img :src="$withBase('/logos/rs-logo.svg')" alt="TrueCore" />
+                </a>
             </i-column>
         </i-row>
     </i-container>
