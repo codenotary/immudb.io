@@ -57,7 +57,7 @@ export default {
 
   data() {
     return {
-        researchPaperModalVisible: Object.keys(this.$route.query).includes('research-paper') || false,
+        researchPaperModalVisible: false,
         beta: Object.keys(this.$route.query).includes('beta')
     };
   },
@@ -73,6 +73,11 @@ export default {
         text: this.data.actionText
       }
     }
+  },
+  mounted() {
+      if (Object.keys(this.$route.query).includes('research-paper')) {
+          this.researchPaperModalVisible = true;
+      }
   }
 }
 </script>
