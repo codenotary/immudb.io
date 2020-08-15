@@ -30,4 +30,4 @@ You'll also learn about how immudb used the merkle tree to provide cryptographic
 
 ## Where to download the document?
 
-You can simply request the research paper as a pdf by email using the link on the front-page of immudb.io or directly here: https://immudb.io/?research-paper
+You can simply request the research paper as a pdf by email using the link on the front-page of immudb.io or directly here: [Download research paper on immudb](https://immudb.io/?research-paper)
