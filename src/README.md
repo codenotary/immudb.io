@@ -2,8 +2,8 @@
 home: true
 heroText: 'immudb'
 heroImage: '/mascot.png'
-actionText: Get started 
-actionLink: /docs/
+actionText: Get immudb now 
+actionLink: /docs/quickstart.html
 ---
 
 <section id="features">
