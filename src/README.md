@@ -2,8 +2,8 @@
 home: true
 heroText: 'immudb'
 heroImage: '/mascot.png'
-actionText: Get started 
-actionLink: /docs/
+actionText: Get immudb now 
+actionLink: /docs/quickstart.html
 ---
 
 <section id="features">
@@ -352,10 +352,10 @@ We're working hard every day to improve immudb and everything it has to offer. H
                 <a rel="nofollow">
                     <img :src="$withBase('/logos/la-logo.png')" alt="Lord Abbett" />
                 </a>
-                <a rel="nofollow">
+                <a href="https://naveum.ch/" target="_blank" rel="nofollow">
                     <img :src="$withBase('/logos/logo_naveum.svg')" alt="Naveum" />
                 </a>
-                <a rel="nofollow">
+                <a href="https://truecore.ch/" target="_blank" rel="nofollow">
                     <img :src="$withBase('/logos/logo_truecore.svg')" alt="TrueCore" />
                 </a>
                 <a rel="nofollow">

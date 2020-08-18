@@ -1,10 +1,11 @@
 # APIs and interfaces
 
-## Golang immudb
-[Golang code snippets](immudb/golang.md)
+## Examples 
+* [Golang code snippets](immudb/golang.md)
+* [Curl code snippets](immugw/curl.md)
 
-## Curl examples immugw
-[Curl code snippets](immugw/curl.md)
+## SDK for immudb
+* [Java SDK for immudb repository](https://github.com/codenotary/immudb4j)
 
 
 ## immudb RESTful API reference
@@ -23,7 +24,7 @@ docker run -d -it -p 8080:8080 --name swagger-immudb -v ${PWD}/pkg/api/schema/sc
 
 Here the gRPC documentation that show available endpoints with protobuffer protocol  
 
-![immudb gRPC](immudb/grpc-interface.md)
+[immudb gRPC](immudb/grpc-interface.md)
 
 ## immugw RESTful API reference
 
