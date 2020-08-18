@@ -17,9 +17,10 @@
                     <i-button size="lg" variant="primary" :to="data.actionLink">{{data.actionText}}</i-button>
                 </p>
 
-                <p>
-                    <i-button link variant="primary" @click="researchPaperModalVisible = true">
-                        <i-badge size="sm" variant="primary" class="_margin-right-1-2">New</i-badge> Download Research Paper
+                <p class="_margin-top-3">
+                    <i-button id="research-paper-button" link variant="primary" @click="researchPaperModalVisible = true">
+                        <i-badge size="sm" variant="success" class="_margin-right-1-2">New</i-badge>
+                        <span>Download Research Paper</span>
                     </i-button>
                 </p>
 
@@ -174,4 +175,12 @@ export default {
     .feature
       h2
         font-size 1.25rem
+
+#research-paper-button
+    &:hover,
+    &:focus
+        text-decoration none !important
+
+        span
+            text-decoration underline !important
 </style>
