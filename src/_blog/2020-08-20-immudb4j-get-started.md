@@ -83,39 +83,7 @@ Please make sure to build or download the immudb and immuadmin component and sav
 
 The always up2date Java SDK for immudb can be find as [immudb4j on Github](https://github.com/codenotary/immudb4j)
 
-## Use the Java SDK for immudb
-
-- [First steps to use Java SDK for  immudb — the open source immutable database](#first-steps-to-use-java-sdk-for-immudb--the-open-source-immutable-database)
-  - [Setup immudb](#setup-immudb)
-    - [immudb **Dockerhub**](#immudb-dockerhub)
-    - [standalone Binaries](#standalone-binaries)
-- [Linux](#linux)
-- [macOS](#macos)
-- [Microsoft Windows](#microsoft-windows)
-- [run immudb in the foreground](#run-immudb-in-the-foreground)
-- [run immudb in the background](#run-immudb-in-the-background)
-    - [**install immudb as a service**](#install-immudb-as-a-service)
-- [install immudb service](#install-immudb-service)
-- [check current immudb service status](#check-current-immudb-service-status)
-- [stop immudb service](#stop-immudb-service)
-- [start immudb service](#start-immudb-service)
-  - [Where to find the official Java SDK for immudb](#where-to-find-the-official-java-sdk-for-immudb)
-  - [Use the Java SDK for immudb](#use-the-java-sdk-for-immudb)
-  - [Introduction](#introduction)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Supported Versions](#supported-versions)
-  - [Quickstart](#quickstart)
-  - [Step by step guide](#step-by-step-guide)
-    - [Creating a Client](#creating-a-client)
-    - [User sessions](#user-sessions)
-    - [Creating a database](#creating-a-database)
-    - [Setting the active database](#setting-the-active-database)
-    - [Traditional read and write](#traditional-read-and-write)
-    - [Verified or Safe read and write](#verified-or-safe-read-and-write)
-    - [Closing the client](#closing-the-client)
-
-## Introduction
+## immudb4j Introduction
 
 immudb4j implements a [grpc] immudb client. A minimalist API is exposed for applications while cryptographic
 verifications and state update protocol implementation are fully implemented by this client.
@@ -126,10 +94,6 @@ please read [immudb research paper] for details of how immutability is ensured b
 [immudb research paper]: https://immudb.io/
 [immudb]: https://immudb.io/
 
-## Prerequisites
-
-immudb4j assumes an already running immudb server. Running `immudb` is quite simple, please refer to the
-following link for downloading and running it: https://immudb.io/docs/quickstart.html
 
 ## Installation
 
