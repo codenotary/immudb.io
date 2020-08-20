@@ -3,7 +3,7 @@ title: immudb4j - Get started using the Java SDK for immudb
 image: /blog/java.jpg
 excerpt: 
     Learn how to use the Java SDK for immudb to store your data tamperproof
-date: 2020-06-05
+date: 2020-08-20
 tags: 
   - Java
   - SDK
