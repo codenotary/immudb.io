@@ -13,7 +13,7 @@ actionLink: /docs/quickstart.html
                 <feature title="Immutable" image='/features/immutable2.svg'>
                     <p>Any kind of key-value. Clients can choose how to structure data.</p>
                     <p><strong>No data mutation APIs</strong> are provided.</p>
-                    <p>Data is never overwritten, so multiple versions of the same key co-exist and are verfiable.</p>
+                    <p>Data is never overwritten, so multiple versions of the same key co-exist and are verifiable.</p>
                 </feature>
             </i-column>
             <i-column lg="4">
@@ -247,8 +247,8 @@ printItem(key2, value2, verifiedIndex)
 <img :src="$withBase('/features/intuitive-setup4.svg')" alt="immudb - intuitive setup" />
 
 ## Intuitive setup 
-immudb is build with simplicity in mind:
-- Use the prebuild binaries or Docker container images for a fast start
+immudb is built with simplicity in mind:
+- Use the prebuilt binaries or Docker container images for a fast start
 - Install, manage and run immudb and immugw as services (use 'immuadmin service')
 - Simple make command integration if you want to build the applications yourself
 - RESTful interfaces and easy to use clients
