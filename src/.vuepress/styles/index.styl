@@ -14,20 +14,23 @@
         flex-direction column
         text-align: center
 
-#easy-setup-section
-    margin-top: -2rem
-    text-align: center
+#easy-setup-section {
+    margin-top: -2rem;
+    text-align: center;
 
-    .container
-        max-width: 980px
+    .container {
+        max-width: 980px;
+    }
 
-    div.language-bash
-        margin-top: 2rem
-        width: auto
-        display inline-block
-        max-width: 100%
+    div.language-bash {
+        margin-top: 2rem;
+        width: auto;
+        display: inline-block;
+        max-width: 100%;
+    }
+}
 
-#video-section
+#video-section {
     color: white
     background-color: $accentColor
     text-align center
@@ -36,79 +39,99 @@
     background-repeat no-repeat
     background-position: top center
 
-    h2
+    h2 {
         margin-top: 0
         border-bottom 0
         color: white
+    }
 
-    p
+    p {
         color: rgba(white, 0.8)
+    }
 
-    .video-features
+    .video-features {
         display: flex
         width: 100%
         margin-top: 4rem
 
-        ul
+        ul {
             width: 33%
             text-align: left
             margin-left: 2rem
 
-            li
+            li {
                 display: flex
                 align-items center
                 margin-bottom: 0.5rem
+            }
 
-            svg
+            svg {
                 margin-right: 1rem
+            }
+        }
 
-        .video
+        .video {
             padding: 1rem
             background white
             display: block
             width: 67%
             box-sizing border-box
+        }
 
-        @media screen and (max-width: 979px)
+        @media screen and (max-width: 979px) {
             flex-direction column
 
             ul,
-            .video
+            .video {
                 width: 100%
                 margin-left: 0
+            }
 
-            ul
+            ul {
                 margin-top: 2rem
+            }
+        }
+    }
+}
 
 #code-tabs
     background: #f8f9fa !important
 
-#code-examples
-    svg
+#code-examples {
+    svg {
         width: 3rem
         height: 3rem
         color: $accentColor
+    }
 
-    img
+    img {
         width: 4rem
+    }
 
-    h2
+    h2 {
         margin-top: 1rem
+    }
 
-    .row
+    .row {
         align-items center
+    }
 
-    @media screen and (max-width: 979px)
+    @media screen and (max-width: 979px) {
         text-align center
 
-        .inverse
+        .inverse {
             flex-direction column-reverse
+        }
 
-        p, ul
+        p, ul {
             text-align left
+        }
 
-        .terminal-wrapper
+        .terminal-wrapper {
             margin-bottom: 1rem
+        }
+    }
+}
 
 #comingsoon
     ul
@@ -116,21 +139,23 @@
             @media screen and (max-width: 767px)
                 display none
 
-#usedby
+#usedby {
     padding-top: 4rem
     padding-bottom: 2rem
     justify-content space-between
     text-align: center
 
-    .column
+    .column {
         display flex
         flex-wrap: wrap
         justify-content center
 
-        a
+        a {
             margin: 1rem
+        }
+    }
 
-    img
+    img {
         margin: 0 auto 2rem
         display block
         opacity: 0.5
@@ -138,8 +163,11 @@
         height: 45px;
         width: auto;
 
-        &:hover
+        &:hover {
             opacity: 0.6
+        }
+    }
+}
 
 #performance
     img

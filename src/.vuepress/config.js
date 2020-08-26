@@ -91,10 +91,10 @@ module.exports = {
     themeConfig: {
         logo: '/logo.png',
         nav: [
-            { text: 'Home', link: '/' },
-            { text: 'Blog', link: '/blog/' },
-            { text: 'Documentation', link: '/docs/' },
-            { text: 'Immutable Data Science', link: '/immutable-data-science' },
+            { text: 'Home', link: 'https://codenotary.io/technologies/immudb' },
+            { text: 'Blog', link: 'https://codenotary.io/blog' },
+            { text: 'Documentation', link: '/' },
+            { text: 'Immutable Data Science', link: 'https://codenotary.io/technologies/immudb/immutable-data-science' },
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
         sidebar: [
@@ -102,21 +102,21 @@ module.exports = {
                 title: 'Get started',
                 collapsable: false,
                 children: [
-                    '/docs/',
-                    '/docs/how-it-works',
-                    '/docs/quickstart',
-                    '/docs/command-reference',
-                    '/docs/apis-and-interfaces',
+                    '/',
+                    '/how-it-works',
+                    '/quickstart',
+                    '/command-reference',
+                    '/apis-and-interfaces',
                 ]
             },
             {
                 title: 'Components',
                 collapsable: false,
                 children: [
-                    '/docs/immudb/',
-                    '/docs/immugw/',
-                    '/docs/immuadmin/',
-                    '/docs/immuclient/',
+                    '/immudb/',
+                    '/immugw/',
+                    '/immuadmin/',
+                    '/immuclient/',
                 ]
             }
         ]
