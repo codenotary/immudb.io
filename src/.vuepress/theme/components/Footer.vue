@@ -5,9 +5,9 @@
                 <i-column>
                     <span class="copyright">Copyright &copy; vChain {{ year }}</span>
                     <i-nav class="list -inline _font-size-sm">
-                        <i-nav-item to="/blog">Blog</i-nav-item>
-                        <i-nav-item to="/docs">Documentation</i-nav-item>
-                        <i-nav-item to="/careers">Careers</i-nav-item>
+                        <i-nav-item href="https://codenotary.io/blog">Blog</i-nav-item>
+                        <i-nav-item to="/">Documentation</i-nav-item>
+                        <i-nav-item href="https://codenotary.io/careers">Careers</i-nav-item>
                         <i-nav-item href="https://github.com/codenotary/immudb" target="_blank">GitHub</i-nav-item>
                     </i-nav>
                 </i-column>

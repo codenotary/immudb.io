@@ -403,7 +403,7 @@ immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br
 ## Architecture
 
 The different components of immudb are communicating as follows:
-![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/docs/immudb/component-diagram.png)
+![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png)
 
 Please check How it works, to learn more about the data structure and the Merkle-tree:
 
