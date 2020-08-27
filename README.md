@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="http://immudb.io/">
-        <img src="https://immudb.io/mascot.png" alt="immudb logo" width=200>
+    <a href="https://codenotary.io/technologies/immudb">
+        <img src="https://docs.immudb.io/mascot.png" alt="immudb logo" width=200>
     </a>
 </p>
 
@@ -10,9 +10,9 @@
     <a href="https://immudb.io">Immudb</a> is the open-source immutable database. Immudb's documentation and homepage is built with Vuepress and publicly hosted on GitHub Pages. 
     <br/>
     <br/>
-    <a href="https://immudb.io">Homepage</a>
+    <a href="https://codenotary.io/technologies/immudb">Homepage</a>
     ·
-    <a href="https://immudb.io/docs/">Documentation</a>
+    <a href="https://docs.immudb.io/">Documentation</a>
     ·
     <a href="https://github.com/codenotary/immudb/issues">Issue Tracker</a>
 </p>
