@@ -175,12 +175,12 @@ Use "immugw [command] --help" for more information about a command.
 
 You can find the swagger schema here:
 
-[swagger immugw](https://github.com/codenotary/immugw/blob/master/pkg/api/schema/gw.schema.swagger.json)
+[swagger immugw](https://github.com/codenotary/immugw/blob/master/pkg/api/gw.schema.swagger.json)
 
 If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
 ```bash
-docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/schema/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
+docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
 ```
 ### Curl examples
 
