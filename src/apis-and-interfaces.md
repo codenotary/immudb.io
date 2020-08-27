@@ -27,6 +27,7 @@ Here the gRPC documentation that show available endpoints with protobuffer proto
 [immudb gRPC](immudb/grpc-interface.md)
 
 ## immugw RESTful API reference
+immugw can be found in a different [repository](https://github.com/codenotary/immugw)
 
 You can find the swagger schema here:
 
