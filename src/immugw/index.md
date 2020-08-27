@@ -1,6 +1,7 @@
 # immugw
 
 immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend to run immudb and immugw on separate machines to enhance security
+immugw can be found in a different [repository](https://github.com/codenotary/immugw)
 
 ## Contents
  - [Latest binaries](#latest-binaries)
@@ -18,13 +19,13 @@ immugw is the intelligent REST proxy that connects to immudb and provides a REST
 
 ## Latest binaries
 
-[Get the latest builds](https://github.com/codenotary/immudb/releases/latest)
+[Get the latest builds](https://github.com/codenotary/immugw/releases/latest)
 
 ## Build
 
-clone the immudb repository locally
+clone the immugw repository locally
 
-'git clone https://github.com/codenotary/immudb.git'
+'git clone https://github.com/codenotary/immugw.git'
 
 ### Linux
 
@@ -48,7 +49,7 @@ GOOS=windows GOARCH=amd64 make immugw-static
 
 ### build your own Docker container image
 ```bash
-docker build -t myown/immugw:latest -f Dockerfile.immugw .
+docker build -t myown/immugw:latest -f Dockerfile .
 ```
 
 ### run immugw in a container
@@ -68,7 +69,8 @@ If you want to stop immugw în that case you need to find the process `ps -ax | 
 
 ## immuadmin
 
-immuadmin can be used to install and manage the immugw service for Windows and Linux
+immuadmin can be used to install and manage the immugw service for Windows and Linux. immuadmin is part of the immugw repository.
+'git clone https://github.com/codenotary/immudb.git'
 
 ### Linux
 
@@ -173,7 +175,7 @@ Use "immugw [command] --help" for more information about a command.
 
 You can find the swagger schema here:
 
-[swagger immudb](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json)
+[swagger immugw](https://github.com/codenotary/immugw/blob/master/pkg/api/schema/gw.schema.swagger.json)
 
 If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
@@ -227,4 +229,4 @@ immugw_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eug
 
 ## License
 
-immugw is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
+immugw is [Apache v2.0 License](https://github.com/codenotary/immugw/blob/master/LICENSE).
