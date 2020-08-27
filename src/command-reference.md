@@ -63,6 +63,8 @@ Use "immudb [command] --help" for more information about a command.
 
 ## immugw
 
+immugw can be found in a different [repository](https://github.com/codenotary/immugw)
+
 Simply run `./immugw -d` to start immugw on the same machine as immudb (test or dev environment) or point to the remote immudb system `./immugw --immudbaddress "immudb-server"`.
 
 If you want to stop immugw în that case you need to find the process `ps -ax | grep immugw` and then `kill -15 <pid>`. Windows PowerShell would be `Get-Process immugw* | Stop-Process`.

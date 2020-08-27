@@ -15,7 +15,8 @@ The following diagram explains how data is inserted, verified and consistency ch
 
 
 ## immugw communication
+immugw can be found in its [own repository](https://github.com/codenotary/immugw)
 
 immugw proxies REST client communication and gRPC server interface. For security purposes, immugw should not run on the same server as immudb. The following diagram shows how the communication works:
 
-![immugw communication explained](https://raw.githubusercontent.com/codenotary/immudb/master/img/immugw-diagram.png)
+![immugw communication explained](https://raw.githubusercontent.com/codenotary/immugw/master/img/immugw-diagram.png)

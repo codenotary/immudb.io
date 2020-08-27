@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>immudb | immudb - The lightweight, high-speed immutable database</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="canonical" href="https://immudb.io">
+    <link rel="shortcut icon" type="image/png" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4d4d4d">
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "immudb - The lightweight, high-speed immutable database",
+        "url": "https://immudb.io",
+        "logo": {
+            "@type": "ImageObject",
+            "url": {
+                "@type": "ImageObject",
+                "url": "https://immudb.io/logo.png",
+                "width": 1036,
+                "height": 367
+            }
+        }
+    },
+    "url": "https://immudb.io",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://immudb.io"
+    },
+    "description": "immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application."
+}</script>
+    <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5f1966f77258dc118beec8d6/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();</script>
+    <script type="text/javascript">(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+vgo('setAccount', '66487182');
+vgo('setTrackByDefault', true);
+vgo('process');</script>
+    <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-168112067-1"></script>
+    <script async="true" src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&amp;render=explicit"></script>
+    <meta name="description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="apple-mobile-web-app-title" content="immudb">
+    <meta name="application-name" content="immudb">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta property="og:site_name" content="immudb">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta property="og:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta property="og:url" content="https://immudb.io">
+    <meta property="article:publisher" content="https://immudb.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta name="twitter:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="twitter:url" content="https://immudb.io">
+    <meta name="twitter:site" content="@immudb">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="/assets/css/0.styles.6d3f9914.css" as="style"><link rel="preload" href="/assets/js/app.c214e65d.js" as="script"><link rel="preload" href="/assets/js/2.f4a45a84.js" as="script"><link rel="preload" href="/assets/js/1.a4b9946c.js" as="script"><link rel="preload" href="/assets/js/34.2e6984e2.js" as="script"><link rel="prefetch" href="/assets/js/10.fc8aebff.js"><link rel="prefetch" href="/assets/js/11.695dc08c.js"><link rel="prefetch" href="/assets/js/12.99f9f8ad.js"><link rel="prefetch" href="/assets/js/13.7cd5dd77.js"><link rel="prefetch" href="/assets/js/14.31f6bd93.js"><link rel="prefetch" href="/assets/js/15.bf4cd978.js"><link rel="prefetch" href="/assets/js/16.57e19ec3.js"><link rel="prefetch" href="/assets/js/17.73f319e6.js"><link rel="prefetch" href="/assets/js/18.a701bddc.js"><link rel="prefetch" href="/assets/js/19.72564796.js"><link rel="prefetch" href="/assets/js/20.ef79c808.js"><link rel="prefetch" href="/assets/js/21.7e638aac.js"><link rel="prefetch" href="/assets/js/22.67fbccc9.js"><link rel="prefetch" href="/assets/js/23.70efafa1.js"><link rel="prefetch" href="/assets/js/24.1bc3be3f.js"><link rel="prefetch" href="/assets/js/25.543d03ac.js"><link rel="prefetch" href="/assets/js/26.4af76183.js"><link rel="prefetch" href="/assets/js/27.5805d6f4.js"><link rel="prefetch" href="/assets/js/28.ddc8a1d1.js"><link rel="prefetch" href="/assets/js/29.5a45d505.js"><link rel="prefetch" href="/assets/js/30.8d6e2fb6.js"><link rel="prefetch" href="/assets/js/31.5c3c8947.js"><link rel="prefetch" href="/assets/js/32.1f1dedc9.js"><link rel="prefetch" href="/assets/js/33.3664150f.js"><link rel="prefetch" href="/assets/js/35.e5ab99c6.js"><link rel="prefetch" href="/assets/js/36.99f1a33f.js"><link rel="prefetch" href="/assets/js/37.9cf4af9a.js"><link rel="prefetch" href="/assets/js/38.234fb2d1.js"><link rel="prefetch" href="/assets/js/39.78cfeec4.js"><link rel="prefetch" href="/assets/js/4.a6540016.js"><link rel="prefetch" href="/assets/js/40.0ec4038d.js"><link rel="prefetch" href="/assets/js/41.30fc34c6.js"><link rel="prefetch" href="/assets/js/5.f20ffe0d.js"><link rel="prefetch" href="/assets/js/6.af1d9986.js"><link rel="prefetch" href="/assets/js/7.23914c76.js"><link rel="prefetch" href="/assets/js/8.1fcff72d.js"><link rel="prefetch" href="/assets/js/9.f4df8dbf.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6d3f9914.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="immudb - The lightweight, high-speed immutable database" class="logo"> <span class="site-name can-hide">immudb - The lightweight, high-speed immutable database</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://codenotary.io/technologies/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://codenotary.io/blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://codenotary.io/technologies/immudb/immutable-data-science" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Immutable Data Science
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://codenotary.io/technologies/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://codenotary.io/blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://codenotary.io/technologies/immudb/immutable-data-science" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Immutable Data Science
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>Get started</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/" aria-current="page" class="sidebar-link">Introduction</a></li><li><a href="/how-it-works.html" class="sidebar-link">How it works</a></li><li><a href="/quickstart.html" class="sidebar-link">Quickstart</a></li><li><a href="/command-reference.html" class="sidebar-link">Command reference</a></li><li><a href="/apis-and-interfaces.html" class="sidebar-link">APIs and interfaces</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Components</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/immudb/" aria-current="page" class="active sidebar-link">immudb</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/immudb/#contents" class="sidebar-link">Contents</a></li><li class="sidebar-sub-header"><a href="/immudb/#latest-binaries" class="sidebar-link">Latest binaries</a></li><li class="sidebar-sub-header"><a href="/immudb/#build" class="sidebar-link">Build</a></li><li class="sidebar-sub-header"><a href="/immudb/#docker" class="sidebar-link">Docker</a></li><li class="sidebar-sub-header"><a href="/immudb/#run-immudb" class="sidebar-link">Run immudb</a></li><li class="sidebar-sub-header"><a href="/immudb/#configuration" class="sidebar-link">Configuration</a></li><li class="sidebar-sub-header"><a href="/immudb/#immuadmin" class="sidebar-link">immuadmin</a></li><li class="sidebar-sub-header"><a href="/immudb/#immudb-service" class="sidebar-link">immudb service</a></li><li class="sidebar-sub-header"><a href="/immudb/#authentication" class="sidebar-link">Authentication</a></li><li class="sidebar-sub-header"><a href="/immudb/#backup-and-restore" class="sidebar-link">Backup and Restore</a></li><li class="sidebar-sub-header"><a href="/immudb/#multi-database" class="sidebar-link">Multi-Database</a></li><li class="sidebar-sub-header"><a href="/immudb/#clients" class="sidebar-link">Clients</a></li><li class="sidebar-sub-header"><a href="/immudb/#auditors" class="sidebar-link">Auditors</a></li><li class="sidebar-sub-header"><a href="/immudb/#architecture" class="sidebar-link">Architecture</a></li><li class="sidebar-sub-header"><a href="/immudb/#consistency-checker" class="sidebar-link">Consistency checker</a></li><li class="sidebar-sub-header"><a href="/immudb/#license" class="sidebar-link">License</a></li></ul></li><li><a href="/immugw/" class="sidebar-link">immugw</a></li><li><a href="/immuadmin/" class="sidebar-link">immuadmin</a></li><li><a href="/immuclient/" class="sidebar-link">immuclient</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="immudb"><a href="#immudb" class="header-anchor">#</a> immudb</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#latest-binaries">Latest binaries</a></li> <li><a href="#build">Build</a></li> <li><a href="#docker">Docker</a></li> <li><a href="#run-immudb">Run immudb</a></li> <li><a href="#configuration">Configuration</a></li> <li><a href="#immuadmin">immuadmin</a></li> <li><a href="#immudb-service">immudb service</a></li> <li><a href="#authentication">Authentication</a></li> <li><a href="#backup-and-restore">Backup and Restore</a></li> <li><a href="#multi-database">Multi-Database</a></li> <li><a href="#clients">Clients</a></li> <li><a href="#auditors">Auditors</a></li> <li><a href="#architecture">Architecture</a></li> <li><a href="#consistency-checker">Consistency Checker</a></li> <li><a href="#license">License</a></li></ul> <h2 id="latest-binaries"><a href="#latest-binaries" class="header-anchor">#</a> Latest binaries</h2> <p><a href="https://github.com/codenotary/immudb/releases/latest" target="_blank" rel="noopener noreferrer">Get the latest builds<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>If you run macOS you can also use Homebrew:</p> <p><code>brew install immudb</code></p> <h2 id="build"><a href="#build" class="header-anchor">#</a> Build</h2> <p>clone the immudb repository locally</p> <p>'git clone https://github.com/codenotary/immudb.git'</p> <h3 id="linux"><a href="#linux" class="header-anchor">#</a> Linux</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immudb-static
+</code></pre></div><h3 id="macos"><a href="#macos" class="header-anchor">#</a> MacOS</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>darwin <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immudb-static
+</code></pre></div><h3 id="windows"><a href="#windows" class="header-anchor">#</a> Windows</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>windows <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immudb-static
+</code></pre></div><h2 id="docker"><a href="#docker" class="header-anchor">#</a> Docker</h2> <h3 id="build-your-own-docker-container-image"><a href="#build-your-own-docker-container-image" class="header-anchor">#</a> build your own Docker container image</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>docker build -t myown/immudb:latest -f Dockerfile <span class="token builtin class-name">.</span>
+</code></pre></div><h3 id="run-immugw-in-a-container"><a href="#run-immugw-in-a-container" class="header-anchor">#</a> run immugw in a container</h3> <p>Make sure to point to the immudb system using the environment variable IMMUGW_IMMUDB-ADDRESS</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker run -it -d -p <span class="token number">3322</span>:3322 -p <span class="token number">9497</span>:9497 --name immudb codenotary/immugw:latest
+</code></pre></div><p>or listen on all interfaces</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker run -it -d -p <span class="token number">3322</span>:3322 -p <span class="token number">9497</span>:9497 --name immudb -e <span class="token assign-left variable">IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token string">&quot;0.0.0.0&quot;</span> codenotary/immudb
+</code></pre></div><p>listen on all interfaces, persistent data</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker volume create immudb-data
+docker run -it -d -p <span class="token number">3322</span>:3322 -p <span class="token number">9497</span>:9497 -v immudb-data:/var/lib/immudb --name immudb -e <span class="token assign-left variable">IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token string">&quot;0.0.0.0&quot;</span> codenotary/immudb
+</code></pre></div><h2 id="run-immudb"><a href="#run-immudb" class="header-anchor">#</a> Run immudb</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># run immudb in the foreground</span>
+./immudb
+
+<span class="token comment"># run immudb in the background</span>
+./immudb -d
+</code></pre></div><h2 id="configuration"><a href="#configuration" class="header-anchor">#</a> Configuration</h2> <p>immudb can be configured using environment variables, flags or a config file.</p> <ul><li><code>immudb --help</code> shows you all available flags and environment variables.</li> <li><code>/etc/immudb/immudb.toml</code> is used as a default configuration file</li></ul> <h3 id="environment-variables"><a href="#environment-variables" class="header-anchor">#</a> Environment variables</h3> <p>The environment variables are the most popular way to configure Docker container:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>  <span class="token assign-left variable">IMMUDB_DIR</span><span class="token operator">=</span>.
+  <span class="token assign-left variable">IMMUDB_NETWORK</span><span class="token operator">=</span>tcp
+  <span class="token assign-left variable">IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">0.0</span>.0.0
+  <span class="token assign-left variable">IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUDB_DBNAME</span><span class="token operator">=</span>immudb
+  <span class="token assign-left variable">IMMUDB_PIDFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUDB_LOGFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUDB_MTLS</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_AUTH</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_DETACHED</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_CONSISTENCY_CHECK</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_PKEY</span><span class="token operator">=</span>./tools/mtls/3_application/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUDB_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/3_application/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUDB_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+  <span class="token assign-left variable">IMMUDB_DEVMODE</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_MAINTENANCE</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_ADMIN_PASSWORD</span><span class="token operator">=</span>immudb
+
+</code></pre></div><h2 id="immuadmin"><a href="#immuadmin" class="header-anchor">#</a> immuadmin</h2> <p>immuadmin can be used to install and manage the immudb service for Windows and Linux</p> <h3 id="linux-2"><a href="#linux-2" class="header-anchor">#</a> Linux</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>linux <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immuadmin-static 
+</code></pre></div><h3 id="windows-by-component"><a href="#windows-by-component" class="header-anchor">#</a> Windows (by component)</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token assign-left variable">GOOS</span><span class="token operator">=</span>windows <span class="token assign-left variable">GOARCH</span><span class="token operator">=</span>amd64 <span class="token function">make</span> immuadmin-static
+</code></pre></div><h2 id="immudb-service"><a href="#immudb-service" class="header-anchor">#</a> immudb service</h2> <p>Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># install immudb service</span>
+./immuadmin <span class="token function">service</span> immudb <span class="token function">install</span>
+
+<span class="token comment"># check current immudb service status</span>
+./immuadmin <span class="token function">service</span> immudb status
+
+<span class="token comment"># stop immudb service</span>
+./immuadmin <span class="token function">service</span> immudb stop
+
+<span class="token comment"># start immudb service</span>
+./immuadmin <span class="token function">service</span> immudb start
+</code></pre></div><p>The linux service is using the following defaults:</p> <table><thead><tr><th>File or configuration</th> <th>location</th></tr></thead> <tbody><tr><td>all configuration files</td> <td>/etc/immudb</td></tr> <tr><td>all data files</td> <td>/var/lib/immudb</td></tr> <tr><td>pid file</td> <td>/var/lib/immudb/immudb.pid</td></tr> <tr><td>log files</td> <td>/var/log/immudb</td></tr></tbody></table> <h2 id="authentication"><a href="#authentication" class="header-anchor">#</a> Authentication</h2> <p>immudb supports multiple user accounts that can have admin, read-only or read-write permission.
+All permissions are stored in a different database and each gRPC call has an associated minimum permissions.</p> <p>To enable authentication you need to change the configuration file <code>/etc/immudb/immudb.toml</code></p> <p>Example:</p> <div class="language-toml extra-class"><pre class="language-toml"><code><span class="token key property">dir</span> <span class="token punctuation">=</span> <span class="token string">&quot;/var/lib/immudb&quot;</span>
+<span class="token key property">network</span> <span class="token punctuation">=</span> <span class="token string">&quot;tcp&quot;</span>
+<span class="token key property">address</span> <span class="token punctuation">=</span> <span class="token string">&quot;0.0.0.0&quot;</span>
+<span class="token key property">port</span> <span class="token punctuation">=</span> <span class="token number">3322</span>
+<span class="token key property">dbname</span> <span class="token punctuation">=</span> <span class="token string">&quot;data&quot;</span>
+<span class="token key property">pidfile</span> <span class="token punctuation">=</span> <span class="token string">&quot;/var/lib/immudb/immudb.pid&quot;</span>
+<span class="token key property">logfile</span> <span class="token punctuation">=</span> <span class="token string">&quot;/var/log/immudb/immudb.log&quot;</span>
+<span class="token key property">mtls</span> <span class="token punctuation">=</span> <span class="token boolean">false</span>
+<span class="token key property">detached</span> <span class="token punctuation">=</span> <span class="token boolean">false</span>
+<span class="token key property">auth</span> <span class="token punctuation">=</span> <span class="token boolean">true</span>
+<span class="token key property">pkey</span> <span class="token punctuation">=</span> <span class="token string">&quot;/etc/immudb/mtls/3_application/private/localhost.key.pem&quot;</span>
+<span class="token key property">certificate</span> <span class="token punctuation">=</span> <span class="token string">&quot;/etc/immudb/mtls/3_application/certs/localhost.cert.pem&quot;</span>
+<span class="token key property">clientcas</span> <span class="token punctuation">=</span> <span class="token string">&quot;/etc/immudb/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span>
+</code></pre></div><p>The important lines to change are <code>auth = true</code> and <code>address = &quot;0.0.0.0&quot;</code> to enable authentication and listening on all interfaces.</p> <p>Then restart/start immudb.</p> <h3 id="get-the-admin-credentials"><a href="#get-the-admin-credentials" class="header-anchor">#</a> Get the admin credentials</h3> <p>You need to run <code>immuadmin</code> locally on the same system as immudb (for security reasons) and connect to immudb:</p> <p><code>immuadmin login immudb</code></p> <p>You^ll receive the following message:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>Using config file: /etc/immudb/immudb.toml
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+This looks like the very first admin login attempt, hence the following credentials have been generated:
+---
+username: immu
+password: yourpassword
+---
+IMPORTANT: This is the only <span class="token function">time</span> they are shown, so <span class="token function">make</span> sure you remember them.
+NOTE: You have not been automatically logged in. To login please run the <span class="token builtin class-name">command</span> <span class="token string">'immuadmin login immu'</span> with the above-mentioned password. You can change your password at any <span class="token function">time</span> with one of your liking using the <span class="token builtin class-name">command</span> <span class="token string">'immuadmin user change-password immu'</span>
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+</code></pre></div><p><strong>make sure to note that the password for the immu user as its your master password</strong></p> <h3 id="user-management"><a href="#user-management" class="header-anchor">#</a> User management</h3> <p>To manage user, run <code>immuadmin user</code> after you logged in <code>immuadmin login immudb</code></p> <div class="language-bash extra-class"><pre class="language-bash"><code>Please specify a user action.
+Usage: immuadmin user list<span class="token operator">|</span>create<span class="token operator">|</span>change-password<span class="token operator">|</span>set-permission<span class="token operator">|</span>deactivate <span class="token punctuation">[</span>username<span class="token punctuation">]</span> <span class="token punctuation">[</span>read<span class="token operator">|</span>readwrite<span class="token punctuation">]</span>
+Help <span class="token builtin class-name">:</span> immuadmin user -h
+</code></pre></div><h4 id="list-user"><a href="#list-user" class="header-anchor">#</a> List user</h4> <p>To get a list of all existing user including their permissions, run <code>immuadmin user list</code></p> <h4 id="add-user"><a href="#add-user" class="header-anchor">#</a> Add user</h4> <p>Let's create a read-only user, called ro <code>immuadmin user create &lt;username&gt; read</code></p> <div class="language-bash extra-class"><pre class="language-bash"><code>immuadmin user create ro <span class="token builtin class-name">read</span>
+NOTE: password must have between <span class="token number">8</span> and <span class="token number">32</span> letters, digits and special characters of <span class="token function">which</span> at least <span class="token number">1</span> uppercase letter, <span class="token number">1</span> digit and <span class="token number">1</span> special character.
+Choose a password <span class="token keyword">for</span> ro:
+Confirm password:
+User ro created
+</code></pre></div><p>and a read-write user, called rw <code>immuadmin user create rw readwrite</code></p> <h4 id="change-user-permission"><a href="#change-user-permission" class="header-anchor">#</a> Change user permission</h4> <p>To change the ro user permission from read-only to read-write, run <code>immuadmin user set-permission ro readwrite</code>
+Check the change, using <code>immuadmin user list</code></p> <div class="language-bash extra-class"><pre class="language-bash"><code>immuadmin user list
+Using config file: /etc/immudb/immudb.toml
+<span class="token number">3</span> user<span class="token punctuation">(</span>s<span class="token punctuation">)</span>:
+-  --------  ----    -----------
+<span class="token comment">#  Username  Role    Permissions</span>
+-  --------  ----    -----------
+<span class="token number">1</span>  immu      admin   admin
+<span class="token number">2</span>  ro        client  readwrite
+<span class="token number">3</span>  rw        client  readwrite
+-  --------  ----    -----------
+</code></pre></div><h4 id="deactivate-user"><a href="#deactivate-user" class="header-anchor">#</a> Deactivate user</h4> <p>To deactivate an existing user, run <code>immuadmin user deactivate ro</code></p> <h4 id="reactivate-user"><a href="#reactivate-user" class="header-anchor">#</a> Reactivate user</h4> <p>To reactivate a deactivated user account, you can simply set user permission again. Run <code>immuadmin user set-permission ro readwrite</code></p> <h2 id="backup-and-restore"><a href="#backup-and-restore" class="header-anchor">#</a> Backup and Restore</h2> <p>The simplest way to backup immudb is to use your operating system tools like tar or zip.
+You can stop immudb and backup the data directory (default: <code>/var/lib/immudb</code>) and start immudb again.</p> <p>The other alternative is using the <code>immuadmin backup</code> command. Please keep in mind, that <code>immuadmin backup</code> is stopping immudb as well and a manual start is required.</p> <h2 id="multi-database"><a href="#multi-database" class="header-anchor">#</a> Multi-Database</h2> <p>Starting immudb version 0.7.0 we introduced a multi-database support. By default the first database is either called defaultdb or based on the environment variable <code>IMMUDB_DBNAME</code>.</p> <h3 id="database-management"><a href="#database-management" class="header-anchor">#</a> Database management</h3> <p>We recommend using <code>immuadmin</code> to create additional user and databases.</p> <div class="language- extra-class"><pre class="language-text"><code>immuadmin login immudb  # Authentication is enabled by default, default user is immudb and password immudb; 
+                        # first login asks for a password change and must contain upper and lower case letters, digits, punctuation mark or symbol
+
+immuadmin database list          # show all existing databases
+immuadmin database create testdb # database testdb created
+</code></pre></div><p>immuclient can be used to test the setup or in scripts. Of course the API supports multi-db handling as well.</p> <div class="language- extra-class"><pre class="language-text"><code>immuclient login immudb   # login to immudb with user immudb
+immuclient use testdb     # use testdb for all following commands
+immuclient safeset k0 v0  # set a key value in testdb
+</code></pre></div><h3 id="database-user-management"><a href="#database-user-management" class="header-anchor">#</a> Database user management</h3> <p>You can create additional user using the immuadmin and grant database permissions automatically.</p> <p><code>immuadmin user help</code> shows you all information about the command usage.</p> <p>Permissions are: <em>read</em>, <em>readwrite</em> and <em>admin</em></p> <div class="language- extra-class"><pre class="language-text"><code># create an user for the newly created database
+immuadmin user create myuser readwrite testdb       # create user myuser (password will be requested) and grant readwrite permissions to testdb
+
+immuadmin user permission grant myuser admin testdb # change permissions to admin for user myuser on testdb
+immuadmin user permission grant myuser readwrite testdb # change permissions to readwrite for user myuser on testdb
+immuadmin user permission revoke myuser readwrite testdb # revoke permissions for user myuser on testdb
+</code></pre></div><p>To check all database permissions use <code>immuadmin user list</code></p> <h3 id="api-examples"><a href="#api-examples" class="header-anchor">#</a> API examples</h3> <p>work in progress</p> <h2 id="clients"><a href="#clients" class="header-anchor">#</a> Clients</h2> <p>Starting version 0.6.0 of immudb, you can use immugw (REST API), immuclient (interactive) or GoLang as immudb database clients.
+Depending on the user settings and permissions, you can have read-only and read-write clients.</p> <p><a href="/apis-and-interfaces.html">APIs and interfaces</a> - API reference and code examples</p> <p>More driver libraries are coming soon (Java, Node.js, Python, .net aso.)</p> <h2 id="auditors"><a href="#auditors" class="header-anchor">#</a> Auditors</h2> <p>Auditors make sure that the data consistency is guaranteed inside immudb. They do a random key value verification and a interval-based Merkle-tree consistency check (5 minutes default). The immugw and the immuclient provide auditor functionality that runs as a daemon process. It is recommended to run immugw and immuclient on different machines than immudb, so any tampering on the immudb server is automatically detected.</p> <p>The results of the auditors are provided by a Prometheus end point.</p> <h3 id="immugw-auditor"><a href="#immugw-auditor" class="header-anchor">#</a> immugw auditor</h3> <p>Start interactive:
+<code>immugw --audit</code></p> <p>Service configuration:
+To enable auditor, you need to edit /etc/immudb/immugw.toml and add the following section:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>audit <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token comment"># false is default</span>
+audit-interval <span class="token operator">=</span> <span class="token string">&quot;5m&quot;</span> <span class="token comment"># suffixes: &quot;s&quot;, &quot;m&quot;, &quot;h&quot;, examples: 10s, 5m 1h</span>
+audit-username <span class="token operator">=</span> <span class="token string">&quot;&quot;</span> <span class="token comment"># when immudb authentication is enabled, use read-only user credentials here</span>
+audit-password <span class="token operator">=</span> <span class="token string">&quot;&quot;</span> <span class="token comment"># and the password</span>
+</code></pre></div><p>Restart the immugw service afterwards - <code>immuadmin service immugw restart</code></p> <p><strong>immugw Port: 9476 - http://immugw-auditor:9476/metrics</strong></p> <p>example output:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># HELP immugw_audit_curr_root_per_server Current root index used for the latest audit.</span>
+<span class="token comment"># TYPE immugw_audit_curr_root_per_server gauge</span>
+immugw_audit_curr_root_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">2</span>
+<span class="token comment"># HELP immugw_audit_prev_root_per_server Previous root index used for the latest audit.</span>
+<span class="token comment"># TYPE immugw_audit_prev_root_per_server gauge</span>
+immugw_audit_prev_root_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">2</span>
+<span class="token comment"># HELP immugw_audit_result_per_server Latest audit result (1 = ok, 0 = tampered).</span>
+<span class="token comment"># TYPE immugw_audit_result_per_server gauge</span>
+immugw_audit_result_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">1</span>
+<span class="token comment"># HELP immugw_audit_run_at_per_server Timestamp in unix seconds at which latest audit run.</span>
+<span class="token comment"># TYPE immugw_audit_run_at_per_server gauge</span>
+immugw_audit_run_at_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">1</span>.590757033502689e+09
+</code></pre></div><h3 id="immuclient-auditor"><a href="#immuclient-auditor" class="header-anchor">#</a> immuclient auditor</h3> <p>Start interactive:
+<code>immuclient audit-mode</code></p> <p>Install service:
+<code>immuclient audit-mode install</code></p> <p>**immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **</p> <p>example output:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.</span>
+<span class="token comment"># TYPE immuclient_audit_curr_root_per_server gauge</span>
+immuclient_audit_curr_root_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">2</span>
+<span class="token comment"># HELP immuclient_audit_prev_root_per_server Previous root index used for the latest audit.</span>
+<span class="token comment"># TYPE immuclient_audit_prev_root_per_server gauge</span>
+immuclient_audit_prev_root_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> -1
+<span class="token comment"># HELP immuclient_audit_result_per_server Latest audit result (1 = ok, 0 = tampered).</span>
+<span class="token comment"># TYPE immuclient_audit_result_per_server gauge</span>
+immuclient_audit_result_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> -1
+<span class="token comment"># HELP immuclient_audit_run_at_per_server Timestamp in unix seconds at which latest audit run.</span>
+<span class="token comment"># TYPE immuclient_audit_run_at_per_server gauge</span>
+immuclient_audit_run_at_per_server<span class="token punctuation">{</span>server_address<span class="token operator">=</span><span class="token string">&quot;127.0.0.1:3322&quot;</span>,server_id<span class="token operator">=</span><span class="token string">&quot;br8eugq036tfln0ct6o0&quot;</span><span class="token punctuation">}</span> <span class="token number">1</span>.5907565337454605e+09
+</code></pre></div><h2 id="architecture"><a href="#architecture" class="header-anchor">#</a> Architecture</h2> <p>The different components of immudb are communicating as follows:
+<img src="https://github.com/codenotary/immudb-docs/raw/master/src/docs/immudb/component-diagram.png" alt="immudb component overview"></p> <p>Please check How it works, to learn more about the data structure and the Merkle-tree:</p> <p><a href="/immudb/how-it-works.html">How it works</a></p> <h2 id="consistency-checker"><a href="#consistency-checker" class="header-anchor">#</a> Consistency checker</h2> <h3 id="how-do-you-run-it"><a href="#how-do-you-run-it" class="header-anchor">#</a> How do you run it?</h3> <p>It is part of immudb, enabled by default and runs as a thread of immudb.
+The routine can be disabled as follows:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>./immudb --consistency-check<span class="token operator">=</span>false
+</code></pre></div><h3 id="what-does-it-check"><a href="#what-does-it-check" class="header-anchor">#</a> What does it check?</h3> <p>Consistency checker runs in a loop and continuously checks if the elements stored inside the immudb Merkle-tree are also physically stored correctly on the disk (the digest of the disk elements is the same digest stored in the related Merkle-tree leaf)</p> <h3 id="how-does-it-run-its-check"><a href="#how-does-it-run-its-check" class="header-anchor">#</a> How does it run its check?</h3> <p><strong>Steps:</strong></p> <ol><li>reading the last root and last index stored in immudb</li> <li>generate a range between 0 and the length of the Merkle-tree level 0 (total number of elements stored)</li> <li>shuffles the range to get a random scan list (to be unpredictable)</li> <li>check if every element is correctly inserted in the Merkle-tree and if the Merkle-tree leaves correctly represent the elements stored on hard disk</li> <li>after completing the loop, the process sleeps ten seconds and restarts from scratch with a new root and index</li> <li>in case an element does not pass the check correctly, immudb is immediately stopped and prints out a log message</li></ol> <p>In order to produce a corrupted entry that is only on disk and not in the Merkle-tree, stop the immudb process and use the <a href="https://github.com/codenotary/immudb/blob/master/tools/nimmu/nimmu.go" target="_blank" rel="noopener noreferrer">nimmu<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> command:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>go build tools/nimmu/nimmu.go 
+./nimmu rawset key1 tamper
+</code></pre></div><p>Then restart immudb and you should see the consistency check printing an error.</p> <h2 id="license"><a href="#license" class="header-anchor">#</a> License</h2> <p>immudb is <a href="https://github.com/codenotary/immudb/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">Apache v2.0 License<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/apis-and-interfaces.html" class="prev">
+        APIs and interfaces
+      </a></span> <span class="next"><a href="/immugw/">
+        immugw
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.c214e65d.js" defer></script><script src="/assets/js/2.f4a45a84.js" defer></script><script src="/assets/js/1.a4b9946c.js" defer></script><script src="/assets/js/34.2e6984e2.js" defer></script>
+  </body>
+</html>
