@@ -28,19 +28,19 @@ make all
 ### Linux (by component)
 
 ```bash
-GOOS=linux GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
+GOOS=linux GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 ```
 
 ### MacOS (by component)
 
 ```bash
-GOOS=darwin GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
+GOOS=darwin GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 ```
 
 ### Windows (by component)
 
 ```bash
-GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static immugw-static
+GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 ```
 
 ## First start
@@ -85,6 +85,8 @@ The linux service is using the following defaults:
 
 
 ### Run immugw as a service (using immuadmin)
+
+immugw can be found in a different [repository](https://github.com/codenotary/immugw). You can find a build guideline in the Readme of the repository.
 
 Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.
 
@@ -161,7 +163,6 @@ If you want to build the container images yourself, simply clone this repo and r
 
 ```bash
 docker build -t myown/immudb:latest -f Dockerfile .
-docker build -t myown/immugw:latest -f Dockerfile.immugw .
 docker build -t myown/immuadmin:latest -f Dockerfile.immuadmin .
 docker build -t myown/immuclient:latest -f Dockerfile.immuclient .
 ```
