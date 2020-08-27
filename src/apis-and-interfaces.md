@@ -31,7 +31,7 @@ immugw can be found in a different [repository](https://github.com/codenotary/im
 
 You can find the swagger schema here:
 
-[swagger immugw](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/gw.schema.swagger.json)
+[swagger immugw](https://github.com/codenotary/immugw/blob/master/pkg/api/schema/gw.schema.swagger.json)
 
 If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
