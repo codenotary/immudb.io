@@ -1,7 +1,7 @@
  - [Write transactions without verification](#write-transactions-without-verification)
  - [Write transactions with verification](#write-transactions-with-verification)
  - [Add reference to existing entries](#add-reference-to-existing-entries)
- - [Add secondary index](#Add-secondary-index)
+ - [Add secondary index](#add-secondary-index)
  - [Read entries without verification](#read-entries-without-verification)
  - [Read entries with verification](#read-entries-with-verification)
  - [Scan entries](#scan-entries)
@@ -168,4 +168,4 @@ curl --request GET \
 
 ## License
 
-immugw is [Apache v2.0 License](LICENSE).
+immugw is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
