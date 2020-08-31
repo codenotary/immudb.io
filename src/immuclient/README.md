@@ -6,7 +6,7 @@ work in progress
  - [Latest binaries](#latest-binaries)
  - [Build](#build)
  - [Docker](#docker)
- - [Use immuclient](#run-immugw)
+ - [Use immuclient](#use-immuclient)
  - [Examples](#examples)
  - [Auditor](#auditor)
  - [License](#license)
