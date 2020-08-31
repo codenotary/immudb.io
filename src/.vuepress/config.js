@@ -110,15 +110,35 @@ module.exports = {
                 ]
             },
             {
-                title: 'Components',
+                title: 'immudb',
                 collapsable: false,
                 children: [
                     '/immudb/',
+                    '/immudb/golang'
+                ]
+            },
+            {
+                title: 'immugw',
+                collapsable: false,
+                children: [
                     '/immugw/',
+                    '/immugw/curl'
+                ]
+            },
+            {
+                title: 'immuadmin',
+                collapsable: false,
+                children: [
                     '/immuadmin/',
+                ]
+            },
+            {
+                title: 'immuclient',
+                collapsable: false,
+                children: [
                     '/immuclient/',
                 ]
-            }
+            },
         ]
     },
     plugins: [

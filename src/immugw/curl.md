@@ -1,3 +1,5 @@
+# Curl Examples
+
  - [Write transactions without verification](#write-transactions-without-verification)
  - [Write transactions with verification](#write-transactions-with-verification)
  - [Add reference to existing entries](#add-reference-to-existing-entries)

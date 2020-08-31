@@ -1,6 +1,11 @@
+---
+title: Overview
+---
+
 # immudb
 
 ## Contents
+
  - [Latest binaries](#latest-binaries)
  - [Build](#build)
  - [Docker](#docker)

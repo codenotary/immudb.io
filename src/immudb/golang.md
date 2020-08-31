@@ -1,4 +1,4 @@
-# Introduction
+# Golang Examples
 
 ## Contents
  - [Import](#import)
