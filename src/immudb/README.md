@@ -407,7 +407,7 @@ The different components of immudb are communicating as follows:
 
 Please check How it works, to learn more about the data structure and the Merkle-tree:
 
-[How it works](how-it-works.md)
+[How it works](../how-it-works.md)
 
 ## Consistency checker
 
