@@ -11,9 +11,8 @@ immugw can be found in a different [repository](https://github.com/codenotary/im
  - [Configuration](#configuration)
  - [immuadmin](#immuadmin)
  - [immugw service](#immugw-service)
- - [Use immugw](#user-immugw)
+ - [Use immugw](#use-immugw)
  - [API](#api)
- - [Authentication](#authentication)
  - [Auditor](#auditor)
  - [License](#license)
 
@@ -66,6 +65,36 @@ Simply run ```./immugw -d``` to start immugw on the same machine as immudb (test
 If you want to stop immugw în that case you need to find the process `ps -ax | grep immugw` and then `kill -15 <pid>`. Windows PowerShell would be `Get-Process immugw* | Stop-Process`.
 
 ## Configuration
+
+immugw can be configured using environment variables, flags or a config file.
+
+* `immugw --help` shows you all available flags and environment variables.
+* `/etc/immudb/immugw.toml` is used as a default configuration file
+
+### Environment variables
+
+The environment variables are the most popular way to configure Docker container:
+
+```bash
+  IMMUGW_ADDRESS=0.0.0.0
+  IMMUGW_PORT=3323
+  IMMUGW_IMMUDB_ADDRESS=127.0.0.1
+  IMMUGW_IMMUDB_PORT=3322
+  IMMUGW_DIR=.
+  IMMUGW_PIDFILE=
+  IMMUGW_LOGFILE=
+  IMMUGW_DETACHED=false
+  IMMUGW_MTLS=false
+  IMMUGW_SERVERNAME=localhost
+  IMMUGW_AUDIT=false
+  IMMUGW_AUDIT_INTERVAL=5m
+  IMMUGW_AUDIT_USERNAME=immugwauditor
+  IMMUGW_AUDIT_PASSWORD=
+  IMMUGW_PKEY=./tools/mtls/4_client/private/localhost.key.pem
+  IMMUGW_CERTIFICATE=./tools/mtls/4_client/certs/localhost.cert.pem
+  IMMUGW_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+```
+
 
 ## immuadmin
 
