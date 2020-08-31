@@ -8,7 +8,7 @@
  - [Write transactions with verification](#write-transactions-with-verification)
  - [Structured values](#structured-values)
  - [ Add reference to existing entries](#add-reference-to-existing-entries)
- - [Add secondary index](#Add-secondary-index)
+ - [Add secondary index](#add-secondary-index)
  - [Read entries without verification](#read-entries-without-verification)
  - [Read entries with verification](#read-entries-with-verification)
  - [Scan entries](#scan-entries)
@@ -475,4 +475,4 @@ func printSetItem(set []byte, rkey []byte, score float64, message interface{}) {
 
 ## License
 
-immudb is [Apache v2.0 License](LICENSE).
+immudb is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
