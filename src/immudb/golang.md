@@ -17,6 +17,7 @@
  - [Check consistency](#check-consistency)
  - [Check inclusion](#check-inclusion)
  - [Error handling and cleanup](#error-handling-and-cleanup)
+ - [Hello World Example](#hello-world-example)
 
 The following code snippets explain how to work with immudb from start to finish using Golang:
 
@@ -472,6 +473,10 @@ func printSetItem(set []byte, rkey []byte, score float64, message interface{}) {
 		verified)
 }
 ```
+
+## Hello World example
+
+You can find a Hello World example here: [Go client example](https://github.com/codenotary/immudb-client-examples/tree/master/go)
 
 ## License
 
