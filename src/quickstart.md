@@ -55,22 +55,20 @@ GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 ./immudb -d
 ```
 
-### Run immudb as a service (using immuadmin)
-
-Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
+### Run immudb as a service
 
 ```bash
 # install immudb service
-./immuadmin service immudb install
+./immudb service install
 
 # check current immudb service status
-./immuadmin service immudb status
+./immudb service status
 
 # stop immudb service
-./immuadmin service immudb stop
+./immudb service stop
 
 # start immudb service
-./immuadmin service immudb start
+./immudb service start
 ```
 
 The linux service is using the following defaults:
@@ -84,7 +82,7 @@ The linux service is using the following defaults:
 
 
 
-### Run immugw as a service (using immuadmin)
+### Run immugw as a service
 
 immugw can be found in a different [repository](https://github.com/codenotary/immugw). You can find a build guideline in the Readme of the repository.
 
@@ -92,16 +90,16 @@ Please make sure to build or download the immugw and immuadmin component and sav
 
 ```bash
 # install immugw service
-./immuadmin service immugw install
+./immugw service install
 
 # check current immugw service status
-./immuadmin service immugw status
+./immugw service status
 
 # stop immugw service
-./immuadmin service immugw stop
+./immugw service stop
 
 # start immugw service
-./immuadmin service immugw start
+./immugw service start
 ```
 
 The linux service is using the following defaults:
