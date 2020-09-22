@@ -119,20 +119,18 @@ GOOS=windows GOARCH=amd64 make immuadmin-static
 
 ## immugw service
 
-Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.
-
 ```
 # install immugw service
-./immuadmin service immugw install
+./immugw service install
 
 # check current immugw service status
-./immuadmin service immugw status
+./immugw service status
 
 # stop immugw service
-./immuadmin service immugw stop
+./immugw service stop
 
 # start immugw service
-./immuadmin service immugw start
+./immugw service start
 ```
 
 The linux service is using the following defaults:
