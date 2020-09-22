@@ -80,11 +80,11 @@ If you want to build the **binaries **yourself, simply [clone this repo](https:/
     
 ~~~bash
 # Linux
-GOOS=linux GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+GOOS=linux GOARCH=amd64 make immuadmin-static immudb-static
 # macOS
-GOOS=darwin GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+GOOS=darwin GOARCH=amd64 make immuadmin-static immudb-static
 # Microsoft Windows
-GOOS=windows GOARCH=amd64 make immuadmin-static immudb-static immugw-static
+GOOS=windows GOARCH=amd64 make immuadmin-static immudb-static
 ~~~
 
 Then you can run immudb the immudb server
@@ -97,44 +97,27 @@ Then you can run immudb the immudb server
 ~~~
 
 ## **install immudb as a service**
-
-Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
-    
+   
 ~~~bash
 # install immudb service 
-./immuadmin service immudb install
+./immudb service install
 # check current immudb service status 
-./immuadmin service immudb status
+./immudb service status
 # stop immudb service 
-./immuadmin service immudb stop
+./immudb service stop
 # start immudb service 
-./immuadmin service immudb start
+./immudb service start
 ~~~
 
-The immud linux service is using the following defaults:
+The immudb linux service is using the following defaults:
 
 * user: immu
 * group: immu
 * configuration: /etc/immudb
 * data: /var/lib/immudb
 * logs: /var/log/immudb
-* Service Port: 3322 (immudb), 3323 (immugw)
+* Service Port: 3322 (immudb)
 * Prometheus Port: 9497
-
-You can do the same with the immugw API Gateway that should be installed on a separate system for security reasons.
-
-Please make sure to build or download the immugw and immuadmin component and save them in the same work directory when installing the service.
-    
-~~~bash
-# install immugw service 
-./immuadmin service immugw install
-# check current immugw service status 
-./immuadmin service immugw status
-# stop immugw service 
-./immuadmin service immugw stop
-# start immugw service 
-./immuadmin service immugw start
-~~~
 
 As immudb is often compared to Amazon QLDB, we did a performance benchmark using a simple demo application to write data (without using any unfair optimization).
 
@@ -250,14 +233,6 @@ If you want to run the Swagger UI, simply run the following docker command after
 docker run -d -it -p 8080:8080 --name swagger-immudb -v ${PWD}/pkg/api/schema/schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json swaggerapi/swagger-ui
 ~~~
 
-or immugw:
-
-some procedure, different schema:
-    
-~~~bash    
-docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/schema/gw.schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json swaggerapi/swagger-ui
-~~~ 
-
 ## No programmer?
 
 Actually in case you're not a programmer but still want to use immudb just to play around or within scripts, you can use immuclient.
@@ -358,4 +333,4 @@ the command is a bit more complex
 ./immuclient safeget Dockerfile1 | grep "^value" | cut -d":" -f2 | xargs echo -n | base64 -di
 ~~~
 
-There will be easier options in the future for non developers and also SDK driver for .net, Java, Node.js, Python aso.  
+There are also SDK driver for .net, Java, Node.js, Python available 
