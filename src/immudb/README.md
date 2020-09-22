@@ -144,20 +144,18 @@ GOOS=windows GOARCH=amd64 make immuadmin-static
 
 ## immudb service
 
-Please make sure to build or download the immudb and immuadmin component and save them in the same work directory when installing the service.
-
 ```bash
 # install immudb service
-./immuadmin service immudb install
+./immudb service install
 
 # check current immudb service status
-./immuadmin service immudb status
+./immudb service status
 
 # stop immudb service
-./immuadmin service immudb stop
+./immudb service stop
 
 # start immudb service
-./immuadmin service immudb start
+./immudb service start
 ```
 
 The linux service is using the following defaults:
@@ -210,8 +208,8 @@ Using config file: /etc/immudb/immudb.toml
 ===============
 This looks like the very first admin login attempt, hence the following credentials have been generated:
 ---
-username: immu
-password: yourpassword
+username: immudb
+password: immudb
 ---
 IMPORTANT: This is the only time they are shown, so make sure you remember them.
 NOTE: You have not been automatically logged in. To login please run the command 'immuadmin login immu' with the above-mentioned password. You can change your password at any time with one of your liking using the command 'immuadmin user change-password immu'
@@ -343,6 +341,8 @@ Auditors make sure that the data consistency is guaranteed inside immudb. They d
 The results of the auditors are provided by a Prometheus end point.
 
 ### immugw auditor
+
+You can find immugw in the following repository: [immugw](https://github.com/codenotary/immugw)
 
 Start interactive:
 `immugw --audit`
