@@ -284,7 +284,7 @@ The other alternative is using the `immuadmin backup` command. Please keep in mi
 Starting immudb version 0.7.0 we introduced a multi-database support. By default the first database is either called defaultdb or based on the environment variable `IMMUDB_DBNAME`.
 
 ### Database management
-We recommend using `immuadmin` to create additional user and databases.
+We recommend using `immuadmin` to create additional users and databases.
 
 ```
 immuadmin login immudb  # Authentication is enabled by default, default user is immudb and password immudb; 
