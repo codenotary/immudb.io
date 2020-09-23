@@ -216,7 +216,7 @@ NOTE: You have not been automatically logged in. To login please run the command
 ===============
 ```
 
-**make sure to note that the password for the immu user as its your master password**
+**Please note that the password for the immudb user is the master password**
 
 ### User management
 
