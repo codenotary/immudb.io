@@ -22,7 +22,7 @@ docker run -d -it -p 8080:8080 --name swagger-immudb -v ${PWD}/pkg/api/schema/sc
 
 ## immudb gRPC API reference
 
-Here the gRPC documentation that show available endpoints with protobuffer protocol  
+Here the gRPC documentation that shows available endpoints with protobuffer protocol  
 
 [immudb gRPC](immudb/grpc-interface.md)
 
