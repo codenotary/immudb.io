@@ -4,7 +4,7 @@ title: Overview
 
 # immugw
 
-immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend to run immudb and immugw on separate machines to enhance security
+immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security
 immugw can be found in a different [repository](https://github.com/codenotary/immugw)
 
 ## Contents
