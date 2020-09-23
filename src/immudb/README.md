@@ -336,7 +336,7 @@ More driver libraries are coming soon (Java, Node.js, Python, .net aso.)
 
 ## Auditors
 
-Auditors make sure that the data consistency is guaranteed inside immudb. They do a random key value verification and a interval-based Merkle-tree consistency check (5 minutes default). The immugw and the immuclient provide auditor functionality that runs as a daemon process. It is recommended to run immugw and immuclient on different machines than immudb, so any tampering on the immudb server is automatically detected.
+Auditors make sure that the data consistency is guaranteed inside immudb. They do a random key value verification and an interval-based Merkle-tree consistency check (5 minutes default). The immugw and the immuclient provide auditor functionality that runs as a daemon process. It is recommended to run immugw and immuclient on different machines than immudb, so any tampering on the immudb server is automatically detected.
 
 The results of the auditors are provided by a Prometheus end point.
 
