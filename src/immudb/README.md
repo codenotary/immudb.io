@@ -62,7 +62,7 @@ docker build -t myown/immudb:latest -f Dockerfile .
 ```
 
 ### run immugw in a container
-Make sure to point to the immudb system using the environment variable IMMUGW_IMMUDB-ADDRESS
+Make sure to point to the immudb system using the environment variable IMMUGW_IMMUDB_ADDRESS
 
 ```bash
 docker run -it -d -p 3322:3322 -p 9497:9497 --name immudb codenotary/immugw:latest
