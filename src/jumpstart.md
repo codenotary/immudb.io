@@ -758,7 +758,7 @@ Note: After shutdown, a new client must be created to establish a new connection
 
 ### Importing immudb dependencies
 
-1. Include immudb4j as a dependency in your project.
+Include immudb4j as a dependency in your project.
 
   - Using the [Maven](https://maven.apache.org/) build tool:
 	```xml
@@ -773,10 +773,6 @@ Note: After shutdown, a new client must be created to establish a new connection
 	```groovy
 	    compile 'io.codenotary:immudb4j:0.1.8'
 	```
-
-Note: The immudb4j is currently hosted in [GitHub Packages](https://docs.github.com/en/packages).
-
-This `immudb4j GitHub Package repository` needs to be included with authentication. When using Maven, you must include the immudb4j GitHub Package in your `~/.m2/settings.xml` file. See "Configuring Apache Maven for use with GitHub Packages" and "Configuring Gradle for use with GitHub Packages" at [GitHub Packages](https://github.com/features/packages) for more information on that process.
 
 ### Creating an immudb client instance through Java
 
@@ -882,7 +878,7 @@ This section will walk you through creating the immudb client, database, and use
 
 Note: After shutdown, you must create a new client for a new connection.
 
-7. Additional code samples are available:
+7. Additional code sample is available:
 
   - [App.java](https://github.com/codenotary/immudb-client-examples/blob/master/java/simple-mvn-app/src/io/codenotary/immudb/helloworld/App.java) includes single and multiple reads and writes.
   
@@ -896,7 +892,7 @@ Note: After shutdown, you must create a new client for a new connection.
 
 ### Including immudb dependencies 
 
-1. Include the immudb-node as a dependency in your project.
+Include the immudb-node as a dependency in your project.
 	```
 	const immudbClient = require('immudb-node')
 	```
@@ -1041,7 +1037,7 @@ Note: After shutting down, you must create a new client to establish a new conne
 
 ### Including immudb dependencies
 
-1. Use Microsoft's [NuGet](https://www.nuget.org/packages/Immudb4DotNet/) package manager to get immudb4DotNet.
+Use Microsoft's [NuGet](https://www.nuget.org/packages/Immudb4DotNet/) package manager to get immudb4DotNet.
 
 ### Creating an immudb client instance through .Net
 
