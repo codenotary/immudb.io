@@ -25,7 +25,7 @@ This guide helps developers quickly start with CodeNotary's immudb database and 
 
 Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.  
 
-<img  src="img/component-diagram.png" />
+<img  src="https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png" />
 
 ### What is immudb?
 A lightweight, high-speed, immutable database solution capable of processing millions of transactions a second. It provides cryptographic verification of your data integrity without the cost and complexity associated with classic blockchain. You have the flexibility to host immudb on-premise or in the cloud.  
@@ -46,9 +46,9 @@ A lightweight, high-speed, immutable database solution capable of processing mil
 		</td>
 	</tr>		
 	<tr >
-		<td align="center" ><img src="img/immutable.svg" width="80px"/></td>
-		<td align="center" ><img src="img/auditable.svg" width="80px"/></td>
-		<td align="center" ><img src="img/secure.svg" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
 	</tr>
 	
 </table>
@@ -62,7 +62,7 @@ Depending on your use case, immudb might function as your application's primary 
 
 
 ### Why use immudb?
-<img align="right" src="img/immudb-mascot-small.png" width="240px"/>It ensures the integrity of your organization's data. While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack.  Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.  
+<img align="right" src="https://codenotary.io/images/immudb/mascot.png" width="240px"/>It ensures the integrity of your organization's data. While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack.  Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.  
 
 Use cases:
   - Integration with your DevOps ensures code security throughout the development and deployment process. Embed immudb into your [Azure DevOps](https://codenotary.io/blog/securing-your-azure-devops-ecosystem-jenkins-and-kubernetes-aks/) with Jenkins and Kubernetes. Use just [Jenkins](https://codenotary.io/blog/jenkins-build-deployment-pipeline-a-how-to-for-ensuring-integrity/). Alternatively, integrate with [Git Lab](https://codenotary.io/blog/fully-trusted-gitlab-pipeline/) or [GitHub](https://codenotary.io/blog/use-github-actions-for-validated-builds/).
@@ -151,7 +151,7 @@ In this section, you will install the immudb database server. You have the follo
 	- [.Net - Initiating and using Client](#Net)
 
 ## Go
-<img align="right" src="img/go-logo.png" width="150px"/>This section provides you with Go code snippets and explains how to work with immudb from start to finish. You will import the immudb dependencies into your Go project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
+<img align="right" src="https://codenotary.io/images/jumpstart/go-logo.png" width="150px"/>This section provides you with Go code snippets and explains how to work with immudb from start to finish. You will import the immudb dependencies into your Go project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 ### Importing immudb dependencies
 1. Import the necessary immudb dependencies into your Go project.
@@ -591,7 +591,7 @@ This section will walk you through creating the client, database, and user accou
 
 
 ## Python
-<img align="right" src="img/python-logo.png" width="240px"/>This section provides you with Python code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Python project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
+<img align="right" src="https://codenotary.io/images/jumpstart/python-logo.png" width="240px"/>This section provides you with Python code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Python project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 ### Importing immudb dependencies
 
@@ -753,7 +753,7 @@ Note: After shutdown, a new client must be created to establish a new connection
  
 ## Java
 
-<img align="right" src="img/java-logo.png" height="100px"/>This section provides you with Java code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Java project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
+<img align="right" src="https://codenotary.io/images/jumpstart/java-logo.png" height="100px"/>This section provides you with Java code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Java project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 
 ### Importing immudb dependencies
@@ -891,7 +891,7 @@ Note: After shutdown, you must create a new client for a new connection.
 
 ## Node.js
 
-<img align="right" src="img/nodejs-logo.svg" width="150px"/>This section provides you with Node.js code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Node.js project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
+<img align="right" src="https://codenotary.io/images/jumpstart/nodejs-logo.svg" width="150px"/>This section provides you with Node.js code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Node.js project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 
 ### Including immudb dependencies 
@@ -1036,7 +1036,7 @@ Note: After shutting down, you must create a new client to establish a new conne
 
 ## .Net
 
-<img align="right" src="img/net-logo.png" width="110px"/>This section provides you with csharp code snippets for the Microsoft .Net and explains how to work with immudb from start to finish.  The immudb4DotNet is developed for .Net Core offering broader platform support than the older .Net Framework.  You will import the immudb dependencies into your .Net project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
+<img align="right" src="https://codenotary.io/images/jumpstart/net-logo.png" width="110px"/>This section provides you with csharp code snippets for the Microsoft .Net and explains how to work with immudb from start to finish.  The immudb4DotNet is developed for .Net Core offering broader platform support than the older .Net Framework.  You will import the immudb dependencies into your .Net project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 
 ### Including immudb dependencies
@@ -1156,4 +1156,4 @@ We've only scratched the surface of immudb's capabilities. Here are some additio
     - Try out [immuadmin](https://docs.immudb.io/immuadmin/)       
 - Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
 - Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
-<img align="center" src="img/word-tree.png"/>
+<img align="center" src="https://codenotary.io/images/word-tree.png"/>
