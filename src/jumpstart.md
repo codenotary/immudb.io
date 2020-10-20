@@ -13,11 +13,11 @@
 	- [Get the Docker Image](#Get-the-Docker-Image)
 	- [Download the installer for the latest release](#Download-the-installer-for-the-latest-release)
 - [Creating an immudb client instance in your chosen programming language](#Creating-an-immudb-Client-instance-in-your-chosen-programming-language)
-	- [Go](#Go)
-	- [Python](#Python)
-	- [Java](#Java)
-	- [Node.js](#Nodejs)
-	- [.Net](#Net)
+	- [Go](#go)
+	- [Python](#python)
+	- [Java](#java)
+	- [Node.js](#nodejs)
+	- [.Net](#net)
 - [Conclusion](#conclusion)
 
 ## Introduction
@@ -111,7 +111,7 @@ In this section, you will install the immudb database server. You have the follo
 	```bash
 	docker logs immudb
 	```
-4. Skip down to the section about [Creating an immudb client instance in your chosen programming language](#Creating-an-immudb-Client-instance-in-your-chosen-programming-language).
+4. Skip down to the section about [Creating an immudb client instance in your chosen programming language](#creating-an-immudb-client-instance-in-your-chosen-programming-language).
 
 
 ### Download the installer for the latest release
