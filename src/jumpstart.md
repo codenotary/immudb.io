@@ -1,4 +1,4 @@
-# Dev Quick Start for immudb [![License](https://img.shields.io/github/license/codenotary/immudb4j)](LICENSE)
+# Developer Jumpstart for immudb [![License](https://img.shields.io/github/license/codenotary/immudb4j)](LICENSE)
 
 [![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/)
 [![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb)
