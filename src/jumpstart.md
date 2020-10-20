@@ -1,9 +1,6 @@
-# Developer Jumpstart for immudb [![License](https://img.shields.io/github/license/codenotary/immudb4j)](https://github.com/codenotary/immudb/blob/master/LICENSE)
-
-[![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/)
-[![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb)
-
-
+# Developer Jumpstart for immudb 
+[![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/) [![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb) [![License](https://img.shields.io/github/license/codenotary/immudb4j)](https://github.com/codenotary/immudb/blob/master/LICENSE)
+ 
 ## Contents
 
 - [Introduction](#introduction)
