@@ -155,7 +155,7 @@ In this section, you will install the immudb database server. You have the follo
 
 ### Importing immudb dependencies
 Import the necessary immudb dependencies into your Go project.
-``` Go
+```Go
 	package main
 	import (
 		"context"
@@ -178,7 +178,7 @@ This section will walk you through creating the client, database, and user accou
 
 1. Start the immudb client.
 
-``` Go
+```Go
 	func main() {
 		//===> 1. Start a new server
 		fmt.Println("1. Start immudb server ...")
@@ -213,7 +213,7 @@ This section will walk you through creating the client, database, and user accou
 ``` 
     
 2. Connect to a new client.
-``` Go
+```Go
 	fmt.Println("2. Connect immudb client ...")
 	client, err := immuclient.NewImmuClient(immuclient.DefaultOptions())
 	if err != nil {
@@ -226,7 +226,7 @@ This section will walk you through creating the client, database, and user accou
 
   - You can write key-values while bypassing the cryptographic verification when it can be postponed.
 
-``` Go
+```Go
 	//------> Set
 	key1, value1 := []byte("client:Ms. Noelia Jaskolski"), []byte("Visa 1514284849020756 09/21")
 	index, err := client.Set(ctx, key1, value1)
@@ -240,7 +240,7 @@ This section will walk you through creating the client, database, and user accou
 
   - You can write with built-in cryptographic verification. The client implements the mathematical validations, while your application uses a traditional read or write function.
 
-``` Go
+```Go
 	//------> SafeSet
 	key2, value2 := []byte("client:Mr. Archibald Beatty"), []byte("Visa 6679499384784022 11/23")
 	verifiedIndex, err := client.SafeSet(ctx, key2, value2)
@@ -269,7 +269,7 @@ This section will walk you through creating the client, database, and user accou
 
   - Whenever the Go SDK sets data in immudb, it also adds a timestamp. The server should not set the timestamp, the client is in charge of adding the time stamp to prevent different values being used for time stamping.
 
-``` Go
+```Go
 	message StructuredKeyValue {
 		bytes key = 1;
 		Content value = 2;
@@ -285,7 +285,7 @@ This section will walk you through creating the client, database, and user accou
 
   - In convert.go, here is the Structured Item logic:
 
-``` Go
+```Go
 	func (item *Item) ToSItem() (*StructuredItem, error) {
 		c := Content{}
 		err := proto.Unmarshal(item.Value, &c)
@@ -302,7 +302,7 @@ This section will walk you through creating the client, database, and user accou
 
 5. Adding references to existing entries.
 
-``` Go
+```Go
 	//------> SafeReference
 	key3Ref := append([]byte("reference:"), key3...)
 	verifiedIndex, err = client.SafeReference(ctx, key3Ref, key3)
@@ -315,7 +315,7 @@ This section will walk you through creating the client, database, and user accou
 
 6. Add a secondary index.
 
-``` Go
+```Go
 	//------> SafeZAdd
 	fmt.Println("SafeZAdd - add and verify scores for existing keys to a new or existing sorted set:")
 	set1 := []byte("SetOfClientsThatAreWomen")
@@ -337,7 +337,7 @@ This section will walk you through creating the client, database, and user accou
 7. Read entries.
   - You can read key-values while bypassing the cryptographic verification.
 
-``` Go
+```Go
 	fmt.Println("4. Read entries ...")
 	//------> Get
 	item, err := client.Get(ctx, key1)
@@ -351,7 +351,7 @@ This section will walk you through creating the client, database, and user accou
   - You can read with built-in cryptographic verification. The client implements the mathematical validations, while your application uses a traditional read or write function.
 
 
-``` Go
+```Go
 	//------> SafeGet
 	verifiedItem, err := client.SafeGet(ctx, key2)
 	if err != nil {
@@ -369,7 +369,7 @@ This section will walk you through creating the client, database, and user accou
 
 8. Scan your data entries.
 
-``` Go
+```Go
 	// zscan             Iterate over a sorted set
 	structuredItemList, err := client.ZScan(ctx, set1)
 	if err != nil {
@@ -395,7 +395,7 @@ This section will walk you through creating the client, database, and user accou
 
 9. Counting your data entries.
 
-``` Go
+```Go
 	//------> Count
 	prefix = []byte("client:Ms.")
 	itemsCount, err := client.Count(ctx, prefix)
@@ -408,7 +408,7 @@ This section will walk you through creating the client, database, and user accou
 
 10. Getting the current root.
 
-``` Go
+```Go
 	//------> Current tree root
 	fmt.Println("Current root - return the last merkle tree root and index stored locally")
 	currentRoot, err := client.CurrentRoot(ctx)
@@ -423,7 +423,7 @@ This section will walk you through creating the client, database, and user accou
 
 11. Adding a new entry, after getting the current root.
 
-``` Go
+```Go
 	fmt.Println("Add a new entry after getting current root:")
 	key4, value4 := []byte("client:Mr. Valentin Padurean"), []byte("MasterCard 2232703813463070 01/24")
 	verifiedIndex, err = client.SafeSet(ctx, key4, value4)
@@ -436,7 +436,7 @@ This section will walk you through creating the client, database, and user accou
 
 12. Checking root consistency.
 
-``` 
+```Go 
 	fmt.Println("Consistency - check consistency between the previous root and latest root:")
 	proof, err := client.Consistency(ctx, currentRoot.Index)
 	if err != nil {
@@ -452,7 +452,7 @@ This section will walk you through creating the client, database, and user accou
 
 13. Checking inclusion. This verifies that the specified index is included in the current tree.
 
-``` Go
+```Go
 	fmt.Println("Inclusion - check if specified index is included in the current tree:")
 	structuredItem, err := client.Get(ctx, key2)
 	if err != nil {
@@ -474,7 +474,7 @@ This section will walk you through creating the client, database, and user accou
 
 14. Basic error handling and cleanup for your client. 
 
-``` Go
+```Go
 	func exit(err error) {
 		_, _ = fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -597,7 +597,7 @@ This section will walk you through creating the client, database, and user accou
 
 1. Install the immudb-py package using [pip](https://pip.pypa.io/) the Python Package Installer.
 
-	```shell
+	```bash
 	    pip install git+https://github.com/codenotary/immu-py.git
 	```
 
@@ -893,7 +893,7 @@ Note: After shutdown, you must create a new client for a new connection.
 ### Including immudb dependencies 
 
 Include the immudb-node as a dependency in your project.
-	```
+	```javascript 
 	const immudbClient = require('immudb-node')
 	```
 
@@ -902,7 +902,7 @@ Include the immudb-node as a dependency in your project.
 This section will walk you through creating the immudb client, database, and users with Node.js. Afterwards, you'll executing some basic reads and writes to the database. 
 
 1. Creating an immudb Client using the default configuration.
-	```
+	```javascript 
 	const config = {
 	  address: '127.0.0.1:3322',
 	  rootPath: '.',
@@ -918,7 +918,7 @@ This section will walk you through creating the immudb client, database, and use
 
   - Use the `login` and `logout` functions to open and close user sessions.
 
-	```
+	```javascript 
 	try {
 	  await cl.login({ username: 'usr1', password: 'pwd1' })
 	  // Interact with immudb using logged user.
@@ -929,7 +929,7 @@ This section will walk you through creating the immudb client, database, and use
 	```
 
   - Using callbacks for user sessions.
-	```
+	```javascript 
 	cl.login({ username: 'usr1', password: 'pwd1' }, (err, res) => {
 	  if (err) {
 	    return console.log(err)
@@ -945,13 +945,13 @@ This section will walk you through creating the immudb client, database, and use
 
 3. Creating an immudb database.
 
-	```
+	```javascript 
 	cl.createDatabase('db1')
 	```
 
 4. Setting the active immudb database.
 
-	```
+	```javascript 
 	cl.useDatabase('db1')
 	```
 
@@ -959,7 +959,7 @@ This section will walk you through creating the immudb client, database, and use
 
   - You can read and write key-values while bypassing the cryptographic verification when it can be postponed.
 
-	```
+	```javascript 
 	let res = await cl.set({ key: 'key1', value: 'value1' })
 	console.log(res.index)
 	res = await cl.get({ key: 'key1' })
@@ -969,7 +969,7 @@ This section will walk you through creating the immudb client, database, and use
   - You can read and write with built-in cryptographic verification. The client implements the mathematical validations, while your application uses a traditional read or write function:
 
 
-	```
+	```javascript 
 	try {
 	  let res = await cl.safeSet({ key: 'key1', value: 'value1' })
 	  console.log(res.index)
@@ -985,7 +985,7 @@ This section will walk you through creating the immudb client, database, and use
 
   - Transactional multi-key read and write functions are available. Atomic multi-key write (all entries are persisted or none) is shown below.
 
-	```
+	```javascript 
 	  req = {
 	    skvList: [{
 	      key: 'key1',
@@ -1000,7 +1000,7 @@ This section will walk you through creating the immudb client, database, and use
 	  res = await cl.setBatchSV(req)
 	```
   - Atomic multi-key read (all entries are retrieved or none) is shown below.
-	```
+	```javascript 
 	    req = {
 	      keys: [{
 		key: 'key1',
@@ -1014,7 +1014,7 @@ This section will walk you through creating the immudb client, database, and use
 
   - Use the `shutdown` function to close the connection with your immudb server.
  
-	 ```
+	 ```javascript 
 	 cl.shutdown()
 	 ```
 
