@@ -1,4 +1,4 @@
-# Developer Jumpstart for immudb [![License](https://img.shields.io/github/license/codenotary/immudb4j)](LICENSE)
+# Developer Jumpstart for immudb [![License](https://img.shields.io/github/license/codenotary/immudb4j)](https://github.com/codenotary/immudb/blob/master/LICENSE)
 
 [![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/)
 [![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb)
@@ -46,9 +46,9 @@ A lightweight, high-speed, immutable database solution capable of processing mil
 		</td>
 	</tr>		
 	<tr >
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/immutable.svg" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/auditable.svg" width="80px"/></td>
+		<td align="center" ><img src="https://codenotary.io/images/jumpstart/secure.svg" width="80px"/></td>
 	</tr>
 	
 </table>
