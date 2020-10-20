@@ -154,7 +154,7 @@ In this section, you will install the immudb database server. You have the follo
 <img align="right" src="https://codenotary.io/images/jumpstart/go-logo.png" width="150px"/>This section provides you with Go code snippets and explains how to work with immudb from start to finish. You will import the immudb dependencies into your Go project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
 ### Importing immudb dependencies
-1. Import the necessary immudb dependencies into your Go project.
+Import the necessary immudb dependencies into your Go project.
 ``` Go
 	package main
 	import (
@@ -222,7 +222,7 @@ This section will walk you through creating the client, database, and user accou
 	ctx := context.Background()
 ```
 
-4. Write key-value transactions with and without verification.
+3. Write key-value transactions with and without verification.
 
   - You can write key-values while bypassing the cryptographic verification when it can be postponed.
 
@@ -265,7 +265,7 @@ This section will walk you through creating the client, database, and user accou
 	printItem(key3, value3, verifiedIndex)
 ``` 
 
-5. About Structured values.
+4. About Structured values.
 
   - Whenever the Go SDK sets data in immudb, it also adds a timestamp. The server should not set the timestamp, the client is in charge of adding the time stamp to prevent different values being used for time stamping.
 
@@ -300,7 +300,7 @@ This section will walk you through creating the client, database, and user accou
 	}
 ``` 
 
-6. Adding references to existing entries.
+5. Adding references to existing entries.
 
 ``` Go
 	//------> SafeReference
@@ -313,7 +313,7 @@ This section will walk you through creating the client, database, and user accou
 	printItem(key3Ref, value3, verifiedIndex)
 ``` 
 
-7. Add a secondary index.
+6. Add a secondary index.
 
 ``` Go
 	//------> SafeZAdd
@@ -334,7 +334,7 @@ This section will walk you through creating the client, database, and user accou
 	printSetItem(set1, key3, key3Score, verifiedIndex)
 ``` 
 
-8. Read entries 
+7. Read entries.
   - You can read key-values while bypassing the cryptographic verification.
 
 ``` Go
@@ -367,7 +367,7 @@ This section will walk you through creating the client, database, and user accou
 	printItem(nil, nil, verifiedItem)
 ``` 
 
-9. Scan your data entries.
+8. Scan your data entries.
 
 ``` Go
 	// zscan             Iterate over a sorted set
@@ -393,7 +393,7 @@ This section will walk you through creating the client, database, and user accou
 	}
 ``` 
 
-10. Counting your data entries.
+9. Counting your data entries.
 
 ``` Go
 	//------> Count
@@ -406,7 +406,7 @@ This section will walk you through creating the client, database, and user accou
 	fmt.Printf("count: %d\n", itemsCount.Count)
 ``` 
 
-11. Getting the current root.
+10. Getting the current root.
 
 ``` Go
 	//------> Current tree root
@@ -421,7 +421,7 @@ This section will walk you through creating the client, database, and user accou
 	fmt.Printf("index: %d\n hash:  %x\n", currentRoot.Index, currentRoot.Root)
 ``` 
 
-12. Adding a new entry, after getting the current root.
+11. Adding a new entry, after getting the current root.
 
 ``` Go
 	fmt.Println("Add a new entry after getting current root:")
@@ -434,7 +434,7 @@ This section will walk you through creating the client, database, and user accou
 	printItem(key4, value4, verifiedIndex)
 ``` 
 
-13. Checking root consistency.
+12. Checking root consistency.
 
 ``` 
 	fmt.Println("Consistency - check consistency between the previous root and latest root:")
@@ -450,7 +450,7 @@ This section will walk you through creating the client, database, and user accou
 		proof.Second)
 ``` 
 
-14. Checking inclusion. This verifies that the specified index is included in the current tree.
+13. Checking inclusion. This verifies that the specified index is included in the current tree.
 
 ``` Go
 	fmt.Println("Inclusion - check if specified index is included in the current tree:")
@@ -472,7 +472,7 @@ This section will walk you through creating the client, database, and user accou
 	fmt.Println("\nDONE. ¯\\_(ツ)_/¯")
 ``` 
 
-15. Basic error handling and cleanup for your client. 
+14. Basic error handling and cleanup for your client. 
 
 ``` Go
 	func exit(err error) {
@@ -583,11 +583,11 @@ This section will walk you through creating the client, database, and user accou
 	}
 ``` 
 	
-16. Additional code samples are available:
+15. Additional code samples are available:
   - [helloworld.go](https://github.com/codenotary/immudb-client-examples/blob/master/go/helloworld.go)
   - [safehelloworld.go](https://github.com/codenotary/immudb-client-examples/blob/master/go/safehelloworld.go)
   
-17. You should now have all the basics you need to begin using immudb in your organization within a Go development environment. You have an immudb database server, created a database, and have an instance of the immudb client running. You've gone through basic authentication and reading and writing to your new database. You can expand on this by reviewing the code samples from the above step. 
+16. You should now have all the basics you need to begin using immudb in your organization within a Go development environment. You have an immudb database server, created a database, and have an instance of the immudb client running. You've gone through basic authentication and reading and writing to your new database. You can expand on this by reviewing the code samples from the above step. 
 
 
 ## Python
