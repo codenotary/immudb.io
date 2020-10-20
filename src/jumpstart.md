@@ -890,16 +890,17 @@ Note: After shutdown, you must create a new client for a new connection.
 ### Including immudb dependencies 
 
 Include the immudb-node as a dependency in your project.
-	```javascript 
+
+```javascript
 	const immudbClient = require('immudb-node')
-	```
+```
 
 ### Creating an immudb client instance through Node.js
 
 This section will walk you through creating the immudb client, database, and users with Node.js. Afterwards, you'll executing some basic reads and writes to the database. 
 
 1. Creating an immudb Client using the default configuration.
-	```javascript 
+	```javascript
 	const config = {
 	  address: '127.0.0.1:3322',
 	  rootPath: '.',
