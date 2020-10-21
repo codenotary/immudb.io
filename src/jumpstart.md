@@ -141,11 +141,11 @@ In this section, you will install the immudb database server. You have the follo
 2. To get going quickly: 
   - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples). 	
   - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and then closing the client in each of the following.
-	- [Go - Initiating and using Client](#Go)
-	- [Python - Initiating and using Client](#Python)
-	- [Java - Initiating and using Client](#Java)
-	- [Node.js - Initiating and using Client](#Nodejs)
-	- [.Net - Initiating and using Client](#Net)
+	- [Go - Initiating and using Client](#go)
+	- [Python - Initiating and using Client](#python)
+	- [Java - Initiating and using Client](#java)
+	- [Node.js - Initiating and using Client](#node-js)
+	- [.Net - Initiating and using Client](#net)
 
 ## Go
 <img align="right" src="https://codenotary.io/images/jumpstart/go-logo.png" width="150px"/>This section provides you with Go code snippets and explains how to work with immudb from start to finish. You will import the immudb dependencies into your Go project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
