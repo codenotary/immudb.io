@@ -105,6 +105,7 @@ module.exports = {
                     '/',
                     '/how-it-works',
                     '/quickstart',
+                    '/jumpstart',
                     '/command-reference',
                     '/apis-and-interfaces',
                 ]
