@@ -7,7 +7,7 @@
  - [Write transactions without verification](#write-transactions-without-verification)
  - [Write transactions with verification](#write-transactions-with-verification)
  - [Structured values](#structured-values)
- - [ Add reference to existing entries](#add-reference-to-existing-entries)
+ - [Add reference to existing entries](#add-reference-to-existing-entries)
  - [Add secondary index](#add-secondary-index)
  - [Read entries without verification](#read-entries-without-verification)
  - [Read entries with verification](#read-entries-with-verification)
