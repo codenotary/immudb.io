@@ -39,6 +39,7 @@ Thanks to the lexicographical order in which internal data is structured we expo
 `SafeReference` counterpart is the same but in addition it produces also the inclusion and consistency proofs.
 `ZAdd` operates internally in a similar manner to `Reference` but it introduces the concept of set. Inside a set we can organize collection of similar elements.
 When we add an elements to a collection we can specify his score using a float value.
+In `ZAdd` It's possible to specify also the index of the reference. In this way if there are multiple equals keys it will be inserted in the set the specified version.
 To retrieve elements we can use `Zscan` methods with return elements sorted by their score. If elements are inserted with same score they are returned in a lexicographical order.
 `SafeZAdd` counterpart produces also the inclusion and consistency proofs.
 
