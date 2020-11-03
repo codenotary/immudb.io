@@ -590,6 +590,8 @@ This section will walk you through creating the client, database, and user accou
 ## Python
 <img align="right" src="https://codenotary.io/images/jumpstart/python-logo.png" width="240px"/>This section provides you with Python code snippets and explains how to work with immudb from start to finish.  You will import the immudb dependencies into your Python project, create a new instance of the immudb client and a database. You will go through basic authentication process, and read and write to your new database. 
 
+You can find some quickstart terminal recordings here: [asciinema - immudb](https://asciinema.org/~immudb)
+
 ### Importing immudb dependencies
 
 1. Install the immudb-py package using [pip](https://pip.pypa.io/) the Python Package Installer.
