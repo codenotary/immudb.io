@@ -144,7 +144,7 @@ func main() {
 Whenever we use golang sdk to set data in immudb we adding also other extra data to the  request. Currently we store at the same level of the payload also the timestamp.
 The server should not set the timestamp, to avoid relying on a not verifiable “single source of truth”. This is the reason why is the client in charge of that.
 Following the related structures:
-```
+```go
 message StructuredKeyValue {
 	bytes key = 1;
 	Content value = 2;
@@ -157,7 +157,7 @@ message Content {
 Though content is never unmarshal by the server, current definition are located in protobuffer schema and they can be easily extended.
 
 In convert.go there is the logic used by the client:
-```
+```go
 func (item *Item) ToSItem() (*StructuredItem, error) {
 	c := Content{}
 	err := proto.Unmarshal(item.Value, &c)
