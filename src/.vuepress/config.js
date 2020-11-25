@@ -86,7 +86,7 @@ module.exports = {
         ['script', { type: "text/javascript" }, vgo],
     ].concat(process.env.NODE_ENV === 'production' ? [
         ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
-        ['script', { async: true, src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" }],
+        ['script', { async: true, src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" }]
     ] : []),
     themeConfig: {
         logo: '/logo.png',
@@ -140,7 +140,11 @@ module.exports = {
                     '/immuclient/',
                 ]
             },
-        ]
+        ],
+        algolia: {
+            apiKey: 'e581ef004c097d1f0ff49391645be669',
+            indexName: 'immudb'
+        }
     },
     plugins: [
         ['@vuepress/blog', {
