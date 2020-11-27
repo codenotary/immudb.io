@@ -257,7 +257,7 @@ if err != nil {
 }
 ctx := context.Background()
 // login with default username and password and storing a token
-lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }
