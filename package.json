@@ -4,13 +4,13 @@
   "description": "Immudb - The open-source immutable database",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev src",
+    "dev": "vuepress dev docs",
     "prebuild": "npm run images",
-    "build": "vuepress build src",
+    "build": "vuepress build docs",
     "preinstall": "npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
-    "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
-    "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560"
+    "images:fullsize": "sharp -i 'docs/.vuepress/public/blog/*.{jpg,png,gif}' -o docs/.vuepress/public/blog/fullsize/ resize 1920",
+    "images:thumbnail": "sharp -i 'docs/.vuepress/public/blog/*.{jpg,png,gif}' -o docs/.vuepress/public/blog/thumbnail/ resize 560"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,10 @@
     "sharp": "^0.25.3",
     "sharp-cli": "^1.14.0",
     "vuepress": "^1.5.0",
-    "vuepress-plugin-reading-time": "^0.1.1"
+    "vuepress-plugin-element-tabs": "^0.2.8",
+    "vuepress-plugin-reading-time": "^0.1.1",
+    "vuepress-plugin-versioning": "^4.9.0",
+    "vuepress-theme-titanium": "^4.9.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
