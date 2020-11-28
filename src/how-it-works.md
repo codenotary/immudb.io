@@ -1,18 +1,18 @@
 # How it works
 
-Download [immudb short research paper](https://codenotary.io/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
+Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
 
 ## Adding data
 
 When adding data the merkle tree changes as well as shown in the diagram
 
-![the merkle tree changes with every new data](img/immudb-adding-data-diagram.png)
+![the merkle tree changes with every new data](https://github.com/codenotary/immudb/raw/master/img/immudb-adding-data-diagram.png)
 
 ## Checking data consistency
 
 The following diagram explains how data is inserted, verified and consistency checked.
 
-![How immudb data consistency works](img/immudb-consistency-diagram.png)
+![How immudb data consistency works](https://github.com/codenotary/immudb/raw/master/img/immudb-consistency-diagram.png)
 
 
 ## Structured value
