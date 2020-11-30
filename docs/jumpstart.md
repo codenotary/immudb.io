@@ -251,13 +251,13 @@ It's possible to modify defaults on immudb server config folder inside `immudb.t
 Login method return a token needed in all interactions with the server.
 
 ```go
-c, err := client.NewImmuClient(client.DefaultOptions())
+client, err := c.NewImmuClient(client.DefaultOptions())
 if err != nil {
     log.Fatal(err)
 }
 ctx := context.Background()
 // login with default username and password and storing a token
-lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }

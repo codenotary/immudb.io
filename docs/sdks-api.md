@@ -3,6 +3,7 @@
 ## Contents
 - [Connection and authentication](#connection-and-authentication)
     - [Mutual TLS](#mutual-tls)
+    - [Disable authentication](#disable-authentication)
 - [Root management](#root-management)
 - [Writing and reading](#writing-and-reading)
     - [get and set](#get-and-set)
@@ -60,22 +61,23 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 :::
 
 ::: tab Java
-
+__NOT_IMPLEMENTED__
+:::
 
 ::: tab Python
-
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab Node.js
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab .Net
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab Others
+__NOT_IMPLEMENTED__
 :::
 
 ::::
@@ -88,56 +90,139 @@ In order to generate them it's possible to use openssl tool.
 ```bash
 ./generate.sh localhost mysecretpassword
 ```
-This generates a list of folder containing certificates and private key to setup a mTLS connection
+This generates a list of folder containing certificates and private key to set up a mTLS connection
 :::: tabs
 
 ::: tab Go
-
-Login method return a token needed in all interactions with the server.
-
 ```go
-    immuclient.DefaultOptions().WithMTLsOptions(
-        immuclient.MTLsOptions{}.WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
-            WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
-            WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
-            WithServername("localhost"),
-            ).
-        WithMTLs(true),
-    )
-    if err != nil {
-        log.Fatal(err)
-    }
-    ctx := context.Background()
-    // login with default username and password
-    lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+	client, err := c.NewImmuClient(
+		c.DefaultOptions().WithMTLsOptions(
+			c.MTLsOptions{}.WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
+				WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
+				WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
+				WithServername("localhost"),
+				).
+			WithMTLs(true),
+		)
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	// login with default username and password
+	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 ```
 :::
 
 ::: tab Java
-
+__NOT_IMPLEMENTED__
+:::
 
 ::: tab Python
-
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab Node.js
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab .Net
-
+__NOT_IMPLEMENTED__
 :::
 
 ::: tab Others
+__NOT_IMPLEMENTED__
 :::
 
 ::::
 
+### Disable authentication
+It's possible to run immudb with disabled authentication.
+It's not possible to connect without enabled authentication to a server that own already databases and users permissions.
+If a valid token is present authentication is being enabled by default.
+:::: tabs
 
+::: tab Go
+```go
+    client, err := c.NewImmuClient(
+		c.DefaultOptions().WithAuth(false),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	vi, err := client.SafeSet(ctx, []byte(`immudb`), []byte(`hello world`))
+	if  err != nil {
+		log.Fatal(err)
+	}
+```
+:::
 
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
 
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
 
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+
+### Disable authentication
+It's possible to run immudb with disabled authentication.
+Without enabled authentication it's not possible to connect to a server that own already databases and users permissions.
+If a valid token is present authentication is being enabled by default.
+
+:::: tabs
+
+::: tab Go
+```go
+    client, err := c.NewImmuClient(
+		c.DefaultOptions().WithAuth(false),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	vi, err := client.SafeSet(ctx, []byte(`immudb`), []byte(`hello world`))
+	if  err != nil {
+		log.Fatal(err)
+	}
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+
+### Root management
 
 
 
