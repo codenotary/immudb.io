@@ -1,5 +1,13 @@
 # Quickstart
 
+To get started extremly quick using Docker:
+
+```bash
+docker network create immudbnet
+docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest
+docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:latest -a immudb
+```
+
 ## Download the binaries
 
 ### General
@@ -112,6 +120,14 @@ The linux service is using the following defaults:
 
 
 ## Docker
+If you just want to run immudb and connect using `immuclient`:
+
+```bash
+docker network create immudbnet
+docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest
+docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:latest -a immudb
+```
+
 
 All services and CLI components are also available as Docker images on [dockerhub](https://hub.docker.com/).
 
