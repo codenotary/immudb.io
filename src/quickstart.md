@@ -1,6 +1,6 @@
 # Quickstart
 
-To get started extremly quick using Docker:
+To get started extremely quick using Docker:
 
 ```bash
 docker network create immudbnet
