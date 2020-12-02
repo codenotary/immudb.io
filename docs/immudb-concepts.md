@@ -1,1 +1,3 @@
 # Immudb concepts
+
+## root management
