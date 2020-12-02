@@ -99,3 +99,5 @@ sw.*
 # Algolia configuration
 algolia.config.js
 
+#precommit
+.pre-commit-config.yaml
