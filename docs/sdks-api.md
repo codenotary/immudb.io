@@ -29,11 +29,10 @@
     - [Inclusion](#inclusion)
     - [Consistency](#consistency)
     - [Current Root](#currentroot)
-- [structured values](#structured-values)
-- [user management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
-- [multi databases(CreateDatabase,UseDatabase)](#multi-databases)
-- [health](#health)
-- [examples](#examples)
+- [Structured values](#structured-values)
+- [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
+- [Multi databases(CreateDatabase,UseDatabase)](#multi-databases)
+- [Health](#health)
 
 ## Connection and authentication
 
@@ -1499,13 +1498,188 @@ message Content {
 }
 ```
 
-## user management
-### CreateUser
-### ChangePassword
-### ChangePermission
-### SetActiveUser
-## multi databases
-### DatabaseList
-### CreateDatabase
-### UseDatabase
-## health
+## User management
+User management is exposed with following methods:
+* CreateUser
+* ChangePermission
+* ChangePassword
+
+Password must have between 8 and 32 letters, digits and special characters of which at least 1 uppercase letter, 1 digit and 1 special character.
+
+Admin permissions are:
+* PermissionSysAdmin = 255
+* PermissionAdmin = 254
+
+Non-admin permissions are:
+* PermissionNone = 0
+* PermissionR = 1
+* PermissionRW = 2
+
+:::: tabs
+
+::: tab Go
+```go
+	client, err := c.NewImmuClient(c.DefaultOptions())
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+	md := metadata.Pairs("authorization", lr.Token)
+	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+	err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+
+## Multi databases
+Starting immudb version 0.7.0 we introduced a multi-database support.
+By default the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
+Handling users and database require to have rights privileges.
+Users with `PermissionAdmin` can control everything. Non admin users have restricted permissions and can read or write only their databases if they have sufficient privileges.
+:::: tabs
+In this example is shown how to create a new database and how to write into it.
+In order to create a new database is possible to use `CreateDatabase` method.
+::: tab Go
+In order to write into a specific database an authenticated context is required.
+It's possible with `UseDatabase` method to obtain a `token`.
+A token is used not only for authorization  but also to route commands to a specific database.
+To set up an authenticated context is sufficient to put a `token` inside metadata.
+```go
+	client, err := c.NewImmuClient(c.DefaultOptions())
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+	md := metadata.Pairs("authorization", lr.Token)
+	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+	err = client.CreateDatabase(ctx, &schema.Database{
+		Databasename: "myimmutabledb",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	dbList, err := client.DatabaseList(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("database list: %v", dbList)
+
+	// creating a context to write in the new database
+	resp, err := client.UseDatabase(ctx, &schema.Database{
+		Databasename: "myimmutabledb",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("auth token: %v", resp.Token)
+
+	md = metadata.Pairs("authorization", resp.Token)
+	ctx = metadata.NewOutgoingContext(context.Background(), md)
+	// writing in myimmutabledb
+	_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+
+## HealthCheck
+HealthCheck return an error if `immudb` status is not ok.
+:::: tabs
+::: tab Go
+```go
+	client, err := c.NewImmuClient(c.DefaultOptions())
+    if err != nil {
+        log.Fatal(err)
+    }
+    ctx := context.Background()
+    lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+    md := metadata.Pairs("authorization", lr.Token)
+    ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+    err = client.HealthCheck(ctx)
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
