@@ -25,7 +25,10 @@
     - [SetBatch and GetBatch](#setbatch-and-getbatch)
     - [setAll](#setall)
     - [execAllOps](#execallops)
-- [tamperproofing utilities(root,inclusion,consistency)](#tamperproofing-utilities)
+- [Tamperproofing utilities](#tamperproofing-utilities)
+    - [Inclusion](#inclusion)
+    - [Consistency](#consistency)
+    - [Current Root](#currentroot)
 - [structured values](#structured-values)
 - [user management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
 - [multi databases(CreateDatabase,UseDatabase)](#multi-databases)
@@ -1292,3 +1295,217 @@ __NOT_IMPLEMENTED__
 :::
 
 ::::
+
+## Tamperproofing utilities
+
+SDK give to developers primitives in order to make additional verifications:
+* current
+* inclusion
+* consistency
+
+### Inclusion
+:::: tabs
+`Inclusion` verification returns the shortest list of additional nodes required to compute the root of the merkle tree.
+With this it's possible to mathematically ensure after a write operation that an element was really written correctly
+::: tab Go
+```go
+	client, err := c.NewImmuClient(c.DefaultOptions())
+	if err != nil {
+		log.Fatal(err)
+	}
+	ctx := context.Background()
+	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+	md := metadata.Pairs("authorization", lr.Token)
+	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+	_ , err = client.RawSafeSet(ctx, []byte(`aaa`), []byte(`item1`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	idx2, err := client.RawSafeSet(ctx, []byte(`bbb`), []byte(`item2`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ , err = client.RawSafeSet(ctx, []byte(`abc`),[]byte(`item3`))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// local hash calculation
+	hash := api.Digest(idx2.Index, []byte(`bbb`), []byte(`item2`))
+
+	proof, err := client.Inclusion(ctx, idx2.Index)
+	if err != nil {
+		log.Fatal(err)
+	}
+	verified := proof.Verify(idx2.Index, hash[:])
+
+	fmt.Printf("item 2 is included in server merkle trree root: %v", verified)
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+### Consistency
+:::: tabs
+`Consistency` verification returns the shortest list of additional nodes required to mathematically proof that a tree rapresented by an old root is really included in the server merkle tree.
+This means that every elements that is rapresented by the root that a client own on his storage are still present on immudb and immutate.
+A trusted auditor can continuously check for consistency an immudb server. In this way immudb can not be silently tampered.
+`RawSafeSet` is used in order to semplify following example. Usually SDK extend raw payload with [structured values](#structured-values)
+::: tab Go
+```go
+    client, err := c.NewImmuClient(c.DefaultOptions())
+    if err != nil {
+        log.Fatal(err)
+    }
+    ctx := context.Background()
+    lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+    md := metadata.Pairs("authorization", lr.Token)
+    ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+    _ , err = client.RawSafeSet(ctx, []byte(`aaa`), []byte(`item1`))
+    if err != nil {
+        log.Fatal(err)
+    }
+    _ , err = client.RawSafeSet(ctx, []byte(`bbb`), []byte(`item2`))
+    if err != nil {
+        log.Fatal(err)
+    }
+    idx , err := client.RawSafeSet(ctx, []byte(`abc`),[]byte(`item3`))
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    root, err := client.CurrentRoot(ctx)
+
+    proof, err := client.Consistency(ctx, idx.Index)
+    if err != nil {
+        log.Fatal(err)
+    }
+    verified := proof.Verify(*root)
+
+    fmt.Printf("the tree rapresented by root is included in server merkle tree: %v", verified)
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+### Current Root
+:::: tabs
+`CurrentRoot` returns the last root of the server.
+This is used to initialize a client root cache.
+Usually root is printed with hexadecimal notation.
+::: tab Go
+```go
+    	client, err := c.NewImmuClient(c.DefaultOptions())
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+    	ctx := context.Background()
+    	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+
+    	md := metadata.Pairs("authorization", lr.Token)
+    	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+    	root, err := client.CurrentRoot(ctx)
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	fmt.Printf("current root is : %X", root.GetRoot())
+
+
+```
+:::
+
+::: tab Java
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Python
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Node.js
+__NOT_IMPLEMENTED__
+:::
+
+::: tab .Net
+__NOT_IMPLEMENTED__
+:::
+
+::: tab Others
+__NOT_IMPLEMENTED__
+:::
+
+::::
+
+## Structured values
+The messages structure allows callers to use key value pairs as embedded payload. Thus, it will soon be possible to decouple and extend
+the value structure. The value, currently a stream of bytes, can be augmented with some client provided metadata.
+This also permits use of an on-demand serialization/deserialization strategy.
+
+The payload includes a timestamp and a value at the moment. In the near future cryptographic signatures will be added as well. The entire payload contribute to hash generation and is inserted in
+the merkle tree.
+```proto
+message StructuredKeyValue {
+	bytes key = 1;
+	Content value = 2;
+}
+
+message Content {
+	uint64 timestamp = 1;
+	bytes payload = 2;
+}
+```
+
+## user management
+### CreateUser
+### ChangePassword
+### ChangePermission
+### SetActiveUser
+## multi databases
+### DatabaseList
+### CreateDatabase
+### UseDatabase
+## health
