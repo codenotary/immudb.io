@@ -63,23 +63,27 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -116,23 +120,27 @@ This generates a list of folder containing certificates and private key to set u
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -160,23 +168,27 @@ If a valid token is present authentication is being enabled by default.
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -247,23 +259,27 @@ Following an example how to obtain a client instance with a custom root service.
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -295,23 +311,27 @@ The client implements the mathematical validations, while your application uses 
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -342,23 +362,27 @@ It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure th
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -380,23 +404,27 @@ Following methods rely on internal immudb insertion order index. Insertion order
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -467,23 +495,27 @@ Reverse history coomand example
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -506,23 +538,27 @@ __NOT_IMPLEMENTED__
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -622,23 +658,27 @@ Example with an offset:
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -716,23 +756,27 @@ Example with verifications
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -782,23 +826,27 @@ When reference is resolved with get or safe get in case of multiples equals refe
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -845,23 +893,27 @@ Using `get` or `safeGet` on an index reference will return the last referenced i
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -916,23 +968,27 @@ client, err := c.NewImmuClient(c.DefaultOptions())
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1025,23 +1081,27 @@ When an integer64 is cast to a float there could be a loss of precision, but the
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1097,23 +1157,27 @@ Each item is being stored with an insertion order that is exposed thanks to the 
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1149,23 +1213,27 @@ SetBatch and GetBatch example
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1186,23 +1254,27 @@ SetBatch and GetBatch example
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1274,23 +1346,27 @@ client, err := c.NewImmuClient(c.DefaultOptions())
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1345,23 +1421,27 @@ With this it's possible to mathematically ensure after a write operation that an
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1409,23 +1489,27 @@ A trusted auditor can continuously check for consistency an immudb server. In th
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1458,23 +1542,27 @@ Usually root is printed with hexadecimal notation.
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1545,23 +1633,27 @@ Non-admin permissions are:
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1622,23 +1714,27 @@ To set up an authenticated context is sufficient to put a `token` inside metadat
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
@@ -1663,23 +1759,27 @@ HealthCheck return an error if `immudb` status is not ok.
 :::
 
 ::: tab Java
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-__NOT_IMPLEMENTED__
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-__NOT_IMPLEMENTED__
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 :::
 
 ::::
