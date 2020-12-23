@@ -348,12 +348,9 @@ If you're using another development language, please read up on our [immugw](htt
 
 ### To get going quickly:
   - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples).
-  - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and then closing the client in each of the following.
-	- [Go - Initiating and using Client](#go)
-	- [Python - Initiating and using Client](#python)
-	- [Java - Initiating and using Client](#java)
-	- [Node.js - Initiating and using Client](#node-js)
-	- [.Net - Initiating and using Client](#net)
+  - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
+   Take a look at the [SDKs api](/sdks-api) page.
+
 
 ## Conclusion
 
