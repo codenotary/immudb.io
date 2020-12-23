@@ -133,7 +133,7 @@ immuadmin can be used to install and manage the immudb service for Windows and L
 ### Linux
 
 ```bash
-GOOS=linux GOARCH=amd64 make immuadmin-static 
+GOOS=linux GOARCH=amd64 make immuadmin-static
 ```
 
 ### Windows (by component)
@@ -228,11 +228,11 @@ Usage: immuadmin user list|create|change-password|set-permission|deactivate [use
 Help : immuadmin user -h
 ```
 
-#### List user 
+#### List user
 
 To get a list of all existing user including their permissions, run `immuadmin user list`
 
-#### Add user 
+#### Add user
 
 Let's create a read-only user, called ro `immuadmin user create <username> read`
 
@@ -264,11 +264,11 @@ Using config file: /etc/immudb/immudb.toml
 -  --------  ----    -----------
 ```
 
-#### Deactivate user 
+#### Deactivate user
 
 To deactivate an existing user, run `immuadmin user deactivate ro`
 
-#### Reactivate user 
+#### Reactivate user
 
 To reactivate a deactivated user account, you can simply set user permission again. Run `immuadmin user set-permission ro readwrite`
 
@@ -287,7 +287,7 @@ Starting immudb version 0.7.0 we introduced a multi-database support. By default
 We recommend using `immuadmin` to create additional users and databases.
 
 ```
-immuadmin login immudb  # Authentication is enabled by default, default user is immudb and password immudb; 
+immuadmin login immudb  # Authentication is enabled by default, default user is immudb and password immudb;
                         # first login asks for a password change and must contain upper and lower case letters, digits, punctuation mark or symbol
 
 immuadmin database list          # show all existing databases
@@ -330,7 +330,7 @@ work in progress
 Starting version 0.6.0 of immudb, you can use immugw (REST API), immuclient (interactive) or GoLang as immudb database clients.
 Depending on the user settings and permissions, you can have read-only and read-write clients.
 
-[APIs and interfaces](../apis-and-interfaces.md) - API reference and code examples
+[APIs and interfaces](../apis-references.md) - API reference and code examples
 
 More driver libraries are coming soon (Java, Node.js, Python, .net aso.)
 
@@ -360,7 +360,7 @@ Restart the immugw service afterwards - `immuadmin service immugw restart`
 
 **immugw Port: 9476 - http://immugw-auditor:9476/metrics**
 
-example output: 
+example output:
 
 ```bash
 # HELP immugw_audit_curr_root_per_server Current root index used for the latest audit.
@@ -387,7 +387,7 @@ Install service:
 
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
-example output: 
+example output:
 
 ```bash
 # HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.
@@ -421,7 +421,7 @@ It is part of immudb, enabled by default and runs as a thread of immudb.
 The routine can be disabled as follows:
 ```bash
 ./immudb --consistency-check=false
-``` 
+```
 
 ### What does it check?
 Consistency checker runs in a loop and continuously checks if the elements stored inside the immudb Merkle-tree are also physically stored correctly on the disk (the digest of the disk elements is the same digest stored in the related Merkle-tree leaf)
@@ -438,7 +438,7 @@ Consistency checker runs in a loop and continuously checks if the elements store
 
 In order to produce a corrupted entry that is only on disk and not in the Merkle-tree, stop the immudb process and use the [nimmu](https://github.com/codenotary/immudb/blob/master/tools/nimmu/nimmu.go) command:
 ```bash
-go build tools/nimmu/nimmu.go 
+go build tools/nimmu/nimmu.go
 ./nimmu rawset key1 tamper
 ```
 Then restart immudb and you should see the consistency check printing an error.
