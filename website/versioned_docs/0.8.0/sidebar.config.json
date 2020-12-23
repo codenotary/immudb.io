@@ -1,0 +1,47 @@
+{
+  "sidebar": [
+    {
+      "title": "Get started",
+      "collapsable": false,
+      "children": [
+        "",
+        "how-it-works",
+        "quickstart",
+        "jumpstart",
+        "sdks-api",
+        "immudb-concepts",
+        "apis-references",
+        "command-reference"
+      ]
+    },
+    {
+      "title": "immudb",
+      "collapsable": false,
+      "children": [
+        "immudb/"
+      ]
+    },
+    {
+      "title": "immugw",
+      "collapsable": false,
+      "children": [
+        "immugw/",
+        "immugw/curl"
+      ]
+    },
+    {
+      "title": "immuadmin",
+      "collapsable": false,
+      "children": [
+        "immuadmin/"
+      ]
+    },
+    {
+      "title": "immuclient",
+      "collapsable": false,
+      "children": [
+        "immuclient/"
+      ]
+    }
+  ]
+}

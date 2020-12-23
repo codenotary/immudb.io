@@ -1,0 +1,47 @@
+{
+  "sidebar": [
+    {
+      "title": "Get started",
+      "collapsable": false,
+      "children": [
+        "/next/",
+        "/next/how-it-works",
+        "/next/quickstart",
+        "/next/jumpstart",
+        "/next/sdks-api",
+        "/next/immudb-concepts",
+        "/next/apis-references",
+        "/next/command-reference"
+      ]
+    },
+    {
+      "title": "immudb",
+      "collapsable": false,
+      "children": [
+        "/next/immudb/"
+      ]
+    },
+    {
+      "title": "immugw",
+      "collapsable": false,
+      "children": [
+        "/next/immugw/",
+        "/next/immugw/curl"
+      ]
+    },
+    {
+      "title": "immuadmin",
+      "collapsable": false,
+      "children": [
+        "/next/immuadmin/"
+      ]
+    },
+    {
+      "title": "immuclient",
+      "collapsable": false,
+      "children": [
+        "/next/immuclient/"
+      ]
+    }
+  ]
+}
