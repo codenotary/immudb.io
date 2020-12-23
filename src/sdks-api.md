@@ -1,4 +1,4 @@
-# SDKs api
+# SDKs API
 
 ## Contents
 - [Connection and authentication](#connection-and-authentication)
