@@ -16,7 +16,7 @@ docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:late
 
 ### macOS specific
 
-The community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb), therefore you can simply run 
+The community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb), therefore you can simply run
 ```bash
 brew install immudb
 ```

@@ -106,8 +106,9 @@ module.exports = {
                     '/how-it-works',
                     '/quickstart',
                     '/jumpstart',
+                    '/sdks-api',
+                    '/apis-references',
                     '/command-reference',
-                    '/apis-and-interfaces',
                 ]
             },
             {
@@ -115,7 +116,6 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/immudb/',
-                    '/immudb/golang'
                 ]
             },
             {
@@ -169,7 +169,8 @@ module.exports = {
         ['@vuepress/google-analytics', {
             ga: 'UA-168112067-1'
         }],
-        ['vuepress-plugin-reading-time']
+        ['vuepress-plugin-reading-time'],
+        ['vuepress-plugin-element-tabs']
     ],
     configureWebpack: {
         plugins: [
