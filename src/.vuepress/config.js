@@ -97,50 +97,6 @@ module.exports = {
             { text: 'Immutable Data Science', link: 'https://codenotary.io/technologies/immudb/immutable-data-science' },
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
-        sidebar: [
-            {
-                title: 'Get started',
-                collapsable: false,
-                children: [
-                    '/',
-                    '/how-it-works',
-                    '/quickstart',
-                    '/jumpstart',
-                    '/sdks-api',
-                    '/apis-references',
-                    '/command-reference',
-                ]
-            },
-            {
-                title: 'immudb',
-                collapsable: false,
-                children: [
-                    '/immudb/',
-                ]
-            },
-            {
-                title: 'immugw',
-                collapsable: false,
-                children: [
-                    '/immugw/',
-                    '/immugw/curl'
-                ]
-            },
-            {
-                title: 'immuadmin',
-                collapsable: false,
-                children: [
-                    '/immuadmin/',
-                ]
-            },
-            {
-                title: 'immuclient',
-                collapsable: false,
-                children: [
-                    '/immuclient/',
-                ]
-            },
-        ],
         algolia: {
             apiKey: 'e581ef004c097d1f0ff49391645be669',
             indexName: 'immudb'
@@ -176,5 +132,5 @@ module.exports = {
         plugins: [
             new webpack.EnvironmentPlugin({ ...process.env })
         ]
-    }
+    },
 };

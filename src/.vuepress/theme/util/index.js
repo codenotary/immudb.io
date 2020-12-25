@@ -238,3 +238,12 @@ function resolveItem (item, pages, base, groupDepth = 1) {
     }
   }
 }
+
+export const versions = ['0.8.0', '0.8.1', '0.9.0']
+
+export function getVersionFromRoute (route = { fullPath: '' }) {
+  const matches = route.fullPath.match(/[^\/]+/)
+  const [version] = matches === null ? [] : matches
+
+  return version
+}
