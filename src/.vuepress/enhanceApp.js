@@ -14,7 +14,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
 
-import { getVersionFromRoute, versions } from './theme/util'
+import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => [
     {
@@ -75,8 +75,7 @@ export default ({ Vue, router, siteData, }) => {
     Vue.use(VueFilterDateFormat);
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-    const latestVersion = versions[versions.length - 1]
-    router.addRoutes([{path: '/', redirect: `/${latestVersion}/`}])
+    const latestVersion = getDefaultVersion()
     router.beforeEach((to, from, next) => {
         const newVersion = getVersionFromRoute(to)
         const oldVersion = getVersionFromRoute(from)
@@ -84,6 +83,15 @@ export default ({ Vue, router, siteData, }) => {
         if (newVersion !== oldVersion) {
             siteData.themeConfig.sidebar = getSidebar(`/${newVersion}`)
         }
+        else if (!newVersion && !oldVersion) {
+          siteData.themeConfig.sidebar = getSidebar(`/${latestVersion}`)
+        }
+
         next()
     })
+    router.afterEach((to, from) => {
+      if (to.path === '/') {
+        router.replace({ path: `/${ latestVersion }/` })
+      }
+    });
 }
