@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import {versions, getVersionFromRoute} from "../util";
+import {versions, getVersionFromRoute, getDefaultVersion} from "../util";
 
 export default {
     name: "VersionsDropdown",
 
     computed: {
         currentVersion() {
-            return getVersionFromRoute(this.$route)
+            return getVersionFromRoute(this.$route) || getDefaultVersion()
         },
     },
 

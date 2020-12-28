@@ -243,7 +243,10 @@ export const versions = ['0.8.0', '0.8.1', '0.9.0']
 
 export function getVersionFromRoute (route = { fullPath: '' }) {
   const matches = route.fullPath.match(/[^\/]+/)
-  const [version] = matches === null ? [] : matches
-
+  const [version] = matches === null || !versions.includes(matches[0]) ? [] : matches
   return version
+}
+
+export function getDefaultVersion () {
+  return versions[versions.length - 1];
 }
