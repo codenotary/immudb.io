@@ -24,7 +24,7 @@ export default {
 
     data() {
         return {
-            versions
+          versions: versions.slice().reverse()
         }
     },
 
