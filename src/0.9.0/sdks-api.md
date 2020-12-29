@@ -1,44 +1,40 @@
-# SDKs API
+# SDKs api
 
 ## Contents
 - [Connection and authentication](#connection-and-authentication)
     - [Mutual TLS](#mutual-tls)
     - [Disable authentication](#disable-authentication)
-- [Root management](#root-management)
+- [State management](#state-management)
 - [Tamperproof writing and reading](#tamperproof-writing-and-reading)
-    - [Safe get and set](#safe-get-and-set)
+    - [Verified get and set](#verified-get-and-set)
 - [Writing and reading](#writing-and-reading)
     - [Get and set](#get-and-set)
-    - [Get by index](#byIndex)
+    - [Transaction by index](#transaction-by-index)
+    - [Verified transaction by index](#verified-transaction-by-index)
 - [History](#history)
 - [Counting](#counting)
 - [Scan](#scan)
 - [References](#references)
-    - [Reference and safeReference](#reference-and-safeReference)
-    - [Get safe get](#get-safe-get])
+    - [Reference and verifiedReference](#reference-and-verifiedReference)
+    - [Get and verifiedGet](#get-verified-get])
     - [Index Reference](#getReference)
-    - [Deep scan reference resolution](#deep-scan-reference-resolution)
 - [secondary indexes](#secondary-indexes)
     - [sorted sets](#sorted-sets)
-    - [insertion order index](#insertion-order-index)
 - [Transactions](#transactions)
-    - [SetBatch and GetBatch](#setbatch-and-getbatch)
+    - [getAll](#getall)
     - [setAll](#setall)
     - [execAllOps](#execallops)
 - [Tamperproofing utilities](#tamperproofing-utilities)
-    - [Inclusion](#inclusion)
-    - [Consistency](#consistency)
     - [Current Root](#currentroot)
-- [Structured values](#structured-values)
 - [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
 - [Multi databases(CreateDatabase,UseDatabase)](#multi-databases)
 - [Health](#health)
 
 ## Connection and authentication
 
-immudb runs on 3323 default port. Here we are connecting a client with default options and
+Immudb run on 3323 default port. Here we connecting a client with default options and
 authenticating using default username and password.
-It's possible to modify defaults by opening immudb server config folder and changing `immudb.toml` file.
+It's possible to modify defaults on immudb server config folder inside `immudb.toml`
 :::: tabs
 
 ::: tab Go
@@ -90,8 +86,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ### Mutual tls
 To enable mutual authentication a certificate chain need to be provided both to the server and to the client.
-Using this chain, they will be able to authenticate each other at the same time.
-In order to generate them, it's possible to use openssl tool.
+With this they will authenticate each other at the same time
+In order to generate them it's possible to use openssl tool.
 [generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls) provides a quick solution to provide them.
 ```bash
 ./generate.sh localhost mysecretpassword
@@ -147,8 +143,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ### Disable authentication
 It's possible to run immudb with disabled authentication.
-It's not possible to connect to a server that has already databases and users permissions set without having authentication enabled.
-If a valid token is present, authentication is being enabled by default.
+Without enabled authentication it's not possible to connect to a server that own already databases and users permissions.
+If a valid token is present authentication is being enabled by default.
 
 :::: tabs
 
@@ -160,7 +156,7 @@ If a valid token is present, authentication is being enabled by default.
 	if err != nil {
 		log.Fatal(err)
 	}
-	vi, err := client.SafeSet(ctx, []byte(`immudb`), []byte(`hello world`))
+	vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
 	if  err != nil {
 		log.Fatal(err)
 	}
@@ -193,20 +189,20 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-## Root management
+## State management
 
-Immudb client need to store somewhere the merkle tree root hash. In this way every safe read or write operation can be checked on a trusted root.
+Immudb client need to store somewhere the server state. In this way every verified read or write operation can be checked on a trusted root.
 
 :::: tabs
 
 ::: tab Go
-The component in charge of handling the root is the `RootService`.
-To set up the `rootService` 3 interfaces need to be implemented and provided to the `RootService` constructor:
-* `Cache` interface in the `cache` package. Standard `cache.NewFileCache` provides a file root store solution.
-* `RootProvider` in the `rootservice` package. It provides a fresh root from immudb server when the client is being initialized for the first time. Standard `RootProvider` provides a service that retrieve immudb first root hash from a gRPC endpoint.
-* `UUIDProvider` in the `rootservice` package. It provides the immudb identifier. This is needed to allow the client to safely connect to multiple immudb instances. Standard `UUIDProvider` provides the immudb server identifier from a gRPC endpoint.
+The component in charge of handling the root is the `StateService`.
+To set up the `stateService` 3 interfaces need to be implemented and provided to the `StateService` constructor:
+* `Cache` interface in the `cache` package. Standard cache.NewFileCache provides a file root store solution.
+* `StateProvider` in the `stateService` package. It provides a fresh root from immudb server when the client is being initialized for the first time. Standard StateProvider provides a service that retrieve immudb first root hash from a gRPC endpoint.
+* `UUIDProvider` in the `stateService` package. It provides the immudb identifier. This is needed to allow the client to safely connect to multiple immudb instances. Standard UUIDProvider provides the immudb server identifier from a gRPC endpoint.
 
-Here follows an example how to set up a client instance with a custom root service.
+Following an example how to obtain a client instance with a custom root service.
 ```go
     func MyCustomImmuClient(options *c.Options) (cli c.ImmuClient, err error) {
     	ctx := context.Background()
@@ -231,15 +227,15 @@ Here follows an example how to set up a client instance with a custom root servi
     		return nil, err
     	}
 
-    	immudbRootProvider := rootservice.NewImmudbRootProvider(serviceClient)
-    	immudbUUIDProvider := rootservice.NewImmudbUUIDProvider(serviceClient)
+    	immudbStateProvider := stateService.NewImmudbStateProvider(serviceClient)
+    	immudbUUIDProvider := stateService.NewImmudbUUIDProvider(serviceClient)
 
     	customDir := "custom_root_dir"
     	os.Mkdir(customDir, os.ModePerm)
-    	rootService, err := rootservice.NewRootService(
+    	stateService, err := stateService.NewStateService(
     		cache.NewFileCache(customDir),
     		logger.NewSimpleLogger("immuclient", os.Stderr),
-    		immudbRootProvider,
+    		immudbStateProvider,
     		immudbUUIDProvider)
     	if err != nil {
     		return nil, err
@@ -251,7 +247,7 @@ Here follows an example how to set up a client instance with a custom root servi
     	}
 
     	ts := c.NewTimestampService(dt)
-    	cli.WithTimestampService(ts).WithRootService(rootService)
+    	cli.WithTimestampService(ts).WithStateService(stateService)
 
     	return cli, nil
     }
@@ -290,20 +286,20 @@ If you're using another development language, please read up on our [immugw](htt
 It's possible to read and write with built-in cryptographic verification.
 
 
-### Safe get and set
-The client implements the mathematical validations transparently, while your application uses a traditional read or write function.
+### Verified get and set
+The client implements the mathematical validations, while your application uses a traditional read or write function.
 
 :::: tabs
 
 ::: tab Go
 ```go
-	vi, err := client.SafeSet(ctx, []byte(`immudb`), []byte(`hello world`))
+	vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
     	if  err != nil {
     		log.Fatal(err)
     	}
     	fmt.Printf("Item inclusion verified %t\n", vi.Verified)
 
-    	item, err := client.SafeGet(ctx, []byte(`immudb`))
+    	item, err := client.VerifiedGet(ctx, []byte(`immudb`))
     	if  err != nil {
     		log.Fatal(err)
     	}
@@ -338,11 +334,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Writing and reading
 
-Writing and reading data is the same both in Set and SafeSet.
-The only difference is that SafeSet returns to the client proofs needed to mathematically verify that the data is really written correctly.
-The reason behind having distinct Set and SafeSet operations is that generating proofs slightly impacts performance, so primitives are being allowed also without proofs where fast execution is preferred.
+Writing and reading data is the same both in Set and VerifiedSet.
+The only difference is that verifiedSet returns to the client proofs needed to mathematically verify that the data si really wrote correctly.
+This is allowed because generating proofs slightly impact on performances, so primitives are being allowed also without proofs.
 It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
-
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the db consistency, but the pattern in which every client is an also an auditor is the more interesting one.
 
 ### Get and set
@@ -388,19 +383,57 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Get by index
-The following methods rely on internal immudb insertion order index. Insertion order index is a special index appended on every leaf in the merkle tree. With this command, we benefit of the internal merkle tree natural insertion order index. When we retrieve elements by index a first lookup is made on the leaf at the same index to discover the element key, then a second lookup is realized to retrieve the value.
+### Transaction by index
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 :::: tabs
 
 ::: tab Go
 ```go
-	    item, err := client.ByIndex(ctx, vi.Index)
+	    tx, err := client.TxByID(ctx, txId)
     	if  err != nil {
     		log.Fatal(err)
     	}
-    	fmt.Printf("%s\n", item.Value)
+```
+:::
 
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+:::
+
+::::
+
+### Verified transaction by index
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+
+:::: tabs
+
+::: tab Go
+```go
+	    tx, err := client.VerifiedTxByID(ctx, txId)
+    	if  err != nil {
+    		log.Fatal(err)
+    	}
 ```
 :::
 
@@ -431,8 +464,8 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## History
-immudb is an append-only database.
-This means that each update operation translates to an insert operation of the same key with a new value.
+Immudb is an append only database.
+This means that an update is a new insert of the same key with a new value.
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
@@ -526,16 +559,8 @@ If you're using another development language, please read up on our [immugw](htt
 :::: tabs
 
 ::: tab Go
-```go
-	    count, err := client.Count(ctx, []byte(`myKey`))
-        	if  err != nil {
-        		log.Fatal(err)
-        	}
-        countAll, err := client.CountAll(ctx)
-        if  err != nil {
-            log.Fatal(err)
-        }
-```
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Go sdk github project](https://github.com/codenotary/immudb/issues/new)
 :::
 
 ::: tab Java
@@ -686,10 +711,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## References
 `Reference` is like a "tag" operation, it appends a reference on a key/value element.
-As a consequence when we retrieve that reference with a `Get` or `SafeGet` the value retrieved will be the original value associated to the original key.
-SafeReference counterpart is the same but in addition it produces also the inclusion and consistency proofs.
+As a consequence when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated to the original key.
+VerifiedReference counterpart is the same but in addition it produces also the inclusion and consistency proofs.
 
-### Reference and safeReference
+### Reference and verifiedReference
 :::: tabs
 
 ::: tab Go
@@ -737,7 +762,7 @@ Example with verifications
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.SafeReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -747,7 +772,7 @@ Example with verifications
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", firstItem)
-    referenceVerified, err := client.SafeReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+    referenceVerified, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -782,9 +807,9 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Get and safeget
-When reference is resolved with a get or safe get operation, in case of multiples equals references the last one is returned.
+### Get and verifiedGet
 
+When reference is resolved with get or verifiedGet in case of multiples equals references the last reference is returned.
 :::: tabs
 
 ::: tab Go
@@ -808,11 +833,11 @@ When reference is resolved with a get or safe get operation, in case of multiple
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.SafeReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
     if err != nil {
     	log.Fatal(err)
     }
-    reference, err := client.SafeReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
+    reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -854,10 +879,10 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Index Reference
-When referencing an item, immudb internally creates a `key` reference.
-It's also possible to reference an item by index. In this way it's possible to resolve a specific item state in a point of time.
-`getReference` solves this specific need.
-Using `get` or `safeGet` on an index reference will return the last referenced item: in this case index reference is skipped.
+Normally when referencing an item immudb internally creates a `key` reference.
+It's possible to specify also a specific index of a referenced item. In this way it's possible to resolve a specific item in time.
+`getReference` came with this specific scope.
+Using `get` or `verifiedGet` on an index reference will return the last referenced item: in this case index reference is skipped.
 :::: tabs
 
 ::: tab Go
@@ -920,91 +945,16 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Deep scan reference resolution
-`Scan` can resolve a reference if the `deep` flag is provided.
-:::: tabs
-
-::: tab Go
-
-```go
-client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	idx1, err := client.Set(ctx, []byte(`aaa`), []byte(`item1`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = client.Set(ctx, []byte(`aaa`), []byte(`item2`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = client.Reference(ctx, []byte(`aar`), []byte(`aaa`), idx1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	tag, err := client.GetReference(ctx, &schema.Key{Key:[]byte(`aar`)})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", tag)
-	list, err := client.Scan(ctx, &schema.ScanOptions{
-		Prefix:               []byte(`a`),
-		Offset:               nil,
-		Limit:                0,
-		Reverse:              false,
-		Deep:                 true,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", list)
-```
-
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
-
-::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
-:::
-
-::::
-
 ## Secondary indexes
 
-On top of the key-value store, immudb provides secondary indexes to help developers to handle complex queries.
+On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
 
 ### Sorted sets
 The simplest secondary index you can create with immudb is by using the sorted set data type, which is a data structure representing a set of elements ordered by a floating point number which is the score of each element.
-The reason we used a `float64` as a score type is to satisfy the maximum number of uses cases.
+The reason we used a float64 as a score type is to satisfy the maximum number of uses cases.
 64-bit floating point gives a lot of flexibility and dynamic range, at the expense of having only 53-bits of integer.
 
-When an `integer64` is cast to a float there could be a loss of precision, but the insertion order is ensured by the internal database index that is appended to the internal index key.
+When an integer64 is cast to a float there could be a loss of precision, but the insertion order is granted by the internal database index that is appended to the internal index key.
 
 `ZAdd` can reference an item by `key` or by `index`.
 
@@ -1108,111 +1058,23 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Insertion order index
-Each item is being stored in an insertion order that is exposed via the insertion order index.
-
-`IScan` provides a solution to iterate over all items of the database (with pagination).
-
-:::: tabs
-
-::: tab Go
-
-```go
-    client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	_, err = client.Set(ctx, []byte(`0`),[]byte(`itemZERO`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, _ = client.Set(ctx, []byte(`aaa`),[]byte(`item1`))
-	_, _ = client.Set(ctx, []byte(`bbb`),[]byte(`item2`))
-	_, _ = client.Reference(ctx, []byte(`aaa`), []byte(`aab`), nil)
-	_, _ = client.Reference(ctx, []byte(`bbb`), []byte(`abb`), nil)
-	_, _ = client.Set(ctx, []byte(`zzz`),[]byte(`itemzzz`))
-	_, _ = client.Reference(ctx, []byte(`bbb`), []byte(`abb`), nil)
-	_, _ = client.Reference(ctx, []byte(`bbb`), []byte(`abb`), nil)
-	_, _ = client.Reference(ctx, []byte(`bbb`), []byte(`abb`), nil)
-
-	page1, err := client.IScan(ctx, 1, 3)
-	fmt.Printf("%v\n", page1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	page2, err := client.IScan(ctx, 2, 3)
-	fmt.Printf("%v\n", page2)
-	if err != nil {
-		log.Fatal(err)
-	}
-	page3, err := client.IScan(ctx, 3, 3)
-	fmt.Printf("%v\n", page3)
-	if err != nil {
-		log.Fatal(err)
-	}
-```
-
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
-
-::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
-:::
-
-::::
-
 ## Transactions
 
-`SetBatch`, `GetBatch`, `SetAll` and `ExecAllOps` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
+`GetAll`, `SetAll` and `ExecAllOps` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
 * All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served in the middle of the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
 * Either all of the commands or none are processed, so the transaction is also atomic.
 
-### SetBatch and GetBatch
+### getAll
+
 :::: tabs
-SetBatch and GetBatch example
+
 ::: tab Go
-
 ```go
-    br := c.BatchRequest{
-        Keys:   []io.Reader{strings.NewReader("key1"), strings.NewReader("key2"), strings.NewReader("key3")},
-        Values: []io.Reader{strings.NewReader("val1"), strings.NewReader("val2"), strings.NewReader("val3")},
-    }
-    ris, err := client.SetBatch(ctx, &br)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("%v\n", ris)
-
-    sil, err := client.GetBatch(ctx, [][]byte{[]byte(`key1`), []byte(`key2`)})
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("%v\n", sil)
+    itList, err := db.GetAll( [][]byte{
+			[]byte("key1"),
+			[]byte("key2"),
+			[]byte("key3"),
+		})
 ```
 :::
 
@@ -1284,19 +1146,16 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### execAllOps
-`ExecAllOps`, like `SetBatch`, allows many insertions at once. The difference is that it is possible to to specify a mixed list of key-value set, reference set and zAdd operations.
-
+`ExecAllOps` like `SetBatch` it permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAllOps is an array of the following types:
-* `Op_KVs`: ordinary key-value item
+* `Op_KVs`: ordinary key value item
 * `Op_ZOpts`: [ZAdd](#sorted-sets) option element
 * `Op_ROpts`: [Reference](#references) option element
 
-It's possible to persist and reference items that are already persisted on disk. In that case it is mandatory to provide the index of the referenced item. This has to be done for:
+It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
 * `Op_ZOpts`
 * `Op_ROpts`
-
-If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key-value and the reference is done on-the-fly.
-
+If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly.
 :::: tabs
 ExecAllOps
 ::: tab Go
@@ -1379,154 +1238,16 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Tamperproofing utilities
-
-SDK give to developers primitives in order to make additional verifications:
 * current
-* inclusion
-* consistency
 
-### Inclusion
+
+### Current State
 :::: tabs
-`Inclusion` verification returns the shortest list of additional nodes required to compute the root of the merkle tree.
-With this it's possible to mathematically ensure after a write operation that an element was really written correctly
-::: tab Go
-```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+`CurrentState` returns the last state of the server.
+This is used to initialize a client state cache.
 
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
-	_ , err = client.RawSafeSet(ctx, []byte(`aaa`), []byte(`item1`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	idx2, err := client.RawSafeSet(ctx, []byte(`bbb`), []byte(`item2`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ , err = client.RawSafeSet(ctx, []byte(`abc`),[]byte(`item3`))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// local hash calculation
-	hash := api.Digest(idx2.Index, []byte(`bbb`), []byte(`item2`))
-
-	proof, err := client.Inclusion(ctx, idx2.Index)
-	if err != nil {
-		log.Fatal(err)
-	}
-	verified := proof.Verify(idx2.Index, hash[:])
-
-	fmt.Printf("item 2 is included in server merkle trree root: %v", verified)
-```
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
-
-::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
-:::
-
-::::
-### Consistency
-:::: tabs
-`Consistency` verification returns the shortest list of additional nodes required to mathematically prove that a tree represented by an old root is actually included in the server merkle tree.
-
-This means that every element that is represented by the root that a client owns on his storage are still present on immudb and they were not changed.
-
-A trusted auditor can continuously check for consistency an immudb server. In this way immudb can not be silently tampered.
-`RawSafeSet` is used in order to semplify following example. Usually SDK extend the raw payload leveraging [structured values](#structured-values)
-::: tab Go
-```go
-    client, err := c.NewImmuClient(c.DefaultOptions())
-    if err != nil {
-        log.Fatal(err)
-    }
-    ctx := context.Background()
-    lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-    md := metadata.Pairs("authorization", lr.Token)
-    ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-    _ , err = client.RawSafeSet(ctx, []byte(`aaa`), []byte(`item1`))
-    if err != nil {
-        log.Fatal(err)
-    }
-    _ , err = client.RawSafeSet(ctx, []byte(`bbb`), []byte(`item2`))
-    if err != nil {
-        log.Fatal(err)
-    }
-    idx , err := client.RawSafeSet(ctx, []byte(`abc`),[]byte(`item3`))
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    root, err := client.CurrentRoot(ctx)
-
-    proof, err := client.Consistency(ctx, idx.Index)
-    if err != nil {
-        log.Fatal(err)
-    }
-    verified := proof.Verify(*root)
-
-    fmt.Printf("the tree represented by root is included in server merkle tree: %v", verified)
-```
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
-
-::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
-:::
-
-::::
-### Current Root
-:::: tabs
-`CurrentRoot` returns the last root of the server.
-This is used to initialize a client root cache.
-Usually root is printed in hexadecimal notation.
 ::: tab Go
 ```go
     	client, err := c.NewImmuClient(c.DefaultOptions())
@@ -1539,14 +1260,12 @@ Usually root is printed in hexadecimal notation.
     	md := metadata.Pairs("authorization", lr.Token)
     	ctx = metadata.NewOutgoingContext(context.Background(), md)
 
-    	root, err := client.CurrentRoot(ctx)
+    	root, err := client.CurrentState(ctx)
     	if err != nil {
     		log.Fatal(err)
     	}
 
-    	fmt.Printf("current root is : %X", root.GetRoot())
-
-
+    	fmt.Printf("current root is : %X", root.GetState())
 ```
 :::
 
@@ -1575,25 +1294,6 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::::
-
-## Structured values
-The messages structure allows callers to use key-value pairs as an embedded payload. Thus, it will soon be possible to decouple and extend
-the value structure. The value, currently a stream of bytes, can be augmented with client-provided metadata.
-This also allows to use a custom serialization/deserialization strategy.
-
-The payload includes a timestamp and a value at the moment. In the near future cryptographic signatures will be added as well. The entire payload contribute to hash generation and is inserted in
-the merkle tree.
-```proto
-message StructuredKeyValue {
-	bytes key = 1;
-	Content value = 2;
-}
-
-message Content {
-	uint64 timestamp = 1;
-	bytes payload = 2;
-}
-```
 
 ## User management
 User management is exposed with following methods:
@@ -1668,25 +1368,18 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Multi databases
-Starting with immudb version 0.7.0, multi-database support has been introduced.
+Starting immudb version 0.7.0 we introduced a multi-database support.
 By default the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
-
-Handling users and database require to have the correct privileges.
-
+Handling users and database require to have rights privileges.
 Users with `PermissionAdmin` can control everything. Non admin users have restricted permissions and can read or write only their databases if they have sufficient privileges.
 :::: tabs
-In this example, it is shown how to create a new database and how to write into it.
-
+In this example is shown how to create a new database and how to write into it.
 In order to create a new database is possible to use `CreateDatabase` method.
-
 ::: tab Go
 In order to write into a specific database an authenticated context is required.
 It's possible with `UseDatabase` method to obtain a `token`.
-
-A token is used not only for authorization, but also to route commands to a specific database.
-
+A token is used not only for authorization  but also to route commands to a specific database.
 To set up an authenticated context is sufficient to put a `token` inside metadata.
-
 ```go
 	client, err := c.NewImmuClient(c.DefaultOptions())
 	if err != nil {
@@ -1756,7 +1449,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## HealthCheck
-HealthCheck returns an error if `immudb` status is not ok.
+HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 ::: tab Go
 ```go

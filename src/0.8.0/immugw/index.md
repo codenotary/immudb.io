@@ -108,7 +108,7 @@ immuadmin can be used to install and manage the immugw service for Windows and L
 ### Linux
 
 ```bash
-GOOS=linux GOARCH=amd64 make immuadmin-static 
+GOOS=linux GOARCH=amd64 make immuadmin-static
 ```
 
 ### Windows (by component)
@@ -241,7 +241,7 @@ Restart the immugw service afterwards - `immuadmin service immugw restart`
 
 **immugw Port: 9476 - http://immugw-auditor:9476/metrics**
 
-example output: 
+example output:
 
 ```bash
 # HELP immugw_audit_curr_root_per_server Current root index used for the latest audit.

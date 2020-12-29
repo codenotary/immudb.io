@@ -4,7 +4,7 @@ title: Overview
 
 # immudb
 
-## Contents 0.8.0
+## Contents 0.9.0
 
  - [Latest binaries](#latest-binaries)
  - [Build](#build)
@@ -80,9 +80,6 @@ listen on all interfaces, persistent data
 docker volume create immudb-data
 docker run -it -d -p 3322:3322 -p 9497:9497 -v immudb-data:/var/lib/immudb --name immudb -e IMMUDB_ADDRESS="0.0.0.0" codenotary/immudb
 ```
-
-
-
 
 ## Run immudb
 
@@ -323,7 +320,7 @@ To check all database permissions use `immuadmin user list`
 
 ### API examples
 
-work in progress
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ## Clients
 
@@ -407,14 +404,7 @@ immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br
 
 ## Architecture
 
-The different components of immudb are communicating as follows:
-![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png)
-
-Please check How it works, to learn more about the data structure and the Merkle-tree:
-
-[How it works](../how-it-works.md)
-
-## Consistency checker
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ### How do you run it?
 It is part of immudb, enabled by default and runs as a thread of immudb.
@@ -422,26 +412,6 @@ The routine can be disabled as follows:
 ```bash
 ./immudb --consistency-check=false
 ```
-
-### What does it check?
-Consistency checker runs in a loop and continuously checks if the elements stored inside the immudb Merkle-tree are also physically stored correctly on the disk (the digest of the disk elements is the same digest stored in the related Merkle-tree leaf)
-
-### How does it run its check?
-
-**Steps:**
-1. reading the last root and last index stored in immudb
-2. generate a range between 0 and the length of the Merkle-tree level 0 (total number of elements stored)
-3. shuffles the range to get a random scan list (to be unpredictable)
-4. check if every element is correctly inserted in the Merkle-tree and if the Merkle-tree leaves correctly represent the elements stored on hard disk
-5. after completing the loop, the process sleeps ten seconds and restarts from scratch with a new root and index
-6. in case an element does not pass the check correctly, immudb is immediately stopped and prints out a log message
-
-In order to produce a corrupted entry that is only on disk and not in the Merkle-tree, stop the immudb process and use the [nimmu](https://github.com/codenotary/immudb/blob/master/tools/nimmu/nimmu.go) command:
-```bash
-go build tools/nimmu/nimmu.go
-./nimmu rawset key1 tamper
-```
-Then restart immudb and you should see the consistency check printing an error.
 
 ## License
 
