@@ -1,1 +1,2 @@
-###### Hello
+<RedirectToDefaultVersion />
+Loading...

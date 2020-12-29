@@ -80,18 +80,20 @@ export default ({ Vue, router, siteData, }) => {
         const newVersion = getVersionFromRoute(to)
         const oldVersion = getVersionFromRoute(from)
 
-        if (newVersion !== oldVersion) {
+        if (newVersion !== oldVersion && newVersion) {
             siteData.themeConfig.sidebar = getSidebar(`/${newVersion}`)
         }
-        else if (!newVersion && !oldVersion) {
+        else if (!newVersion) {
           siteData.themeConfig.sidebar = getSidebar(`/${latestVersion}`)
         }
 
         next()
     })
+    /* Homepage redirect as route middleware | Not reliable if built
     router.afterEach((to, from) => {
       if (to.path === '/') {
         router.replace({ path: `/${ latestVersion }/` })
       }
     });
+    */
 }
