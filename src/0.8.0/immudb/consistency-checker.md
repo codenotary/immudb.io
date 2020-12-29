@@ -4,7 +4,7 @@ It is part of immudb, enabled by default and runs as a thread of immudb.
 The routine can be disabled as follows:
 ```bash
 ./immudb --consistency-check=false
-``` 
+```
 
 ## What does it check?
 Consistency checker runs in a loop and continuously checks if the elements stored inside the immudb Merkle-tree are also physically stored correctly on the disk (the digest of the disk elements is the same digest stored in the related Merkle-tree leaf)
@@ -20,7 +20,7 @@ Consistency checker runs in a loop and continuously checks if the elements store
 
 In order to produce a corrupted entry that is only on disk and not in the Merkle-tree, stop the immudb process and use the [nimmu](https://github.com/codenotary/immudb/blob/master/tools/nimmu/nimmu.go) command:
 ```bash
-go build tools/nimmu/nimmu.go 
+go build tools/nimmu/nimmu.go
 ./nimmu rawset key1 tamper
 ```
 Then restart immudb and should see the consistency check printing an error.

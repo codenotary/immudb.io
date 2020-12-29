@@ -23,7 +23,7 @@ vChain is the Open Source leader for immutable trust solutions such as [immudb](
 * Experience developing API driven architectures (e.g. REST, gRPC)
 * Great team skills
 
-Curious? 
+Curious?
 Apply at <amelie@vchain.us>
 
 Visit our website!

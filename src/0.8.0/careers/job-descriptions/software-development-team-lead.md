@@ -32,7 +32,7 @@ We use the following environments and systems: JavaScript, Vue, Nodejs and Go, J
 
 Please note that the technical knowledge will be tested in an interview.
 
-Curious? 
+Curious?
 Apply at <amelie@vchain.us>
 
 

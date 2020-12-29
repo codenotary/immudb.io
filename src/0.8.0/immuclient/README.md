@@ -144,7 +144,7 @@ When installing audit-mode as a service, all parameters are written into the `im
 
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
-example output: 
+example output:
 
 ```bash
 # HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.
