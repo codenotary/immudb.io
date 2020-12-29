@@ -22,7 +22,7 @@ This guide helps developers quickly start with CodeNotary's immudb database and 
 
 Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
 
-<img  src="https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png" />
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ### What is immudb?
 A lightweight, high-speed, immutable database solution capable of processing millions of transactions a second. It provides cryptographic verification of your data integrity without the cost and complexity associated with classic blockchain. You have the flexibility to host immudb on-premise or in the cloud.
@@ -302,13 +302,13 @@ You can write with built-in cryptographic verification. The client implements th
 
 ::: tab Go
 ```go
-    vi, err := client.SafeSet(ctx, []byte(`immudb`), []byte(`hello world`))
+    vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
 	if  err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("Item inclusion verified %t\n", vi.Verified)
 
-	item, err := client.SafeGet(ctx, []byte(`immudb`))
+	item, err := client.VerifiedGet(ctx, []byte(`immudb`))
 	if  err != nil {
 		log.Fatal(err)
 	}
@@ -347,9 +347,9 @@ If you're using another development language, please read up on our [immugw](htt
 
 
 ### To get going quickly:
-  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples).
+  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples). `These examples rely on 0.8.1 version. 0.9.0 examples are caming!`
   - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
-   Take a look at the [SDKs api](/sdks-api) page.
+   Take a look at the [SDKs api](/0.9.0/sdks-api) page.
 
 
 ## Conclusion

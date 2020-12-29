@@ -1,4 +1,4 @@
-# Introduction 0.9.0
+# Introduction
 
 immudb is a **lightweight, high-speed immutable database** for systems and applications, written in Go.
 With immudb you can track changes in sensitive data in your transactional databases and then record those changes permanently in a
@@ -34,7 +34,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 - **immuadmin** is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.
 - **immuclient** is the CLI client for immudb. You can read, write data into immudb from the commandline using direct or interactive mode.
 
-![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png)
+![immudb component overview](todo)
 
 
 The latest release binaries can be found [here](https://github.com/codenotary/immudb/releases )

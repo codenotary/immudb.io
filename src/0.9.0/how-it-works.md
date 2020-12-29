@@ -1,46 +1,27 @@
 # How it works
 
-Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
+Download [immudb short research paper](todo) to have a conceptual understanding of the technical foundations of immudb.
+
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ## Adding data
 
-When adding data the merkle tree changes as well as shown in the diagram
-
-![the merkle tree changes with every new data](https://github.com/codenotary/immudb/raw/master/img/immudb-adding-data-diagram.png)
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ## Checking data consistency
 
-The following diagram explains how data is inserted, verified and consistency checked.
-
-![How immudb data consistency works](https://github.com/codenotary/immudb/raw/master/img/immudb-consistency-diagram.png)
-
-
-## Structured value
-
-The messages structure allows callers to use key value pairs as embedded payload. Thus, it will soon be possible to decouple and extend
-the value structure. The value, currently a stream of bytes, can be augmented with some client provided metadata.
-This also permits use of an on-demand serialization/deserialization strategy.
-
-The payload includes a timestamp and a value at the moment. In the near future cryptographic signatures will be added as well, but it's
-possible to decouple and extend. The entire payload contribute to hash generation and is inserted in
-the merkle tree.
-
-All the complexity is hidden by the SDK.
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ## Root signature
 
-Providing `immudb` with a signing key enables the cryptographic root signature.
+Providing `immudb` with a signing key enables the cryptographic state signature.
 In this way an auditor for instance or a third party client could verify the authenticity of the returned root hash / index pair after calling `currentRoot` gRPC method.
 Here the gRPC message definitions:
 ```proto
-message Root {
-	RootIndex payload = 1;
-	Signature signature = 2;
-}
-
-message RootIndex {
-	uint64 index = 1;
-	bytes root = 2;
+message ImmutableState {
+	uint64 txId = 3;
+	bytes txHash = 4;
+	Signature signature = 5;
 }
 
 message Signature {
@@ -68,11 +49,6 @@ immuclient audit-mode --audit-username {immudb-username} --audit-password {immud
 ## Item References
 
 Enables the insertion of a special entry which references to another item
-
-## Value timestamp
-
-The server should not set the timestamp, to avoid relying on a non-verifiable “single source of truth”.
-Thus, the clients must provide it. The client driver implementation can automatically do that for the user.
 
 ## Primary Index
 
