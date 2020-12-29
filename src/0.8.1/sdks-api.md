@@ -1,4 +1,4 @@
-# SDKs API
+# SDKs api
 
 ## Contents
 - [Connection and authentication](#connection-and-authentication)
@@ -36,9 +36,9 @@
 
 ## Connection and authentication
 
-immudb runs on 3323 default port. Here we are connecting a client with default options and
+Immudb run on 3323 default port. Here we connecting a client with default options and
 authenticating using default username and password.
-It's possible to modify defaults by opening immudb server config folder and changing `immudb.toml` file.
+It's possible to modify defaults on immudb server config folder inside `immudb.toml`
 :::: tabs
 
 ::: tab Go
@@ -90,8 +90,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ### Mutual tls
 To enable mutual authentication a certificate chain need to be provided both to the server and to the client.
-Using this chain, they will be able to authenticate each other at the same time.
-In order to generate them, it's possible to use openssl tool.
+With this they will authenticate each other at the same time
+In order to generate them it's possible to use openssl tool.
 [generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls) provides a quick solution to provide them.
 ```bash
 ./generate.sh localhost mysecretpassword
@@ -147,8 +147,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ### Disable authentication
 It's possible to run immudb with disabled authentication.
-It's not possible to connect to a server that has already databases and users permissions set without having authentication enabled.
-If a valid token is present, authentication is being enabled by default.
+Without enabled authentication it's not possible to connect to a server that own already databases and users permissions.
+If a valid token is present authentication is being enabled by default.
 
 :::: tabs
 
@@ -202,11 +202,11 @@ Immudb client need to store somewhere the merkle tree root hash. In this way eve
 ::: tab Go
 The component in charge of handling the root is the `RootService`.
 To set up the `rootService` 3 interfaces need to be implemented and provided to the `RootService` constructor:
-* `Cache` interface in the `cache` package. Standard `cache.NewFileCache` provides a file root store solution.
-* `RootProvider` in the `rootservice` package. It provides a fresh root from immudb server when the client is being initialized for the first time. Standard `RootProvider` provides a service that retrieve immudb first root hash from a gRPC endpoint.
-* `UUIDProvider` in the `rootservice` package. It provides the immudb identifier. This is needed to allow the client to safely connect to multiple immudb instances. Standard `UUIDProvider` provides the immudb server identifier from a gRPC endpoint.
+* `Cache` interface in the `cache` package. Standard cache.NewFileCache provides a file root store solution.
+* `RootProvider` in the `rootservice` package. It provides a fresh root from immudb server when the client is being initialized for the first time. Standard RootProvider provides a service that retrieve immudb first root hash from a gRPC endpoint.
+* `UUIDProvider` in the `rootservice` package. It provides the immudb identifier. This is needed to allow the client to safely connect to multiple immudb instances. Standard UUIDProvider provides the immudb server identifier from a gRPC endpoint.
 
-Here follows an example how to set up a client instance with a custom root service.
+Following an example how to obtain a client instance with a custom root service.
 ```go
     func MyCustomImmuClient(options *c.Options) (cli c.ImmuClient, err error) {
     	ctx := context.Background()
@@ -291,7 +291,7 @@ It's possible to read and write with built-in cryptographic verification.
 
 
 ### Safe get and set
-The client implements the mathematical validations transparently, while your application uses a traditional read or write function.
+The client implements the mathematical validations, while your application uses a traditional read or write function.
 
 :::: tabs
 
@@ -339,10 +339,9 @@ If you're using another development language, please read up on our [immugw](htt
 ## Writing and reading
 
 Writing and reading data is the same both in Set and SafeSet.
-The only difference is that SafeSet returns to the client proofs needed to mathematically verify that the data is really written correctly.
-The reason behind having distinct Set and SafeSet operations is that generating proofs slightly impacts performance, so primitives are being allowed also without proofs where fast execution is preferred.
+The only difference is that safeSet returns to the client proofs needed to mathematically verify that the data si really wrote correctly.
+This is allowed because generating proofs slightly impact on performances, so primitives are being allowed also without proofs.
 It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
-
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the db consistency, but the pattern in which every client is an also an auditor is the more interesting one.
 
 ### Get and set
@@ -389,7 +388,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Get by index
-The following methods rely on internal immudb insertion order index. Insertion order index is a special index appended on every leaf in the merkle tree. With this command, we benefit of the internal merkle tree natural insertion order index. When we retrieve elements by index a first lookup is made on the leaf at the same index to discover the element key, then a second lookup is realized to retrieve the value.
+Following methods rely on internal immudb insertion order index. Insertion order index is a special index appended on every leaf in the merkle tree. With this we benefit of the internal merkle tree natural insertion order index. When we retrieve elements by index a first lookup is made on the leaf at the same index to discover the element key, then a second lookup is realized to retrieve the value.
 
 :::: tabs
 
@@ -431,8 +430,8 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## History
-immudb is an append-only database.
-This means that each update operation translates to an insert operation of the same key with a new value.
+Immudb is an append only database.
+This means that an update is a new insert of the same key with a new value.
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
@@ -783,8 +782,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Get and safeget
-When reference is resolved with a get or safe get operation, in case of multiples equals references the last one is returned.
-
+When reference is resolved with get or safe get in case of multiples equals references the last reference is returned.
 :::: tabs
 
 ::: tab Go
@@ -854,9 +852,9 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Index Reference
-When referencing an item, immudb internally creates a `key` reference.
-It's also possible to reference an item by index. In this way it's possible to resolve a specific item state in a point of time.
-`getReference` solves this specific need.
+Normally when referencing an item immudb internally creates a `key` reference.
+It's possible to specify also a specific index of a referenced item. In this way it's possible to resolve a specific item in time.
+`getReference` came with this specific scope.
 Using `get` or `safeGet` on an index reference will return the last referenced item: in this case index reference is skipped.
 :::: tabs
 
@@ -921,7 +919,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Deep scan reference resolution
-`Scan` can resolve a reference if the `deep` flag is provided.
+`Scan` could resolve reference if `deep` flag is provided.
 :::: tabs
 
 ::: tab Go
@@ -997,14 +995,14 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Secondary indexes
 
-On top of the key-value store, immudb provides secondary indexes to help developers to handle complex queries.
+On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
 
 ### Sorted sets
 The simplest secondary index you can create with immudb is by using the sorted set data type, which is a data structure representing a set of elements ordered by a floating point number which is the score of each element.
-The reason we used a `float64` as a score type is to satisfy the maximum number of uses cases.
+The reason we used a float64 as a score type is to satisfy the maximum number of uses cases.
 64-bit floating point gives a lot of flexibility and dynamic range, at the expense of having only 53-bits of integer.
 
-When an `integer64` is cast to a float there could be a loss of precision, but the insertion order is ensured by the internal database index that is appended to the internal index key.
+When an integer64 is cast to a float there could be a loss of precision, but the insertion order is granted by the internal database index that is appended to the internal index key.
 
 `ZAdd` can reference an item by `key` or by `index`.
 
@@ -1109,10 +1107,8 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Insertion order index
-Each item is being stored in an insertion order that is exposed via the insertion order index.
-
-`IScan` provides a solution to iterate over all items of the database (with pagination).
-
+Each item is being stored with an insertion order that is exposed thanks to the insertion order index
+`IScan` provides a solution to iterate over all items of the database with pagination
 :::: tabs
 
 ::: tab Go
@@ -1284,19 +1280,16 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### execAllOps
-`ExecAllOps`, like `SetBatch`, allows many insertions at once. The difference is that it is possible to to specify a mixed list of key-value set, reference set and zAdd operations.
-
+`ExecAllOps` like `SetBatch` it permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAllOps is an array of the following types:
-* `Op_KVs`: ordinary key-value item
+* `Op_KVs`: ordinary key value item
 * `Op_ZOpts`: [ZAdd](#sorted-sets) option element
 * `Op_ROpts`: [Reference](#references) option element
 
-It's possible to persist and reference items that are already persisted on disk. In that case it is mandatory to provide the index of the referenced item. This has to be done for:
+It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
 * `Op_ZOpts`
 * `Op_ROpts`
-
-If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key-value and the reference is done on-the-fly.
-
+If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly.
 :::: tabs
 ExecAllOps
 ::: tab Go
@@ -1454,12 +1447,10 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 ### Consistency
 :::: tabs
-`Consistency` verification returns the shortest list of additional nodes required to mathematically prove that a tree represented by an old root is actually included in the server merkle tree.
-
-This means that every element that is represented by the root that a client owns on his storage are still present on immudb and they were not changed.
-
+`Consistency` verification returns the shortest list of additional nodes required to mathematically proof that a tree rapresented by an old root is really included in the server merkle tree.
+This means that every elements that is rapresented by the root that a client own on his storage are still present on immudb and immutate.
 A trusted auditor can continuously check for consistency an immudb server. In this way immudb can not be silently tampered.
-`RawSafeSet` is used in order to semplify following example. Usually SDK extend the raw payload leveraging [structured values](#structured-values)
+`RawSafeSet` is used in order to semplify following example. Usually SDK extend raw payload with [structured values](#structured-values)
 ::: tab Go
 ```go
     client, err := c.NewImmuClient(c.DefaultOptions())
@@ -1493,7 +1484,7 @@ A trusted auditor can continuously check for consistency an immudb server. In th
     }
     verified := proof.Verify(*root)
 
-    fmt.Printf("the tree represented by root is included in server merkle tree: %v", verified)
+    fmt.Printf("the tree rapresented by root is included in server merkle tree: %v", verified)
 ```
 :::
 
@@ -1526,7 +1517,7 @@ If you're using another development language, please read up on our [immugw](htt
 :::: tabs
 `CurrentRoot` returns the last root of the server.
 This is used to initialize a client root cache.
-Usually root is printed in hexadecimal notation.
+Usually root is printed with hexadecimal notation.
 ::: tab Go
 ```go
     	client, err := c.NewImmuClient(c.DefaultOptions())
@@ -1577,9 +1568,9 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Structured values
-The messages structure allows callers to use key-value pairs as an embedded payload. Thus, it will soon be possible to decouple and extend
-the value structure. The value, currently a stream of bytes, can be augmented with client-provided metadata.
-This also allows to use a custom serialization/deserialization strategy.
+The messages structure allows callers to use key value pairs as embedded payload. Thus, it will soon be possible to decouple and extend
+the value structure. The value, currently a stream of bytes, can be augmented with some client provided metadata.
+This also permits use of an on-demand serialization/deserialization strategy.
 
 The payload includes a timestamp and a value at the moment. In the near future cryptographic signatures will be added as well. The entire payload contribute to hash generation and is inserted in
 the merkle tree.
@@ -1668,25 +1659,18 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Multi databases
-Starting with immudb version 0.7.0, multi-database support has been introduced.
+Starting immudb version 0.7.0 we introduced a multi-database support.
 By default the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
-
-Handling users and database require to have the correct privileges.
-
+Handling users and database require to have rights privileges.
 Users with `PermissionAdmin` can control everything. Non admin users have restricted permissions and can read or write only their databases if they have sufficient privileges.
 :::: tabs
-In this example, it is shown how to create a new database and how to write into it.
-
+In this example is shown how to create a new database and how to write into it.
 In order to create a new database is possible to use `CreateDatabase` method.
-
 ::: tab Go
 In order to write into a specific database an authenticated context is required.
 It's possible with `UseDatabase` method to obtain a `token`.
-
-A token is used not only for authorization, but also to route commands to a specific database.
-
+A token is used not only for authorization  but also to route commands to a specific database.
 To set up an authenticated context is sufficient to put a `token` inside metadata.
-
 ```go
 	client, err := c.NewImmuClient(c.DefaultOptions())
 	if err != nil {
@@ -1756,7 +1740,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## HealthCheck
-HealthCheck returns an error if `immudb` status is not ok.
+HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 ::: tab Go
 ```go
