@@ -241,9 +241,9 @@ If you're using another language, then read up on our [immugw](https://docs.immu
 
 ### Connection and authentication
 
-immudb runs on 3323 default port. Here we are connecting a client with default options and
+Immudb run on 3323 default port. Here we connecting a client with default options and
 authenticating using default username and password.
-It's possible to modify defaults by opening immudb server config folder and changing `immudb.toml` file.
+It's possible to modify defaults on immudb server config folder inside `immudb.toml`
 :::: tabs
 
 ::: tab Go
@@ -298,7 +298,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 :::: tabs
 
-You can write a key-value pair with built-in cryptographic verification. The client implements the mathematical validations transparently, while your application uses a traditional read or write function.
+You can write with built-in cryptographic verification. The client implements the mathematical validations, while your application uses a traditional read or write function.
 
 ::: tab Go
 ```go
@@ -349,7 +349,7 @@ If you're using another development language, please read up on our [immugw](htt
 ### To get going quickly:
   - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples).
   - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
-   Take a look at the [SDKs API](/sdks-api) page.
+   Take a look at the [SDKs api](/sdks-api) page.
 
 
 ## Conclusion
