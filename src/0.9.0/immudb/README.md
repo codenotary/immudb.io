@@ -4,7 +4,7 @@ title: Overview
 
 # immudb
 
-## Contents 0.8.0
+## Contents 0.9.0
 
  - [Latest binaries](#latest-binaries)
  - [Build](#build)
