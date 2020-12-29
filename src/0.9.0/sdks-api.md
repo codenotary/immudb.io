@@ -15,11 +15,11 @@
 - [Counting](#counting)
 - [Scan](#scan)
 - [References](#references)
-    - [Reference and verifiedReference](#reference-and-verifiedReference)
-    - [Get and verifiedGet](#get-verified-get])
-    - [Index Reference](#getReference)
-- [secondary indexes](#secondary-indexes)
-    - [sorted sets](#sorted-sets)
+    - [SetReference and verifiedSetReference](#setreference-and-verifiedsetreference)
+    - [Get and verifiedGet](#get-and-verifiedget])
+    - [Resolving reference with transaction id](#resolving-reference-with-transaction-id)
+- [Secondary indexes](#secondary-indexes)
+    - [Sorted sets](#sorted-sets)
 - [Transactions](#transactions)
     - [getAll](#getall)
     - [setAll](#setall)
@@ -472,60 +472,13 @@ It's possible to retrieve all the values for a particular key with the history c
 * `Key`: a key of an item
 * `Offset`: the starting index (excluded from the search). Optional
 * `Limit`: maximum returned items. Optional
-* `Reverse`: items are returned in reverse order. Optional
+* `Desc`: items are returned in reverse order. Optional
+* `SinceTx`:
+
 :::: tabs
 
 ::: tab Go
-```go
-    items, err := client.History(ctx,  &schema.HistoryOptions{
-        Key:                  []byte(`immudb`),
-        Offset:               0,
-        Limit:                0,
-        Reverse:              false,
-    })
-    if  err != nil {
-        log.Fatal(err)
-    }
-```
-Reverse history coomand example
-```go
-    client.Set(ctx, []byte(`key`), []byte(`val1`))
-	client.Set(ctx, []byte(`key`), []byte(`val2`))
-	client.Set(ctx, []byte(`key`), []byte(`val3`))
-	client.Set(ctx, []byte(`key`), []byte(`val4`))
-	client.Set(ctx, []byte(`key`), []byte(`val5`))
-
-	hOpts1 := &schema.HistoryOptions{
-		Key:     []byte(`key`),
-		Limit:   2,
-		Reverse: true,
-	}
-	list1, err := client.History(ctx, hOpts1)
-	if  err != nil {
-		log.Fatal(err)
-	}
-	hOpts2 := &schema.HistoryOptions{
-		Key:     []byte(`key`),
-		Offset:  list1.Items[len(list1.Items)-1].Index,
-		Limit:   2,
-		Reverse: true,
-	}
-	list2, err := client.History(ctx, hOpts2)
-	if  err != nil {
-		log.Fatal(err)
-	}
-	hOpts3 := &schema.HistoryOptions{
-		Key:     []byte(`key`),
-		Offset:  list2.Items[len(list2.Items)-1].Index,
-		Limit:   2,
-		Reverse: true,
-	}
-	list3, err := client.History(ctx, hOpts3)
-	if  err != nil {
-		log.Fatal(err)
-	}
-```
-
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 :::
 
 ::: tab Java
@@ -592,11 +545,13 @@ If you're using another development language, please read up on our [immugw](htt
 ## Scan
 The `scan` command the is used in order to iterate over the collection of elements present in the currently selected database.
 `Scan` accepts the following parameters:
-* `Prefix`: a bytes prefix. Optional
-* `Offset`: the starting offset (excluded from the search). Optional
+
+* `Prefix`: prefix
+* `SeekKey`: initial key to returns. Optional
+* `Desc`: sorting order. Optional
 * `Limit`: maximum returned items. Optional
-* `Reverse`: items are returned in reverse order. Optional
-* `Deep`: [References](#references) resolution mode. Optional
+* `SinceTx`: transaction limit id. 0 is the last server transaction. Optional
+
 :::: tabs
 
 ::: tab Go
@@ -619,11 +574,11 @@ An ordinary `scan` command and a reversed one.
     client.Set(ctx, []byte(`abc`),[]byte(`item3`))
 
     scanOptions := &schema.ScanOptions{
+        SeekKey: nil,
         Prefix:  []byte(`a`),
-        Offset:  nil,
-        Limit:   0,
-        Reverse: false,
-        Deep:    false,
+        Desc:    false,
+        Limit   0,
+        SinceTx: 0,
     }
 
     list, err := client.Scan(ctx, scanOptions)
@@ -632,11 +587,11 @@ An ordinary `scan` command and a reversed one.
     }
     fmt.Printf("%v\n", list)
     scanOptions1 := &schema.ScanOptions{
+        SeekKey: nil,
         Prefix:  []byte(`a`),
-        Offset:  nil,
-        Limit:   0,
-        Reverse: true,
-        Deep:    false,
+        Desc:    true,
+        Limit   0,
+        SinceTx: 0,
     }
 
     list, err := client.Scan(ctx, scanOptions1)
@@ -650,32 +605,32 @@ Example with an offset:
 
 ```go
     scanOptions = &schema.ScanOptions{
+        SeekKey: []byte(``),
         Prefix:  []byte(``),
-        Offset:  []byte(``),
-        Limit:   0,
-        Reverse: true,
-        Deep:    false,
+        Desc:    true,
+        Limit   0,
+        SinceTx: 0,
     }
 
     list, err := client.Scan(ctx, scanOptions)
     fmt.Printf("%v\n", list)
     scanOptions = &schema.ScanOptions{
+        SeekKey: []byte(`bbb`),
         Prefix:  []byte(``),
-        Offset:  []byte(`bbb`),
-        Limit:   0,
-        Reverse: true,
-        Deep:    false,
+        Desc:    true,
+        Limit   0,
+        SinceTx: 0,
     }
 
     list, err = client.Scan(ctx, scanOptions)
     fmt.Printf("%v\n", list)
 
     scanOptions = &schema.ScanOptions{
+        SeekKey: []byte(`b`),
         Prefix:  []byte(`b`),
-        Offset:  []byte(`b`),
-        Limit:   0,
-        Reverse: true,
-        Deep:    false,
+        Desc:    true,
+        Limit   0,
+        SinceTx: 0,
     }
 
     list, err = client.Scan(ctx, scanOptions)
@@ -710,11 +665,11 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## References
-`Reference` is like a "tag" operation, it appends a reference on a key/value element.
+`SetReference` is like a "tag" operation, it appends a reference on a key/value element.
 As a consequence when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated to the original key.
 VerifiedReference counterpart is the same but in addition it produces also the inclusion and consistency proofs.
 
-### Reference and verifiedReference
+### SetReference and verifiedSetReference
 :::: tabs
 
 ::: tab Go
@@ -878,45 +833,12 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Index Reference
-Normally when referencing an item immudb internally creates a `key` reference.
-It's possible to specify also a specific index of a referenced item. In this way it's possible to resolve a specific item in time.
-`getReference` came with this specific scope.
-Using `get` or `verifiedGet` on an index reference will return the last referenced item: in this case index reference is skipped.
+### Resolving reference with transaction id
+Creating references with`SetReferenceAt` and `VerifiedSetReferenceAt` fix a reference to a specific item in time.
 :::: tabs
 
 ::: tab Go
-
-```go
-    client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	idx1, err := client.Set(ctx, []byte(`aaa`), []byte(`item1`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = client.Set(ctx, []byte(`aaa`), []byte(`item2`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = client.Reference(ctx, []byte(`myTag1`), []byte(`aaa`), idx1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	tag, err := client.GetReference(ctx, &schema.Key{Key:[]byte(`myTag1`)})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", tag)
-```
-
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 :::
 
 ::: tab Java
@@ -959,76 +881,23 @@ When an integer64 is cast to a float there could be a loss of precision, but the
 `ZAdd` can reference an item by `key` or by `index`.
 
 `ZScan` accepts following arguments:
+
 * Set: the name of the collection
-* Offset:  a binary offset,
+* SeekKey
+* SeekScore
+* SeekAtTx
+* InclusiveSeek
 * Limit: the maximum items returned,
-* Reverse: items are returned in score ascending or descending order
-* Min: minimum score filter
-* Max: maximum score filter
+* Desc: items are returned in score ascending or descending order
+* MinScore: minimum score filter
+* MaxScore: maximum score filter
+* SinceTx
 
 :::: tabs
 
 ::: tab Go
 
-```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	setName := []byte(`set1`)
-	i1, _ := client.Set(ctx, []byte(`key1`), []byte(`val1`))
-	i2, _ := client.Set(ctx, []byte(`key2`), []byte(`val2`))
-	i3, _ := client.Set(ctx, []byte(`key3`), []byte(`val3`))
-	i4, _ := client.Set(ctx, []byte(`key4`), []byte(`val4`))
-	i5, _ := client.Set(ctx, []byte(`key5`), []byte(`val5`))
-	i6, _ := client.Set(ctx, []byte(`key6`), []byte(`val6`))
-
-	_, err = client.ZAdd(ctx, setName, 1.6, []byte(`key1`), i1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, _ = client.ZAdd(ctx, setName, 1.6, []byte(`key2`), i2)
-	_, _ = client.ZAdd(ctx, setName, 2, []byte(`key3`), i3)
-	_, _ = client.ZAdd(ctx, setName, 2, []byte(`key4`), i4)
-	_, _ = client.ZAdd(ctx, setName, 2, []byte(`key5`), i5)
-	_, _ = client.ZAdd(ctx, setName, 3, []byte(`key6`), i6)
-
-	zScanOption1 := &schema.ZScanOptions{
-		Set:     setName,
-		Offset:  nil,
-		Limit:   2,
-		Reverse: true,
-		Min:     &schema.Score{Score: 2},
-		Max:     &schema.Score{Score: 3},
-	}
-
-	list1, err := client.ZScan(ctx, zScanOption1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", list1)
-
-	zScanOption2 := &schema.ZScanOptions{
-		Set:     setName,
-		Offset:  list1.Items[len(list1.Items)-1].CurrentOffset,
-		Limit:   2,
-		Reverse: true,
-		Min:     &schema.Score{Score: 2},
-		Max:     &schema.Score{Score: 3},
-	}
-
-	list2, err := client.ZScan(ctx, zScanOption2)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", list2)
-```
+This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 :::
 
