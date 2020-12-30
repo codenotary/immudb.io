@@ -23,7 +23,7 @@
 - [Transactions](#transactions)
     - [getAll](#getall)
     - [setAll](#setall)
-    - [execAllOps](#execallops)
+    - [ExecAll](#ExecAll)
 - [Tamperproofing utilities](#tamperproofing-utilities)
     - [Current Root](#currentroot)
 - [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
@@ -293,16 +293,19 @@ The client implements the mathematical validations, while your application uses 
 
 ::: tab Go
 ```go
-	vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
-    	if  err != nil {
-    		log.Fatal(err)
-    	}
-    	fmt.Printf("Item inclusion verified %t\n", vi.Verified)
+	tx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
+    if  err != nil {
+    	log.Fatal(err)
+	}
+	
+	fmt.Printf("Successfully committed and verified tx %d\n", tx.Id)
 
-    	item, err := client.VerifiedGet(ctx, []byte(`immudb`))
-    	if  err != nil {
-    		log.Fatal(err)
-    	}
+    entry, err := client.VerifiedGet(ctx, []byte(`hello`))
+    if  err != nil {
+    	log.Fatal(err)
+	}
+	
+	fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
 ```
 :::
 
@@ -346,14 +349,19 @@ It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure th
 
 ::: tab Go
 ```go
-    _, err = client.Set(ctx, []byte(`immudb`), []byte(`hello world`))
+    tx, err = client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
 	if  err != nil {
 		log.Fatal(err)
 	}
-	item, err := client.Get(ctx, []byte(`immudb`))
+
+	fmt.Printf("Successfully committed tx %d\n", tx.Id)
+
+	entry, err := client.Get(ctx, []byte(`hello`))
 	if  err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Printf("Successfully retrieved entry: %v\n", entry)
 ```
 :::
 
@@ -478,7 +486,21 @@ It's possible to retrieve all the values for a particular key with the history c
 :::: tabs
 
 ::: tab Go
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+```go
+    client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
+	client.Set(ctx, []byte(`hello`), []byte(`immudb`))
+	
+	req := &schema.HistoryRequest{
+		Key: []byte(`hello`),
+	}
+
+	entries, err := client.History(ctx, req)
+	if  err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Successfully retrieved %d entries for key %s\n", len(entries), req.Key)
+```
 :::
 
 ::: tab Java
@@ -573,7 +595,7 @@ An ordinary `scan` command and a reversed one.
     client.Set(ctx, []byte(`bbb`), []byte(`item2`))
     client.Set(ctx, []byte(`abc`),[]byte(`item3`))
 
-    scanOptions := &schema.ScanOptions{
+    scanReq := &schema.ScanRequest{
         SeekKey: nil,
         Prefix:  []byte(`a`),
         Desc:    false,
@@ -581,12 +603,12 @@ An ordinary `scan` command and a reversed one.
         SinceTx: 0,
     }
 
-    list, err := client.Scan(ctx, scanOptions)
+    list, err := client.Scan(ctx, scanReq)
     if err != nil {
         log.Fatal(err)
     }
     fmt.Printf("%v\n", list)
-    scanOptions1 := &schema.ScanOptions{
+    scanReq1 := &schema.ScanRequest{
         SeekKey: nil,
         Prefix:  []byte(`a`),
         Desc:    true,
@@ -594,7 +616,7 @@ An ordinary `scan` command and a reversed one.
         SinceTx: 0,
     }
 
-    list, err := client.Scan(ctx, scanOptions1)
+    list, err := client.Scan(ctx, scanReq1)
     if err != nil {
         log.Fatal(err)
     }
@@ -604,7 +626,7 @@ An ordinary `scan` command and a reversed one.
 Example with an offset:
 
 ```go
-    scanOptions = &schema.ScanOptions{
+    scanReq = &schema.ScanRequest{
         SeekKey: []byte(``),
         Prefix:  []byte(``),
         Desc:    true,
@@ -612,9 +634,10 @@ Example with an offset:
         SinceTx: 0,
     }
 
-    list, err := client.Scan(ctx, scanOptions)
-    fmt.Printf("%v\n", list)
-    scanOptions = &schema.ScanOptions{
+    list, err := client.Scan(ctx, scanReq)
+	fmt.Printf("%v\n", list)
+	
+    scanReq = &schema.ScanRequest{
         SeekKey: []byte(`bbb`),
         Prefix:  []byte(``),
         Desc:    true,
@@ -622,10 +645,10 @@ Example with an offset:
         SinceTx: 0,
     }
 
-    list, err = client.Scan(ctx, scanOptions)
+    list, err = client.Scan(ctx, scanReq)
     fmt.Printf("%v\n", list)
 
-    scanOptions = &schema.ScanOptions{
+    scanReq = &schema.ScanRequest{
         SeekKey: []byte(`b`),
         Prefix:  []byte(`b`),
         Desc:    true,
@@ -633,7 +656,7 @@ Example with an offset:
         SinceTx: 0,
     }
 
-    list, err = client.Scan(ctx, scanOptions)
+    list, err = client.Scan(ctx, scanReq)
     fmt.Printf("%v\n", list)
 ```
 :::
@@ -688,10 +711,11 @@ VerifiedReference counterpart is the same but in addition it produces also the i
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.Reference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err := client.SetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Printf("%v\n", reference)
 	firstItem, err := client.Get(ctx, []byte(`myTag`))
 	if err != nil {
@@ -717,17 +741,19 @@ Example with verifications
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", reference)
+
 	firstItem, err := client.Get(ctx, []byte(`myTag`))
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", firstItem)
-    referenceVerified, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+
+    referenceVerified, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -784,19 +810,23 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 	if err != nil {
 		log.Fatal(err)
 	}
+
     _, err = client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+
+	reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
     if err != nil {
     	log.Fatal(err)
-    }
-    reference, err := client.VerifiedReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
+	}
+	
+    reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", reference)
+
 	secondItem, err := client.Get(ctx, []byte(`myTag`))
 	if err != nil {
 		log.Fatal(err)
@@ -929,7 +959,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Transactions
 
-`GetAll`, `SetAll` and `ExecAllOps` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
+`GetAll`, `SetAll` and `ExecAll` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
 * All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served in the middle of the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
 * Either all of the commands or none are processed, so the transaction is also atomic.
 
@@ -1014,19 +1044,19 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### execAllOps
-`ExecAllOps` like `SetBatch` it permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
-The argument of a ExecAllOps is an array of the following types:
-* `Op_KVs`: ordinary key value item
-* `Op_ZOpts`: [ZAdd](#sorted-sets) option element
-* `Op_ROpts`: [Reference](#references) option element
+### execAll
+`ExecAll` permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
+The argument of a ExecAll is an array of the following types:
+* `Op_Kv`: ordinary key value item
+* `Op_ZAdd`: [ZAdd](#sorted-sets) option element
+* `Op_Ref`: [Reference](#references) option element
 
 It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
-* `Op_ZOpts`
-* `Op_ROpts`
+* `Op_ZAdd`
+* `Op_Ref`
 If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly.
 :::: tabs
-ExecAllOps
+ExecAll
 ::: tab Go
 
 ```go
@@ -1046,26 +1076,26 @@ client, err := c.NewImmuClient(c.DefaultOptions())
 	aOps := &schema.Ops{
 		Operations: []*schema.Op{
 			{
-				Operation: &schema.Op_KVs{
-					KVs: &schema.KeyValue{
+				Operation: &schema.Op_Kv{
+					Kv: &schema.KeyValue{
 						Key:   []byte(`notPersistedKey`),
 						Value: []byte(`notPersistedVal`),
 					},
 				},
 			},
 			{
-				Operation: &schema.Op_ZOpts{
-					ZOpts: &schema.ZAddOptions{
+				Operation: &schema.Op_ZAdd{
+					ZAdd: &schema.ZAddRequest{
 						Set:   []byte(`mySet`),
-						Score: &schema.Score{Score: 0.6},
+						Score: 0.6,
 						Key:   []byte(`notPersistedKey`)},
 				},
 			},
 			{
-				Operation: &schema.Op_ZOpts{
-					ZOpts: &schema.ZAddOptions{
+				Operation: &schema.Op_ZAdd{
+					ZAdd: &schema.ZAddRequest{
 						Set:   []byte(`mySet`),
-						Score: &schema.Score{Score: 0.6},
+						Score: 0.6,
 						Key:   []byte(`persistedKey`),
 						Index: idx,
 					},
@@ -1074,7 +1104,7 @@ client, err := c.NewImmuClient(c.DefaultOptions())
 		},
 	}
 
-	idx , err = client.ExecAllOps(ctx, aOps)
+	idx , err = client.ExecAll(ctx, aOps)
 
 	fmt.Printf("%v\n", idx)
 ```
@@ -1129,12 +1159,12 @@ This section is not yet ready for immudb 0.9. We are working on it in order to i
     	md := metadata.Pairs("authorization", lr.Token)
     	ctx = metadata.NewOutgoingContext(context.Background(), md)
 
-    	root, err := client.CurrentState(ctx)
+    	state, err := client.CurrentState(ctx)
     	if err != nil {
     		log.Fatal(err)
     	}
 
-    	fmt.Printf("current root is : %X", root.GetState())
+    	fmt.Printf("current state is : %v", state)
 ```
 :::
 
