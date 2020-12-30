@@ -306,13 +306,13 @@ You can write with built-in cryptographic verification. The client implements th
 	if  err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Set and verified key %x with value %x at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
+	fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
 
 	ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
 	if  err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Sucessfully verified key %x with value %x at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
+	fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
 :::
