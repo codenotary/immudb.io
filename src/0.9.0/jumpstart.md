@@ -302,18 +302,17 @@ You can write with built-in cryptographic verification. The client implements th
 
 ::: tab Go
 ```go
-    vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
+    vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
 	if  err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Item inclusion verified %t\n", vi.Verified)
+	fmt.Printf("Set and verified key %x with value %x at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
 
-	item, err := client.VerifiedGet(ctx, []byte(`immudb`))
+	ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
 	if  err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Database consistency verified %t\n", item.Verified)
-	fmt.Printf("%s\n", item.Value)
+	fmt.Printf("Sucessfully verified key %x with value %x at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
 :::
