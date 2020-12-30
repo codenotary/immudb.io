@@ -346,7 +346,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 
 ### To get going quickly:
-  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples). `These examples rely on 0.8.1 version. 0.9.0 examples are caming!`
+  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples). `Note: Only Golang SDK is currently upgraded for immudb 0.9.0`
   - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
    Take a look at the [SDKs api](/0.9.0/sdks-api) page.
 
