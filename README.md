@@ -28,4 +28,4 @@
 
 ## Copyright and license
 Homepage and documentation copyright 2017-2020 [Immudb Authors](https://github.com/codenotary/immudb/graphs/contributors). 
-Docs released under [Creative Commons](https://github.com/codenotary/immudb.io/blob/master/docs/LICENSE).
+Docs released under [Creative Commons](https://github.com/codenotary/immudb.io/blob/master/LICENSE).
