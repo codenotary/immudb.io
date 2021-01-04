@@ -338,10 +338,10 @@ If you're using another development language, please read up on our [immugw](htt
 ## Writing and reading
 
 Writing and reading data is the same both in Set and VerifiedSet.
-The only difference is that verifiedSet returns to the client proofs needed to mathematically verify that the data si really wrote correctly.
-This is allowed because generating proofs slightly impact on performances, so primitives are being allowed also without proofs.
+The only difference is that verifiedSet returns to the client proofs needed to mathematically verify that the data was not tampered.
+Proof generation slightly impact on performances, so primitives are being allowed also without proofs.
 It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
-It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the db consistency, but the pattern in which every client is an also an auditor is the more interesting one.
+It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is an also an auditor is the more interesting one.
 
 ### Get and set
 
@@ -1137,15 +1137,10 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Tamperproofing utilities
-* current
-
 
 ### Current State
 :::: tabs
 `CurrentState` returns the last state of the server.
-This is used to initialize a client state cache.
-
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
 ::: tab Go
 ```go
