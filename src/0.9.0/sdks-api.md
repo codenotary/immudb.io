@@ -5,25 +5,24 @@
     - [Mutual TLS](#mutual-tls)
     - [Disable authentication](#disable-authentication)
 - [State management](#state-management)
-- [Tamperproof writing and reading](#tamperproof-writing-and-reading)
+- [Tamperproof reading and writing](#tamperproof-reading-and-writing)
     - [Verified get and set](#verified-get-and-set)
 - [Writing and reading](#writing-and-reading)
-    - [Get and set](#get-and-set)
+    - [Get and Set](#get-and-set)
     - [Transaction by index](#transaction-by-index)
     - [Verified transaction by index](#verified-transaction-by-index)
 - [History](#history)
 - [Counting](#counting)
 - [Scan](#scan)
 - [References](#references)
-    - [SetReference and verifiedSetReference](#setreference-and-verifiedsetreference)
-    - [Get and verifiedGet](#get-and-verifiedget])
+    - [SetReference and VerifiedSetReference](#setreference-and-verifiedsetreference)
     - [Resolving reference with transaction id](#resolving-reference-with-transaction-id)
 - [Secondary indexes](#secondary-indexes)
     - [Sorted sets](#sorted-sets)
 - [Transactions](#transactions)
-    - [getAll](#getall)
-    - [setAll](#setall)
-    - [ExecAll](#ExecAll)
+    - [SetAll](#Setall)
+    - [GetAll](#Getall)
+    - [ExecAll](#Execall)
 - [Tamperproofing utilities](#tamperproofing-utilities)
     - [Current State](#current-state)
 - [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
@@ -281,7 +280,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 
-## Tamperproof writing and reading
+## Tamperproof reading and writing 
 
 It's possible to read and write with built-in cryptographic verification.
 
@@ -963,7 +962,7 @@ If you're using another development language, please read up on our [immugw](htt
 * All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served in the middle of the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
 * Either all of the commands or none are processed, so the transaction is also atomic.
 
-### getAll
+### GetAll
 
 :::: tabs
 
@@ -1003,7 +1002,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### setAll
+### SetAll
 A more versatile atomic multi set operation
 :::: tabs
 SetBatch and GetBatch example
@@ -1044,7 +1043,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### execAll
+### ExecAll
 `ExecAll` permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
