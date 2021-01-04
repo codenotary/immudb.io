@@ -25,7 +25,7 @@
     - [setAll](#setall)
     - [ExecAll](#ExecAll)
 - [Tamperproofing utilities](#tamperproofing-utilities)
-    - [Current Root](#currentroot)
+    - [Current State](#current-state)
 - [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
 - [Multi databases(CreateDatabase,UseDatabase)](#multi-databases)
 - [Health](#health)
@@ -191,18 +191,18 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## State management
 
-Immudb client need to store somewhere the server state. In this way every verified read or write operation can be checked on a trusted root.
+Immudb client need to store somewhere the server state. In this way every verified read or write operation can be checked on a trusted state.
 
 :::: tabs
 
 ::: tab Go
-The component in charge of handling the root is the `StateService`.
+The component in charge of state handling is the `StateService`.
 To set up the `stateService` 3 interfaces need to be implemented and provided to the `StateService` constructor:
-* `Cache` interface in the `cache` package. Standard cache.NewFileCache provides a file root store solution.
-* `StateProvider` in the `stateService` package. It provides a fresh root from immudb server when the client is being initialized for the first time. Standard StateProvider provides a service that retrieve immudb first root hash from a gRPC endpoint.
+* `Cache` interface in the `cache` package. Standard cache.NewFileCache provides a file state store solution.
+* `StateProvider` in the `stateService` package. It provides a fresh state from immudb server when the client is being initialized for the first time. Standard StateProvider provides a service that retrieve immudb first state hash from a gRPC endpoint.
 * `UUIDProvider` in the `stateService` package. It provides the immudb identifier. This is needed to allow the client to safely connect to multiple immudb instances. Standard UUIDProvider provides the immudb server identifier from a gRPC endpoint.
 
-Following an example how to obtain a client instance with a custom root service.
+Following an example how to obtain a client instance with a custom state service.
 ```go
     func MyCustomImmuClient(options *c.Options) (cli c.ImmuClient, err error) {
     	ctx := context.Background()
@@ -230,7 +230,7 @@ Following an example how to obtain a client instance with a custom root service.
     	immudbStateProvider := stateService.NewImmudbStateProvider(serviceClient)
     	immudbUUIDProvider := stateService.NewImmudbUUIDProvider(serviceClient)
 
-    	customDir := "custom_root_dir"
+    	customDir := "custom_state_dir"
     	os.Mkdir(customDir, os.ModePerm)
     	stateService, err := stateService.NewStateService(
     		cache.NewFileCache(customDir),

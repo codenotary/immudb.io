@@ -12,10 +12,10 @@ This section is not yet ready for immudb 0.9. We are working on it in order to i
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
-## Root signature
+## State signature
 
 Providing `immudb` with a signing key enables the cryptographic state signature.
-In this way an auditor for instance or a third party client could verify the authenticity of the returned root hash / index pair after calling `currentRoot` gRPC method.
+In this way an auditor for instance or a third party client could verify the authenticity of the returned current state after calling `currentState` gRPC method.
 Here the gRPC message definitions:
 ```proto
 message ImmutableState {
@@ -36,7 +36,7 @@ To generate a valid key it's possible to use `openssl` tool:
 openssl ecparam -name prime256v1 -genkey -noout -out my.key
 ```
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
-To obtain the advantages of using the signed root in combination with the auditor it's possible to launch:
+To obtain the advantages of using the signed state in combination with the auditor it's possible to launch:
 * immuclient with auditor capabilities:
 ```bash
 immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --audit-signature validate
