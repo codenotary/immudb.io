@@ -29,12 +29,8 @@ message Signature {
 	bytes publicKey = 2;
 }
 ```
-You can use the environment variable `IMMUDB_SIGNING_KEY` or the `--signingKey` immudb flag.
+Check [state signature](/0.9.0/immudb/#state-signature) and [verify state signature](/0.9.0/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
-To generate a valid key, use the `openssl` tool:
-```.bash
-openssl ecparam -name prime256v1 -genkey -noout -out my.key
-```
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
 To get the signed state in combination with the auditor, launch...
 * ...immuclient with auditor capabilities:

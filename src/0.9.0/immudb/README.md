@@ -14,12 +14,12 @@ title: Overview
  - [immuadmin](#immuadmin)
  - [immudb service](#immudb-service)
  - [Authentication](#authentication)
+ - [State signature](#state-signature)
  - [Backup and Restore](#backup-and-restore)
  - [Multi-Database](#multi-database)
  - [Clients](#clients)
  - [Auditors](#auditors)
  - [Architecture](#architecture)
- - [Consistency Checker](#consistency-checker)
  - [License](#license)
 
 ## Latest binaries
@@ -112,15 +112,15 @@ The environment variables are the most popular way to configure Docker container
   IMMUDB_LOGFILE=
   IMMUDB_MTLS=false
   IMMUDB_AUTH=true
+  IMMUDB_MAX_RECV_MSG_SIZE=4194304
   IMMUDB_DETACHED=false
-  IMMUDB_CONSISTENCY_CHECK=true
   IMMUDB_PKEY=./tools/mtls/3_application/private/localhost.key.pem
   IMMUDB_CERTIFICATE=./tools/mtls/3_application/certs/localhost.cert.pem
   IMMUDB_CLIENTCAS=./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
   IMMUDB_DEVMODE=true
   IMMUDB_MAINTENANCE=false
   IMMUDB_ADMIN_PASSWORD=immudb
-
+  IMMUDB_SIGNING_KEY=
 ```
 
 ## immuadmin
@@ -173,19 +173,24 @@ To enable authentication you need to change the configuration file `/etc/immudb/
 
 Example:
 ```toml
-dir = "/var/lib/immudb"
+dir = "./data"
 network = "tcp"
 address = "0.0.0.0"
 port = 3322
-dbname = "data"
-pidfile = "/var/lib/immudb/immudb.pid"
-logfile = "/var/log/immudb/immudb.log"
+dbname = "immudb"
+pidfile = ""
+logfile = ""
 mtls = false
 detached = false
 auth = true
-pkey = "/etc/immudb/mtls/3_application/private/localhost.key.pem"
-certificate = "/etc/immudb/mtls/3_application/certs/localhost.cert.pem"
-clientcas = "/etc/immudb/mtls/2_intermediate/certs/ca-chain.cert.pem"
+no-histograms = false
+pkey = "./tools/mtls/3_application/private/localhost.key.pem"
+certificate = "./tools/mtls/3_application/certs/localhost.cert.pem"
+clientcas = "./tools/mtls/2_intermediate/certs/ca-chain.cert.pem"
+devmode = true
+admin-password = "immudb" # this password is only used once to initialize immudb and can be ignored
+maintenance = false
+signingKey = ""
 ```
 
 The important lines to change are `auth = true` and `address = "0.0.0.0"` to enable authentication and listening on all interfaces.
@@ -268,6 +273,24 @@ To deactivate an existing user, run `immuadmin user deactivate ro`
 #### Reactivate user
 
 To reactivate a deactivated user account, you can simply set user permission again. Run `immuadmin user set-permission ro readwrite`
+
+## State signature
+It's possible to sign each state with a private key.
+In this way clients and auditor can verify the immudb server identity.
+To launch immudb with signatures use `--signingKey` flag  `IMMUDB_SIGNING_KEY` environment variable.
+
+```bash
+./immudb --signingKey test/signer/ec1.key
+```
+To generate an elliptic curve private key use:
+
+```bash
+openssl ecparam -name prime256v1 -genkey -noout -out private.key
+```
+To generate the public key from the previous one:
+```bash
+openssl ec -in private.key -pubout -out public.key
+```
 
 ## Backup and Restore
 
@@ -400,18 +423,17 @@ immuclient_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br
 # TYPE immuclient_audit_run_at_per_server gauge
 immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.5907565337454605e+09
 ```
+It's possible to provide the public key to verify that the signature of immudb.
+```bash
+./immuclient audit-mode --audit-databases defaultdb --audit-password immudb --audit-username immudb  --server-signing-pub-key ./test/signer/ec1.pub
+```
+If the server public signing key is being provided to the auditor each not signed state will trigger an error.
 
+Check [state signature](/0.9.0/immudb/#state-signature) and [verify state signature](/0.9.0/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
 ## Architecture
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
-
-### How do you run it?
-It is part of immudb, enabled by default and runs as a thread of immudb.
-The routine can be disabled as follows:
-```bash
-./immudb --consistency-check=false
-```
 
 ## License
 
