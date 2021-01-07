@@ -31,7 +31,7 @@
 
 ## Connection and authentication
 
-Immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
+immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in `immudb.toml` in the config folder. 
 :::: tabs
 
@@ -187,7 +187,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## State management
 
-Immudb client need to store somewhere the server state. In this way every verified read or write operation can be checked on a trusted state.
+It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
 
 :::: tabs
 
@@ -469,7 +469,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## History
-Immudb is an append-only database.
+The fundamental property of immudb is that it's an append-only database.
 This means that an update is a new insert of the same key with a new value.
 It's possible to retrieve all the values for a particular key with the history command.
 
