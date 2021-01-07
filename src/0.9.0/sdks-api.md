@@ -31,14 +31,13 @@
 
 ## Connection and authentication
 
-Immudb run on 3323 default port. Here we connecting a client with default options and
-authenticating using default username and password.
-It's possible to modify defaults on immudb server config folder inside `immudb.toml`
+immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
+You can modify defaults on the immudb server in `immudb.toml` in the config folder. 
 :::: tabs
 
 ::: tab Go
 
-Login method return a token needed in all interactions with the server.
+The Login method returns a token required for all interactions with the server.
 
 ```go
 c, err := client.NewImmuClient(client.DefaultOptions())
@@ -84,14 +83,14 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Mutual tls
-To enable mutual authentication a certificate chain need to be provided both to the server and to the client.
-With this they will authenticate each other at the same time
-In order to generate them it's possible to use openssl tool.
-[generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls) provides a quick solution to provide them.
+To enable mutual authentication, a certificate chain must be provided to both the server and client.
+That will cause each to authenticate with the other simultaneously.
+In order to generate certs, use the openssl tool:
+[generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls).
 ```bash
 ./generate.sh localhost mysecretpassword
 ```
-This generates a list of folder containing certificates and private key to set up a mTLS connection
+This generates a list of folders containing certificates and private keys to set up a mTLS connection.
 :::: tabs
 
 ::: tab Go
@@ -141,9 +140,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Disable authentication
-It's possible to run immudb with disabled authentication.
-Without enabled authentication it's not possible to connect to a server that own already databases and users permissions.
-If a valid token is present authentication is being enabled by default.
+You also have the option to run immudb with authentication disabled. However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
 
 :::: tabs
 
@@ -190,7 +187,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## State management
 
-Immudb client need to store somewhere the server state. In this way every verified read or write operation can be checked on a trusted state.
+It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
 
 :::: tabs
 
@@ -282,7 +279,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Tamperproof reading and writing 
 
-It's possible to read and write with built-in cryptographic verification.
+You can read and write records securely using  built-in cryptographic verification.
 
 
 ### Verified get and set
@@ -336,11 +333,12 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Writing and reading
 
-Writing and reading data is the same both in Set and VerifiedSet.
-The only difference is that verifiedSet returns to the client proofs needed to mathematically verify that the data was not tampered.
-Proof generation slightly impact on performances, so primitives are being allowed also without proofs.
-It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
-It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is an also an auditor is the more interesting one.
+The format for writing and reading data is the same both in Set and VerifiedSet, just as it is for reading data both in both Get and VerifiedGet.
+
+The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
+Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
+It is still possible get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
+It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
 ### Get and set
 
@@ -471,7 +469,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## History
-Immudb is an append only database.
+The fundamental property of immudb is that it's an append-only database.
 This means that an update is a new insert of the same key with a new value.
 It's possible to retrieve all the values for a particular key with the history command.
 
@@ -564,7 +562,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## Scan
-The `scan` command the is used in order to iterate over the collection of elements present in the currently selected database.
+The `scan` command is used to iterate over the collection of elements present in the currently selected database.
 `Scan` accepts the following parameters:
 
 * `Prefix`: prefix
@@ -687,9 +685,9 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ## References
-`SetReference` is like a "tag" operation, it appends a reference on a key/value element.
-As a consequence when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated to the original key.
-VerifiedReference counterpart is the same but in addition it produces also the inclusion and consistency proofs.
+`SetReference` is like a "tag" operation. It appends a reference on a key/value element.
+As a consequence, when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated with the original key.
+Its ```VerifiedReference``` counterpart is the same except that it also produces the inclusion and consistency proofs.
 
 ### SetReference and verifiedSetReference
 :::: tabs
@@ -901,11 +899,11 @@ If you're using another development language, please read up on our [immugw](htt
 On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
 
 ### Sorted sets
-The simplest secondary index you can create with immudb is by using the sorted set data type, which is a data structure representing a set of elements ordered by a floating point number which is the score of each element.
-The reason we used a float64 as a score type is to satisfy the maximum number of uses cases.
+The ```sorted set``` data type provides simplest secondary index you can create with immudb. That's a data structure that represents a set of elements ordered by the score of each element, which is a floating point number.
+The score type is a float64 to accommodate the maximum number of uses cases.
 64-bit floating point gives a lot of flexibility and dynamic range, at the expense of having only 53-bits of integer.
 
-When an integer64 is cast to a float there could be a loss of precision, but the insertion order is granted by the internal database index that is appended to the internal index key.
+When an integer64 is cast to a float there _could_ be a loss of precision, but the insertion order is guaranteed by the internal database index that is appended to the internal index key.
 
 `ZAdd` can reference an item by `key` or by `index`.
 
@@ -959,8 +957,8 @@ If you're using another development language, please read up on our [immugw](htt
 ## Transactions
 
 `GetAll`, `SetAll` and `ExecAll` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
-* All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served in the middle of the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
-* Either all of the commands or none are processed, so the transaction is also atomic.
+* All the commands in a transaction are serialized and executed sequentially. No request issued by another client can ever interrupt the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
+* Either all of the commands are processed, or none are, so the transaction is also atomic.
 
 ### GetAll
 
@@ -1260,19 +1258,19 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-## Multi databases
-Starting immudb version 0.7.0 we introduced a multi-database support.
-By default the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
-Handling users and database require to have rights privileges.
-Users with `PermissionAdmin` can control everything. Non admin users have restricted permissions and can read or write only their databases if they have sufficient privileges.
+## Multiple databases
+Starting with version 0.7.0 of immudb, we introduced multi-database support.
+By default, the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
+Handling users and databases requires the appropriate privileges.
+Users with `PermissionAdmin` can control everything. Non-admin users have restricted permissions and can read or write only their databases, assuming sufficient privileges.
 :::: tabs
-In this example is shown how to create a new database and how to write into it.
-In order to create a new database is possible to use `CreateDatabase` method.
+This example shows how to create a new database and how to write records to it.
+To create a new database, use `CreateDatabase` method.
 ::: tab Go
-In order to write into a specific database an authenticated context is required.
-It's possible with `UseDatabase` method to obtain a `token`.
-A token is used not only for authorization  but also to route commands to a specific database.
-To set up an authenticated context is sufficient to put a `token` inside metadata.
+To write into a specific database an authenticated context is required.
+Start by calling the `UseDatabase` method to obtain a `token`.
+A token is used for both authorization and routing commands to a specific database.
+To set up an authenticated context, it's sufficient to put a `token` inside metadata.
 ```go
 	client, err := c.NewImmuClient(c.DefaultOptions())
 	if err != nil {
