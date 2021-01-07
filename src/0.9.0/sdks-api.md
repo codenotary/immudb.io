@@ -903,7 +903,7 @@ The ```sorted set``` data type provides simplest secondary index you can create 
 The score type is a float64 to accommodate the maximum number of uses cases.
 64-bit floating point gives a lot of flexibility and dynamic range, at the expense of having only 53-bits of integer.
 
-When an integer64 is cast to a float there _could_ be a loss of precision, but the insertion order is granted by the internal database index that is appended to the internal index key.
+When an integer64 is cast to a float there _could_ be a loss of precision, but the insertion order is guaranteed by the internal database index that is appended to the internal index key.
 
 `ZAdd` can reference an item by `key` or by `index`.
 
