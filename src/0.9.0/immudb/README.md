@@ -423,7 +423,7 @@ immuclient_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br
 # TYPE immuclient_audit_run_at_per_server gauge
 immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.5907565337454605e+09
 ```
-It's possible to provide the public key to verify that the signature of immudb.
+It's possible to provide the public key to verify the immudb server signature.
 ```bash
 ./immuclient audit-mode --audit-databases defaultdb --audit-password immudb --audit-username immudb  --server-signing-pub-key ./test/signer/ec1.pub
 ```
