@@ -144,7 +144,7 @@ When installing audit-mode as a service, all parameters are written into the `im
 
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
-example output: 
+example output:
 
 ```bash
 # HELP immuclient_audit_curr_root_per_server Current root index used for the latest audit.
@@ -160,6 +160,13 @@ immuclient_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br
 # TYPE immuclient_audit_run_at_per_server gauge
 immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.5907565337454605e+09
 ```
+It's possible to provide the public key to verify the signature of immudb.
+```bash
+./immuclient audit-mode --audit-databases defaultdb --audit-password immudb --audit-username immudb  --server-signing-pub-key ./test/signer/ec1.pub
+```
+If the server public signing key is being provided to the auditor each not signed state will trigger an error.
+
+Check [state signature](/0.9.0/immudb/#state-signature) and [verify state signature](/0.9.0/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
 ## License
 

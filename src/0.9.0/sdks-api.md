@@ -4,6 +4,7 @@
 - [Connection and authentication](#connection-and-authentication)
     - [Mutual TLS](#mutual-tls)
     - [Disable authentication](#disable-authentication)
+    - [Verify state signature](#verify-state-signature)
 - [State management](#state-management)
 - [Tamperproof reading and writing](#tamperproof-reading-and-writing)
     - [Verified get and set](#verified-get-and-set)
@@ -32,7 +33,7 @@
 ## Connection and authentication
 
 immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
-You can modify defaults on the immudb server in `immudb.toml` in the config folder. 
+You can modify defaults on the immudb server in `immudb.toml` in the config folder.
 :::: tabs
 
 ::: tab Go
@@ -185,6 +186,69 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+# Verify state signature
+
+If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
+In this way the identity of the server can be proven.
+Check [state signature](/0.9.0/immudb/#state-signature) to see how to generate a valid key.
+
+:::: tabs
+
+::: tab Go
+```go
+    	c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+    	ctx := context.Background()
+
+    	lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	md := metadata.Pairs("authorization", lr.Token)
+    	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+    	if _, err := c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
+    		log.Fatal(err)
+    	}
+
+    	var state *schema.ImmutableState
+    	if state, err = c.CurrentState(ctx); err != nil {
+    		log.Fatal(err) // if signature is not verified here is trigger an appropriate error
+    	}
+
+    	fmt.Print(state)
+```
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+:::
+
+::::
+
 ## State management
 
 It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
@@ -277,7 +341,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 
-## Tamperproof reading and writing 
+## Tamperproof reading and writing
 
 You can read and write records securely using  built-in cryptographic verification.
 
@@ -293,14 +357,14 @@ The client implements the mathematical validations, while your application uses 
     if  err != nil {
     	log.Fatal(err)
 	}
-	
+
 	fmt.Printf("Successfully committed and verified tx %d\n", tx.Id)
 
     entry, err := client.VerifiedGet(ctx, []byte(`hello`))
     if  err != nil {
     	log.Fatal(err)
 	}
-	
+
 	fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
 ```
 :::
@@ -486,7 +550,7 @@ It's possible to retrieve all the values for a particular key with the history c
 ```go
     client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
 	client.Set(ctx, []byte(`hello`), []byte(`immudb`))
-	
+
 	req := &schema.HistoryRequest{
 		Key: []byte(`hello`),
 	}
@@ -633,7 +697,7 @@ Example with an offset:
 
     list, err := client.Scan(ctx, scanReq)
 	fmt.Printf("%v\n", list)
-	
+
     scanReq = &schema.ScanRequest{
         SeekKey: []byte(`bbb`),
         Prefix:  []byte(``),
@@ -817,7 +881,7 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
     if err != nil {
     	log.Fatal(err)
 	}
-	
+
     reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
 	if err != nil {
 		log.Fatal(err)
