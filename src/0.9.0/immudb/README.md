@@ -427,7 +427,7 @@ It's possible to provide the public key to verify that the signature of immudb.
 ```bash
 ./immuclient audit-mode --audit-databases defaultdb --audit-password immudb --audit-username immudb  --server-signing-pub-key ./test/signer/ec1.pub
 ```
-If the server public signing key is being provided to the auditor each not signed state will trigger an error.
+If the server public signing key is being provided to the auditor, each unsigned state will trigger an error.
 
 Check [state signature](/0.9.0/immudb/#state-signature) and [verify state signature](/0.9.0/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
