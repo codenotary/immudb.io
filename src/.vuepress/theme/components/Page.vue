@@ -3,9 +3,10 @@
     <slot name="top" />
 
     <Content class="theme-default-content" />
-    <PageEdit />
-
-    <PageNav v-bind="{ sidebarItems }" />
+    <ClientOnly>
+      <PageEdit />
+      <PageNav v-bind="{ sidebarItems }" />
+    </ClientOnly>
 
     <slot name="bottom" />
   </main>
