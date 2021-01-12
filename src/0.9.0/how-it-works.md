@@ -2,11 +2,19 @@
 
 Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
 
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+The SDK ```client``` object offers a simple set of methods for reading and writing ledger entries, along with several utility functions. Users have the option to include data validation as part of each transaction. After instantiating a client object you
+
+Before getting into code samples, you may find it beneficial to review the following overview of SDK functions. 
 
 ## Adding data
 
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+The _Set_ method of the client object is used to add new entries to the ledger. Two variations are available:
+- ```Set``` Add a key-value pair to the ledger.
+- ```VerifiedSet``` Add a key-value pair to the ledger and verify automatically.
+
+The _Get_ method of the client object is used to read entries from the ledger. Two variations are available:
+- ```Get``` Read a value from the ledger without verification.
+- ```VerifiedGet``` Read a value from the ledger and verify automatically.
 
 ## Checking data consistency
 
