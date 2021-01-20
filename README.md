@@ -7,7 +7,7 @@
 <h1 align="center">immudb docs</h1>
     
 <p align="center">
-    <a href="https://immudb.io">Immudb</a> is the open-source immutable database. Immudb's documentation and homepage is built with Vuepress and publicly hosted on GitHub Pages. 
+    <a href="https://immudb.io">immudb</a> - world’s fastest immutable database. Immudb's documentation and homepage is built with Vuepress and publicly hosted on GitHub Pages. 
     <br/>
     <br/>
     <a href="https://codenotary.io/technologies/immudb">Homepage</a>
