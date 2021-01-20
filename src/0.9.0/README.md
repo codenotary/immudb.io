@@ -1,6 +1,7 @@
 # Introduction
 
-immudb is a **lightweight, high-speed immutable database** for systems and applications, written in Go.
+immudb, world’s fastest immutable database.
+
 With immudb you can track changes in sensitive data in your transactional databases and then record those changes permanently in a
 tamperproof immudb database. This allows you to keep an indelible history of sensitive data, for example debit/credit card transactions.
 <img align="right" src="https://raw.githubusercontent.com/codenotary/immudb/master/img/immudb-mascot-small.png" width="256px"/>
