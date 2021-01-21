@@ -1,10 +1,10 @@
 <template>
     <IDropdown size="sm">
-        <IButton>v{{ currentVersion }}</IButton>
+        <IButton>{{ getVersionText(currentVersion) }}</IButton>
         <IDropdownMenu>
             <IDropdownItem v-for="version in versions" :to="getPageLink(version)" :disabled="currentVersion === version"
                            :key="version">
-                v{{ version }}
+                {{ getVersionText(version) }}
             </IDropdownItem>
         </IDropdownMenu>
     </IDropdown>
@@ -31,6 +31,14 @@ export default {
     methods: {
         getPageLink(version) {
             return `/${version}`
+        },
+        getVersionText(version) {
+            const versionsWithoutPrefix = ['master']
+            const prefix = versionsWithoutPrefix.includes(version)
+                ? ''
+                : 'v';
+
+            return `${prefix}${version}`
         }
     }
 }
