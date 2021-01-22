@@ -565,6 +565,11 @@ It's possible to retrieve all the keys inside a specific verified transaction.
 
 ::: tab Go
 ```go
+    setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
+		{Key: []byte("key1"), Value: []byte("val1")},
+		{Key: []byte("key2"), Value: []byte("val2")},
+	}}
+
 	meta, err := client.SetAll(ctx, setRequest)
 	if err != nil {
 		log.Fatal(err)
@@ -671,6 +676,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Counting
 
+Counting entries is not supported at the moment.
+
 :::: tabs
 
 ::: tab Go
@@ -708,11 +715,14 @@ If you're using another development language, please read up on our [immugw](htt
 The `scan` command is used to iterate over the collection of elements present in the currently selected database.
 `Scan` accepts the following parameters:
 
-* `Prefix`: prefix
-* `SeekKey`: initial key to returns. Optional
-* `Desc`: sorting order. Optional
+* `Prefix`: prefix. If not provided all keys will be involved. Optional
+* `SeekKey`: initial key for the first entry in the iteration. Optional
+* `Desc`: DESC or ASC sorting order. Optional
 * `Limit`: maximum returned items. Optional
-* `SinceTx`: transaction limit id. 0 is the last server transaction. Optional
+* `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
+* `NoWait`: when true scan doesn't wait that txSinceTx is processed. Optional
+
+> Having the possibility to get data specifying a transaction id: `AtTx`, it’s the optimal way to retrieve the data, as it can be done with random access to it. And it can be made immediately after the transaction was committed or at any point in the future. When the transaction ID is unknown by the application and the query is made by key or key prefixes, it will be served through the index, depending on the insertion rate, it can be delayed or up to date with inserted data, using a big number in `SinceTx` with `NoWait` in true will mean that the query will be resolved by looking at the most recent indexed data, but if your query needs to be resolved after some transactions has been inserted, you can set `SinceTx` to specify up to which transaction the index has to be made for resolving it.
 
 :::: tabs
 
@@ -721,26 +731,12 @@ The `scan` command is used to iterate over the collection of elements present in
 An ordinary `scan` command and a reversed one.
 
 ```go
-    client, err := c.NewImmuClient(c.DefaultOptions())
-    if err != nil {
-        log.Fatal(err)
-    }
-    ctx := context.Background()
-    lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-    md := metadata.Pairs("authorization", lr.Token)
-    ctx = metadata.NewOutgoingContext(context.Background(), md)
-
     client.Set(ctx, []byte(`aaa`), []byte(`item1`))
     client.Set(ctx, []byte(`bbb`), []byte(`item2`))
     client.Set(ctx, []byte(`abc`),[]byte(`item3`))
 
     scanReq := &schema.ScanRequest{
-        SeekKey: nil,
         Prefix:  []byte(`a`),
-        Desc:    false,
-        Limit   0,
-        SinceTx: 0,
     }
 
     list, err := client.Scan(ctx, scanReq)
@@ -749,56 +745,31 @@ An ordinary `scan` command and a reversed one.
     }
     fmt.Printf("%v\n", list)
     scanReq1 := &schema.ScanRequest{
-        SeekKey: nil,
+        SeekKey: []byte{0xFF},
         Prefix:  []byte(`a`),
         Desc:    true,
-        Limit   0,
-        SinceTx: 0,
     }
 
-    list, err := client.Scan(ctx, scanReq1)
+    list, err = client.Scan(ctx, scanReq1)
     if err != nil {
         log.Fatal(err)
     }
     fmt.Printf("%v\n", list)
-```
+    // scan on all key  values on the current database, with a fresh snapshot
+	scanReq2 := &schema.ScanRequest{
+		SeekKey: []byte{0xFF},
+		Desc:    true,
+		SinceTx: math.MaxUint64,
+		NoWait:  true,
+	}
 
-Example with an offset:
-
-```go
-    scanReq = &schema.ScanRequest{
-        SeekKey: []byte(``),
-        Prefix:  []byte(``),
-        Desc:    true,
-        Limit   0,
-        SinceTx: 0,
-    }
-
-    list, err := client.Scan(ctx, scanReq)
+	list, err = client.Scan(ctx, scanReq2)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("%v\n", list)
-
-    scanReq = &schema.ScanRequest{
-        SeekKey: []byte(`bbb`),
-        Prefix:  []byte(``),
-        Desc:    true,
-        Limit   0,
-        SinceTx: 0,
-    }
-
-    list, err = client.Scan(ctx, scanReq)
-    fmt.Printf("%v\n", list)
-
-    scanReq = &schema.ScanRequest{
-        SeekKey: []byte(`b`),
-        Prefix:  []byte(`b`),
-        Desc:    true,
-        Limit   0,
-        SinceTx: 0,
-    }
-
-    list, err = client.Scan(ctx, scanReq)
-    fmt.Printf("%v\n", list)
 ```
+
 :::
 
 ::: tab Java
@@ -837,21 +808,11 @@ Its ```VerifiedReference``` counterpart is the same except that it also produces
 
 ::: tab Go
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
 	_, err = client.Set(ctx, []byte(`firstKey`),[]byte(`firstValue`))
 	if err != nil {
 		log.Fatal(err)
 	}
-	reference, err := client.SetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err := client.SetReference(ctx, []byte(`myTag`), []byte(`firstKey`))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -867,37 +828,21 @@ Its ```VerifiedReference``` counterpart is the same except that it also produces
 Example with verifications
 
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
+	_, err = client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
 	if err != nil {
 		log.Fatal(err)
 	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	_, err = client.Set(ctx, []byte(`firstKey`),[]byte(`firstValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
+	reference, err = client.VerifiedSetReference(ctx, []byte(`mySecondTag`), []byte(`secondKey`))
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", reference)
 
-	firstItem, err := client.Get(ctx, []byte(`myTag`))
+	secondItem, err := client.Get(ctx, []byte(`mySecondTag`))
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%v\n", firstItem)
-
-    referenceVerified, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", referenceVerified)
+	fmt.Printf("%v\n", secondItem)
 ```
 
 :::
@@ -936,43 +881,25 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 ::: tab Go
 
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-	_, err = client.Set(ctx, []byte(`firstKey`),[]byte(`firstValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-
     _, err = client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`firstKey`), nil)
-    if err != nil {
-    	log.Fatal(err)
+	_, err = client.Set(ctx, []byte(`secondKey`),[]byte(`thirdValue`))
+	if err != nil {
+		log.Fatal(err)
 	}
-
-    reference, err := client.VerifiedSetReference(ctx, []byte(`myTag`), []byte(`secondKey`), nil)
+	reference, err = client.VerifiedSetReference(ctx, []byte(`myThirdTag`), []byte(`secondKey`))
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("%v\n", reference)
 
-	secondItem, err := client.Get(ctx, []byte(`myTag`))
+	thirdItem, err := client.Get(ctx, []byte(`myThirdTag`))
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("%v\n", secondItem)
-
+	fmt.Printf("%v\n", thirdItem)
 ```
 
 :::
@@ -1004,11 +931,32 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Resolving reference with transaction id
-Creating references with`SetReferenceAt` and `VerifiedSetReferenceAt` fix a reference to a specific item in time.
+It's possible to bind a reference to a key on a specific transaction using `SetReference` and `VerifiedSetReferenceAt`
+
 :::: tabs
 
 ::: tab Go
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+```go
+	meta, err := client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	_ , err = client.Set(ctx, []byte(`secondKey`),[]byte(`thirdValue`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	reference, err = client.VerifiedSetReferenceAt(ctx, []byte(`myThirdTag`), []byte(`secondKey`), meta.Id )
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%v\n", reference)
+
+	thirdItem, err := client.Get(ctx, []byte(`myThirdTag`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%v\n", thirdItem)
+```
 :::
 
 ::: tab Java
@@ -1052,22 +1000,87 @@ When an integer64 is cast to a float there _could_ be a loss of precision, but t
 
 `ZScan` accepts following arguments:
 
-* Set: the name of the collection
-* SeekKey
-* SeekScore
-* SeekAtTx
-* InclusiveSeek
-* Limit: the maximum items returned,
-* Desc: items are returned in score ascending or descending order
-* MinScore: minimum score filter
-* MaxScore: maximum score filter
-* SinceTx
+* `Set`: the name of the collection
+* `SeekKey`: initial key for the first entry in the iteration. Optional
+* `SeekScore`: the min or max score for the first entry in the iteration, depending on Desc value. Optional
+* `SeekAtTx`: the tx id for the first entry in the iteration. Optional
+* `InclusiveSeek`: the element resulting from the combination of the `SeekKey` `SeekScore` and `SeekAtTx` is returned with the result. Optional
+* `Desc`: DESC or ASC sorting order. Optional
+* `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
+* `NoWait`: when true scan doesn't wait that txSinceTx is processed. Optional
+* `MinScore`: minimum score filter. Optional
+* `MaxScore`: maximum score filter. Optional
+* `Limit`: maximum number of returned items. Optional
+
+> Having the possibility to get data specifying a transaction id: `AtTx`, it’s the optimal way to retrieve the data, as it can be done with random access to it. And it can be made immediately after the transaction was committed or at any point in the future. When the transaction ID is unknown by the application and the query is made by key or key prefixes, it will be served through the index, depending on the insertion rate, it can be delayed or up to date with inserted data, using a big number in `SinceTx` with `NoWait` in true will mean that the query will be resolved by looking at the most recent indexed data, but if your query needs to be resolved after some transactions has been inserted, you can set `SinceTx` to specify up to which transaction the index has to be made for resolving it.
 
 :::: tabs
 
 ::: tab Go
 
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+```go
+	i1, err := client.Set(ctx, []byte(`user1`), []byte(`user1@mail.com`))
+	if err != nil{
+		log.Fatal(err)
+	}
+	i2, err := client.Set(ctx, []byte(`user2`), []byte(`user2@mail.com`))
+	if err != nil{
+		log.Fatal(err)
+	}
+	i3, err := client.Set(ctx, []byte(`user3`), []byte(`user3@mail.com`))
+	if err != nil{
+		log.Fatal(err)
+	}
+	i4, err := client.Set(ctx, []byte(`user3`), []byte(`another-user3@mail.com`))
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	if _ , err = client.ZAddAt(ctx,  []byte(`age`), 25, []byte(`user1`), i1.Id); err != nil {
+		log.Fatal(err)
+	}
+	if _ , err = client.ZAddAt(ctx,  []byte(`age`), 36, []byte(`user2`), i2.Id); err != nil {
+		log.Fatal(err)
+	}
+	if _ , err = client.ZAddAt(ctx,  []byte(`age`), 36, []byte(`user3`), i3.Id); err != nil {
+		log.Fatal(err)
+	}
+	if _ , err = client.ZAddAt(ctx,  []byte(`age`), 54, []byte(`user3`), i4.Id); err != nil {
+		log.Fatal(err)
+	}
+
+	zscanOpts1 := &schema.ZScanRequest{
+		Set:     []byte(`age`),
+		SinceTx: math.MaxUint64,
+		NoWait: true,
+		MinScore: &schema.Score{Score: 36},
+	}
+
+	the36YearsOldList, err := client.ZScan(ctx, zscanOpts1)
+	if err != nil{
+		log.Fatal(err)
+	}
+	s, _ := json.MarshalIndent(the36YearsOldList, "", "\t")
+	fmt.Print(string(s))
+
+	oldestReq := &schema.ZScanRequest{
+		Set:           []byte(`age`),
+		SeekKey:       []byte{0xFF},
+		SeekScore:     math.MaxFloat64,
+		SeekAtTx:      math.MaxUint64,
+		Limit:         1,
+		Desc:          true,
+		SinceTx:       math.MaxUint64,
+		NoWait:        true,
+	}
+
+	oldest, err := client.ZScan(ctx, oldestReq)
+	if err != nil{
+		log.Fatal(err)
+	}
+	s, _ = json.MarshalIndent(oldest, "", "\t")
+	fmt.Print(string(s))
+```
 
 :::
 
@@ -1185,7 +1198,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### ExecAll
-`ExecAll` permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](#sorted-sets) option element
@@ -1194,59 +1207,61 @@ The argument of a ExecAll is an array of the following types:
 It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
 * `Op_ZAdd`
 * `Op_Ref`
-If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly.
+If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly. In that case if `BoundRef` is true the reference is bounded to the current transaction values.
+
 :::: tabs
 ExecAll
 ::: tab Go
 
 ```go
-client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+    	aOps := &schema.ExecAllRequest{
+    		Operations: []*schema.Op{
+    			{
+    				Operation: &schema.Op_Kv{
+    					Kv: &schema.KeyValue{
+    						Key:   []byte(`notPersistedKey`),
+    						Value: []byte(`notPersistedVal`),
+    					},
+    				},
+    			},
+    			{
+    				Operation: &schema.Op_ZAdd{
+    					ZAdd: &schema.ZAddRequest{
+    						Set:   []byte(`mySet`),
+    						Score: 0.4,
+    						Key:   []byte(`notPersistedKey`)},
+    				},
+    			},
+    			{
+    				Operation: &schema.Op_ZAdd{
+    					ZAdd: &schema.ZAddRequest{
+    						Set:      []byte(`mySet`),
+    						Score:    0.6,
+    						Key:      []byte(`persistedKey`),
+    						AtTx:     idx.Id,
+    						BoundRef: true,
+    					},
+    				},
+    			},
+    		},
+    	}
 
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
+    	idx , err = client.ExecAll(ctx, aOps)
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+    	zscanOpts1 := &schema.ZScanRequest{
+    		Set:     []byte(`mySet`),
+    		SinceTx: math.MaxUint64,
+    		NoWait: true,
+    	}
 
-	idx, _ := client.Set(ctx, []byte(`persistedKey`),[]byte(`persistedVal`))
-
-	// Ops payload
-	aOps := &schema.Ops{
-		Operations: []*schema.Op{
-			{
-				Operation: &schema.Op_Kv{
-					Kv: &schema.KeyValue{
-						Key:   []byte(`notPersistedKey`),
-						Value: []byte(`notPersistedVal`),
-					},
-				},
-			},
-			{
-				Operation: &schema.Op_ZAdd{
-					ZAdd: &schema.ZAddRequest{
-						Set:   []byte(`mySet`),
-						Score: 0.6,
-						Key:   []byte(`notPersistedKey`)},
-				},
-			},
-			{
-				Operation: &schema.Op_ZAdd{
-					ZAdd: &schema.ZAddRequest{
-						Set:   []byte(`mySet`),
-						Score: 0.6,
-						Key:   []byte(`persistedKey`),
-						Index: idx,
-					},
-				},
-			},
-		},
-	}
-
-	idx , err = client.ExecAll(ctx, aOps)
-
-	fmt.Printf("%v\n", idx)
+    	list, err := client.ZScan(ctx, zscanOpts1)
+    	if err != nil{
+    		log.Fatal(err)
+    	}
+    	s, _ := json.MarshalIndent(list, "", "\t")
+    	fmt.Print(string(s))
 ```
 :::
 
