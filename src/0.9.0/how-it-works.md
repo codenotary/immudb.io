@@ -56,7 +56,9 @@ immuclient audit-mode --audit-username {immudb-username} --audit-password {immud
 
 Item references enable the insertion of a special entry which references another existing item. 
 
-A typical use case is an account balance. While a conventional banking application might update an account record as the balance changes, there's no such thing as updating an immutable database. Since you can only add new records with immudb, you may want to tie together entries that represent a new value for an entity that's part of a previous entry 
+A typical use case is an account balance. While a conventional banking application might update an account record as the balance changes, there's no such thing as updating an immutable database. Since you can only add new records with immudb, you may want to tie together entries that represent a new value for an entity that's part of a previous entry, such as an account balance.
+
+immudb provides methods that then let you query all entries associated with a particular reference entity.
 
 ## Primary Index
 
