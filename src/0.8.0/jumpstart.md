@@ -20,7 +20,7 @@
 ## Introduction
 This guide helps developers quickly start with CodeNotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
-Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 
 <img  src="https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png" />
 
@@ -55,7 +55,7 @@ The immudb is a non-relational, NoSQL database. Data is a collection of key-valu
 Depending on your use case, immudb might function as your application's primary or as a secondary database. As a secondary, complimentary database, use immudb to cross-check the data integrity of your important data (by verifying checksums or comparing stored data values). A secondary database enables you to quickly use immudb without completely re-engineering your existing application.
 
 - For additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
-- For additional information on immudb, see our [documentation](https://docs.immudb.io/).
+- For additional information on immudb, see our [documentation](https://docs.immudb.io/0.8.0/).
 
 
 ### Why use immudb?
@@ -234,7 +234,7 @@ Creating a Client.
 :::
 
 ::: tab Others
-If you're using another language, then read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another language, then read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -288,7 +288,7 @@ Do you want to make a feature request or help out? Open an issue on [java sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -339,7 +339,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -367,9 +367,9 @@ You now have:
  - Gone through reading and writing data with and without cryptographic verification.
 
 We've only scratched the surface of immudb's capabilities. Here are some additional resources you might find helpful:
-- Learn more through our [documentation](https://docs.immudb.io/).
-    - Learn more about the immudb [API](https://docs.immudb.io/immudb/grpc-interface.html).
-    - Try out [immuadmin](https://docs.immudb.io/immuadmin/)
+- Learn more through our [documentation](https://docs.immudb.io/0.8.0/).
+    - Learn more about the immudb [API](https://docs.immudb.io/0.8.0/immudb/grpc-interface.html).
+    - Try out [immuadmin](https://docs.immudb.io/0.8.0/immuadmin/)
 - Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
 - Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
 <img align="center" src="https://codenotary.io/images/word-tree.png"/>

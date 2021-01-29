@@ -77,7 +77,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -134,7 +134,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -182,7 +182,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -234,7 +234,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -285,7 +285,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -327,7 +327,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -375,7 +375,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -442,7 +442,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -540,7 +540,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -610,7 +610,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -710,7 +710,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -786,7 +786,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -842,7 +842,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -917,7 +917,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -985,7 +985,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -1038,7 +1038,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -1129,7 +1129,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -1210,7 +1210,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::
@@ -1255,7 +1255,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/immugw/) option.
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 :::
 
 ::::

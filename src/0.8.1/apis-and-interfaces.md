@@ -8,7 +8,7 @@
 SDKs for Java, Golang, .net, Python and Node are fully compatible with latest immudb release v0.8.0:
 
 1. immudb4j [immudb4j](https://github.com/codenotary/immudb4j)
-2. Golang [immudb-go](https://docs.immudb.io/immudb/golang.html)
+2. Golang [immudb-go](https://docs.immudb.io/0.8.1/immudb/golang.html)
 3. .net [immudb4dotnet](https://github.com/codenotary/immudb4dotnet)
 4. Python [immudb-py](https://github.com/codenotary/immudb-py)
 5. Node.js [immudb-node](https://github.com/codenotary/immudb-node)
