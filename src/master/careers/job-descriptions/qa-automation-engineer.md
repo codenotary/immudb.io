@@ -24,8 +24,8 @@ We are looking for a smart, hard-working, and experienced engineer to join vChai
 * Good team player and communication skills
 
 Curious?
-Apply at <amelie@vchain.us>
+Apply at <amelie@codenotary.us>
 
 Visit our website!
 
-[www.vchain.us](http://www.vchain.us/)
+[www.codenotary.com](https://www.codenotary.com/)

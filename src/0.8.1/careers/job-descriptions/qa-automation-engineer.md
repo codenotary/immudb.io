@@ -23,9 +23,9 @@ We are looking for a smart, hard-working, and experienced engineer to join vChai
 * Experience with DevOps tools such as Jenkins, Kubernetes, Docker, etc.
 * Good team player and communication skills
 
-Curious? 
-Apply at <amelie@vchain.us>
+Curious?
+Apply at <amelie@codenotary.com>
 
 Visit our website!
 
-[www.vchain.us](http://www.vchain.us/)
+[www.codenotary.com](https://www.codenotary.com/)

@@ -33,9 +33,9 @@ We use the following environments and systems: JavaScript, Vue, Nodejs and Go, J
 Please note that the technical knowledge will be tested in an interview.
 
 Curious?
-Apply at <amelie@vchain.us>
+Apply at <amelie@codenotary.us>
 
 
 Visit our website!
 
-[www.vchain.us](http://www.vchain.us/)
+[www.codenotary.com](https://www.codenotary.com/)
