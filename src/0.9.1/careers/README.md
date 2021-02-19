@@ -36,7 +36,7 @@ We're hiring! Check out our open positions:
 
 Apply by following the directions in the job description.
 
-If you're interested in vChain but aren't yet ready to apply, we are still happy to connect and answer any questions that you might have: [DM us on Twitter](https://twitter.com/codenotary) or email <amelie@vchain.us>.
+If you're interested in vChain but aren't yet ready to apply, we are still happy to connect and answer any questions that you might have: [DM us on Twitter](https://twitter.com/codenotary) or email <amelie@codenotary.com>.
 
 ## Our team
 

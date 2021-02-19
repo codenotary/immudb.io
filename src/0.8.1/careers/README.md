@@ -4,10 +4,10 @@ sidebar: false
 
 # Careers
 
-vChain is the Open Source leader for immutable trust solutions such as immudb and CodeNotary. 
+vChain is the Open Source leader for immutable trust solutions such as immudb and CodeNotary.
 We process tens of millions of transactions every month and are growing fast to new markets and use cases.
 
-We use the following environments and systems: 
+We use the following environments and systems:
 * Go
 * JavaScript
 * Vue
@@ -36,7 +36,7 @@ We're hiring! Check out our open positions:
 
 Apply by following the directions in the job description.
 
-If you're interested in vChain but aren't yet ready to apply, we are still happy to connect and answer any questions that you might have: [DM us on Twitter](https://twitter.com/codenotary) or email <amelie@vchain.us>.
+If you're interested in vChain but aren't yet ready to apply, we are still happy to connect and answer any questions that you might have: [DM us on Twitter](https://twitter.com/codenotary) or email <amelie@codenotary.com>.
 
 ## Our team
 
@@ -59,6 +59,3 @@ Most of our work, including our main product, is open source, i. e. [immudb](htt
 * The feeling of making an impact on the community as you help building Open Source tools for people like us
 * Fun and fast-paced environment
 * Opportunity to grow in multiple dimensions
-
-
-

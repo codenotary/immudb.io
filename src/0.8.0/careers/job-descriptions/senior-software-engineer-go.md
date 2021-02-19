@@ -24,8 +24,8 @@ vChain is the Open Source leader for immutable trust solutions such as [immudb](
 * Great team skills
 
 Curious?
-Apply at <amelie@vchain.us>
+Apply at <amelie@codenotary.com>
 
 Visit our website!
 
-[www.vchain.us](http://www.vchain.us/)
+[www.codenotary.com](https://www.codenotary.com/)
