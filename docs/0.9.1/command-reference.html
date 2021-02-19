@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Command reference | immudb - The lightweight, high-speed immutable database</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="canonical" href="https://immudb.io">
+    <link rel="shortcut icon" type="image/png" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4d4d4d">
+    <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "immudb - The lightweight, high-speed immutable database",
+        "url": "https://immudb.io",
+        "logo": {
+            "@type": "ImageObject",
+            "url": {
+                "@type": "ImageObject",
+                "url": "https://immudb.io/logo.png",
+                "width": 1036,
+                "height": 367
+            }
+        }
+    },
+    "url": "https://immudb.io",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://immudb.io"
+    },
+    "description": "immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application."
+}</script>
+    <script type="text/javascript">var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5f1966f77258dc118beec8d6/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();</script>
+    <script type="text/javascript">(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+vgo('setAccount', '66487182');
+vgo('setTrackByDefault', true);
+vgo('process');</script>
+    <script async="true" src="https://www.googletagmanager.com/gtag/js?id=UA-168112067-1"></script>
+    <script async="true" src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&amp;render=explicit"></script>
+    <meta name="description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="apple-mobile-web-app-title" content="immudb">
+    <meta name="application-name" content="immudb">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta property="og:site_name" content="immudb">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta property="og:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta property="og:url" content="https://immudb.io">
+    <meta property="article:publisher" content="https://immudb.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="immudb - The lightweight, high-speed immutable database">
+    <meta name="twitter:description" content="immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.">
+    <meta name="twitter:url" content="https://immudb.io">
+    <meta name="twitter:site" content="@immudb">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="/assets/css/0.styles.63652b85.css" as="style"><link rel="preload" href="/assets/js/app.d472cfdb.js" as="script"><link rel="preload" href="/assets/js/2.4df16387.js" as="script"><link rel="preload" href="/assets/js/81.1f209f5f.js" as="script"><link rel="prefetch" href="/assets/js/1.9a9bd2e5.js"><link rel="prefetch" href="/assets/js/10.f1a8c092.js"><link rel="prefetch" href="/assets/js/100.7d842b98.js"><link rel="prefetch" href="/assets/js/101.6f7db93d.js"><link rel="prefetch" href="/assets/js/102.7ef8897b.js"><link rel="prefetch" href="/assets/js/103.2965e866.js"><link rel="prefetch" href="/assets/js/104.aba63568.js"><link rel="prefetch" href="/assets/js/105.5afce1bf.js"><link rel="prefetch" href="/assets/js/106.f9287e86.js"><link rel="prefetch" href="/assets/js/107.d90e9ba9.js"><link rel="prefetch" href="/assets/js/108.0270dd85.js"><link rel="prefetch" href="/assets/js/109.eff0f78d.js"><link rel="prefetch" href="/assets/js/11.b65bc207.js"><link rel="prefetch" href="/assets/js/110.a2ae5fd6.js"><link rel="prefetch" href="/assets/js/111.9bcc3862.js"><link rel="prefetch" href="/assets/js/112.133f467d.js"><link rel="prefetch" href="/assets/js/113.4043c61e.js"><link rel="prefetch" href="/assets/js/12.a9f0cf92.js"><link rel="prefetch" href="/assets/js/13.82ee7c6d.js"><link rel="prefetch" href="/assets/js/14.c9a9fa8a.js"><link rel="prefetch" href="/assets/js/15.45e6e7f0.js"><link rel="prefetch" href="/assets/js/16.ab58f007.js"><link rel="prefetch" href="/assets/js/17.78f4f7a6.js"><link rel="prefetch" href="/assets/js/18.f7ac1acb.js"><link rel="prefetch" href="/assets/js/19.8a7e20a9.js"><link rel="prefetch" href="/assets/js/20.b21b355c.js"><link rel="prefetch" href="/assets/js/21.06cd28d8.js"><link rel="prefetch" href="/assets/js/22.c1c45cb1.js"><link rel="prefetch" href="/assets/js/23.bbf0415a.js"><link rel="prefetch" href="/assets/js/24.bd9d2388.js"><link rel="prefetch" href="/assets/js/25.231aa495.js"><link rel="prefetch" href="/assets/js/26.3d3815ec.js"><link rel="prefetch" href="/assets/js/27.a0ee9d9c.js"><link rel="prefetch" href="/assets/js/28.43ae0183.js"><link rel="prefetch" href="/assets/js/29.f5a42d85.js"><link rel="prefetch" href="/assets/js/30.0403113f.js"><link rel="prefetch" href="/assets/js/31.a8eee7a5.js"><link rel="prefetch" href="/assets/js/32.200cfbe3.js"><link rel="prefetch" href="/assets/js/33.9035f6d1.js"><link rel="prefetch" href="/assets/js/34.7f3bcb29.js"><link rel="prefetch" href="/assets/js/35.9fb6b0c7.js"><link rel="prefetch" href="/assets/js/36.a11cbdd5.js"><link rel="prefetch" href="/assets/js/37.9acb440f.js"><link rel="prefetch" href="/assets/js/38.86fdbbd7.js"><link rel="prefetch" href="/assets/js/39.39ec6f6c.js"><link rel="prefetch" href="/assets/js/40.b92f3187.js"><link rel="prefetch" href="/assets/js/41.d55a5629.js"><link rel="prefetch" href="/assets/js/42.aedd5f45.js"><link rel="prefetch" href="/assets/js/43.9da60a45.js"><link rel="prefetch" href="/assets/js/44.7bef1268.js"><link rel="prefetch" href="/assets/js/45.1467569e.js"><link rel="prefetch" href="/assets/js/46.f6bd21b4.js"><link rel="prefetch" href="/assets/js/47.1ca799dc.js"><link rel="prefetch" href="/assets/js/48.f8d8744c.js"><link rel="prefetch" href="/assets/js/49.15f1072e.js"><link rel="prefetch" href="/assets/js/5.d367d22c.js"><link rel="prefetch" href="/assets/js/50.481fbcf2.js"><link rel="prefetch" href="/assets/js/51.6f0e2613.js"><link rel="prefetch" href="/assets/js/52.963a05fb.js"><link rel="prefetch" href="/assets/js/53.d5957656.js"><link rel="prefetch" href="/assets/js/54.09568f74.js"><link rel="prefetch" href="/assets/js/55.b38fd80c.js"><link rel="prefetch" href="/assets/js/56.c9e5bf4a.js"><link rel="prefetch" href="/assets/js/57.7b77c0fc.js"><link rel="prefetch" href="/assets/js/58.93d07df8.js"><link rel="prefetch" href="/assets/js/59.b5200d7f.js"><link rel="prefetch" href="/assets/js/6.c767e425.js"><link rel="prefetch" href="/assets/js/60.873d90c2.js"><link rel="prefetch" href="/assets/js/61.4f8b304e.js"><link rel="prefetch" href="/assets/js/62.0b83add0.js"><link rel="prefetch" href="/assets/js/63.1d98e6e8.js"><link rel="prefetch" href="/assets/js/64.812ac52f.js"><link rel="prefetch" href="/assets/js/65.908c0615.js"><link rel="prefetch" href="/assets/js/66.25c3fe78.js"><link rel="prefetch" href="/assets/js/67.edaa83ca.js"><link rel="prefetch" href="/assets/js/68.163c3ba0.js"><link rel="prefetch" href="/assets/js/69.5ef1a48c.js"><link rel="prefetch" href="/assets/js/7.25e9c747.js"><link rel="prefetch" href="/assets/js/70.0652a816.js"><link rel="prefetch" href="/assets/js/71.d3ece314.js"><link rel="prefetch" href="/assets/js/72.395ae659.js"><link rel="prefetch" href="/assets/js/73.75a5a51c.js"><link rel="prefetch" href="/assets/js/74.d6ca38e2.js"><link rel="prefetch" href="/assets/js/75.93dc105b.js"><link rel="prefetch" href="/assets/js/76.b3acc0c6.js"><link rel="prefetch" href="/assets/js/77.7f21c6d4.js"><link rel="prefetch" href="/assets/js/78.8c3ab9a5.js"><link rel="prefetch" href="/assets/js/79.8a14b241.js"><link rel="prefetch" href="/assets/js/8.ae494a7d.js"><link rel="prefetch" href="/assets/js/80.d911dbf4.js"><link rel="prefetch" href="/assets/js/82.2438f859.js"><link rel="prefetch" href="/assets/js/83.c03f14c3.js"><link rel="prefetch" href="/assets/js/84.1a26d10a.js"><link rel="prefetch" href="/assets/js/85.f13e4538.js"><link rel="prefetch" href="/assets/js/86.4b5e6b36.js"><link rel="prefetch" href="/assets/js/87.7cadd1f5.js"><link rel="prefetch" href="/assets/js/88.4d99e555.js"><link rel="prefetch" href="/assets/js/89.86c4f951.js"><link rel="prefetch" href="/assets/js/9.1b7b1949.js"><link rel="prefetch" href="/assets/js/90.4ff050d7.js"><link rel="prefetch" href="/assets/js/91.e8aeedf2.js"><link rel="prefetch" href="/assets/js/92.65108031.js"><link rel="prefetch" href="/assets/js/93.3beffdd4.js"><link rel="prefetch" href="/assets/js/94.48d950cb.js"><link rel="prefetch" href="/assets/js/95.106321a4.js"><link rel="prefetch" href="/assets/js/96.29343449.js"><link rel="prefetch" href="/assets/js/97.a889377b.js"><link rel="prefetch" href="/assets/js/98.5cad90c1.js"><link rel="prefetch" href="/assets/js/99.6453230b.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.3ade1bc4.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.63652b85.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="immudb - The lightweight, high-speed immutable database" class="logo"> <span class="site-name can-hide">immudb - The lightweight, high-speed immutable database</span></a> <div size="sm" class="dropdown" data-v-58c7cfb2 data-v-040cc497><button tag="button" tabindex="1" class="button" data-v-cf9737b4 data-v-040cc497><!---->v0.9.1</button> <div class="menu" style="display:none;" data-v-68e53c48 data-v-68e53c48 data-v-040cc497><span class="arrow" data-v-68e53c48></span><a href="/master" to="/master" class="item" data-v-06514a7e data-v-040cc497>
+            master
+        </a><a href="/0.9.1" disabled="disabled" aria-disabled="true" to="/0.9.1" class="item router-link-active -disabled" data-v-06514a7e data-v-040cc497>
+            v0.9.1
+        </a><a href="/0.9.0" to="/0.9.0" class="item" data-v-06514a7e data-v-040cc497>
+            v0.9.0
+        </a><a href="/0.8.1" to="/0.8.1" class="item" data-v-06514a7e data-v-040cc497>
+            v0.8.1
+        </a><a href="/0.8.0" to="/0.8.0" class="item" data-v-06514a7e data-v-040cc497>
+            v0.8.0
+        </a></div></div> <div class="links"><form id="search-form" role="search" class="algolia-search-wrapper search-box"><input id="algolia-search-input" class="search-query"></form> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://codenotary.io/technologies/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://codenotary.io/blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://codenotary.io/technologies/immudb/immutable-data-science" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Immutable Data Science
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://codenotary.io/technologies/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://codenotary.io/blog" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Blog
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/" class="nav-link">
+  Documentation
+</a></div><div class="nav-item"><a href="https://codenotary.io/technologies/immudb/immutable-data-science" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Immutable Data Science
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://github.com/codenotary/immudb" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Get started</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/master/" class="sidebar-link">Introduction</a></li><li><a href="/master/how-it-works.html" class="sidebar-link">How it works</a></li><li><a href="/master/quickstart.html" class="sidebar-link">Quickstart</a></li><li><a href="/master/jumpstart.html" class="sidebar-link">Developer Jumpstart for immudb</a></li><li><a href="/master/sdks-api.html" class="sidebar-link">SDKs api</a></li><li><a href="/master/apis-references.html" class="sidebar-link">APIs reference</a></li><li><a href="/master/command-reference.html" class="sidebar-link">Command reference</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immudb</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/master/immudb/" class="sidebar-link">Overview</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immugw</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/master/immugw/" class="sidebar-link">Overview</a></li><li><a href="/master/immugw/curl.html" class="sidebar-link">Curl Examples 0.9.0</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immuadmin</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/master/immuadmin/" class="sidebar-link">Overview</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>immuclient</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/master/immuclient/" class="sidebar-link">Overview</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="command-reference"><a href="#command-reference" class="header-anchor">#</a> Command reference</h1> <h2 id="immudb"><a href="#immudb" class="header-anchor">#</a> immudb</h2> <p>Simply run <code>./immudb -d</code> to start immudb locally in the background.</p> <p>If you want to stop immudb în that case you need to find the process <code>ps -ax | grep immudb</code> and then <code>kill -15 &lt;pid&gt;</code>. Windows PowerShell would be <code>Get-Process immudb* | Stop-Process</code>.</p> <p>immudb is launched by default with a security routine called <a href="/0.9.1/immudb/consistency-checker.html">consistency checker</a> . This solution provides a continuous corruption check on data stored on server storage.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
+
+Environment variables:
+  <span class="token assign-left variable">IMMUDB_DIR</span><span class="token operator">=</span>.
+  <span class="token assign-left variable">IMMUDB_NETWORK</span><span class="token operator">=</span>tcp
+  <span class="token assign-left variable">IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">0.0</span>.0.0
+  <span class="token assign-left variable">IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUDB_DBNAME</span><span class="token operator">=</span>immudb
+  <span class="token assign-left variable">IMMUDB_PIDFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUDB_LOGFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUDB_MTLS</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_AUTH</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_DETACHED</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_CONSISTENCY_CHECK</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_PKEY</span><span class="token operator">=</span>./tools/mtls/3_application/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUDB_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/3_application/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUDB_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+  <span class="token assign-left variable">IMMUDB_DEVMODE</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUDB_MAINTENANCE</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUDB_ADMIN_PASSWORD</span><span class="token operator">=</span>immudb
+
+Usage:
+  immudb <span class="token punctuation">[</span>flags<span class="token punctuation">]</span>
+  immudb <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
+
+Available Commands:
+  <span class="token builtin class-name">help</span>        Help about any <span class="token builtin class-name">command</span>
+  version     Show the immudb version
+
+Flags:
+  -a, --address string          <span class="token builtin class-name">bind</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;0.0.0.0&quot;</span><span class="token punctuation">)</span>
+      --admin-password string   admin password <span class="token punctuation">(</span>default is <span class="token string">'immu'</span><span class="token punctuation">)</span> as plain-text or base64 encoded <span class="token punctuation">(</span>must be prefixed with <span class="token string">'enc:'</span> <span class="token keyword">if</span> it is encoded<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;immudb&quot;</span><span class="token punctuation">)</span>
+  -s, --auth                    <span class="token builtin class-name">enable</span> auth
+      --certificate string      server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/3_application/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string        clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string           config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immudb.ini<span class="token punctuation">)</span>
+      --consistency-check       <span class="token builtin class-name">enable</span> consistency check monitor routine. To disable: --consistency-check<span class="token operator">=</span>false <span class="token punctuation">(</span>default <span class="token boolean">true</span><span class="token punctuation">)</span>
+  -d, --detached                run immudb <span class="token keyword">in</span> background
+      --devmode                 <span class="token builtin class-name">enable</span> dev mode: accept remote connections without auth
+      --dir string              data folder <span class="token punctuation">(</span>default <span class="token string">&quot;./data&quot;</span><span class="token punctuation">)</span>
+  -h, --help                    <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immudb
+      --logfile string          log path with filename. E.g. /tmp/immudb/immudb.log
+      --maintenance             override the authentication flag
+  -m, --mtls                    <span class="token builtin class-name">enable</span> mutual tls
+      --no-histograms           disable collection of histogram metrics like query durations
+      --pidfile string          pid path with filename. E.g. /var/run/immudb.pid
+      --pkey string             server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/3_application/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+  -p, --port int                port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+
+Use <span class="token string">&quot;immudb [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+</code></pre></div><h2 id="immugw"><a href="#immugw" class="header-anchor">#</a> immugw</h2> <p>immugw can be found in a different <a href="https://github.com/codenotary/immugw" target="_blank" rel="noopener noreferrer">repository<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Simply run <code>./immugw -d</code> to start immugw on the same machine as immudb (test or dev environment) or point to the remote immudb system <code>./immugw --immudbaddress &quot;immudb-server&quot;</code>.</p> <p>If you want to stop immugw în that case you need to find the process <code>ps -ax | grep immugw</code> and then <code>kill -15 &lt;pid&gt;</code>. Windows PowerShell would be <code>Get-Process immugw* | Stop-Process</code>.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>immu gateway: a smart REST proxy <span class="token keyword">for</span> immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
+It exposes all gRPC methods with a REST interface <span class="token keyword">while</span> wrapping all SAFE endpoints with a verification service.
+
+Environment variables:
+  <span class="token assign-left variable">IMMUGW_ADDRESS</span><span class="token operator">=</span><span class="token number">0.0</span>.0.0
+  <span class="token assign-left variable">IMMUGW_PORT</span><span class="token operator">=</span><span class="token number">3323</span>
+  <span class="token assign-left variable">IMMUGW_IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">127.0</span>.0.1
+  <span class="token assign-left variable">IMMUGW_IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUGW_DIR</span><span class="token operator">=</span>.
+  <span class="token assign-left variable">IMMUGW_PIDFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUGW_LOGFILE</span><span class="token operator">=</span>
+  <span class="token assign-left variable">IMMUGW_DETACHED</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUGW_MTLS</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUGW_SERVERNAME</span><span class="token operator">=</span>localhost
+  <span class="token assign-left variable">IMMUGW_PKEY</span><span class="token operator">=</span>./tools/mtls/4_client/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUGW_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/4_client/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUGW_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+
+Usage:
+  immugw <span class="token punctuation">[</span>flags<span class="token punctuation">]</span>
+  immugw <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
+
+Available Commands:
+  <span class="token builtin class-name">help</span>        Help about any <span class="token builtin class-name">command</span>
+  version     Show the immugw version
+
+Flags:
+  -a, --address string            immugw <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;0.0.0.0&quot;</span><span class="token punctuation">)</span>
+      --audit                     <span class="token builtin class-name">enable</span> audit mode <span class="token punctuation">(</span>continuously fetches latest root from server, checks consistency against a <span class="token builtin class-name">local</span> root and saves the latest root locally<span class="token punctuation">)</span>
+      --audit-interval duration   interval at <span class="token function">which</span> audit should run <span class="token punctuation">(</span>default 5m0s<span class="token punctuation">)</span>
+      --audit-password string     immudb password used to login during audit<span class="token punctuation">;</span> can be plain-text or base64 encoded <span class="token punctuation">(</span>must be prefixed with <span class="token string">'enc:'</span> <span class="token keyword">if</span> it is encoded<span class="token punctuation">)</span>
+      --audit-username string     immudb username used to login during audit <span class="token punctuation">(</span>default <span class="token string">&quot;immugwauditor&quot;</span><span class="token punctuation">)</span>
+      --certificate string        server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string          clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string             config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immugw.toml<span class="token punctuation">)</span>
+  -d, --detached                  run immudb <span class="token keyword">in</span> background
+      --dir string                program files folder <span class="token punctuation">(</span>default <span class="token string">&quot;.&quot;</span><span class="token punctuation">)</span>
+  -h, --help                      <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immugw
+  -k, --immudb-address string     immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -j, --immudb-port int           immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+      --logfile string            log path with filename. E.g. /tmp/immugw/immugw.log
+  -m, --mtls                      <span class="token builtin class-name">enable</span> mutual tls
+      --pidfile string            pid path with filename. E.g. /var/run/immugw.pid
+      --pkey string               server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+  -p, --port int                  immugw port number <span class="token punctuation">(</span>default <span class="token number">3323</span><span class="token punctuation">)</span>
+      --servername string         used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+
+Use <span class="token string">&quot;immugw [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+</code></pre></div><h2 id="immuadmin"><a href="#immuadmin" class="header-anchor">#</a> immuadmin</h2> <p>For security reasons we recommend using immuadmin only on the same system as immudb. User management is restricted to localhost usage. Simply run <code>./immuadmin</code> on the same machine.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>CLI admin client <span class="token keyword">for</span> immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
+
+Environment variables:
+  <span class="token assign-left variable">IMMUADMIN_IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">127.0</span>.0.1
+  <span class="token assign-left variable">IMMUADMIN_IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUADMIN_MTLS</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUADMIN_SERVERNAME</span><span class="token operator">=</span>localhost
+  <span class="token assign-left variable">IMMUADMIN_PKEY</span><span class="token operator">=</span>./tools/mtls/4_client/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUADMIN_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/4_client/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUADMIN_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+
+Usage:
+  immuadmin <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
+
+Available Commands:
+  backup      Make a copy of the database files and folders
+  database    Issue all database commands
+  dump        Dump database content to a <span class="token function">file</span>
+  <span class="token builtin class-name">help</span>        Help about any <span class="token builtin class-name">command</span>
+  login       Login using the specified username and password <span class="token punctuation">(</span>admin username is immudb<span class="token punctuation">)</span>
+  <span class="token builtin class-name">logout</span>
+  print       Print merkle tree
+  restore     Restore the database from a snapshot archive or folder
+  <span class="token function">service</span>     Manage immu services
+  <span class="token builtin class-name">set</span>         Update server config items: auth <span class="token punctuation">(</span>none<span class="token operator">|</span>password<span class="token operator">|</span>cryptosig<span class="token punctuation">)</span>, mtls <span class="token punctuation">(</span>true<span class="token operator">|</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+  stats       Show statistics as text or visually with the <span class="token string">'-v'</span> option. Run <span class="token string">'immuadmin stats -h'</span> <span class="token keyword">for</span> details.
+  status      Show heartbeat status
+  user        Issue all user commands
+  version     Show the immuadmin version
+
+Flags:
+      --certificate string      server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string        clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string           config <span class="token function">file</span> <span class="token punctuation">(</span>default path is configs or <span class="token environment constant">$HOME</span><span class="token punctuation">;</span> default filename is immuadmin.toml<span class="token punctuation">)</span>
+  -h, --help                    <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immuadmin
+  -a, --immudb-address string   immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -p, --immudb-port int         immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+  -m, --mtls                    <span class="token builtin class-name">enable</span> mutual tls
+      --pkey string             server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+      --servername string       used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+      --tokenfile string        authentication token <span class="token function">file</span> <span class="token punctuation">(</span>default path is <span class="token environment constant">$HOME</span> or binary location<span class="token punctuation">;</span> the supplied value will be automatically suffixed with _admin<span class="token punctuation">;</span> default filename is token-0.7.0_admin<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;token-0.7.0&quot;</span><span class="token punctuation">)</span>
+
+Use <span class="token string">&quot;immuadmin [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+</code></pre></div><h2 id="immuclient"><a href="#immuclient" class="header-anchor">#</a> immuclient</h2> <p>Simply run <code>./immuclient</code> on the same machine or connect to a remote immudb <code>./immuclient -a &lt;immudb-host&gt;</code></p> <div class="language-bash extra-class"><pre class="language-bash"><code>CLI client <span class="token keyword">for</span> immudb - the lightweight, high-speed immutable database <span class="token keyword">for</span> systems and applications.
+Environment variables:
+  <span class="token assign-left variable">IMMUCLIENT_IMMUDB_ADDRESS</span><span class="token operator">=</span><span class="token number">127.0</span>.0.1
+  <span class="token assign-left variable">IMMUCLIENT_IMMUDB_PORT</span><span class="token operator">=</span><span class="token number">3322</span>
+  <span class="token assign-left variable">IMMUCLIENT_AUTH</span><span class="token operator">=</span>true
+  <span class="token assign-left variable">IMMUCLIENT_MTLS</span><span class="token operator">=</span>false
+  <span class="token assign-left variable">IMMUCLIENT_SERVERNAME</span><span class="token operator">=</span>localhost
+  <span class="token assign-left variable">IMMUCLIENT_PKEY</span><span class="token operator">=</span>./tools/mtls/4_client/private/localhost.key.pem
+  <span class="token assign-left variable">IMMUCLIENT_CERTIFICATE</span><span class="token operator">=</span>./tools/mtls/4_client/certs/localhost.cert.pem
+  <span class="token assign-left variable">IMMUCLIENT_CLIENTCAS</span><span class="token operator">=</span>./tools/mtls/2_intermediate/certs/ca-chain.cert.pem
+
+IMPORTANT: All get and safeget functions <span class="token builtin class-name">return</span> base64-encoded keys and values, <span class="token keyword">while</span> all <span class="token builtin class-name">set</span> and safeset functions <span class="token function">expect</span> base64-encoded inputs.
+
+Usage:
+  immuclient <span class="token punctuation">[</span>flags<span class="token punctuation">]</span>
+  immuclient <span class="token punctuation">[</span>command<span class="token punctuation">]</span>
+
+Available Commands:
+  audit-mode        Starts immuclient as daemon <span class="token keyword">in</span> auditor mode. Run <span class="token string">'immuclient audit-mode help'</span> or use -h flag <span class="token keyword">for</span> details
+  check-consistency Check consistency <span class="token keyword">for</span> the specified index and <span class="token builtin class-name">hash</span>
+  count             Count keys having the specified prefix
+  current           Return the last merkle tree root and index stored locally
+  get               Get item having the specified key
+  getByIndex        Return an element by index
+  getRawBySafeIndex Return an element by index
+  <span class="token builtin class-name">help</span>              Help about any <span class="token builtin class-name">command</span>
+  <span class="token function">history</span>           Fetch <span class="token function">history</span> <span class="token keyword">for</span> the item having the specified key
+  inclusion         Check <span class="token keyword">if</span> specified index is included <span class="token keyword">in</span> the current tree
+  iscan             Iterate over all elements by insertion order
+  it                Starts immuclient <span class="token keyword">in</span> CLI mode. Use <span class="token string">'help'</span> or -h flag on the shell <span class="token keyword">for</span> details
+  login             Login using the specified username and password
+  <span class="token builtin class-name">logout</span>
+  rawsafeget        Get item having the specified key, without parsing structured values
+  rawsafeset        Set a value <span class="token keyword">for</span> the item having the specified key, without setup structured values
+  reference         Add new reference to an existing key
+  safeget           Get and verify item having the specified key
+  safereference     Add and verify new reference to an existing key
+  safeset           Add and verify new item having the specified key and value
+  safezadd          Add and verify new key with score to a new or existing sorted <span class="token builtin class-name">set</span>
+  scan              Iterate over keys having the specified prefix
+  <span class="token builtin class-name">set</span>               Add new item having the specified key and value
+  status            Ping to check <span class="token keyword">if</span> server connection is alive
+  use               Select database
+  user              Issue all user commands
+  version           Show the immuclient version
+  zadd              Add new key with score to a new or existing sorted <span class="token builtin class-name">set</span>
+  zscan             Iterate over a sorted <span class="token builtin class-name">set</span>
+
+Flags:
+      --audit-password string    immudb password used to login during audit<span class="token punctuation">;</span> can be plain-text or base64 encoded <span class="token punctuation">(</span>must be prefixed with <span class="token string">'enc:'</span> <span class="token keyword">if</span> it is encoded<span class="token punctuation">)</span>
+      --audit-username string    immudb username used to login during audit
+      --certificate string       server certificate <span class="token function">file</span> path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/certs/localhost.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --clientcas string         clients certificates list. Aka certificate authority <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/2_intermediate/certs/ca-chain.cert.pem&quot;</span><span class="token punctuation">)</span>
+      --config string            config <span class="token function">file</span> <span class="token punctuation">(</span>default path are configs or <span class="token environment constant">$HOME</span><span class="token builtin class-name">.</span> Default filename is immuclient.toml<span class="token punctuation">)</span>
+      --dir string               Main directory <span class="token keyword">for</span> audit process tool to initialize <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp&quot;</span><span class="token punctuation">)</span>
+  -h, --help                     <span class="token builtin class-name">help</span> <span class="token keyword">for</span> immuclient
+  -a, --immudb-address string    immudb <span class="token function">host</span> address <span class="token punctuation">(</span>default <span class="token string">&quot;127.0.0.1&quot;</span><span class="token punctuation">)</span>
+  -p, --immudb-port int          immudb port number <span class="token punctuation">(</span>default <span class="token number">3322</span><span class="token punctuation">)</span>
+  -m, --mtls                     <span class="token builtin class-name">enable</span> mutual tls
+      --pkey string              server private key path <span class="token punctuation">(</span>default <span class="token string">&quot;./tools/mtls/4_client/private/localhost.key.pem&quot;</span><span class="token punctuation">)</span>
+      --prometheus-host string   Launch <span class="token function">host</span> of the Prometheus exporter. <span class="token punctuation">(</span>default <span class="token string">&quot;0.0.0.0&quot;</span><span class="token punctuation">)</span>
+      --prometheus-port string   Launch port of the Prometheus exporter. <span class="token punctuation">(</span>default <span class="token string">&quot;9477&quot;</span><span class="token punctuation">)</span>
+      --roots-filepath string    Filepath <span class="token keyword">for</span> storing root hashes after every successful audit loop. Default is tempdir of every OS. <span class="token punctuation">(</span>default <span class="token string">&quot;/tmp/&quot;</span><span class="token punctuation">)</span>
+      --servername string        used to verify the <span class="token function">hostname</span> on the returned certificates <span class="token punctuation">(</span>default <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">)</span>
+      --tokenfile string         authentication token <span class="token function">file</span> <span class="token punctuation">(</span>default path is <span class="token environment constant">$HOME</span> or binary location<span class="token punctuation">;</span> default filename is token-0.7.0<span class="token punctuation">)</span> <span class="token punctuation">(</span>default <span class="token string">&quot;token-0.7.0&quot;</span><span class="token punctuation">)</span>
+      --value-only               returning only values <span class="token keyword">for</span> get operations
+
+Use <span class="token string">&quot;immuclient [command] --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a command.
+
+</code></pre></div></div> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.d472cfdb.js" defer></script><script src="/assets/js/2.4df16387.js" defer></script><script src="/assets/js/81.1f209f5f.js" defer></script>
+  </body>
+</html>
