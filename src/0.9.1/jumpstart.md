@@ -363,9 +363,9 @@ You now have:
  - Gone through reading and writing data with and without cryptographic verification.
 
 We've only scratched the surface of immudb's capabilities. Here are some additional resources you might find helpful:
-- Learn more through our [documentation](https://docs.immudb.io/master/).
-    - Learn more about the immudb [API](https://docs.immudb.io/master/immudb/grpc-interface.html).
-    - Try out [immuadmin](https://docs.immudb.io/master/immuadmin/)
+- Learn more through our [documentation](https://docs.immudb.io/0.9.1/).
+    - Learn more about the immudb [SDKs](https://docs.immudb.io/0.9.1/sdks-api.html#contents).
+    - Try out [immuadmin](https://docs.immudb.io/0.9.1/immuadmin/)
 - Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
-- Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
+- Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/0.9.1/README.md) within CodeNotary's immudb GitHub Project.
 <img align="center" src="https://codenotary.io/images/word-tree.png"/>
