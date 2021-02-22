@@ -29,7 +29,7 @@ message Signature {
 	bytes publicKey = 2;
 }
 ```
-Check [state signature](/master/immudb/#state-signature) and [verify state signature](/master/sdks-api.html#verify-state-signature) paragraphs for additional details.
+Check [state signature](/0.9.1/immudb/#state-signature) and [verify state signature](/0.9.1/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
 To get the signed state in combination with the auditor, launch...
