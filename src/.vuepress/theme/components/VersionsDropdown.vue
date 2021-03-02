@@ -46,7 +46,10 @@ export default {
 
 <style scoped>
 a.item {
-    color: #2c3e50;
+	color: #2c3e50;
+	background-color: white !important;
+	padding: 0.5rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 a.item.router-link-active {
