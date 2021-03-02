@@ -62,8 +62,28 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+Under the hood, during `login`, a token is being retrieved from the server,
+stored in memory and reused for subsequent operations.
+
+The state is internally used for doing _verified_ operations (such as verifiedSet or verifiedGet).
+
+```java
+// Setting the "store" where the internal states are being persisted.
+FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+            .withStatesFolder("immu_states")
+            .build();
+
+// Creating an new ImmuClient instance.
+ImmuClient immuClient = ImmuClient.newBuilder()
+            .withStateHolder(stateHolder)
+            .withServerUrl("localhost")
+            .withServerPort(3322)
+            .build();
+
+// Login with default credentials.
+immuClient.login("immudb", "immudb");
+
 :::
 
 ::: tab Python
@@ -165,71 +185,25 @@ You also have the option to run immudb with authentication disabled. However, wi
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
 
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
+```java
+FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+            .withStatesFolder("immu_states")
+            .build();
 
-::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
-:::
-
-::::
-
-# Verify state signature
-
-If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
-In this way the identity of the server can be proven.
-Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
-
-:::: tabs
-
-::: tab Go
-```go
-    	c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
-    	if err != nil {
-    		log.Fatal(err)
-    	}
-    	ctx := context.Background()
-
-    	lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-    	if err != nil {
-    		log.Fatal(err)
-    	}
-
-    	md := metadata.Pairs("authorization", lr.Token)
-    	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-    	if _, err := c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
-    		log.Fatal(err)
-    	}
-
-    	var state *schema.ImmutableState
-    	if state, err = c.CurrentState(ctx); err != nil {
-    		log.Fatal(err) // if signature is not verified here is trigger an appropriate error
-    	}
-
-    	fmt.Print(state)
+ImmuClient immuClient = ImmuClient.newBuilder()
+            .withStateHolder(stateHolder)
+            .withServerUrl("localhost")
+            .withServerPort(3322)
+            .withAuth(false) // No authentication is needed.
+            .build();
+try {
+    immuClient.set(key, val);
+} catch (CorruptedDataException e) {
+    // ...
+}
 ```
-:::
 
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
@@ -252,6 +226,7 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::::
+
 
 ## State management
 
@@ -319,6 +294,94 @@ Following an example how to obtain a client instance with a custom state service
 :::
 
 ::: tab Java
+
+Any immudb server has its own UUID. This is exposed as part of the login response.
+Java SDK can use any implementation of the `ImmuStateHolder` interface, which specifies two methods:
+- `ImmuState getState(String serverUuid, String database)` for getting a state.
+- `void setState(String serverUuid, ImmuState state)` for setting a state.
+
+Note that a state is related to a specific database (identified by its name) and a server (identified by the UUID).
+Currently, Java SDK offers two implementations of this interface for storing and retriving a state:
+- `FileImmuStateHolder` that uses a disk file based store.
+- `SerializableImmuStateHolder` that uses an in-memory store.
+
+As most of the code snippets include `FileImmuStateHolder`, please find below an example using the in-memory alternative:
+```java
+SerializableImmuStateHolder stateHolder = new SerializableImmuStateHolder();
+
+ImmuClient immuClient = ImmuClient.newBuilder()
+                .withStateHolder(stateHolder)
+                .withServerUrl("localhost")
+                .withServerPort(3322)
+                .build();
+
+immuClient.login("immudb", "immudb");
+immuClient.useDatabase("defaultdb");
+// ...
+immuClient.logout();
+```
+
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+:::
+
+::::
+
+### Verify state signature
+
+If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
+In this way the identity of the server can be proven.
+Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
+
+:::: tabs
+
+::: tab Go
+```go
+    	c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+    	ctx := context.Background()
+
+    	lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	md := metadata.Pairs("authorization", lr.Token)
+    	ctx = metadata.NewOutgoingContext(context.Background(), md)
+
+    	if _, err := c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
+    		log.Fatal(err)
+    	}
+
+    	var state *schema.ImmutableState
+    	if state, err = c.CurrentState(ctx); err != nil {
+    		log.Fatal(err) // if signature is not verified here is trigger an appropriate error
+    	}
+
+    	fmt.Print(state)
+```
+:::
+
+::: tab Java
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
@@ -347,7 +410,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Tamperproof reading and writing
 
-You can read and write records securely using  built-in cryptographic verification.
+You can read and write records securely using a built-in cryptographic verification.
 
 
 ### Verified get and set
@@ -374,8 +437,23 @@ The client implements the mathematical validations, while your application uses 
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+try {
+    TxMetadata txMd = immuClient.verifiedSet(key, val);
+    System.out.println("Successfully committed and verified tx " + txMd.id);
+} catch (VerificationException e) {
+    // ...
+}
+
+try {
+    Entry vEntry = immuClient.verifiedGet(key);
+    System.out.println("Successfully retrieved and verified entry: " + vEntry);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -431,8 +509,29 @@ It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure th
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+String key = "key1";
+byte[] value = new byte[]{1, 2, 3};
+
+try {
+    immuClient.set(key, value);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+try {
+    value = immuClient.get(key);
+} catch (Exception e) {
+    // ...
+}
+```
+
+Note that `value` is a primitive byte array. You can set the value of a String using:<br/>
+`"some string".getBytes(StandardCharsets.UTF_8)`
+
+Also, `set` method is overloaded to allow receiving the `key` parameter as a `byte[]` data type.
+
 :::
 
 ::: tab Python
@@ -477,8 +576,40 @@ You can retrieve a key on a specific transaction with `VerifiedGetAt` and since 
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] key = "key1".getBytes(StandardCharsets.UTF_8);
+byte[] val = new byte[]{1, 2, 3, 4, 5};
+TxMetadata txMd = null;
+
+try {
+    txMd = immuClient.set(key, val);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+// The standard (traditional) get options:
+
+KV kv = immuClient.getAt(key, txMd.id);
+
+kv = immuClient.getSince(key, txMd.id);
+
+// The verified get flavours:
+
+Entry vEntry = null;
+try {
+    vEntry = immuClient.verifiedGetAt(key, vEntry.txId);
+} catch (VerificationException e) {
+    // ...
+}
+
+try {
+    vEntry = immuClient.verifiedGetSince(key, vEntry.txId);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -536,8 +667,21 @@ It's possible to retrieve all the keys inside a specific transaction.
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+TxMetadata txMd = null;
+try {
+    txMd = immuClient.verifiedSet(key, val);
+} catch (VerificationException e) {
+    // ...
+}
+try {
+    Tx tx = immuClient.txById(txMd.id);
+} catch (MaxWidthExceededException | NoSuchAlgorithmException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -594,8 +738,21 @@ It's possible to retrieve all the keys inside a specific verified transaction.
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+TxMetadata txMd = null;
+try {
+    txMd = immuClient.verifiedSet(key, val);
+} catch (VerificationException e) {
+    // ...
+}
+try {
+    Tx tx = immuClient.verifiedTxById(txMd.id);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -652,8 +809,19 @@ It's possible to retrieve all the values for a particular key with the history c
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+try {
+    immuClient.set("hello", value1);
+    immuClient.set("hello", value2);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+List<KV> historyResponse1 = immuClient.history("hello", 10, 0, false, 1);
+```
+Note that, similar with many other methods, `history` method is overloaded to allow different kinds/set of parameters.
+
 :::
 
 ::: tab Python
@@ -776,8 +944,25 @@ An ordinary `scan` command and a reversed one.
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] value1 = {0, 1, 2, 3};
+byte[] value2 = {4, 5, 6, 7};
+
+try {
+    immuClient.set("scan1", value1);
+    immuClient.set("scan2", value2);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+// Example of using scan(prefix, sinceTxId, limit, desc).
+List<KV> scanResult = immuClient.scan("scan", 1, 5, false);
+// We expect two entries in the result.
+```
+
+`scan` is an overloaded method, therefore multiple flavours of it with different parameter options exist.
+
 :::
 
 ::: tab Python
@@ -851,8 +1036,34 @@ Example with verifications
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] key = "testRef".getBytes(StandardCharsets.UTF_8);
+byte[] val = "abc".getBytes(StandardCharsets.UTF_8);
+
+TxMetadata txMd = null;
+try {
+    txMd = immuClient.set(key, val);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+byte[] ref1Key = "ref1_to_testRef".getBytes(StandardCharsets.UTF_8);
+byte[] ref2Key = "ref2_to_testRef".getBytes(StandardCharsets.UTF_8);
+
+try {
+    txMd = immuClient.setReference(ref1Key, key);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+try {
+    txMd = immuClient.verifiedSetReference(refKey, key);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -876,7 +1087,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Get and verifiedGet
+### GetReference and verifiedGetReference
 
 When reference is resolved with get or verifiedGet in case of multiples equals references the last reference is returned.
 :::: tabs
@@ -908,8 +1119,10 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 :::
 
 ::: tab Java
+
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
 :::
 
 ::: tab Python
@@ -934,7 +1147,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Resolving reference with transaction id
-It's possible to bind a reference to a key on a specific transaction using `SetReference` and `VerifiedSetReferenceAt`
+It's possible to bind a reference to a key on a specific transaction using `SetReferenceAt` and `VerifiedSetReferenceAt`
 
 :::: tabs
 
@@ -963,8 +1176,33 @@ It's possible to bind a reference to a key on a specific transaction using `SetR
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] key = "testRef".getBytes(StandardCharsets.UTF_8);
+byte[] val = "abc".getBytes(StandardCharsets.UTF_8);
+
+byte[] refKey = "ref1_to_testRef".getBytes(StandardCharsets.UTF_8);
+TxMetadata setTxMd = null;
+
+try {
+    txMd = immuClient.set(key, val);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+try {
+    immuClient.setReferenceAt(refKey, key, txMd.id);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+try {
+    txMd = immuClient.verifiedSetReferenceAt(refKey, key, txMd.id);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -1088,8 +1326,38 @@ When an integer64 is cast to a float there _could_ be a loss of precision, but t
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] value1 = {0, 1, 2, 3};
+byte[] value2 = {4, 5, 6, 7};
+
+try {
+    immuClient.set("zadd1", value1);
+    immuClient.set("zadd2", value2);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+TxMetadata set1TxMd = null;
+try {
+    immuClient.zAdd("set1", 1, "zadd1");
+    set1TxMd = immuClient.zAdd("set1", 2, "zadd2");
+
+    immuClient.zAddAt("set1", 3, "zadd3", set1TxMd.id);
+
+    immuClient.zAdd("set2", 2, "zadd1");
+    immuClient.zAdd("set2", 1, "zadd2");
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+List<KV> zScan1 = immuClient.zScan("set1", set1TxMd.id, 5, false);
+// We expect two KVs with key names "zadd1" and "zadd2".
+
+List<KV> zScan2 = immuClient.zScan("set2", 5, false);
+// Same as before, we expect two KVs with key names "zadd2" and "zadd1".
+```
+
 :::
 
 ::: tab Python
@@ -1134,8 +1402,12 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+List<String> keys = Arrays.asList("key1", "key2", "key3");
+List<KV> got = immuClient.getAll(keys);
+```
+
 :::
 
 ::: tab Python
@@ -1175,8 +1447,21 @@ SetBatch and GetBatch example
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+List<KV> kvs = Arrays.asList(
+    new KVPair("key1", "val1".getBytes(StandardCharsets.UTF_8)), 
+    new KVPair("key2", "val2".getBytes(StandardCharsets.UTF_8)), 
+);
+
+KVList kvList = KVList.newBuilder().addAll(kvs).build();
+try {
+    immuClient.setAll(kvList);
+} catch (CorruptedDataException e) {
+    // ...
+}
+```
+
 :::
 
 ::: tab Python
@@ -1376,8 +1661,28 @@ Then it's possible to retrieve entries of every transactions:
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+String key = "txtest-t2";
+byte[] val1 = "immuRocks!".getBytes(StandardCharsets.UTF_8);
+byte[] val2 = "immuRocks! Again!".getBytes(StandardCharsets.UTF_8);
+
+long initialTxId = 1;
+try {
+    TxMetadata txMd = immuClient.set(key, val1);
+    initialTxId = txMd.id;
+    txMd = immuClient.set(key, val2);
+} catch (CorruptedDataException e) {
+    Assert.fail("Failed at set.", e);
+}
+            // This is a .txScan(initialTxId, limit, desc)
+List<Tx> txs = immuClient.txScan(initialTxId, 1, false);
+// We expect one Tx entry in this list.
+
+txs = immuClient.txScan(initialTxId, 2, false);
+// We expect two Tx entries in this list.
+```
+
 :::
 
 ::: tab Python
@@ -1419,8 +1724,13 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+ImmuState currState = immuClient.currentState();
+
+System.out.printf("current state is " + currState.toString());
+```
+
 :::
 
 ::: tab Python
@@ -1491,8 +1801,32 @@ Non-admin permissions are:
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+String database = "defaultdb";
+String username = "testCreateUser";
+String password = "testTest123!";
+Permission permission = Permission.PERMISSION_RW;
+
+immuClient.login("immudb", "immudb");
+immuClient.useDatabase(database);
+
+try {
+    immuClient.createUser(username, password, permission, database);
+} catch (StatusRuntimeException e) {
+    // The user could already exist, ignoring this.
+    System.out.println(">>> UserMgmtTest > t1 > createUser exception: " + e.getMessage());
+}
+
+// We expect getting back the previously created "testCreateUser" user.
+System.out.println(">>> listUsers:");
+List<User> users = immuClient.listUsers();
+users.forEach(user -> System.out.println("\t- " + user));
+
+// Changing the user password.
+immuClient.changePassword(username, password, "newTestTest123!");
+```
+
 :::
 
 ::: tab Python
@@ -1574,8 +1908,22 @@ To set up an authenticated context, it's sufficient to put a `token` inside meta
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+immuClient.createDatabase("db1");
+immuClient.createDatabase("db2");
+
+immuClient.useDatabase("db1");
+try {
+    immuClient.set("k0", new byte[]{0, 1, 2, 3});
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+List<String> dbs = immuClient.databases();
+// We should have three entries: "defaultdb", "db1", and "db2".
+```
+
 :::
 
 ::: tab Python
@@ -1619,8 +1967,10 @@ The btree and clean up process is something specific to indexing. And will not l
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+immuClient.cleanIndex();
+```
 :::
 
 ::: tab Python
@@ -1654,8 +2004,11 @@ HealthCheck return an error if `immudb` status is not ok.
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+boolean isHealthy = immuClient.healthCheck();
+```
+
 :::
 
 ::: tab Python
