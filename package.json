@@ -23,7 +23,7 @@
     "codenotary",
     "vchain"
   ],
-  "author": "vChain",
+  "author": "Codentoary",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/codenotary/immudb.io/issues"
@@ -44,7 +44,7 @@
     "sass-loader": "^8.0.2",
     "sharp": "^0.25.3",
     "sharp-cli": "^1.14.0",
-    "vuepress": "^1.5.0",
+    "vuepress": "^1.8.2",
     "vuepress-plugin-reading-time": "^0.1.1"
   },
   "dependencies": {
