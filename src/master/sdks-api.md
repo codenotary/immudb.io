@@ -107,7 +107,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### Mutual tls
+### Mutual TLS
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
 In order to generate certs, use the openssl tool:
@@ -227,6 +227,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
 
 ## State management
 
@@ -407,6 +408,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
 
 ## Tamperproof reading and writing
 
@@ -476,6 +478,8 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::::
+
+<br/>
 
 ## Writing and reading
 
@@ -556,6 +560,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Get at and since a transaction
+
 You can retrieve a key on a specific transaction with `VerifiedGetAt` and since a specific transaction with `VerifiedGetSince`.
 :::: tabs
 
@@ -706,6 +711,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Verified transaction by index
+
 It's possible to retrieve all the keys inside a specific verified transaction.
 
 :::: tabs
@@ -776,7 +782,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## History
+
 The fundamental property of immudb is that it's an append-only database.
 This means that an update is a new insert of the same key with a new value.
 It's possible to retrieve all the values for a particular key with the history command.
@@ -845,6 +854,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Counting
 
 Counting entries is not supported at the moment.
@@ -882,7 +893,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Scan
+
 The `scan` command is used to iterate over the collection of elements present in the currently selected database.
 `Scan` accepts the following parameters:
 
@@ -986,12 +1000,16 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## References
+
 `SetReference` is like a "tag" operation. It appends a reference on a key/value element.
 As a consequence, when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated with the original key.
 Its ```VerifiedReference``` counterpart is the same except that it also produces the inclusion and consistency proofs.
 
-### SetReference and verifiedSetReference
+### SetReference and VerifiedSetReference
+
 :::: tabs
 
 ::: tab Go
@@ -1058,7 +1076,7 @@ try {
 }
 
 try {
-    txMd = immuClient.verifiedSetReference(refKey, key);
+    txMd = immuClient.verifiedSetReference(ref2Key, key);
 } catch (VerificationException e) {
     // ...
 }
@@ -1087,7 +1105,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### GetReference and verifiedGetReference
+### GetReference and VerifiedGetReference
 
 When reference is resolved with get or verifiedGet in case of multiples equals references the last reference is returned.
 :::: tabs
@@ -1147,6 +1165,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### Resolving reference with transaction id
+
 It's possible to bind a reference to a key on a specific transaction using `SetReferenceAt` and `VerifiedSetReferenceAt`
 
 :::: tabs
@@ -1225,6 +1244,8 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::::
+
+<br/>
 
 ## Secondary indexes
 
@@ -1381,6 +1402,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Transactions
 
 `GetAll`, `SetAll` and `ExecAll` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
@@ -1404,8 +1427,33 @@ If you're using another development language, please read up on our [immugw](htt
 ::: tab Java
 
 ```java
+// Using getAll:
 List<String> keys = Arrays.asList("key1", "key2", "key3");
 List<KV> got = immuClient.getAll(keys);
+
+// Using execAll for setting multiple KVs at once:
+byte[] item1 = "execAll_key1".getBytes(StandardCharsets.UTF_8);
+byte[] item2 = "execAll_key2".getBytes(StandardCharsets.UTF_8);
+
+immuClient.execAll(
+        Arrays.asList(                  // Providing just a kvList, which is a List< Pair<byte[], byte[]> >.
+                Pair.of(item1, item1),
+                Pair.of(item2, item2)
+        ),
+        null,                          // No refList provided.
+        null                           // No zaddList provided.
+);
+
+// Using execAll for setting multiple references and doing zAdd(s):
+immuClient.execAll(
+        null,                          // No kvList provided.
+        Arrays.asList(                 // The refList.
+                Pair.of("ref1".getBytes(StandardCharsets.UTF_8), item1),
+                Pair.of("ref2".getBytes(StandardCharsets.UTF_8), item2)
+        ),
+        // The zaddList.
+        Collections.singletonList(Triple.of("set1", 1.0, "execAll_key1"))
+);
 ```
 
 :::
@@ -1432,6 +1480,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### SetAll
+
 A more versatile atomic multi set operation
 :::: tabs
 SetBatch and GetBatch example
@@ -1486,6 +1535,7 @@ If you're using another development language, please read up on our [immugw](htt
 ::::
 
 ### ExecAll
+
 `ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
@@ -1498,7 +1548,7 @@ It's possible to persist and reference items that are already persisted on disk.
 If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly. In that case if `BoundRef` is true the reference is bounded to the current transaction values.
 
 :::: tabs
-ExecAll
+
 ::: tab Go
 
 ```go
@@ -1554,8 +1604,32 @@ ExecAll
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+byte[] item1 = "execAll_key1".getBytes(StandardCharsets.UTF_8);
+byte[] item2 = "execAll_key2".getBytes(StandardCharsets.UTF_8);
+
+// Using execAll just for setting multiple KVs:
+TxMetadata txMd = immuClient.execAll(
+        Arrays.asList(                 // The kvList.
+                Pair.of(item1, item1),
+                Pair.of(item2, item2)
+        ),
+        null,                         // No refList provided.
+        null                          // No zaddList provided.
+);
+
+immuClient.execAll(
+        null,                         // No kvList provided.
+        Arrays.asList(                // The refList.
+                Pair.of("ref1".getBytes(StandardCharsets.UTF_8), item1),
+                Pair.of("ref2".getBytes(StandardCharsets.UTF_8), item2)
+        ),
+        // The zaddList (even if it has one single entry).
+        Collections.singletonList(Triple.of("set1", 1.0, "execAll_key1"))
+);
+```
+
 :::
 
 ::: tab Python
@@ -1579,21 +1653,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
-### ExecAll
-`ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
-The argument of a `ExecAll` is an array of the following types:
-* `Op_Kv`: ordinary key value item
-* `Op_ZAdd`: [ZAdd](#sorted-sets) option element
-* `Op_Ref`: [Reference](#references) option element
-
-It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
-* `Op_ZAdd`
-* `Op_Ref`
-If `zAdd` or `reference` is not yet persisted on disk it's possible to add it as a regular key value and the reference is done onFly. In that case if `BoundRef` is true the reference is bounded to the current transaction values.
-
-:::: tabs
-
-### Txs Scan
+### Tx Scan
 
 `TxScan` permits iterating over transactions.
 
@@ -1601,6 +1661,8 @@ The argument of a `TxScan` is an array of the following types:
 * `InitialTx`: initial transaction id
 * `Limit`: number of transactions returned
 * `Desc`: order of returned transacations
+
+:::: tabs
 
 ::: tab Go
 
@@ -1706,9 +1768,12 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Tamperproofing utilities
 
 ### Current State
+
 :::: tabs
 `CurrentState` returns the last state of the server.
 
@@ -1728,7 +1793,7 @@ If you're using another development language, please read up on our [immugw](htt
 ```java
 ImmuState currState = immuClient.currentState();
 
-System.out.printf("current state is " + currState.toString());
+System.out.printf("The current state is " + currState.toString());
 ```
 
 :::
@@ -1754,7 +1819,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## User management
+
 User management is exposed with following methods:
 * CreateUser
 * ChangePermission
@@ -1814,12 +1882,11 @@ immuClient.useDatabase(database);
 try {
     immuClient.createUser(username, password, permission, database);
 } catch (StatusRuntimeException e) {
-    // The user could already exist, ignoring this.
-    System.out.println(">>> UserMgmtTest > t1 > createUser exception: " + e.getMessage());
+    System.out.println("createUser exception: " + e.getMessage());
 }
 
 // We expect getting back the previously created "testCreateUser" user.
-System.out.println(">>> listUsers:");
+System.out.println("listUsers:");
 List<User> users = immuClient.listUsers();
 users.forEach(user -> System.out.println("\t- " + user));
 
@@ -1850,16 +1917,22 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Multiple databases
+
 Starting with version 0.7.0 of immudb, we introduced multi-database support.
 By default, the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
 Handling users and databases requires the appropriate privileges.
 Users with `PermissionAdmin` can control everything. Non-admin users have restricted permissions and can read or write only their databases, assuming sufficient privileges.
 > Each database has default MaxValueLen and MaxKeyLen values. These are fixed respectively to 1MB and 1KB. These values at the moment are not exposed to client SDK and can be modified using internal store options.
+
 :::: tabs
+
+::: tab Go
+
 This example shows how to create a new database and how to write records to it.
 To create a new database, use `CreateDatabase` method.
-::: tab Go
 To write into a specific database an authenticated context is required.
 Start by calling the `UseDatabase` method to obtain a `token`.
 A token is used for both authorization and routing commands to a specific database.
@@ -1947,6 +2020,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## Index Cleaning
 
 It's important to keep disk usage under control. `CleanIndex` it's a temporary solution to launch an internal clean routine that could free disk space.
@@ -1994,7 +2069,10 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<br/>
+
 ## HealthCheck
+
 HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 ::: tab Go
@@ -2031,6 +2109,8 @@ If you're using another development language, please read up on our [immugw](htt
 :::
 
 ::::
+
+<br/>
 
 ## Immudb SDKs examples
 
