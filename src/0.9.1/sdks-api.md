@@ -378,8 +378,32 @@ Check [state signature](/master/immudb/#state-signature) to see how to generate 
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+// Having immudb server running with state signature enabled
+// (by starting it, for example using `immudb --signingKey private_key.pem`)
+// we provision the client with the public key file, and this implies that
+// state signature verification is done on the client side
+// each time the state is retrieved from the server.
+
+File publicKeyFile = new File("path/to/public_key.pem");
+
+immuClient = ImmuClient.newBuilder()
+                    .withServerUrl("localhost")
+                    .withServerPort(3322)
+                    .withServerSigningKey(publicKeyFile.getAbsolutePath())
+                    .build();
+
+try {
+    ImmuState state = immuClient.currentState();
+    // It should all be ok as long as the immudb server has been started with
+    // state signature feature enabled, otherwise, this verification will fail.
+    
+} catch (RuntimeException e) {
+    // State signature failed.
+}
+```
+
 :::
 
 ::: tab Python
