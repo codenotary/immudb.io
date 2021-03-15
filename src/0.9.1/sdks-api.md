@@ -46,13 +46,22 @@ You can modify defaults on the immudb server in `immudb.toml` in the config fold
 The Login method returns a token required for all interactions with the server.
 
 ```go
+import (
+	"context"
+	"log"
+
+	"github.com/codenotary/immudb/pkg/client"
+	"google.golang.org/grpc/metadata"
+)
+
+func main() {
 c, err := client.NewImmuClient(client.DefaultOptions())
 if err != nil {
     log.Fatal(err)
 }
 ctx := context.Background()
 // login with default username and password and storing a token
-lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }
@@ -398,7 +407,7 @@ try {
     ImmuState state = immuClient.currentState();
     // It should all be ok as long as the immudb server has been started with
     // state signature feature enabled, otherwise, this verification will fail.
-    
+
 } catch (RuntimeException e) {
     // State signature failed.
 }
@@ -1500,8 +1509,8 @@ SetBatch and GetBatch example
 
 ```java
 List<KV> kvs = Arrays.asList(
-    new KVPair("key1", "val1".getBytes(StandardCharsets.UTF_8)), 
-    new KVPair("key2", "val2".getBytes(StandardCharsets.UTF_8)), 
+    new KVPair("key1", "val1".getBytes(StandardCharsets.UTF_8)),
+    new KVPair("key2", "val2".getBytes(StandardCharsets.UTF_8)),
 );
 
 KVList kvList = KVList.newBuilder().addAll(kvs).build();

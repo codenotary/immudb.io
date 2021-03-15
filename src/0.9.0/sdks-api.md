@@ -43,13 +43,22 @@ You can modify defaults on the immudb server in `immudb.toml` in the config fold
 The Login method returns a token required for all interactions with the server.
 
 ```go
+import (
+	"context"
+	"log"
+
+	"github.com/codenotary/immudb/pkg/client"
+	"google.golang.org/grpc/metadata"
+)
+
+func main() {
 c, err := client.NewImmuClient(client.DefaultOptions())
 if err != nil {
     log.Fatal(err)
 }
 ctx := context.Background()
 // login with default username and password and storing a token
-lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }
