@@ -1933,22 +1933,22 @@ It's possible to specify the chunk size of the stream with `WithStreamChunkSize(
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
@@ -1998,22 +1998,22 @@ If no message is present it returns 0 and io.EOF. If the message is complete it 
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
-This feature is not yet supported or not documented.
+Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
