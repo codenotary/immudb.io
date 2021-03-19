@@ -54,6 +54,9 @@ Index enables queries and search based on the data key.
 
 Index enables queries and search based on the data value.
 
+## Streams
+Allows client server communication with streams of “delimited” []byte messages.
+
 ## Cryptographic signatures
 
 A signature (PKI) provided by the client can be became part of the insertion process.
