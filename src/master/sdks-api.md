@@ -151,8 +151,23 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	const loginReq: Parameters.Login = { user: IMMUDB_USER, password: IMMUDB_PWD }
+	const loginRes = await cl.login(loginReq)
+	console.log('success: login:', loginRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -419,8 +434,24 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	await cl.set({ key: 'immudb', value: 'hello world' })
+
+	const currentStateRes = await cl.currentState();
+	console.log('success: currentState', currentStateRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -490,8 +521,34 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const verifiedSetReq: Parameters.VerifiedSet = {
+		key: 'hello',
+		value: 'world',
+	}
+	const verifiedSetRes = await cl.verifiedSet(verifiedSetReq)
+	console.log('success: verifiedSet', verifiedSetRes)
+
+	const verifiedGetReq: Parameters.VerifiedGet = {
+		key: 'hello',
+	}
+	const verifiedGetRes = await cl.verifiedGet(verifiedGetReq)
+	console.log('success: verifiedGet', verifiedGetRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -570,8 +627,29 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+
+	const setReq: Parameters.Set = { key: 'hello', value: 'world' }
+	const setRes = await cl.set(setReq)
+	console.log('success: set', setRes)
+
+	const getReq: Parameters.Get = { key: 'hello' }
+	const getRes = await cl.get(getReq)
+	console.log('success: get', getRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -649,8 +727,40 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	const { id } = await cl.set({ key: 'key', value: 'value' })
+
+	const verifiedGetAtReq: Parameters.VerifiedGetAt = {
+		key: 'key',
+		attx: id
+	}
+	const verifiedGetAtRes = await cl.verifiedGetAt(verifiedGetAtReq)
+	console.log('success: verifiedGetAt', verifiedGetAtRes)
+
+	for (let i = 0; i < 4; i++) {
+		await cl.set({ key: 'key', value: `value-${i}` })
+	}
+
+	const verifiedGetSinceReq: Parameters.VerifiedGetSince = {
+		key: 'key',
+		sincetx: 2
+	}
+	const verifiedGetSinceRes = await cl.verifiedGetSince(verifiedGetSinceReq)
+	console.log('success: verifiedGetSince', verifiedGetSinceRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -721,8 +831,26 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	const { id } = await cl.set({ key: 'key', value: 'value' })
+
+	const txByIdReq: Parameters.TxById = { tx: id }
+	const txByIdRes = await cl.txById(txByIdReq)
+	console.log('success: txById', txByIdRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -793,8 +921,26 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	const { id } = await cl.set({ key: 'key', value: 'value' })
+	
+	const verifiedTxByIdReq: Parameters.VerifiedTxById = { tx: id }
+	const verifiedTxByIdRes = await cl.verifiedTxByID(verifiedTxByIdReq)
+	console.log('success: verifiedTxByID', verifiedTxByIdRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -865,8 +1011,32 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const key = 'hello'
+
+	await cl.set({ key, value: 'immutable world' })
+	await cl.set({ key, value: 'immudb' })
+
+	const historyReq: Parameters.History = {
+		key
+	}
+	const historyRes = cl.history(historyReq)
+	console.log('success: history', historyRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1011,8 +1181,95 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	await cl.set({ key: 'aaa', value: 'item1' })
+	await cl.set({ key: 'bbb', value: 'item2' })
+	await cl.set({ key: 'abc', value: 'item3' })
+
+	const scanReq: Parameters.Scan = {
+		prefix: 'a',
+		desc: false,
+		limit: 0,
+		sincetx: 0
+	}
+	const scanRes = await cl.scan(scanReq)
+	console.log('success: scan', scanRes)
+
+	const scanReq1: Parameters.Scan = {
+		prefix: 'a',
+		desc: true,
+		limit: 0,
+		sincetx: 0
+	}
+	const scanRes1 = await cl.scan(scanReq1)
+	console.log('success: scan', scanRes1)
+})()
+```
+
+Example with an offset:
+
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	await cl.set({ key: 'aaa', value: 'item1' })
+	await cl.set({ key: 'bbb', value: 'item2' })
+	await cl.set({ key: 'abc', value: 'item3' })
+
+	const scanReq: Parameters.Scan = {
+		seekkey: '',
+		prefix: '',
+		desc: true,
+		limit: 0,
+		sincetx: 0
+	}
+	const scanRes = await cl.scan(scanReq)
+	console.log('success: scan', scanRes)
+
+	const scanReq1: Parameters.Scan = {
+		seekkey: 'bbb',
+		prefix: '',
+		desc: true,
+		limit: 0,
+		sincetx: 0
+	}
+	const scanRes1 = await cl.scan(scanReq1)
+	console.log('success: scan', scanRes1)
+
+	const scanReq2: Parameters.Scan = {
+		seekkey: 'b',
+		prefix: 'b',
+		desc: true,
+		limit: 0,
+		sincetx: 0
+	}
+	const scanRes2 = await cl.scan(scanReq2)
+	console.log('success: scan', scanRes2)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1116,8 +1373,77 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const setReq: Parameters.Set = {
+		key: 'firstKey',
+		value: 'firstValue'
+	}
+	await cl.set(setReq)
+
+	const referenceReq: Parameters.SetReference = {
+		key: 'myTag',
+		referencedKey: 'firstKey'
+	}
+	const referenceRes = await cl.setReference(referenceReq)
+	console.log('success: setReference', referenceRes)
+
+	const getReq: Parameters.Get = {
+		key: 'myTag'
+	}
+	const getRes = await cl.get(getReq)
+	console.log('success: get by reference', getRes)
+})()
+```
+
+Example with verifications
+
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const setReq: Parameters.Set = {
+		key: 'firstKey',
+		value: 'firstValue'
+	}
+	await cl.set(setReq)
+
+	const verifiedReferenceReq: Parameters.SetReference = {
+		key: 'myTag',
+		referencedKey: 'firstKey'
+	}
+	const verifiedReferenceRes = await cl.verifiedSetReference(verifiedReferenceReq)
+	console.log('success: verifiedSetReference', verifiedReferenceRes)
+
+	const getReq: Parameters.Get = {
+		key: 'myTag'
+	}
+	const getRes = await cl.get(getReq)
+	console.log('success: get by reference', getRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1175,8 +1501,49 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const setReq: Parameters.Set = {
+		key: 'firstKey',
+		value: 'firstValue'
+	}
+	await cl.set(setReq)
+	const setReq1: Parameters.Set = {
+		key: 'secondKey',
+		value: 'secondValue'
+	}
+	await cl.set(setReq1)
+
+	const verifiedReferenceReq: Parameters.SetReference = {
+		key: 'myTag',
+		referencedKey: 'firstKey'
+	}
+	await cl.verifiedSetReference(verifiedReferenceReq)
+	const verifiedReferenceReq1: Parameters.SetReference = {
+		key: 'myTag',
+		referencedKey: 'secondKey'
+	}
+	await cl.verifiedSetReference(verifiedReferenceReq1)
+
+	const getReq: Parameters.Get = {
+		key: 'myTag'
+	}
+	const getSecondItemRes = await cl.get(getReq)
+	console.log('success: get by second reference', getSecondItemRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1256,8 +1623,35 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+
+	const { id } = await cl.set({ key: 'firstKey', value: 'firstValue' })
+	await cl.set({ key: 'firstKey', value: 'secondValue' })
+
+	const verifiedSetReferenceAtReq: Parameters.VerifiedSetReferenceAt = {
+		key: 'myFirstTag',
+		referencedKey: 'firstKey',
+		attx: id
+	}
+	const verifiedSetReferenceAtRes = await cl.verifiedSetReferenceAt(verifiedSetReferenceAtReq)
+	console.log('success: verifiedSetReferenceAt', verifiedSetReferenceAtRes)
+
+	const getSecondItemRes = await cl.get({ key: 'myFirstTag' })
+	console.log('success: get second item by reference', getSecondItemRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1413,8 +1807,66 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+
+	const { id: id1 } = await cl.set({ key: 'user1', value: 'user1@mail.com' })
+	const { id: id2 } = await cl.set({ key: 'user2', value: 'user2@mail.com' })
+	const { id: id3 } = await cl.set({ key: 'user3', value: 'user3@mail.com' })
+	const { id: id4 } = await cl.set({ key: 'user3', value: 'another-user3@mail.com' })
+
+	const zAddAtReq1: Parameters.ZAddAt = {
+		set: 'age',
+		score: 25,
+		key: 'user1',
+		attx: id1
+	}
+	const zAddAtRes1 = await cl.zAddAt(zAddAtReq1)
+	const zAddAtReq2: Parameters.ZAddAt = {
+		set: 'age',
+		score: 36,
+		key: 'user2',
+		attx: id2
+	}
+	const zAddAtRes2 = await cl.zAddAt(zAddAtReq2)
+	const zAddAtReq3: Parameters.ZAddAt = {
+		set: 'age',
+		score: 36,
+		key: 'user3',
+		attx: id3
+	}
+	const zAddAtRes3 = await cl.zAddAt(zAddAtReq3)
+	const zAddAtReq4: Parameters.ZAddAt = {
+		set: 'age',
+		score: 54,
+		key: 'user4',
+		attx: id4
+	}
+	const zAddAtRes4 = await cl.zAddAt(zAddAtReq4)
+
+	const zScanReq: Parameters.ZScan = {
+		set: 'age',
+		sincetx: 0,
+		nowait: true,
+		minscore: {
+			score: 36
+		}
+	}
+	const zScanRes = await cl.zScan(zScanReq)
+	console.log('success: zScan all 36-years-old users', zScanRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1490,8 +1942,28 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const getAllReq: Parameters.GetAll = {
+		keysList: ['key1', 'key2', 'key3'],
+		sincetx: 0
+	}
+	const getAllRes = await cl.getAll(getAllReq)
+	console.log('success: getAll', getAllRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1545,8 +2017,30 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const setAllReq: Parameters.SetAll = {
+		kvsList: [
+			{ key: '1,2,3', value: '3,2,1' },
+			{ key: '4,5,6', value: '6,5,4' },
+		]
+	}
+	const setAllRes = await cl.setAll(setAllReq)
+	console.log('success: setAll', setAllRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1664,8 +2158,52 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const { id } = await cl.set({ key: 'persistedKey', value: 'persistedVal' })
+
+	const setOperation = { kv: { key: 'notPersistedKey', value: 'notPersistedVal' } }
+	const zAddOperation = {
+		zadd: {
+			set: 'mySet',
+			score: 0.6,
+			key: 'notPersistedKey',
+			attx: 0,
+			boundref: true
+		}
+	}
+	const zAddOperation1 = {
+		zadd: {
+			set: 'mySet',
+			score: 0.6,
+			key: 'persistedKey',
+			attx: id,
+			boundref: true
+		}
+	}
+	const execAllReq: Parameters.ExecAll = {
+		operationsList: [
+			setOperation,
+			zAddOperation,
+			zAddOperation1,
+		]
+	}
+	const execAllRes = await cl.execAll(execAllReq)
+	console.log('success: execAll', execAllRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1779,8 +2317,33 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+
+	for (let i = 0; i < 3; i++) {
+		await cl.set({ key: `key${i}`, value: `val${i}` })
+	}
+
+	const txScanReq: Parameters.TxScan = {
+		initialtx: 2,
+    limit: 3,
+    desc: false
+	}
+	const txScanRes = await cl.txScan(txScanReq)
+	console.log('success: txScan', txScanRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -1830,8 +2393,23 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const currentStateRes = await cl.currentState()
+	console.log('success: currentState', currentStateRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -2104,8 +2682,48 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+import { USER_ACTION, USER_PERMISSION } from 'immudb-node/dist/types/user'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const createUserRequest: Parameters.CreateUser = {
+		user: 'myNewUser1',
+		password: 'myS3cretPassword!',
+		permission: USER_PERMISSION.READ_ONLY,
+		database: 'defaultdb',
+	};
+	const createUserRes = cl.createUser(createUserRequest)
+	console.log('success: createUser', createUserRes)
+
+	const changePermissionReq: Parameters.ChangePermission = {
+		action: USER_ACTION.GRANT,
+		username: 'myNewUser1',
+		database: 'defaultDB',
+		permission: USER_PERMISSION.READ_WRITE
+	}
+	const changePermissionRes = await cl.changePermission(changePermissionReq)
+	console.log('success: changePermission', changePermissionRes)
+
+	const changePasswordReq: Parameters.ChangePassword = {
+		user: 'myNewUser1',
+		oldpassword: 'myS3cretPassword!',
+		newpassword: 'myNewS3cretPassword!'
+	}
+	const changePasswordRes = await cl.changePassword(changePasswordReq)
+	console.log('success: changePassword', changePermissionRes)
+})()
+```
 :::
 
 ::: tab .Net
@@ -2207,8 +2825,35 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+import Parameters from 'immudb-node/types/parameters'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const createDatabaseReq: Parameters.CreateDatabase = {
+		databasename: 'myimmutabledb'
+	}
+	const createDatabaseRes = await cl.createDatabase(createDatabaseReq)
+	console.log('success: createDatabase', createDatabaseRes)
+
+	const useDatabaseReq: Parameters.UseDatabase = {
+		databasename: 'myimmutabledb'
+	}
+	const useDatabaseRes = await cl.useDatabase(useDatabaseReq)
+	console.log('success: useDatabase', useDatabaseRes)
+
+	await cl.set('key', 'val')
+})()
+```
 :::
 
 ::: tab .Net
@@ -2297,8 +2942,22 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```ts
+import ImmudbClient from 'immudb-node'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+
+	await cl.health()
+})()
+```
 :::
 
 ::: tab .Net
