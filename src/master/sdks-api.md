@@ -1103,7 +1103,7 @@ The `scan` command is used to iterate over the collection of elements present in
 * `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
 * `NoWait`: Default false. When true scan doesn't wait for the index to be fully  generated and returns the last indexed value. Optional
 
->  To gain full speed it's possible to specify noWait=true. The control will be returned to the caller immediately, without waiting for the indexing. Using no wait could be confusing when trying to retrieve data immediately inserted, as the index may not yet be generated.
+>  To gain speed it's possible to specify `noWait=true`. The control will be returned to the caller immediately, without waiting for the indexing to complete. When `noWait` is used, keep in mind that the returned data may not be yet up to date with the inserted data, as the indexing might not have completed.
 
 :::: tabs
 
