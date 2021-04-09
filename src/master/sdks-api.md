@@ -1101,9 +1101,9 @@ The `scan` command is used to iterate over the collection of elements present in
 * `Desc`: DESC or ASC sorting order. Optional
 * `Limit`: maximum returned items. Optional
 * `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
-* `NoWait`: when true scan doesn't wait that txSinceTx is processed. Optional
+* `NoWait`: Default false. When true scan doesn't wait for the index to be fully  generated and returns the last indexed value. Optional
 
-> When optional parameter `SinceTx`is not specified scan waits until latest committed transaction gets indexed. If the keys of interest had been committed before a given transaction. It's possible to specify such transaction ID as value for parameter `SinceTx`, which may result in no waits and reducing the internal overhead needed to create snapshots for the index. Additionally, if `NoWait`is set to false and the latest indexed transaction is lower to the specified in `SinceTx` parameter, the scan runs over the current index, meaning that setting `SinceTx` as the greatest possible integer value and `NoWait` as false, will always use current index without waiting for the latest committed transaction to be indexed.
+>  To gain full speed it's possible to specify noWait=true. The control will be returned to the caller immediately, without waiting for the indexing. Using no wait could be confusing when trying to retrieve data immediately inserted, as the index may not yet be generated.
 
 :::: tabs
 
@@ -1142,7 +1142,6 @@ An ordinary `scan` command and a reversed one.
 		SeekKey: []byte{0xFF},
 		Desc:    true,
 		SinceTx: math.MaxUint64,
-		NoWait:  true,
 	}
 
 	list, err = client.Scan(ctx, scanReq2)
@@ -1689,13 +1688,13 @@ When an integer64 is cast to a float there _could_ be a loss of precision, but t
 * `SeekAtTx`: the tx id for the first entry in the iteration. Optional
 * `InclusiveSeek`: the element resulting from the combination of the `SeekKey` `SeekScore` and `SeekAtTx` is returned with the result. Optional
 * `Desc`: DESC or ASC sorting order. Optional
-* `SinceTx`: immudb will wait that the transaction provided by SinceTx be indexed. Optional
-* `NoWait`: when true scan doesn't wait that SinceTx gets indexed. Optional
+* `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
+* `NoWait`: when true scan doesn't wait that txSinceTx is processed. Optional
 * `MinScore`: minimum score filter. Optional
 * `MaxScore`: maximum score filter. Optional
 * `Limit`: maximum number of returned items. Optional
 
-> When optional parameter `SinceTx`is not specified scan waits until latest committed transaction gets indexed. If the keys of interest had been committed before a given transaction. It's possible to specify such transaction ID as value for parameter `SinceTx`, which may result in no waits and reducing the internal overhead needed to create snapshots for the index. Additionally, if `NoWait`is set to false and the latest indexed transaction is lower to the specified in `SinceTx` parameter, the scan runs over the current index, meaning that setting `SinceTx` as the greatest possible integer value and `NoWait` as false, will always use current index without waiting for the latest committed transaction to be indexed.
+> Having the possibility to get data specifying a transaction id: `AtTx`, it’s the optimal way to retrieve the data, as it can be done with random access to it. And it can be made immediately after the transaction was committed or at any point in the future. When the transaction ID is unknown by the application and the query is made by key or key prefixes, it will be served through the index, depending on the insertion rate, it can be delayed or up to date with inserted data, using a big number in `SinceTx` with `NoWait` in true will mean that the query will be resolved by looking at the most recent indexed data, but if your query needs to be resolved after some transactions has been inserted, you can set `SinceTx` to specify up to which transaction the index has to be made for resolving it.
 
 :::: tabs
 
