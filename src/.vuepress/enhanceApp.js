@@ -18,13 +18,19 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => [
     {
-        title: 'Get started',
+        title: "Get started",
+        collapsable: false,
+        children: [
+            `${version}/quickstart`,
+            `${version}/jumpstart`,
+        ]
+    },
+    {
+        title: 'About',
         collapsable: false,
         children: [
             `${version}/`,
             `${version}/how-it-works`,
-            `${version}/quickstart`,
-            `${version}/jumpstart`,
             `${version}/sdks-api`,
             `${version}/apis-references`,
             `${version}/command-reference`,
