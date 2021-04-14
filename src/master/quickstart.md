@@ -42,5 +42,5 @@ chmod +x ./immuclient
 Alternatively, you may use Docker to run immuclient in a ready-to-use container:
 
 ```bash
-docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:latest
+docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 ```
