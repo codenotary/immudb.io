@@ -11,7 +11,7 @@ You may download the immudb binary from [the latest releases on Github](https://
 ```bash
 wget https://github.com/vchain-us/immudb/releases/download/v0.9.2/immudb-v0.9.2-linux-amd64
 mv immudb-v0.9.2-linux-amd64 immudb
-chmod +x ./immudb
+chmod +x immudb
 
 # run immudb in the foreground to see all output
 ./immudb
@@ -33,7 +33,7 @@ You may download the immuclient binary from [the latest releases on Github](http
 ```bash
 wget https://github.com/vchain-us/immudb/releases/download/v0.9.2/immuclient-v0.9.2-linux-amd64
 mv immuclient-v0.9.2-linux-amd64 immuclient
-chmod +x ./immuclient
+chmod +x immuclient
 
 # start the interactive shell
 ./immuclient
@@ -43,4 +43,48 @@ Alternatively, you may use Docker to run immuclient in a ready-to-use container:
 
 ```bash
 docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
+```
+
+## Basic operations with immuclient
+
+Before any operations can be run by immuclient, it is necessary to authenticate against the running immudb server.
+
+When immudb is first run, it is ready to use immediately with the default database and credentials:
+
+- Database name: defaultdb
+- User: immudb
+- Password: immudb
+- Port: 3322
+
+Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:
+
+```
+immuclient> login immudb
+Password: immudb
+```
+
+While immudb supports `set` and `get` for key-value storing and retrieving, its immutability means that we can verify the integrity of the underlying Merkle tree. To do this, we use the `safeset` and `safeget` commands. Let's try setting a value of `foo` for the key `1`:
+
+```
+immuclient> safeset 1 foo
+```
+
+Then, we can immediately overwrite the key `1` with a value of `bar` instead:
+
+```
+immuclient> safeset 1 bar
+```
+
+If we try to retrieve the current value of key `1`, we should get `bar`:
+
+```
+immuclient> safeget 1
+```
+
+Note that at each step so far, the `verified` flag is set to true. This ensures that the Merkle tree remains consistent for each transaction.
+
+We can show the history of transactions for key `1` using the `history` command:
+
+```
+immuclient> history 1
 ```

@@ -18,7 +18,7 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => [
     {
-        title: "Get started",
+        title: 'Get started',
         collapsable: false,
         children: [
             `${version}/quickstart`,
