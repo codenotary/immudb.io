@@ -63,28 +63,28 @@ immuclient> login immudb
 Password: immudb
 ```
 
-While immudb supports `set` and `get` for key-value storing and retrieving, its immutability means that we can verify the integrity of the underlying Merkle tree. To do this, we use the `safeset` and `safeget` commands. Let's try setting a value of `foo` for the key `1`:
+While immudb supports `set` and `get` for key-value storing and retrieving, its immutability means that we can verify the integrity of the underlying Merkle tree. To do this, we use the `safeset` and `safeget` commands. Let's try setting a value of `100` for the key `balance`:
 
 ```
-immuclient> safeset 1 foo
+immuclient> safeset balance 100
 ```
 
-Then, we can immediately overwrite the key `1` with a value of `bar` instead:
+Then, we can immediately overwrite the key `balance` with a value of `9001` instead:
 
 ```
-immuclient> safeset 1 bar
+immuclient> safeset balance 9001
 ```
 
-If we try to retrieve the current value of key `1`, we should get `bar`:
+If we try to retrieve the current value of key `balance`, we should get `9001`:
 
 ```
-immuclient> safeget 1
+immuclient> safeget balance
 ```
 
 Note that at each step so far, the `verified` flag is set to true. This ensures that the Merkle tree remains consistent for each transaction.
 
-We can show the history of transactions for key `1` using the `history` command:
+We can show the history of transactions for key `balance` using the `history` command:
 
 ```
-immuclient> history 1
+immuclient> history balance
 ```
