@@ -4,6 +4,8 @@
 
 Here the gRPC documentation that shows available endpoints with protobuffer protocol
 
+[immudb gRPC](immudb/grpc-interface.md)
+
 ## immugw RESTful API reference
 immugw can be found in a different [repository](https://github.com/codenotary/immugw)
 
@@ -18,5 +20,5 @@ docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/pkg/api/gw.schema
 ```
 
 ## Examples
-* [Curl code snippets](../old/immugw/curl.md)
+* [Curl code snippets](immugw/curl.md)
 * [Immudb SDKs examples](https://github.com/codenotary/immudb-client-examples)

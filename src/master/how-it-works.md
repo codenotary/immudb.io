@@ -1,4 +1,4 @@
-# Concepts
+# How it works
 
 Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
 
@@ -16,7 +16,6 @@ This section is not yet ready for immudb 0.9. We are working on it in order to i
 
 Providing `immudb` with a signing key enables the cryptographic state signature.
 That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state after calling the `currentState` gRPC method.
-
 Here are the gRPC message definitions:
 ```proto
 message ImmutableState {
@@ -30,8 +29,7 @@ message Signature {
 	bytes publicKey = 2;
 }
 ```
-
-Check [state signature](old/immudb/#state-signature) and [verify state signature](sdks-api.html#verify-state-signature) paragraphs for additional details.
+Check [state signature](/master/immudb/#state-signature) and [verify state signature](/master/sdks-api.html#verify-state-signature) paragraphs for additional details.
 
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
 To get the signed state in combination with the auditor, launch...

@@ -18,13 +18,6 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => [
     {
-        title: 'Welcome',
-        collapsable: false,
-        children: [
-            `${version}/`,
-        ]
-    },
-    {
         title: 'Get started',
         collapsable: false,
         children: [
@@ -36,15 +29,40 @@ const getSidebar = version => [
         title: 'About',
         collapsable: false,
         children: [
-            `${version}/about`,
-            `${version}/concepts`,
+            `${version}/`,
+            `${version}/how-it-works`,
+            `${version}/sdks-api`,
+            `${version}/apis-references`,
+            `${version}/command-reference`,
         ]
     },
     {
-        title: 'Developing for immudb',
+        title: 'immudb',
         collapsable: false,
         children: [
-            `${version}/build`,
+            `${version}/immudb/`,
+        ]
+    },
+    {
+        title: 'immugw',
+        collapsable: false,
+        children: [
+            `${version}/immugw/`,
+            `${version}/immugw/curl`
+        ]
+    },
+    {
+        title: 'immuadmin',
+        collapsable: false,
+        children: [
+            `${version}/immuadmin/`,
+        ]
+    },
+    {
+        title: 'immuclient',
+        collapsable: false,
+        children: [
+            `${version}/immuclient/`,
         ]
     },
 ]
