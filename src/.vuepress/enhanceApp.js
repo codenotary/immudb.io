@@ -21,10 +21,16 @@ const getSidebar = version => [
         title: 'Get started',
         collapsable: false,
         children: [
-            `${version}/`,
-            `${version}/how-it-works`,
             `${version}/quickstart`,
             `${version}/jumpstart`,
+        ]
+    },
+    {
+        title: 'About',
+        collapsable: false,
+        children: [
+            `${version}/`,
+            `${version}/how-it-works`,
             `${version}/sdks-api`,
             `${version}/apis-references`,
             `${version}/command-reference`,
