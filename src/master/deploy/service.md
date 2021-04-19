@@ -1,3 +1,5 @@
+# Running as a service
+
 If you are running macOS, the community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb); therefore you can simply run
 
 ```bash
@@ -58,14 +60,3 @@ The linux service is using the following defaults:
 | all configuration files | /etc/immudb        |
 | pid file                | /var/run/immugw.pid |
 | log files               | /var/log/immudb    |
-
-
-
-All services and CLI components are also available as Docker images on [dockerhub](https://hub.docker.com/).
-
-| Component | Container image |
-| --- | --- |
-| immudb    | [https://hub.docker.com/r/codenotary/immudb](https://hub.docker.com/r/codenotary/immudb) |
-| immugw    | [https://hub.docker.com/r/codenotary/immugw](https://hub.docker.com/r/codenotary/immugw) |
-| immuadmin | [https://hub.docker.com/r/codenotary/immuadmin](https://hub.docker.com/r/codenotary/immuadmin) |
-| immuclient | [https://hub.docker.com/r/codenotary/immuclient](https://hub.docker.com/r/codenotary/immuclient) 
