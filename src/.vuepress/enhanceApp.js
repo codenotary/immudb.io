@@ -25,19 +25,19 @@ const getSidebar = version => [
         ]
     },
     {
-        title: 'Get started',
-        collapsable: false,
-        children: [
-            `${version}/quickstart`,
-            `${version}/jumpstart`,
-        ]
-    },
-    {
-        title: 'About',
+        title: 'Learn about immudb',
         collapsable: false,
         children: [
             `${version}/about`,
             `${version}/concepts`,
+        ]
+    },
+    {
+        title: 'Get started with immudb',
+        collapsable: false,
+        children: [
+            `${version}/quickstart`,
+            `${version}/jumpstart`,
         ]
     },
     {
