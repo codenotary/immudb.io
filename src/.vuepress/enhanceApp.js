@@ -41,10 +41,24 @@ const getSidebar = version => [
         ]
     },
     {
+        title: 'Deploying immudb',
+        collapsable: false,
+        children: [
+            `${version}/deploy/service`,
+        ]
+    },
+    {
         title: 'Developing for immudb',
         collapsable: false,
         children: [
             `${version}/build`,
+        ]
+    },
+    {
+        title: 'Reference',
+        collapsable: false,
+        children: [
+            `${version}/sdks-api`,
         ]
     },
 ]

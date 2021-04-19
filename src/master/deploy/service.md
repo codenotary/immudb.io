@@ -1,3 +1,5 @@
+# Running as a service
+
 If you are running macOS, the community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb); therefore you can simply run
 
 ```bash
