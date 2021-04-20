@@ -3,28 +3,7 @@
 ## What is immudb?
 A lightweight, high-speed, immutable database solution capable of processing millions of transactions a second. It provides cryptographic verification of your data integrity without the cost and complexity associated with classic blockchain. You have the flexibility to host immudb on-premise or in the cloud.
 
-<table border="0" >
-	<tr>
-		<td width="33%" valign="top" align="center" >
-			<h3>Immutable</h3>
-			Data is never overwritten. See the history of data updates.
-		</td>
-		<td width="33%" valign="top" align="center" >
-			<h3>Auditable</h3>
-			Tamper-evident history system ensures data authenticity.
-		</td>
-		<td width="33%" valign="top" align="center" >
-			<h3>Secure</h3>
-			Data ownership is verifiable by clients and auditors.
-		</td>
-	</tr>
-	<tr >
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/immutable.svg" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/auditable.svg" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/secure.svg" width="80px"/></td>
-	</tr>
-
-</table>
+<FeatureTable/>
 
 The immudb is a non-relational, NoSQL database. Data is a collection of key-values with time stamps. You can add records, but deletion or modification isn’t allowed making your data immutable. When a record's value changes over time (such as a bank balance), you can get multiple instances with different time stamps to give you the complete change history of that record. Store a variety of common data types, verification checksums, or JSONs.
 
