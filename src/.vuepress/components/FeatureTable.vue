@@ -26,6 +26,7 @@
 }
 .feature {
 	flex-basis: 25ch;
+	flex-grow: 1;
 	display: flex;
 	flex-flow: column;
 	align-items: center;
