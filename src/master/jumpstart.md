@@ -141,7 +141,7 @@ If you're using another language, then read up on our [immugw](https://docs.immu
 
 ### Connection and authentication
 
-Immudb run on 3323 default port. Here we connecting a client with default options and
+Immudb run on 3322 default port. Here we connecting a client with default options and
 authenticating using default username and password.
 It's possible to modify defaults on immudb server config folder inside `immudb.toml`
 :::: tabs
