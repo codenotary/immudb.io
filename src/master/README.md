@@ -24,7 +24,7 @@ The immudb documentation is structured as follows:
 
 * **Help and Support**
 
-  * Join our [Discord community ![Discord](https://img.shields.io/discord/831257098368319569)](https://discord.gg/pZnR7QC6)
+  * Join our [Discord community ![Discord](https://img.shields.io/discord/831257098368319569)](https://discord.gg/ThSJxNEHhZ)
 
 * **External Resources**
 
