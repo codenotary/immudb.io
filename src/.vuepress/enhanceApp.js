@@ -60,7 +60,7 @@ const getSidebar = version => [
         title: 'Reference',
         collapsable: false,
         children: [
-            `${version}/configuration`,
+            `${version}/reference/configuration`,
             `${version}/sdks-api`,
         ]
     },
