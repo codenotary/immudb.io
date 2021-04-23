@@ -43,17 +43,19 @@ const getSidebar = version => [
     {
         title: 'Operations',
         collapsable: false,
-        sidebarDepth: 1,
+        sidebarDepth: 0,
         children: [
             `${version}/operations/planning`,
             `${version}/operations/service`,
             `${version}/operations/monitoring`,
+            `${version}/operations/backups`,
         ]
     },
     {
-        title: 'Developing',
+        title: 'Develop',
         collapsable: false,
         children: [
+            `${version}/sdk`,
             `${version}/build`,
         ]
     },
@@ -62,7 +64,7 @@ const getSidebar = version => [
         collapsable: false,
         children: [
             `${version}/reference/configuration`,
-            `${version}/sdks-api`,
+            `${version}/reference/sdk`,
         ]
     },
 ]

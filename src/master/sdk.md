@@ -1,4 +1,4 @@
-# SDKs api
+# Using the immudb SDK
 
 ## Contents
 - [Connection and authentication](#connection-and-authentication)
