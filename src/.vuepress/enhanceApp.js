@@ -18,11 +18,11 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => [
     {
-        title: 'Welcome',
-        collapsable: false,
-        children: [
-            `${version}/`,
-        ]
+        title: 'Introduction',
+        collapsable: true,
+        sidebarDepth: 0,
+        initialOpenGroupIndex: -1,
+        path: `${version}/`,
     },
     {
         title: 'Learn about immudb',
@@ -33,7 +33,7 @@ const getSidebar = version => [
         ]
     },
     {
-        title: 'Get started with immudb',
+        title: 'Get started',
         collapsable: false,
         children: [
             `${version}/quickstart`,
@@ -43,6 +43,7 @@ const getSidebar = version => [
     {
         title: 'Operations',
         collapsable: false,
+        sidebarDepth: 1,
         children: [
             `${version}/operations/planning`,
             `${version}/operations/service`,
