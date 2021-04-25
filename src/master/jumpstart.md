@@ -1,10 +1,30 @@
-# Developer Jumpstart for immudb SDKs
-[![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/) [![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb) [![License](https://img.shields.io/github/license/codenotary/immudb4j)](https://github.com/codenotary/immudb/blob/master/LICENSE)
 
-## Introduction
-This guide helps developers quickly start with CodeNotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
+# Getting started with immudb Development
 
-Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+This guide provides developers with the first steps of using immudb from their application and from their favourite programming language:
+
+* Connect to the database
+* Insert and retrieve data
+
+::: tip
+To learn how to develop for immudb with Python in a guiden online environment, visit the immudb Playground at <https://play.codenotary.com>
+:::
+
+## Clients
+
+In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
+
+## SDKs
+
+The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk to the server.
+
+SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
+
+![SDK Architecture](/immudb/sdk-arch.png)
+
+The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
+
+For other unsupported programming languages, [immugw](https://docs.immudb.io/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
 
 ## Getting immudb running
 
