@@ -16,7 +16,7 @@ In the most common scenario, you would perform write and read operations on the 
 
 ## SDKs
 
-The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk to the server.
+The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
 
 SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
 
@@ -42,33 +42,33 @@ chmod +x immudb
 ./immudb -d
 ```
 
-Alternatively, you may use Docker to run immudb in a ready-to-use container:
+Alternatively, you may use Docker to run immudb in a ready-to-use container. In a terminal type:
 
 ```bash
-docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
+docker run -ti -p 3322:3322 codenotary/immudb:latest
 ```
 
-## Creating an immudb client
+(you can add the `-d --rm --name immudb` options to send it to the background).
 
-### Integration
+## Connecting from your programming language
 
-Integrate the immudb Client into your application using the official Software Development Kits (SDKs).
+### Importing the SDK
+
+In order to use the SDK, you need to download and import the libraries:
 
 :::: tabs
 
 ::: tab Go
 
-``` shell script
+```shell script
 # Make sure your project is using Go Modules
-go mod init app
-# Install immudb sdk
-go get -u github.com/codenotary/immudb
-```
+go mod init example.com/hello
+#go get github.com/codenotary/immudb/pkg/client
 
-``` go
+```go
 // Then import the package
 import (
-  "github.com/codenotary/immudb/pkg/client"
+	immuclient "github.com/codenotary/immudb/pkg/client"
 )
  ```
 :::
@@ -81,19 +81,19 @@ if using `Maven`:
     <dependency>
         <groupId>io.codenotary</groupId>
         <artifactId>immudb4j</artifactId>
-        <version>0.2.0</version>
+        <version>0.9.0.6</version>
     </dependency>
 ```
 
 if using `Gradle`:
 ```groovy
-    compile 'io.codenotary:immudb4j:0.2.0'
+    compile 'io.codenotary:immudb4j:0.9.0.6'
 ```
 [Java SDK repository](https://github.com/codenotary/immudb4j)
 
 immudb4j is currently hosted on both [Maven Central] and [Github Packages].
 
-[Github Packages]: https://docs.github.com/en/packages
+[Github Packages]: https://github.com/orgs/codenotary/packages?repo_name=immudb4j
 [Maven Central]: https://search.maven.org/artifact/io.codenotary/immudb4j
 :::
 
@@ -161,17 +161,25 @@ If you're using another language, then read up on our [immugw](https://docs.immu
 
 ### Connection and authentication
 
-Immudb run on 3322 default port. Here we connecting a client with default options and
-authenticating using default username and password.
-It's possible to modify defaults on immudb server config folder inside `immudb.toml`
+The first step is to connect to the database, which listens by default in port 3322, authenticate using the default user and password (`immudb / immudb`), and get a token which can be used in subsequent requests:
+
+>Note: You can [change the server default options](reference/configuration.md) using environment variables, flags or the `immudb.toml` configuration file.
+
 :::: tabs
 
 ::: tab Go
 
-Login method return a token needed in all interactions with the server.
+>Note: the `Login` method will return a token which can be used in subsequent interactions with the server. This token is set on the context metadata.
 
 ```go
-client, err := c.NewImmuClient(client.DefaultOptions())
+import (
+	"log"
+	"context"
+	immuclient "github.com/codenotary/immudb/pkg/client"
+	"google.golang.org/grpc/metadata"
+)
+
+client, err := immuclient.NewImmuClient(client.DefaultOptions())
 if err != nil {
     log.Fatal(err)
 }
@@ -188,18 +196,38 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+```java
+client = ImmuClient.newBuilder()
+    .withServerUrl("localhost")
+    .withServerPort(3322)
+    .build();
+client.login("immudb", "immudb");
+```
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb.client import ImmudbClient
+ic=ImmudbClient()
+ic.login("immudb","immudb")
+```
 :::
 
 ::: tab Node.js
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+```javascript
+const cl = new ImmudbClient();
+
+(async () => {
+  try {
+    const loginReq: Parameters.Login = { user: 'immudb', password: 'immudb' }
+    const loginRes = await cl.login(loginReq)
+// ...
+} catch (err) {
+    console.log(err)
+  }
+})()
+```
 :::
 
 ::: tab .Net
