@@ -1,5 +1,5 @@
 
->Note: This page requires immudb 1.0 which is not yet release. If you want to try this features, you need to build immudb from the `sql_support` branch.
+>Note: This page requires immudb 1.0 which is not yet released. If you want to try this features, you need to build immudb from the `sql_support` branch.
 
 [[toc]]
 
