@@ -63,6 +63,7 @@ const getSidebar = version => [
         collapsable: false,
         children: [
             `${version}/reference/configuration`,
+            `${version}/reference/sql`,
             `${version}/reference/sdk`,
         ]
     },

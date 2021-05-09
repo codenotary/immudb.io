@@ -291,29 +291,75 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+## SQL Operations with the Go SDK
 
+In order to use SQL from the Go SDK, you create a immudb client and login to the server like usual. First make sure you import:
 
-### To get going quickly:
-  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples). `Note: Only Golang SDK is currently upgraded for immudb 0.9.0`
-  - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
-   Take a look at the [SDKs api](/master/sdks-api) page.
+```
+"github.com/codenotary/immudb/pkg/api/schema"
+"github.com/codenotary/immudb/pkg/client"
+"google.golang.org/grpc/metadata"
+```
 
+Then you can create the client and login to the database:
 
-## Conclusion
+```go
+c, err := client.NewImmuClient(client.DefaultOptions())
+	if err != nil {
+		log.Fatal(err)
+	}
 
-Congratulations for completing the development quick start guide. You've been guided through the essentials you need to know to begin using CodeNotary's immudb solution.
+	ctx := context.Background()
 
-You now have:
- - An immudb database server and are familiar with basic authentication.
- - An immudb client.
- - A new immudb database.
- - An instance of the immudb client running.
- - Gone through reading and writing data with and without cryptographic verification.
+	lr, err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-We've only scratched the surface of immudb's capabilities. Here are some additional resources you might find helpful:
-- Learn more through our [documentation](https://docs.immudb.io/master/).
-    - Learn more about the immudb [SDKs](https://docs.immudb.io/master/sdks-api.html#contents).
-    - Try out [immuadmin](https://docs.immudb.io/master/immuadmin/)
-- Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
-- Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
-<img align="center" src="https://codenotary.io/images/word-tree.png"/>
+	md := metadata.Pairs("authorization", lr.Token)
+	ctx = metadata.NewOutgoingContext(ctx, md)
+```
+
+To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:
+
+```go
+_, err = c.SQLExec(ctx, &schema.SQLExecRequest{Sql: `
+		BEGIN TRANSACTION
+          CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);
+          CREATE INDEX ON people(name)
+		COMMIT
+	`})
+```
+
+This is also how you perform inserts:
+
+```go
+_, err = c.SQLExec(ctx, &schema.SQLExecRequest{Sql: "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 10000);"})
+```
+
+Once you have data in the database, you can use the `SQLQuery` method of the client to query:
+
+```go
+q := "SELECT id, name, salary FROM people;"
+qres, err := c.SQLQuery(ctx, &schema.SQLQueryRequest{Sql: q})
+```
+
+Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values. Example:
+
+```go
+res, err := client.SQLQuery(ctx, "SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active", params)
+```
+
+`qres` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `qres.Rows`. On earch iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
+
+```go
+for _, r := range qres.Rows {
+	for _, v := range r.Values {
+		fmt.Printf("%v\n", schema.RenderValue(v.Operation))
+	}
+}
+```
+
+### Additional resources
+
+  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
