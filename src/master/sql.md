@@ -108,6 +108,7 @@ USE DATABASE db1;
 ```
 CREATE TABLE table1 (id INTEGER, PRIMARY KEY id);
 CREATE TABLE table1 (id INTEGER, ts INTEGER, title VARCHAR, active BOOLEAN, payload BLOB, PRIMARY KEY id);
+CREATE TABLE IF NOT EXISTS table1 (id INTEGER, PRIMARY KEY id);
 ```
 
 ### Indexes
@@ -117,6 +118,12 @@ CREATE INDEX ON table1(name);
 ```
 
 ### Inserting or updating data
+
+```
+INSERT INTO table1 (id, title) VALUES (1, 'some title')
+```
+
+`UPSERT` will update the value if a row with the same primary key already exists:
 
 ```
 UPSERT INTO table1 (id, title) VALUES (1, 'some title')
