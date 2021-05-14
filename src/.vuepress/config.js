@@ -89,7 +89,7 @@ module.exports = {
         ['script', { async: true, src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" }]
     ] : []),
     themeConfig: {
-        logo: '/logo.png',
+        logo: '/logo_white.svg',
         nav: [
             { text: 'Home', link: 'https://codenotary.io/technologies/immudb' },
             { text: 'Blog', link: 'https://codenotary.io/blog' },

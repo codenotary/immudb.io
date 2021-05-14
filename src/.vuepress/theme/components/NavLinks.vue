@@ -127,7 +127,7 @@ export default {
   display inline-block
   a
     line-height 1.4rem
-    color inherit
+    color $textColor
     &:hover, &.router-link-active
       color $accentColor
   .nav-item

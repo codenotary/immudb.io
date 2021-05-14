@@ -87,7 +87,7 @@ export default {
   &:not(.collapsable)
     .sidebar-heading:not(.clickable)
       cursor auto
-      color inherit
+      //color inherit
   // refine styles of nested sidebar groups
   &.is-sub-group
     padding-left 0
@@ -108,7 +108,7 @@ export default {
       border-left none
 
 .sidebar-heading
-  color $textColor
+  color $cn-color-primary_light
   transition color .15s ease
   cursor pointer
   font-size 1.1em
@@ -120,7 +120,7 @@ export default {
   margin 0
   border-left 0.25rem solid transparent
   &.open, &:hover
-    color inherit
+    //color inherit
   .arrow
     position relative
     top -0.12em

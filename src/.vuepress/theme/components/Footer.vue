@@ -16,24 +16,6 @@
     </div>
 </template>
 
-<style lang="stylus">
-.footer
-    padding 2.5rem
-    border-top 1px solid $borderColor
-    color lighten($textColor, 25%)
-
-    .column
-        display flex
-        justify-content space-between
-
-        @media screen and (max-width: 767px)
-            flex-direction: column-reverse
-            align-items center
-
-            .nav
-                margin-bottom: 1rem
-</style>
-
 <script>
 import NavLink from '@theme/components/NavLink.vue'
 
@@ -48,3 +30,24 @@ export default {
     }
 }
 </script>
+
+<style lang="stylus">
+.footer
+  padding 2.5rem
+  border-top 1px solid $borderColor
+  color lighten($textColor, 25%)
+  z-index 11
+  background-color $cn-color-dark
+  position relative
+
+  .column
+    display flex
+    justify-content space-between
+
+    @media screen and (max-width: 767px)
+      flex-direction: column-reverse
+      align-items center
+
+      .nav
+        margin-bottom: 1rem
+</style>

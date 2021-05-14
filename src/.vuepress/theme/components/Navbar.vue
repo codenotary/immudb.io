@@ -19,21 +19,20 @@
         :class="{ 'can-hide': $site.themeConfig.logo }"
       >{{ $siteTitle }}</span>
     </RouterLink>
-
-    <VersionsDropdown />
     <div
       class="links"
       :style="linksWrapMaxWidth ? {
         'max-width': `${linksWrapMaxWidth}px`
       } : {}"
     >
+      <NavLinks class="can-hide"/>
       <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"
       />
       <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
-      <NavLinks class="can-hide"/>
     </div>
+    <VersionsDropdown />
   </header>
 </template>
 
@@ -101,14 +100,18 @@ $navbar-horizontal-padding = 1.5rem
 
 .navbar
   padding $navbar-vertical-padding $navbar-horizontal-padding
-  line-height $navbarHeight - 1.4rem
+  //line-height $navbarHeight - 1.4rem
+  display flex
+  flex-direction row
+  align-items center
 
   a, span, img
     display inline-block
 
   .logo
-    height $navbarHeight - 1.4rem
-    min-width $navbarHeight - 1.4rem
+    //height $navbarHeight - 1.4rem
+    //min-width $navbarHeight - 1.4rem
+    height 55px;
     margin-right 0.8rem
     vertical-align top
 
@@ -121,10 +124,12 @@ $navbar-horizontal-padding = 1.5rem
   .links
     padding-left 1.5rem
     box-sizing border-box
-    background-color white
+    background-color transparent
     white-space nowrap
     font-size 0.9rem
-    position absolute
+    //position absolute
+    flex 1
+    justify-content flex-end
     right $navbar-horizontal-padding
     top $navbar-vertical-padding
     display flex
