@@ -58,6 +58,7 @@ const getSidebar = version => [
             `${version}/sdk`,
             `${version}/build`,
             `${version}/develop/pg`,
+            `${version}/develop/embedding`,
         ]
     },
     {

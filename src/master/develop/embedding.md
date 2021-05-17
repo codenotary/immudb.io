@@ -1,10 +1,4 @@
-
->Note: This page requires immudb 1.0 which is not yet released. If you want to try this features, you need to build immudb from the `master` branch.
-
-[[toc]]
-
-
-## Embedding the SQL engine in your application
+# Embedding the SQL engine in your application
 
 Using the Go client SDK means you are connecting to a immudb database server. There are cases where you don't want a separate server but embed immudb directly in the same application process, as a library.
 
@@ -47,16 +41,16 @@ if err != nil {
 The engine has an API to execute statements and queries. To execute an statement:
 
 ```go
-_, err = engine.ExecStmt("CREATE TABLE journal (id INTEGER, date STRING, creditaccount INTEGER, debitaccount INTEGER amount INTEGER, description STRING, PRIMARY KEY id)")
+_, err = engine.ExecStmt("CREATE TABLE journal (id INTEGER, date VARCHAR, creditaccount INTEGER, debitaccount INTEGER amount INTEGER, description VARCHAR, PRIMARY KEY id)")
 if err != nil {
 	log.Fatal(err)
 }
 ```
 
-Queries can be executed using `QueryStmt`:
+Queries can be executed using `QueryStmt` and you can pass a map of parameters to substitute, and whether the engine should wait for indexing:
 
 ```go
-r, err = engine.QueryStmt("SELECT id, date, creditaccount, debitaccount, amount, description FROM journal")
+r, err = engine.QueryStmt("SELECT id, date, creditaccount, debitaccount, amount, description FROM journal WHERE amount > @value", map[string]interface{}{"value": 100}, true)
 ```
 
 To iterate over a result set `r`, just fetch rows until there are no more entries. Every row has a `Values` member you can index to access the column:
@@ -77,4 +71,3 @@ for {
 ```
 
 And that is all you need. If you need to change options like where things get stored by default, you can do that in the underlying store objects that the SQL engine is using.
-
