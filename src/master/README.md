@@ -2,7 +2,9 @@
 
 Welcome to the immudb documentation. Great to see you here!
 
-immudb is a key-value database written in Go, but unlike other databases, it is immutable: history is preserved and can't be changed without clients noticing.
+immudb is a database written in Go, but unlike other databases, it is immutable: history is preserved and can't be changed without clients noticing.
+
+immudb can be used both as a key-value store, or as a relational database (SQL).
 
 The immudb documentation is structured as follows:
 
