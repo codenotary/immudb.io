@@ -1,19 +1,17 @@
 <template>
-    <div class="footer">
-        <i-container>
-            <i-row>
-                <i-column>
-                    <span class="copyright">Copyright &copy; vChain {{ year }}</span>
-                    <i-nav class="list -inline _font-size-sm">
-                        <i-nav-item href="https://codenotary.io/blog">Blog</i-nav-item>
-                        <i-nav-item to="/">Documentation</i-nav-item>
-                        <i-nav-item href="https://codenotary.io/careers">Careers</i-nav-item>
-                        <i-nav-item href="https://github.com/codenotary/immudb" target="_blank">GitHub</i-nav-item>
-                    </i-nav>
-                </i-column>
-            </i-row>
-        </i-container>
-    </div>
+  <div class="footer">
+      <div class="flex row">
+          <div class="flex column">
+              <span class="copyright">Copyright &copy; vChain {{ year }}</span>
+              <div>
+                  <a href="https://codenotary.io/blog">Blog</a>
+                  <router-link to="/">Documentation</router-link>
+                  <a href="https://codenotary.io/careers">Careers</a>
+                  <a href="https://github.com/codenotary/immudb" target="_blank">GitHub</a>
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +19,7 @@ import NavLink from '@theme/components/NavLink.vue'
 
 export default {
     components: {
-        NavLink
+      NavLink
     },
     data() {
         return {

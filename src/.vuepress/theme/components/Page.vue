@@ -1,8 +1,8 @@
 <template>
   <main class="page">
     <slot name="top" />
-
-    <Content class="theme-default-content" />
+<!--    class="theme-default-content"-->
+    <Content class="page-content"/>
     <ClientOnly>
       <PageEdit />
       <PageNav v-bind="{ sidebarItems }" />
@@ -22,11 +22,13 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" >
 @require '../styles/wrapper.styl'
 
 .page
   padding-bottom 2rem
   display block
-
+  padding-left "calc(20rem + %s)" % ($cn-sidebar-margin)
+.page-content
+  margin-top $navbarHeight
 </style>

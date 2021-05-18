@@ -28,7 +28,7 @@ export default {
 <style lang="stylus">
 .sidebar
   background-color $cn-color-dark
-
+  margin-left $cn-sidebar-margin
   ul
     padding 0
     margin 0

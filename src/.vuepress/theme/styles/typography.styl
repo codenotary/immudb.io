@@ -48,13 +48,13 @@
     h1, h2, h3, h4, h5, h6
         font-weight 600
         line-height 1.25
-        margin-top (0.5rem - $navbarHeight)
-        padding-top ($navbarHeight + 1rem)
+        //margin-top (0.5rem - $navbarHeight)
+        //padding-top ($navbarHeight + 1rem/)
         margin-bottom 0
 
         &:first-child
-            margin-top -1.5rem
-            margin-bottom 1rem
+            //margin-top -1.5rem
+            //margin-bottom 1rem
 
             + p, + pre, + .custom-block
                 margin-top 2rem
@@ -72,3 +72,66 @@
 
     h3
         font-size 1.35rem
+
+
+
+// Custom
+h1
+  font-size: 46px !important
+  line-height: 56px !important
+
+  @media (max-width: $mobile-max-width)
+    font-size: 32px
+    line-height: 32px
+
+h2
+  font-size: 32px !important
+  line-height: 32px !important
+
+  @media (max-width: $mobile-max-width)
+    font-size: 24px !important
+    line-height: 24px !important
+
+
+h3
+  font-size: 24px !important
+  line-height: 24px !important
+
+  @media (max-width: $mobile-max-width)
+    font-size: 18px !important
+    line-height: 22px !important
+
+.cn-text-sm
+  font-size: 18px !important
+  line-height: 22px !important
+
+  @media (max-width: $mobile-max-width)
+    font-size: 14px !important
+    line-height: 17px !important
+
+.cn-text-xs
+  font-size: 14px !important
+  line-height: 17px !important
+
+.cn-text-dark
+  color: $text-dark-color !important
+
+
+.cn-text-secondary
+  color: $cn-color-secondary !important
+
+
+.cn-text-muted_blue
+  color: $text-muted_blue-color !important
+
+
+.cn-text-primary
+  color: $cn-color-primary !important
+
+
+.cn-text-brand
+  color: $cn-color-brand !important
+
+
+.cn-text-white
+  color: white !important
