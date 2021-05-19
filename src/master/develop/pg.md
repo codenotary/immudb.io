@@ -4,6 +4,8 @@ immudb can talk the [pgsql wire protocol](https://www.postgresql.org/docs/9.3/pr
 
 immudb needs to be started with the `pgsql-server` option enabled (`IMMUDB_PGSQL_SERVER=true`).
 
+SSL is supported, if you configured immudb with a certificate.
+
 :::: tabs
 
 ::: tab CLI
@@ -40,7 +42,7 @@ To connect to the database:
 ::: tab CLI
 
 ```
-psql "host=localhost dbname=defaultdb user=immudb password=immudb ssl mode=disable"
+psql "host=localhost dbname=defaultdb user=immudb password=immudb sslmode=disable"
 psql (13.2, server 0.0.0)
 Type "help" for help.
 ```
