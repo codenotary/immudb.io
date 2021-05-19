@@ -126,15 +126,13 @@ export default {
 .nav-links
   display inline-block
   a
-    line-height 1.4rem
     color $textColor
     &:hover, &.router-link-active
       color $accentColor
   .nav-item
     position relative
     display inline-block
-    margin-left 1.5rem
-    line-height 2rem
+    margin-left 20px
     &:first-child
       margin-left 0
   .repo-link

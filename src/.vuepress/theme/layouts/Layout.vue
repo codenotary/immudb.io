@@ -12,7 +12,7 @@
 
     <div
       class="sidebar-mask"
-      @click="toggleSidebar(false)"
+      @click="toggleSidebar(falseZ)"
     />
 
     <Sidebar
@@ -26,7 +26,6 @@
         <slot name="sidebar-bottom" />
       </template>
     </Sidebar>
-
     <Home v-if="$page.frontmatter.home" />
 
     <Page
@@ -52,11 +51,13 @@ import Sidebar from '@theme/components/Sidebar.vue'
 import Footer from "@theme/components/Footer.vue"
 
 import { resolveSidebarItems } from '../util'
+import CnContainer from "../global-components/CnContainer";
 
 export default {
   name: 'Layout',
 
   components: {
+    CnContainer,
     Home,
     Page,
     Sidebar,

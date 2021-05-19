@@ -29,6 +29,11 @@ export default {
 .sidebar
   background-color $cn-color-dark
   margin-left $cn-sidebar-margin
+  text-transform uppercase
+  font-weight bold
+
+  @media (max-width 1200px)
+    margin-left 10px
   ul
     padding 0
     margin 0
@@ -55,8 +60,10 @@ export default {
     & > li:not(:first-child)
       margin-top .75rem
 
+
 @media (max-width: $MQMobile)
   .sidebar
+    margin-left 0
     .nav-links
       display block
       .dropdown-wrapper .nav-dropdown .dropdown-item a.router-link-active::after

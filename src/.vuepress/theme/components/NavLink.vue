@@ -17,7 +17,6 @@
     @focusout="focusoutAction"
   >
     {{ item.text }}
-    <OutboundLink v-if="isBlankTarget" />
   </a>
 </template>
 

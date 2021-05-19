@@ -1,15 +1,15 @@
 <template>
   <div class="footer">
-      <div class="flex row">
-          <div class="flex column">
-              <span class="copyright">Copyright &copy; vChain {{ year }}</span>
-              <div>
+      <div class="flex row align-center justify-between">
+<!--          <div class="flex column">-->
+              <span class="copyright">Copyright © {{ year }} CodeNotary, Inc. All rights reserved.</span>
+              <div class="row justify-center">
                   <a href="https://codenotary.io/blog">Blog</a>
                   <router-link to="/">Documentation</router-link>
                   <a href="https://codenotary.io/careers">Careers</a>
                   <a href="https://github.com/codenotary/immudb" target="_blank">GitHub</a>
               </div>
-          </div>
+<!--          </div>-->
       </div>
   </div>
 </template>
@@ -32,6 +32,8 @@ export default {
 <style lang="stylus">
 .footer
   padding 2.5rem
+  padding-left 140px
+  padding-right 140px
   border-top 1px solid $borderColor
   color lighten($textColor, 25%)
   z-index 11

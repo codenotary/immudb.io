@@ -1,30 +1,30 @@
 $color-primary: #37598d;
-$icons-font-path: '/node_modules/@inkline/inkline/src/assets/icons/';
+//$icons-font-path: '/node_modules/@inkline/inkline/src/assets/icons/';
 $font-size-base: 1.1rem;
 $headings-font-weight: 600;
 $body-color-light: #2c3e50;
 $button-padding-base: 0.5rem 2rem;
 
-@import '~@inkline/inkline/src/inkline';
-@import '~@inkline/inkline/src/components/IButton/style';
-@import '~@inkline/inkline/src/components/IBadge/style';
-@import '~@inkline/inkline/src/components/IContainer/style';
-@import '~@inkline/inkline/src/components/IDropdown/style';
-@import '~@inkline/inkline/src/components/IDropdownMenu/style';
-@import '~@inkline/inkline/src/components/IDropdownItem/style';
-@import '~@inkline/inkline/src/components/IRow/style';
-@import '~@inkline/inkline/src/components/IColumn/style';
-@import '~@inkline/inkline/src/components/ICard/style';
-@import '~@inkline/inkline/src/components/IListGroup/style';
-@import '~@inkline/inkline/src/components/IListGroupItem/style';
-@import '~@inkline/inkline/src/components/ITabs/style';
-@import '~@inkline/inkline/src/components/ITab/style';
-@import '~@inkline/inkline/src/components/IModal/style';
-@import '~@inkline/inkline/src/components/IFormGroup/style';
-@import '~@inkline/inkline/src/components/IFormError/style';
-@import '~@inkline/inkline/src/components/IIcon/style';
-// @import '~@inkline/inkline/src/components/IInput/style';
-@import '~@inkline/inkline/src/components/IAlert/style';
+//@import '~@inkline/inkline/src/inkline';
+//@import '~@inkline/inkline/src/components/IButton/style';
+//@import '~@inkline/inkline/src/components/IBadge/style';
+//@import '~@inkline/inkline/src/components/IContainer/style';
+//@import '~@inkline/inkline/src/components/IDropdown/style';
+//@import '~@inkline/inkline/src/components/IDropdownMenu/style';
+//@import '~@inkline/inkline/src/components/IDropdownItem/style';
+//@import '~@inkline/inkline/src/components/IRow/style';
+//@import '~@inkline/inkline/src/components/IColumn/style';
+//@import '~@inkline/inkline/src/components/ICard/style';
+//@import '~@inkline/inkline/src/components/IListGroup/style';
+//@import '~@inkline/inkline/src/components/IListGroupItem/style';
+//@import '~@inkline/inkline/src/components/ITabs/style';
+//@import '~@inkline/inkline/src/components/ITab/style';
+//@import '~@inkline/inkline/src/components/IModal/style';
+//@import '~@inkline/inkline/src/components/IFormGroup/style';
+//@import '~@inkline/inkline/src/components/IFormError/style';
+//@import '~@inkline/inkline/src/components/IIcon/style';
+//// @import '~@inkline/inkline/src/components/IInput/style';
+//@import '~@inkline/inkline/src/components/IAlert/style';
 
 .tabs.-code {
     display: flex;
@@ -32,7 +32,7 @@ $button-padding-base: 0.5rem 2rem;
 
     .header {
         flex: 25%;
-        margin-right: $spacer;
+        //margin-right: $spacer;
     }
 
     .tab {

@@ -76,6 +76,9 @@ export default {
 
 <style lang="stylus">
 .algolia-search-wrapper
+  input
+    width 200px !important
+
   & > span
     vertical-align middle
   .algolia-autocomplete

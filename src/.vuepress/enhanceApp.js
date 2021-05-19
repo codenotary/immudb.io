@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
+import './theme/styles/grid.styl';
 
 import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
@@ -79,7 +80,7 @@ library.add(faSearch);
 library.add(faChevronRight);
 
 export default ({ Vue, router, siteData, }) => {
-    Vue.use(Inkline);
+    // Vue.use(Inkline);
     Vue.use(VueFilterDateFormat);
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -2,7 +2,12 @@
   <main class="page">
     <slot name="top" />
 <!--    class="theme-default-content"-->
-    <Content class="page-content"/>
+    <div class="content-wrapper">
+      <cn-container>
+        <Content class="page-content"/>
+      </cn-container>
+    </div>
+
     <ClientOnly>
       <PageEdit />
       <PageNav v-bind="{ sidebarItems }" />
@@ -15,9 +20,10 @@
 <script>
 import PageEdit from '@theme/components/PageEdit.vue'
 import PageNav from '@theme/components/PageNav.vue'
+import CnContainer from "../global-components/CnContainer";
 
 export default {
-  components: { PageEdit, PageNav },
+  components: { CnContainer, PageEdit, PageNav },
   props: ['sidebarItems']
 }
 </script>
@@ -28,7 +34,20 @@ export default {
 .page
   padding-bottom 2rem
   display block
-  padding-left "calc(20rem + %s)" % ($cn-sidebar-margin)
+  margin-left 10px
+  @media (min-width 1201px)
+    padding-left "calc(20rem + %s)" % ($cn-sidebar-margin)
 .page-content
-  margin-top $navbarHeight
+  h1
+    &:first-of-type
+      padding-top 'calc(%s + 57px)' % ($navbarHeight)
+    color: $cn-color-primary_light !important
+    text-transform uppercase
+    width 100%
+    text-align center
+    //padding-top 57px
+  h2
+    padding-top 'calc(%s + 57px)' % ($navbarHeight)
+    margin-top -120px
+    color $cn-color-secondary
 </style>

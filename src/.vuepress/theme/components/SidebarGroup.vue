@@ -114,7 +114,8 @@ export default {
   font-size 1.1em
   font-weight bold
   // text-transform uppercase
-  padding 0.35rem 1.5rem 0.35rem 1.25rem
+  padding-top 7px
+  padding-bottom 7px
   width 100%
   box-sizing border-box
   margin 0

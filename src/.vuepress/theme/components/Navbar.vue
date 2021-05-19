@@ -20,19 +20,23 @@
       >{{ $siteTitle }}</span>
     </RouterLink>
     <div
-      class="links"
+      class="links cn-text-sm"
       :style="linksWrapMaxWidth ? {
         'max-width': `${linksWrapMaxWidth}px`
       } : {}"
     >
       <NavLinks class="can-hide"/>
+
+    </div>
+    <div class="actions flex row">
       <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"
       />
       <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
+      <VersionsDropdown />
     </div>
-    <VersionsDropdown />
+
   </header>
 </template>
 
@@ -96,11 +100,11 @@ function css(el, property) {
 
 <style lang="stylus">
 $navbar-vertical-padding = 0.7rem
-$navbar-horizontal-padding = 1.5rem
+$navbar-horizontal-padding = 140px
+$navbar-horizontal-sm-padding = 30px
 
 .navbar
   padding $navbar-vertical-padding $navbar-horizontal-padding
-  //line-height $navbarHeight - 1.4rem
   display flex
   flex-direction row
   align-items center
@@ -112,7 +116,7 @@ $navbar-horizontal-padding = 1.5rem
     //height $navbarHeight - 1.4rem
     //min-width $navbarHeight - 1.4rem
     height 55px;
-    margin-right 0.8rem
+
     vertical-align top
 
   .site-name
@@ -126,10 +130,9 @@ $navbar-horizontal-padding = 1.5rem
     box-sizing border-box
     background-color transparent
     white-space nowrap
-    font-size 0.9rem
     //position absolute
     flex 1
-    justify-content flex-end
+    justify-content flex-start
     right $navbar-horizontal-padding
     top $navbar-vertical-padding
     display flex

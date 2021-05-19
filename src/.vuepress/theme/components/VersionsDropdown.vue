@@ -1,13 +1,16 @@
 <template>
-    <IDropdown size="sm">
-        <IButton>{{ getVersionText(currentVersion) }}</IButton>
-        <IDropdownMenu>
-            <IDropdownItem v-for="version in versions" :to="getPageLink(version)" :disabled="currentVersion === version"
-                           :key="version">
-                {{ getVersionText(version) }}
-            </IDropdownItem>
-        </IDropdownMenu>
-    </IDropdown>
+  <div>
+    VERSION
+  </div>
+<!--    <IDropdown size="sm">-->
+<!--        <IButton>{{ getVersionText(currentVersion) }}</IButton>-->
+<!--        <IDropdownMenu>-->
+<!--            <IDropdownItem v-for="version in versions" :to="getPageLink(version)" :disabled="currentVersion === version"-->
+<!--                           :key="version">-->
+<!--                {{ getVersionText(version) }}-->
+<!--            </IDropdownItem>-->
+<!--        </IDropdownMenu>-->
+<!--    </IDropdown>-->
 </template>
 
 <script>
