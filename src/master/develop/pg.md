@@ -49,6 +49,12 @@ $ javac -cp .:./postgresql-42.2.20.jar MyProgram.java
 
 :::
 
+::: tab PHP
+
+Please refer to the [PHP pgsql module](https://www.php.net/manual/en/book.pgsql.php) documentation for instructions on how to enable it in your server.
+
+:::
+
 ::::
 
 To connect to the database:
@@ -98,6 +104,16 @@ System.out.println("Opened database successfully");
 :::
 
 
+::: tab PHP
+```php
+<?php
+$dbconn = pg_connect("host=localhost port=5432 sslmode=require user=immudb dbname=defaultdb password=immudb");
+//...
+pg_close($dbconn);
+?>
+```
+:::
+
 ::::
 
 Execute statements:
@@ -146,6 +162,17 @@ stmt.executeUpdate("CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER
 
 stmt.executeUpdate("INSERT INTO people(id, name, salary) VALUES (1, 'Joe', 20000);");
 stmt.executeUpdate("INSERT INTO people(id, name, salary) VALUES (2, 'Bob', 30000);");
+```
+:::
+
+::: tab PHP
+
+```php
+$stmt = 'CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);';
+$result = pg_query($stmt) or die('Error message: ' . pg_last_error());
+$stmt = 'INSERT INTO people(id, name, salary) VALUES (1, 'Joe', 20000);';
+$result = pg_query($stmt) or die('Error message: ' . pg_last_error());
+$stmt = 'INSERT INTO people(id, name, salary) VALUES (2, 'Bob', 30000);';
 ```
 :::
 
@@ -204,6 +231,16 @@ while(rs.next()){
     System.out.print(", Name: " + rs.getString("(defaultdb.people.name)"));
     System.out.print(", Salary: " + rs.getInt("(defaultdb.people.salary)"));
     System.out.println();
+}
+```
+:::
+
+::: tab PHP
+```php
+$query = 'SELECT * FROM people';
+$result = pg_query($query) or die('Error message: ' . pg_last_error());
+while ($row = pg_fetch_row($result)) {
+  var_dump($row);  
 }
 ```
 :::
