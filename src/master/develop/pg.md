@@ -37,6 +37,18 @@ require 'pg'
 ```
 :::
 
+::: tab Java
+
+Download the official [JDBC driver](https://jdbc.postgresql.org/) jar artifact for PostgreSQL.
+
+You can then compile your program:
+
+```
+$ javac -cp .:./postgresql-42.2.20.jar MyProgram.java
+```
+
+:::
+
 ::::
 
 To connect to the database:
@@ -72,6 +84,19 @@ if (PQstatus(conn) == CONNECTION_BAD) {
 conn = PG::Connection.open("sslmode=allow dbname=defaultdb user=immudb password=immudb host=127.0.0.1 port=5432")
 ```
 :::
+
+::: tab Java
+
+It is important to pass the `preferQueryMode=simple` option, as immudb pgsql server only support simple query mode.
+
+```java
+Connection conn = 
+  DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/defaultdb?sslmode=allow&preferQueryMode=simple",
+    "immudb", "immudb");
+System.out.println("Opened database successfully");
+```
+:::
+
 
 ::::
 
@@ -109,6 +134,18 @@ PQclear(res);
 conn.exec( "CREATE TABLE Orders (id INTEGER, amount INTEGER, title VARCHAR, PRIMARY KEY id)" )
 conn.exec( "UPSERT INTO Orders (id, amount, title) VALUES (1, 200, 'title 1')" )
 conn.exec( "UPSERT INTO Orders (id, amount, title) VALUES (2, 400, 'title 2')" )
+```
+:::
+
+::: tab Java
+
+```java
+Statement stmt = conn.createStatement();
+
+stmt.executeUpdate("CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);");
+
+stmt.executeUpdate("INSERT INTO people(id, name, salary) VALUES (1, 'Joe', 20000);");
+stmt.executeUpdate("INSERT INTO people(id, name, salary) VALUES (2, 'Bob', 30000);");
 ```
 :::
 
@@ -154,6 +191,20 @@ conn.exec( "SELECT id, amount, title FROM Orders" ) do |result|
     puts row.inspect
   end
 end
+```
+:::
+
+::: tab Java
+
+```java
+ResultSet rs = stmt.executeQuery("SELECT * FROM people");
+
+while(rs.next()){
+    System.out.print("ID: " + rs.getInt("(defaultdb.people.id)"));
+    System.out.print(", Name: " + rs.getString("(defaultdb.people.name)"));
+    System.out.print(", Salary: " + rs.getInt("(defaultdb.people.salary)"));
+    System.out.println();
+}
 ```
 :::
 
