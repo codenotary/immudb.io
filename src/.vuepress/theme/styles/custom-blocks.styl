@@ -2,14 +2,31 @@
   .custom-block-title
     font-weight 600
     margin-bottom -0.4rem
+    color white
   &.tip, &.warning, &.danger
     padding .1rem 1.5rem
     border-left-width .5rem
     border-left-style solid
     margin 1rem 0
   &.tip
-    background-color #f3f5f7
-    border-color #42b983
+    background-color $cn-color-primary
+    //border-color #42b983
+    border none
+    border-radius $cn-border-radius-lg
+    margin-right 62px
+    margin-left 62px
+    position relative
+    color $cn-color-dark
+    &:after
+      content ''
+      left -25px
+      position absolute
+      width 50px
+      height 50px
+      top 25px
+      background-image url('/star.svg')
+      background-repeat no-repeat
+      background-size 50px 50px
   &.warning
     background-color rgba(255,229,100,.3)
     border-color darken(#ffe564, 35%)
@@ -42,3 +59,7 @@
     summary
       outline none
       cursor pointer
+  a
+    color white
+    span
+      display none
