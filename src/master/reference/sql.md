@@ -1,14 +1,7 @@
 
-## SQL Reference
+# SQL Reference
 
-### Creating and using databases
-
-```
-CREATE DATABASE db1;
-USE DATABASE db1;
-```
-
-### Creating tables
+## Creating tables
 
 ```
 CREATE TABLE table1 (id INTEGER, PRIMARY KEY id);
@@ -16,13 +9,13 @@ CREATE TABLE table1 (id INTEGER, ts INTEGER, title VARCHAR, active BOOLEAN, payl
 CREATE TABLE IF NOT EXISTS table1 (id INTEGER, PRIMARY KEY id);
 ```
 
-### Indexes
+## Indexes
 
 ```
 CREATE INDEX ON table1(name);
 ```
 
-### Inserting or updating data
+## Inserting or updating data
 
 ```
 INSERT INTO table1 (id, title) VALUES (1, 'some title')
@@ -35,7 +28,7 @@ UPSERT INTO table1 (id, title) VALUES (1, 'some title')
 UPSERT INTO table1 (id, ts, title, active, payload) VALUES (2, NOW(), 'title', true, x'a blob')
 ```
 
-### Querying
+## Querying
 
 ```
 SELECT id, title FROM db1.table1 AS t1
@@ -47,26 +40,26 @@ SELECT country, SUM(amount) FROM table1 GROUP BY country
 SELECT id FROM table1 WHERE (id > 0 AND NOT table1.id >= 10) OR table1.title LIKE 'J.*'
 ```
 
-### Parameters
+## Parameters
 
 ```
 SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active
 ```
 
-### Aggregations
+## Aggregations
 
 ```
 SELECT COUNT() AS c, SUM(age), MIN(age), MAX(age), AVG(age) FROM table1 AS t1
 SELECT active, COUNT() as c, MIN(age), MAX(age) FROM table1 GROUP BY active HAVING COUNT() > 0 ORDER BY active DESC
 ```
 
-### Transactions
+## Transactions
 
 ```
 BEGIN TRANSACTION; UPSERT INTO table1 (id, label) VALUES (100, 'label1'); UPSERT INTO table2 (id) VALUES (10) COMMIT;
 ```
 
-### Time travel
+## Time travel
 
 ```
 USE SNAPSHOT BEFORE TX 1000

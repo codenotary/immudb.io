@@ -38,6 +38,7 @@ const getSidebar = version => [
         collapsable: false,
         children: [
             `${version}/quickstart`,
+            `${version}/getstarted/webconsole`,
             `${version}/jumpstart`,
         ]
     },
@@ -57,6 +58,8 @@ const getSidebar = version => [
         children: [
             `${version}/sdk`,
             `${version}/build`,
+            `${version}/develop/pg`,
+            `${version}/develop/embedding`,
         ]
     },
     {

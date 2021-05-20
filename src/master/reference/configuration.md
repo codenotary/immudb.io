@@ -18,6 +18,10 @@ Some of the most important settings that ones are:
 | `maintenance`       |         | Maintenance mode. Override the authentication flag                                       |
 | `sync`              |         | Runs in sync mode. Prevents data loss but affects performance                            |
 | `token-expiry-time` | `1440`    | Client token expiry time, in minutes                                                     |
+| `web-server`         | `true`   | Embedded web console server                                                     |
+| `web-server-port`    | `8080`   | Embeded web console port server                                                     |
+| `pgsql-server`    | `true`   | pqsql protocol compatibility server (allows to connect from pgsql compatible clients)                                                     |
+| `pgsql-server-port`    | `5432`   | pqsql protocol compatibility server port                                                      |
 
 Settings can be specified as command line options to immudb (see `immudb -h`), in a configuration file, or as environment variables.
 
