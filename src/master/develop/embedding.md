@@ -38,6 +38,20 @@ if err != nil {
 }
 ```
 
+Create and use a database:
+
+```go
+_, err = engine.ExecStmt("CREATE DATABASE db1")
+if err != nil {
+	log.Fatal(err)
+}
+
+_, err = engine.ExecStmt("USE DATABASE db1")
+if err != nil {
+	log.Fatal(err)
+}
+```
+
 The engine has an API to execute statements and queries. To execute an statement:
 
 ```go
@@ -49,7 +63,7 @@ if err != nil {
 
 Queries can be executed using `QueryStmt` and you can pass a map of parameters to substitute, and whether the engine should wait for indexing:
 
-```go
+```go	
 r, err = engine.QueryStmt("SELECT id, date, creditaccount, debitaccount, amount, description FROM journal WHERE amount > @value", map[string]interface{}{"value": 100}, true)
 ```
 
@@ -58,12 +72,11 @@ To iterate over a result set `r`, just fetch rows until there are no more entrie
 ```go
 for {
 	row, err := r.Read()
+	if err == sql.ErrNoMoreRows {
+		break
+	}
 	if err != nil {
-		if fmt.Sprint(err) == "no more entries" {
-			break
-		} else {
-			log.Fatal(err)
-		}
+		log.Fatal(err)
 	}
 
 	// do something with row.Values
