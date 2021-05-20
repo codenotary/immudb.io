@@ -78,7 +78,10 @@ export default {
 .algolia-search-wrapper
   input
     width 200px !important
-
+    color $cn-color-grey !important
+    background-position-x 13.6rem !important
+    padding-left 8px !important
+    padding-right 32px !important
   & > span
     vertical-align middle
   .algolia-autocomplete
@@ -108,7 +111,7 @@ export default {
       .algolia-docsearch-suggestion--category-header
         padding 5px 10px
         margin-top 0
-        background $accentColor
+        background $cn-dark-gradient
         color #fff
         font-weight 600
         .algolia-docsearch-suggestion--highlight
@@ -118,7 +121,7 @@ export default {
       .algolia-docsearch-suggestion--title
         font-weight 600
         margin-bottom 0
-        color $textColor
+        color $cn-color-dark
       .algolia-docsearch-suggestion--subcategory-column
         vertical-align top
         padding 5px 7px 5px 5px
