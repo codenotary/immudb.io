@@ -32,7 +32,7 @@
 
       <span
         v-if="next"
-        class="next"
+        class="next flex row"
       >
         <a
           v-if="next.type === 'external'"
@@ -51,7 +51,7 @@
         >
           {{ next.title || next.path }}
         </RouterLink>
-        →
+        <img src="/next.svg" alt="next-arrow" width="20" height="20" style="margin-left: 6px"/>
       </span>
     </p>
   </div>
@@ -155,9 +155,10 @@ function flatten (items, res) {
   .inner
     min-height 2rem
     margin-top 0
-    border-top 1px solid $borderColor
+    //border-top 1px solid $borderColor
     padding-top 1rem
     overflow auto // clear float
   .next
     float right
+    font-weight bold
 </style>
