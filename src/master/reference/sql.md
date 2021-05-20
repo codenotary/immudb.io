@@ -1,13 +1,6 @@
 
 # SQL Reference
 
-## Creating and using databases
-
-```
-CREATE DATABASE db1;
-USE DATABASE db1;
-```
-
 ## Creating tables
 
 ```
