@@ -1,6 +1,10 @@
 # Health Monitoring
 
-immudb exposes a Prometheus end-point, by default on port 9497.
+immudb exposes a Prometheus end-point, by default on port 9497 on `/metrics`.
+
+The web console will present some of these metrics: database size, number of entries and memory usage:
+
+![Web console metrics](/immudb/webconsole-metrics.png)
 
 You can use `immuadmin stats` to see these metrics without additional tools:
 
