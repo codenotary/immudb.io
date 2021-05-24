@@ -1,6 +1,14 @@
 
 # SQL Reference
 
+## Data types
+
+* `INTEGER`
+* `BOOLEAN`
+* `VARCHAR`
+* `BLOB`
+* `TIMESTAMP`
+
 ## Creating tables
 
 ```
@@ -47,6 +55,12 @@ SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active
 ```
 
 ## Aggregations
+
+* `COUNT`
+* `SUM`
+* `MAX`
+* `MIN`
+* `AVG`
 
 ```
 SELECT COUNT() AS c, SUM(age), MIN(age), MAX(age), AVG(age) FROM table1 AS t1
