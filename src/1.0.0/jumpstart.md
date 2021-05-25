@@ -323,41 +323,45 @@ c, err := client.NewImmuClient(client.DefaultOptions())
 To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:
 
 ```go
-_, err = c.SQLExec(ctx, &schema.SQLExecRequest{Sql: `
+	_, err = c.SQLExec(ctx, `
 		BEGIN TRANSACTION
           CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);
           CREATE INDEX ON people(name)
 		COMMIT
-	`})
+	`, map[string]interface{}{})
+		if err != nil {
+		log.Fatal(err)
+	}
 ```
 
 This is also how you perform inserts:
 
 ```go
-_, err = c.SQLExec(ctx, &schema.SQLExecRequest{Sql: "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 10000);"})
-```
-
-Once you have data in the database, you can use the `SQLQuery` method of the client to query:
-
-```go
-q := "SELECT id, name, salary FROM people;"
-qres, err := c.SQLQuery(ctx, &schema.SQLQueryRequest{Sql: q})
-```
-
-Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values. Example:
-
-```go
-res, err := client.SQLQuery(ctx, "SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active", params)
-```
-
-`qres` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `qres.Rows`. On earch iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
-
-```go
-for _, r := range qres.Rows {
-	for _, v := range r.Values {
-		fmt.Printf("%v\n", schema.RenderValue(v.Operation))
+	_, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
+	if err != nil {
+		log.Fatal(err)
 	}
-}
+```
+
+Once you have data in the database, you can use the `SQLQuery` method of the client to query.
+
+Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values:
+
+```go
+	res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+
+`res` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `res.Rows`. On each iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
+
+```go
+	for _, r := range res.Rows {
+		for _, v := range r.Values {
+			log.Printf("%s\n", schema.RenderValue(v.Value))
+		}
+	}
 ```
 
 ### Additional resources
