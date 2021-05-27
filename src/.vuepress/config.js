@@ -94,7 +94,7 @@ module.exports = {
             { text: 'Home', link: 'https://codenotary.io/technologies/immudb' },
             { text: 'Blog', link: 'https://codenotary.io/blog' },
             { text: 'Documentation', link: '/' },
-            { text: 'Immutable Data Science', link: 'https://codenotary.io/technologies/immudb/immutable-data-science' },
+            // { text: 'Immutable Data Science', link: 'https://codenotary.io/technologies/immudb/immutable-data-science' },
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
         algolia: {

@@ -7,6 +7,7 @@
   >
     <Navbar
       v-if="shouldShowNavbar"
+      :isSidebarOpen="isSidebarOpen"
       @toggle-sidebar="toggleSidebar"
     />
 
@@ -51,13 +52,11 @@ import Sidebar from '@theme/components/Sidebar.vue'
 import Footer from "@theme/components/Footer.vue"
 
 import { resolveSidebarItems } from '../util'
-import CnContainer from "../global-components/CnContainer";
 
 export default {
   name: 'Layout',
 
   components: {
-    CnContainer,
     Home,
     Page,
     Sidebar,

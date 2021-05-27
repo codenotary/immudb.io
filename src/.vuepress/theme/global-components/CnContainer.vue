@@ -1,5 +1,5 @@
 <template>
- <div class="container" :class="variant">
+ <div class="container" :class="variant" name="container">
    <slot></slot>
  </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')"/>
+    <SidebarButton :open="isSidebarOpen" @toggle-sidebar="$emit('toggle-sidebar')"/>
 
     <RouterLink
       :to="$localePath"
@@ -30,11 +30,12 @@
     </div>
     <div class="actions flex row">
       <AlgoliaSearchBox
+        class="can-hide"
         v-if="isAlgoliaSearch"
         :options="algolia"
       />
-      <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
-      <VersionsDropdown />
+      <SearchBox class="can-hide" v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
+      <VersionsDropdown/>
     </div>
 
   </header>
@@ -46,18 +47,24 @@ import SearchBox from '@SearchBox'
 import SidebarButton from '@theme/components/SidebarButton.vue'
 import NavLinks from '@theme/components/NavLinks.vue'
 import VersionsDropdown from '@theme/components/VersionsDropdown.vue'
+import CnButton from "../global-components/CnButton";
 
 export default {
   name: 'Navbar',
 
   components: {
+    CnButton,
     SidebarButton,
     NavLinks,
     SearchBox,
     AlgoliaSearchBox,
     VersionsDropdown
   },
-
+  props: {
+    isSidebarOpen: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       linksWrapMaxWidth: null,
@@ -116,7 +123,6 @@ $navbar-horizontal-sm-padding = 30px
     //height $navbarHeight - 1.4rem
     //min-width $navbarHeight - 1.4rem
     height 55px;
-
     vertical-align top
 
   .site-name
@@ -140,11 +146,15 @@ $navbar-horizontal-sm-padding = 30px
     .search-box
       flex: 0 0 auto
       vertical-align top
+@media (max-width: $MQNarrow)
+  .navbar
+    padding $navbar-vertical-padding $navbar-horizontal-sm-padding
 
 @media (max-width: $MQMobile)
   .navbar
-    padding-left 4rem
-
+    //padding-left 4rem
+    .logo
+      height 38px
     .can-hide
       display none
 

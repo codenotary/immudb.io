@@ -24,7 +24,7 @@ import CnContainer from "../global-components/CnContainer";
 
 export default {
   components: { CnContainer, PageEdit, PageNav },
-  props: ['sidebarItems']
+  props: ['sidebarItems'],
 }
 </script>
 
@@ -49,5 +49,11 @@ export default {
   h2
     padding-top 'calc(%s + 57px)' % ($navbarHeight)
     margin-top -120px
+    //scroll-margin-top $navbarHeight
+    //scroll-margin-bottom: -$navbarHeight
     color $cn-color-secondary
+    //scroll-snap-type y mandatory
+  a
+    span
+      display none
 </style>

@@ -78,8 +78,11 @@ export default {
 .algolia-search-wrapper
   input
     width 200px !important
+    height 45px !important
     color $cn-color-grey !important
-    background-position-x 13.6rem !important
+    background-position-x 95% !important
+    background-position-y 50% !important
+    background-size 18px 18px !important
     padding-left 8px !important
     padding-right 32px !important
   & > span

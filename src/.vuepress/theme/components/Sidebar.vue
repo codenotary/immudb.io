@@ -1,5 +1,11 @@
 <template>
   <aside class="sidebar">
+    <AlgoliaSearchBox
+      class="search-box"
+      v-if="isAlgoliaSearch"
+      :options="algolia"
+    />
+    <SearchBox class="search-box" v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
     <NavLinks />
 
     <slot name="top" />
@@ -15,13 +21,26 @@
 <script>
 import SidebarLinks from '@theme/components/SidebarLinks.vue'
 import NavLinks from '@theme/components/NavLinks.vue'
+import AlgoliaSearchBox from '@AlgoliaSearchBox'
+import SearchBox from '@SearchBox'
 
 export default {
   name: 'Sidebar',
-
-  components: { SidebarLinks, NavLinks },
-
-  props: ['items']
+  components: {
+    SidebarLinks,
+    NavLinks,
+    SearchBox,
+    AlgoliaSearchBox,
+  },
+  props: ['items'],
+  computed: {
+    algolia() {
+      return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
+    },
+    isAlgoliaSearch() {
+      return this.algolia && this.algolia.apiKey && this.algolia.indexName
+    },
+  }
 }
 </script>
 
@@ -40,6 +59,9 @@ export default {
     list-style-type none
   a
     display inline-block
+  .search-box
+    margin-top 30px
+    display none
   .nav-links
     display none
     border-bottom 1px solid $borderColor
@@ -64,6 +86,8 @@ export default {
 @media (max-width: $MQMobile)
   .sidebar
     margin-left 0
+    .search-box
+      display block
     .nav-links
       display block
       .dropdown-wrapper .nav-dropdown .dropdown-item a.router-link-active::after
