@@ -5,7 +5,7 @@
     role="search"
   >
     <input
-      id="algolia-search-input"
+      :id="inputId ? inputId : 'algolia-search-input'"
       class="search-query"
       :placeholder="placeholder"
     >
@@ -16,7 +16,15 @@
 export default {
   name: 'AlgoliaSearchBox',
 
-  props: ['options'],
+  props: {
+    options: {
+      type: Object,
+    },
+    inputId: {
+      type: String,
+      default: null,
+    }
+  },
 
   data () {
     return {
@@ -51,7 +59,7 @@ export default {
           {},
           userOptions,
           {
-            inputSelector: '#algolia-search-input',
+            inputSelector: '#' + (this.inputId ? this.inputId : 'algolia-search-input'),
             // #697 Make docsearch work well at i18n mode.
             algoliaOptions: Object.assign({
               'facetFilters': [`lang:${lang}`].concat(algoliaOptions.facetFilters || [])
@@ -67,7 +75,7 @@ export default {
     },
 
     update (options, lang) {
-      this.$el.innerHTML = '<input id="algolia-search-input" class="search-query">'
+      this.$el.innerHTML = `<input id="${this.inputId ? this.inputId : 'algolia-search-input'}" class="search-query">`
       this.initialize(options, lang)
     }
   }

@@ -13,7 +13,7 @@
 
     <div
       class="sidebar-mask"
-      @click="toggleSidebar(falseZ)"
+      @click="toggleSidebar(false)"
     />
 
     <Sidebar

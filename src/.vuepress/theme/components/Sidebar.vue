@@ -2,18 +2,22 @@
   <aside class="sidebar">
     <AlgoliaSearchBox
       class="search-box"
+      inputId="sidebarSearchbox"
       v-if="isAlgoliaSearch"
       :options="algolia"
     />
     <SearchBox class="search-box" v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"/>
-    <NavLinks />
 
-    <slot name="top" />
+    <div class="scrollable-area">
+      <NavLinks />
 
-    <SidebarLinks
-      :depth="0"
-      :items="items"
-    />
+      <slot name="top" />
+
+      <SidebarLinks
+        :depth="0"
+        :items="items"
+      />
+    </div>
     <slot name="bottom" />
   </aside>
 </template>
@@ -50,6 +54,12 @@ export default {
   margin-left $cn-sidebar-margin
   text-transform uppercase
   font-weight bold
+  overflow visible
+  display flex
+  flex-direction column
+  .scrollable-area
+    overflow-y auto
+    padding-bottom 7rem
 
   @media (max-width 1200px)
     margin-left 10px

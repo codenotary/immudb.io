@@ -3,6 +3,7 @@
     <div class="version-button">
       <CnButton class="skip-click-event" variant="secondary" style="text-transform: capitalize" @click.native="toggleDropdown($event, true)">
         {{ getVersionText(currentVersion) }}
+        <img src="/icons/dropdown_triangle.svg" height="12" width="15">
       </CnButton>
       <div class="version-dropdown" >
         <div class="version-dropdown-item" v-for="version in versions" :disabled="currentVersion === version"
@@ -82,13 +83,18 @@ a.item.router-link-active
 button
 	position relative
 	z-index 2
+	display flex
+	flex-direction row !important
+	justify-content space-between !important
+	align-items center !important
+	width 128px
 .version-dropdown
 	position absolute
 	top 'calc(%s + 28px + 4.5px)' % ($cn-button-height)
-	left calc(50% - 90px)
+	left calc(50% - 80px)
 	background-color $cn-color-secondary
 	display none
-	width 140px
+	width 120px
 	padding 20px
 	flex-direction column
 	align-items center
@@ -115,6 +121,9 @@ button
 			border-bottom none
 		a
 			color $cn-color-dark !important
+  //@media (max-width $MQMobile)
+  //  left calc(50% - 100px)
+  //&::after
 .version-wrapper.open
 	.version-dropdown
 		display flex
@@ -127,5 +136,4 @@ button
 		height 100vh
 		left 0
 		top 0
-
 </style>
