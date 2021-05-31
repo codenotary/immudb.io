@@ -1,21 +1,69 @@
 <template>
   <div class="footer">
-      <div class="flex row align-center justify-between">
-<!--          <div class="flex column">-->
-              <span class="copyright">Copyright © {{ year }} CodeNotary, Inc. All rights reserved.</span>
-              <div class="row justify-center">
-                  <a href="https://codenotary.io/blog">Blog</a>
-                  <router-link to="/">Documentation</router-link>
-                  <a href="https://codenotary.io/careers">Careers</a>
-                  <a href="https://github.com/codenotary/immudb" target="_blank">GitHub</a>
-              </div>
-<!--          </div>-->
+    <div class="flex row main-section">
+      <div class="flex column brand">
+        <img
+          class="logo"
+          src="/logos/logo_white_codenotary.png"
+          alt="CodeNotary"
+        >
+        <p class="brand-description cn-text-xs">
+          Immutable notarization for all your sensitive data. On-premise or in the cloud, easy to use tamperproof storage with cryptographic verification, processing millions of transactions a second.
+        </p>
+        <ul class="social-links list cn-text-xs">
+          <li>
+            <a href="https://github.com/codenotary">
+              <font-awesome-icon :icon="['fab', 'github-square']" />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/CodeNotary">
+              <font-awesome-icon :icon="['fab', 'twitter-square']" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/Codenotary-Inc-106257094666687">
+              <font-awesome-icon :icon="['fab', 'facebook-square']" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/company/codenotary/">
+              <font-awesome-icon :icon="['fab', 'linkedin']" />
+            </a>
+          </li>
+        </ul>
       </div>
+      <div class="flex column table" v-for="(table, index) in content.footer.tables" :key="index">
+        <p class="table_title cn-font-weight-bold"> {{ table.title }} </p>
+        <div v-for="(link, linkIndex) in table.links" :key="linkIndex">
+          <router-link v-if="link.internalLink" class="table_link" :to="link.internalLink">
+            {{ link.label }}
+          </router-link>
+          <a v-else class="table_link" :href="link.href">
+            {{ link.label }}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="flex row align-center justify-between copyright">
+<!--          <div class="flex column">-->
+            <span class="">Copyright © {{ year }} CodeNotary, Inc. All rights reserved.</span>
+            <div class="row justify-center tos">
+              <a href="https://www.codenotary.com/terms-of-service/">
+                Terms of Service
+              </a>
+              <a href="https://www.codenotary.com/privacy-statement">
+                Privacy statement
+              </a>
+            </div>
+<!--          </div>-->
+    </div>
   </div>
 </template>
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import GlobalContent from "@theme/content/global";
 
 export default {
     components: {
@@ -23,7 +71,8 @@ export default {
     },
     data() {
         return {
-            year: (new Date()).getFullYear()
+            year: (new Date()).getFullYear(),
+            content: GlobalContent
         };
     }
 }
@@ -31,9 +80,7 @@ export default {
 
 <style lang="stylus">
 .footer
-  padding 2.5rem
-  padding-left 140px
-  padding-right 140px
+  //padding 2.5rem
   border-top 1px solid $borderColor
   color lighten($textColor, 25%)
   z-index 11
@@ -41,7 +88,7 @@ export default {
   position relative
 
   .column
-    display flex
+    //display flex
     justify-content space-between
 
     @media screen and (max-width: 767px)
@@ -50,4 +97,132 @@ export default {
 
       .nav
         margin-bottom: 1rem
+
+
+//new style
+.footer
+  background-color $cn-color-dark !important
+
+  .main-section {
+    padding-left 140px
+    padding-right 140px
+    padding-top 40px
+    padding-bottom 40px
+    flex-wrap wrap
+  }
+  .logo
+    height auto
+    width 141px
+
+
+  p
+    color white !important
+
+    &.brand-description
+      color $cn-color-primary !important
+      max-width 340px
+      font-size 14px
+      line-height 17px
+
+
+
+  a
+    color $color-gray-30
+
+    &hover,
+    &active
+      color $color-primary-light
+
+
+
+  li
+    margin-bottom $spacer
+
+
+  .social-links
+    list-style none
+    padding-left 0
+    margin-top 0
+    li
+      display inline
+    font-size 30px !important
+    margin-bottom 0
+    a
+      color white
+    li
+      margin-right 4px !important
+
+
+
+  .table
+    display flex
+    flex-direction column
+    align-items flex-start
+    justify-content flex-start
+    flex 0 0 200px
+    line-height 19px
+    margin-top 18px
+
+    &:last-of-type
+      flex 0 0 auto
+
+    & > *
+      margin 7px 0 0
+      width 100%
+
+
+    .table_title
+      margin-bottom 2px
+      font-size 18px
+      margin-top 0
+      line-height 22px
+
+
+    .table_link
+      color $cn-color-primary !important
+      font-size 14px
+      line-height 17px
+
+      &hover
+        color $cn-color-secondary !important
+
+
+  @media (max-width $MQNarrow)
+    .main-section, .copyright
+      padding-left 30px !important
+      padding-right 30px !important
+
+
+  @media (max-width $MQMobile)
+    .brand
+      display flex
+      flex-direction column
+      flex 1 0 100%
+      justify-content center
+      align-items center
+
+      .brand-description
+        max-width unset
+
+
+// Copyright
+.copyright
+  height 100px
+  box-sizing border-box
+  padding 1.5rem 140px !important
+  color $color-gray-30
+  text-align center
+  font-size 14px
+  line-height 17px
+  background-color $cn-color-primary_dark !important
+  @media (max-width $MQMobile)
+    flex-direction column !important
+  .tos
+    margin-top 10px
+  .tos
+    a
+      padding-left .5rem
+      padding-right .5rem
+      font-weight bold
+
 </style>

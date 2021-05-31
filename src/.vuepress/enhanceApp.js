@@ -11,6 +11,12 @@ import {
     faChevronRight,
     faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLinkedin,
+  faGithubSquare,
+  faTwitterSquare,
+  faFacebookSquare,
+} from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
 import './theme/styles/grid.styl';
@@ -81,6 +87,10 @@ library.add(faLink);
 library.add(faBolt);
 library.add(faSearch);
 library.add(faChevronRight);
+library.add(faLinkedin);
+library.add(faGithubSquare);
+library.add(faTwitterSquare);
+library.add(faFacebookSquare);
 
 export default ({ Vue, router, siteData, }) => {
     // Vue.use(Inkline);
