@@ -52,7 +52,6 @@ export default {
 .sidebar
   background-color $cn-color-dark
   margin-left $cn-sidebar-margin
-  padding-top 60px
   text-transform uppercase
   font-weight bold
   overflow visible
@@ -60,6 +59,7 @@ export default {
   flex-direction column
   .scrollable-area
     overflow-y auto
+    padding-top 60px
     padding-bottom 350px
 
   @media (max-width 1200px)
@@ -97,7 +97,6 @@ export default {
 @media (max-width: $MQMobile)
   .sidebar
     margin-left 0
-    padding-bottom 30px
     z-index 12
     .search-box
       display block
@@ -107,4 +106,7 @@ export default {
         top calc(1rem - 2px)
     & > .sidebar-links
       padding 1rem 0
+    .scrollable-area
+      padding-bottom 30px
+      padding-top 0
 </style>
