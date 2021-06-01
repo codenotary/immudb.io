@@ -36,7 +36,7 @@ export default {
   display block
   margin-left 10px
   @media (min-width 1201px)
-    padding-left "calc(20rem + %s)" % ($cn-sidebar-margin)
+    padding-left "calc(20rem + %s)" % ($cn-md-padding)
 .page-content
   h1
     &:first-of-type

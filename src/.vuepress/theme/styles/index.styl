@@ -158,3 +158,42 @@ ul li::marker
   line-height 0
 
 @require 'mobile.styl'
+
+.el-tabs
+  background-color transparent !important
+  border none !important
+  box-shadow none !important
+  .el-tabs__header
+    background-color transparent !important
+    border none !important
+    color white !important
+    .el-tabs__nav-scroll
+      //display: flex;
+      //justify-content: center;
+    .el-tabs__item.is-top
+      bottom -1px
+      border-top-left-radius $cn-border-radius-lg
+      border-top-right-radius $cn-border-radius-lg
+      background-color #0D3049
+      border-bottom-left-radius none
+      border-bottom-right-radius none
+      width 130px !important
+      margin-left 5px !important
+      margin-right 5px !important
+      text-align center
+      padding-top 26px
+      padding-bottom 21px
+      @extend .cn-text-sm
+      height unset
+      @media (max-width $MQMobile)
+        width 80px !important
+        padding-top 13px !important
+        padding-bottom 10px !important
+    .is-top.is-active
+      color $cn-color-secondary !important
+      background-color $cn-color-primary_dark !important
+      border none !important
+  .el-tabs__content
+    background-color $cn-color-primary_dark
+    border-radius $cn-border-radius-lg !important
+    box-shadow $cn-shadow-sm
