@@ -104,10 +104,7 @@ export default {
   background-color $cn-color-dark !important
 
   .main-section {
-    padding-left 140px
-    padding-right 140px
-    padding-top 40px
-    padding-bottom 40px
+    padding 40px $cn-md-padding
     flex-wrap wrap
   }
   .logo
@@ -189,11 +186,14 @@ export default {
 
   @media (max-width $MQNarrow)
     .main-section, .copyright
-      padding-left 30px !important
-      padding-right 30px !important
+      padding-left $cn-sm-padding !important
+      padding-right $cn-sm-padding !important
 
 
   @media (max-width $MQMobile)
+    .main-section, .copyright
+      padding-left $cn-xs-padding !important
+      padding-right $cn-xs-padding !important
     .brand
       display flex
       flex-direction column

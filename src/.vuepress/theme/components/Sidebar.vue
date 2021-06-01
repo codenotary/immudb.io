@@ -51,7 +51,7 @@ export default {
 <style lang="stylus">
 .sidebar
   background-color $cn-color-dark
-  margin-left $cn-sidebar-margin
+  margin-left $cn-md-padding
   text-transform uppercase
   font-weight bold
   overflow visible
@@ -62,8 +62,10 @@ export default {
     padding-top 60px
     padding-bottom 350px
 
-  @media (max-width 1200px)
-    margin-left 10px
+  @media (max-width $MQNarrow)
+    margin-left $cn-sm-padding
+  @media (max-width $MQMobile)
+    margin-left $cn-xs-padding
   ul
     padding 0
     margin 0

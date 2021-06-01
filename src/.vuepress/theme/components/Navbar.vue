@@ -107,11 +107,9 @@ function css(el, property) {
 
 <style lang="stylus">
 $navbar-vertical-padding = 0.7rem
-$navbar-horizontal-padding = 140px
-$navbar-horizontal-sm-padding = 30px
 
 .navbar
-  padding $navbar-vertical-padding $navbar-horizontal-padding
+  padding $navbar-vertical-padding $cn-md-padding
   display flex
   flex-direction row
   align-items center
@@ -139,7 +137,7 @@ $navbar-horizontal-sm-padding = 30px
     //position absolute
     flex 1
     justify-content flex-start
-    right $navbar-horizontal-padding
+    right $cn-md-padding
     top $navbar-vertical-padding
     display flex
 
@@ -148,11 +146,11 @@ $navbar-horizontal-sm-padding = 30px
       vertical-align top
 @media (max-width: $MQNarrow)
   .navbar
-    padding $navbar-vertical-padding $navbar-horizontal-sm-padding
+    padding $navbar-vertical-padding $cn-sm-padding
 
 @media (max-width: $MQMobile)
   .navbar
-    //padding-left 4rem
+    padding $navbar-vertical-padding $cn-xs-padding
     .logo
       height 38px
     .can-hide
