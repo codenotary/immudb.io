@@ -90,11 +90,12 @@ button
 	width 128px
 .version-dropdown
 	position absolute
+	box-sizing border-box
 	top 'calc(%s + 28px + 4.5px)' % ($cn-button-height)
-	left calc(50% - 80px)
+	left calc(50% - 64px)
 	background-color $cn-color-secondary
 	display none
-	width 120px
+	width 128px
 	padding 20px
 	flex-direction column
 	align-items center
@@ -109,7 +110,7 @@ button
 		top -28px
 	.version-dropdown-item
 		z-index 2
-		width 140px
+		width 128px
 		height 50px
 		color $cn-color-dark !important
 		border-bottom 1px solid white
