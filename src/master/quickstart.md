@@ -4,6 +4,7 @@
 To learn interactively and to get started with immudb from the command line and with programming languages, visit the immudb Playground at <https://play.codenotary.com>
 :::
 
+<WrappedSection>
 ## Getting immudb running
 
 You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v0.9.2 for linux amd64:
@@ -25,6 +26,7 @@ Alternatively, you may use Docker to run immudb in a ready-to-use container:
 ```bash
 docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
 ```
+</WrappedSection>
 
 ## Connecting with immuclient
 
