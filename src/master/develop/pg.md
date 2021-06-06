@@ -2,7 +2,7 @@
 
 immudb can talk the [pgsql wire protocol](https://www.postgresql.org/docs/9.3/protocol.html) which makes it compatible with a widely available set of clients and drivers.
 
->Note: immudb supports the pgsql wire protocol. It is *not* compatible with the SQL dialect. Check the [immudb SQL reference](./reference/sql) to see what queries and operations are supported.
+>Note: immudb supports the pgsql wire protocol. It is *not* compatible with the SQL dialect. Check the [immudb SQL reference](../reference/sql) to see what queries and operations are supported.
 >
 >Some pgsql clients and browser application execute incompatible statements in the background or directly query the pgsql catalog. Those may not work with immudb.
 
