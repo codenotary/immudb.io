@@ -155,6 +155,7 @@ function flatten (items, res) {
   .inner
     min-height 2rem
     margin-top 0
+    margin-bottom 0
     //border-top 1px solid $borderColor
     padding-top 1rem
     overflow auto // clear float

@@ -200,3 +200,28 @@ ul li::marker
 
 [class*='language-']
   @extend .cn-text-sm
+
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: transparent;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: $cn-color-primary_dark;
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
+}
+
+//Firefox Scrollbar
+//* {
+  //scrollbar-color: $cn-color-primary_dark transparent;
+  //scrollbar-width: 20px;
+//}
+

@@ -35,8 +35,11 @@ export default {
   padding-bottom 2rem
   display block
   margin-left 10px
-  @media (min-width 1201px)
-    padding-left "calc(20rem + %s)" % ($cn-md-padding)
+  padding-left "calc(%s + %s)" % ($cn-md-padding $sidebarWidth)
+  @media (max-width $MQNarrow)
+    padding-left "calc(%s + %s)" % ($cn-xs-padding $sidebarWidth)
+  @media (max-width $MQMobile)
+    padding-left 0
 .page-content
   h1
     &:first-of-type

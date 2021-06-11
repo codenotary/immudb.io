@@ -63,7 +63,7 @@ export default {
     padding-bottom 350px
 
   @media (max-width $MQNarrow)
-    margin-left $cn-sm-padding
+    margin-left $cn-xs-padding
   @media (max-width $MQMobile)
     margin-left $cn-xs-padding
   ul
