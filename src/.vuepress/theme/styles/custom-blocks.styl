@@ -13,17 +13,27 @@
     //border-color #42b983
     border none
     border-radius $cn-border-radius-lg
-    margin-right 62px
-    margin-left 62px
+    margin-right 44px
+    margin-left 44px
     position relative
+    padding 32px 48px
     color $cn-color-dark
+    @media (max-width $MQNarrow)
+      padding 16px 32px
+      margin-left 25px
+      margin-right 0
+    .custom-block-title
+      margin 0
+    & > p:not(.custom-block-title)
+      margin-bottom 0
+      margin-top 7
     &:after
       content ''
       left -25px
       position absolute
       width 50px
       height 50px
-      top 25px
+      top calc(50% - 25px)
       background-image url('/star.svg')
       background-repeat no-repeat
       background-size 50px 50px
