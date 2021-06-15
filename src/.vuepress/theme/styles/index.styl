@@ -167,9 +167,29 @@ ul li::marker
     background-color transparent !important
     border none !important
     color white !important
-    .el-tabs__nav-scroll
-      //display: flex;
-      //justify-content: center;
+    .el-tabs__nav-wrap.is-scrollable
+      .el-tabs__nav-prev
+        height 100%
+        color transparent
+        &:after
+          content ''
+          height 18px
+          width 11px
+          background-image url("/icons/arrow-left.svg")
+          top calc(50% - 9px);
+          left 0
+          position absolute
+      .el-tabs__nav-next
+        height 100%
+        color transparent
+        &:after
+          content ''
+          height 18px
+          width 11px
+          background-image url("/icons/arrow-right.svg")
+          top calc(50% - 9px);
+          right 0
+          position absolute
     .el-tabs__item.is-top
       bottom -1px
       border-top-left-radius $cn-border-radius-lg
