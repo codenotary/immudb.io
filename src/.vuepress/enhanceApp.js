@@ -16,6 +16,8 @@ import {
   faGithubSquare,
   faTwitterSquare,
   faFacebookSquare,
+  faDiscord,
+  faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './styles/index.scss';
@@ -91,6 +93,8 @@ library.add(faLinkedin);
 library.add(faGithubSquare);
 library.add(faTwitterSquare);
 library.add(faFacebookSquare);
+library.add(faDiscord);
+library.add(faTwitter);
 
 export default ({ Vue, router, siteData, }) => {
     // Vue.use(Inkline);

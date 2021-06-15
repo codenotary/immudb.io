@@ -26,7 +26,7 @@ The immudb documentation is structured as follows:
 
 * **Help and Support**
 
-  * Join our [Discord community ![Discord](https://img.shields.io/discord/831257098368319569)](https://discord.gg/ThSJxNEHhZ)
+  * Join our Discord community <CnSocialButton social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external"></CnSocialbutton>
 
 * **External Resources**
 
@@ -34,7 +34,6 @@ The immudb documentation is structured as follows:
 
   - [**immudb** binaries to download and Go SDK](https://github.com/codenotary/immudb)
   - SDKs for [Python](https://github.com/codenotary/immudb-py), [Java](https://github.com/codenotary/immudb4j), [.NET](https://github.com/codenotary/immudb4dotnet), and [Node.js](https://github.com/codenotary/immudb-node)
-
-  [![Tweet about immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Tweet%20about%20immudb)](https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb)
-
+  
+  <CnSocialButton social="twitter" target="_blank" rel="external" href="https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb"></CnSocialButton>
 
