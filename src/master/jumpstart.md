@@ -10,9 +10,13 @@ This guide provides developers with the first steps of using immudb from their a
 To learn how to develop for immudb with Python in a guiden online environment, visit the immudb Playground at <https://play.codenotary.com>
 :::
 
+<WrappedSection>
+
 ## Clients
 
 In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
+
+</WrappedSection>
 
 ## SDKs
 

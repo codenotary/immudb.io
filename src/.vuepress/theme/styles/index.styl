@@ -245,3 +245,60 @@ ul li::marker
   //scrollbar-width: 20px;
 //}
 
+table
+  border-spacing 5px
+  thead
+    tr
+      height 60px
+      th
+        padding-left 20px
+        padding-right 20px
+        text-align left
+        background-color $cn-color-primary_darker
+        //height 60px
+        &:first-of-type
+          border-top-left-radius $cn-border-radius-lg
+        &:last-of-type
+          border-top-right-radius $cn-border-radius-lg
+        //&:not(:first-of-type)
+          //border-left 2.5px solid transparent
+          //-webkit-background-clip: padding-box;
+          //background-clip: padding-box;
+        //&:not(:last-of-type)
+          //border-right 2.5px solid transparent
+          //-webkit-background-clip: padding-box;
+          //background-clip: padding-box;
+  tbody
+    tr
+      height 48px
+      td
+        padding-left 20px
+        padding-right 20px
+        text-align left
+        background-color $cn-color-primary_dark
+        //&:not(:first-of-type)
+        //  border-left 2.5px solid transparent
+        //  -webkit-background-clip: padding-box;
+        //  background-clip: padding-box;
+        //&:not(:last-of-type)
+        //  border-right 2.5px solid transparent
+        //  -webkit-background-clip: padding-box;
+        //  background-clip: padding-box;
+      //&:not(:first-of-type)
+      //  border-top 2.5px solid transparent
+      //  -webkit-background-clip: padding-box;
+      //  background-clip: padding-box;
+      //&:not(:last-of-type)
+      //  border-bottom 2.5px solid transparent
+      //  -webkit-background-clip: padding-box;
+      //  background-clip: padding-box;
+      &:last-of-type
+        td
+          &:first-of-type
+            border-bottom-left-radius $cn-border-radius-lg
+          &:last-of-type
+            border-bottom-right-radius $cn-border-radius-lg
+
+.page-content
+    img
+      max-width 100%
