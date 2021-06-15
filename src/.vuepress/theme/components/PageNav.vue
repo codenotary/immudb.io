@@ -51,7 +51,7 @@
         >
           {{ next.title || next.path }}
         </RouterLink>
-        <img src="/next.svg" alt="next-arrow" width="20" height="20" style="margin-left: 6px"/>
+        <img src="/icons/next.svg" alt="next-arrow" width="20" height="20" style="margin-left: 6px"/>
       </span>
     </p>
   </div>
