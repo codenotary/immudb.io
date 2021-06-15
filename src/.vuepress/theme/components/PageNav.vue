@@ -6,9 +6,9 @@
     <p class="inner">
       <span
         v-if="prev"
-        class="prev"
+        class="prev flex row"
       >
-        ←
+        <img src="/icons/back.svg" alt="next-arrow" width="20" height="20" style="margin-right: 6px"/>
         <a
           v-if="prev.type === 'external'"
           class="prev"
@@ -162,4 +162,7 @@ function flatten (items, res) {
   .next
     float right
     font-weight bold
+	.prev
+		float left
+		font-weight bold
 </style>
