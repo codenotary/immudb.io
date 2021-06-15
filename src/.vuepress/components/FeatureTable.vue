@@ -1,40 +1,52 @@
 <template>
 <div class="features">
 	<div class="feature">
+		<img src="/icons/immutable-sm.svg"/>
 		<h3>Immutable</h3>
-		<p>Data is never overwritten. See the history of data updates.</p>
-		<img src="https://codenotary.io/images/jumpstart/immutable.svg"/>
+		<p class="cn-text-xs">Data is never overwritten. See the history of data updates.</p>
 	</div>
 	<div class="feature">
-			<h3>Auditable</h3>
-			<p>Tamper-evident history system ensures data authenticity.</p>
-			<img src="https://codenotary.io/images/jumpstart/auditable.svg"/>
+		<img src="/icons/auditable-sm.svg"/>
+		<h3>Auditable</h3>
+		<p class="cn-text-xs">Tamper-evident history system ensures data authenticity.</p>
 	</div>
 	<div class="feature">
-			<h3>Secure</h3>
-			<p>Data ownership is verifiable by clients and auditors.</p>
-			<img src="https://codenotary.io/images/jumpstart/secure.svg"/>
+		<img src="/icons/secure-sm.svg"/>
+		<h3>Secure</h3>
+		<p class="cn-text-xs">Data ownership is verifiable by clients and auditors.</p>
 	</div>
 </div>
 </template>
 
-<style lang="scss">
+<style lang="stylus" scoped>
+.features
+	display flex
+	flex-flow row wrap
+	justify-content center
 
-.features {
-	display: flex;
-	flex-flow: row wrap;
-}
-.feature {
-	flex-basis: 25ch;
-	flex-grow: 1;
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	h3 {text-align: center;}
-	p {text-align: center;}
-	img {
-		width: 80px;
-	}
-}
-
+.feature
+	flex-basis 25ch
+	flex-grow 1
+	display flex
+	flex-flow column
+	align-items center
+	background-color $cn-color-primary_light
+	border-radius $cn-border-radius-lg
+	padding 20px
+	//height 195px
+	max-width 213px
+	color $cn-color-brand
+	margin-bottom 20px
+	&:not(:last-of-type)
+		margin-right 10px
+	&:not(:first-of-type)
+		margin-left 10px
+	h3
+		text-align: center
+		margin-bottom 0
+		margin-top 10px
+	p
+		text-align: center
+	img
+		height: 60px
 </style>
