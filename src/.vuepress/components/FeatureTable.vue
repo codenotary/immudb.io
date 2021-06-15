@@ -1,16 +1,16 @@
 <template>
 <div class="features">
-	<div class="feature">
+	<div class="feature-box">
 		<img src="/icons/immutable-sm.svg"/>
 		<h3>Immutable</h3>
 		<p class="cn-text-xs">Data is never overwritten. See the history of data updates.</p>
 	</div>
-	<div class="feature">
+	<div class="feature-box">
 		<img src="/icons/auditable-sm.svg"/>
 		<h3>Auditable</h3>
 		<p class="cn-text-xs">Tamper-evident history system ensures data authenticity.</p>
 	</div>
-	<div class="feature">
+	<div class="feature-box">
 		<img src="/icons/secure-sm.svg"/>
 		<h3>Secure</h3>
 		<p class="cn-text-xs">Data ownership is verifiable by clients and auditors.</p>
@@ -24,7 +24,7 @@
 	flex-flow row wrap
 	justify-content center
 
-.feature
+.feature-box
 	flex-basis 25ch
 	flex-grow 1
 	display flex
