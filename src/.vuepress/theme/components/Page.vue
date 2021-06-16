@@ -32,10 +32,12 @@ export default {
 @require '../styles/wrapper.styl'
 
 .page
+  flex-grow 1
   padding-bottom 2rem
   display block
   margin-left 10px
   padding-left "calc(%s + %s)" % ($cn-md-padding $sidebarWidth)
+  position relative
   @media (max-width $MQNarrow)
     padding-left "calc(%s + %s)" % ($cn-xs-padding $sidebarWidth)
   @media (max-width $MQMobile)
@@ -44,6 +46,7 @@ export default {
   h1
     &:first-of-type
       padding-top 'calc(%s + 57px)' % ($navbarHeight)
+      margin-top 0
     color: $cn-color-primary_light !important
     text-transform uppercase
     width 100%

@@ -153,3 +153,9 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.theme-container
+	min-height 100vh
+	display flex
+	flex-direction column
+</style>

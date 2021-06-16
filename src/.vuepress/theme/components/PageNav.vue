@@ -152,6 +152,15 @@ function flatten (items, res) {
   @extend $wrapper
   padding-top 1rem
   padding-bottom 0
+  bottom: 0;
+  position: absolute;
+  width: "calc(100% - (%s + %s) - 5rem)" % ($cn-md-padding $sidebarWidth) //calc(100% - (30px + 300px) - 4rem);
+  @media (max-width $MQNarrow)
+    width: "calc(100% - (%s + %s) - 4rem)" % ($cn-xs-padding $sidebarWidth)
+  @media (max-width $MQMobile)
+    width: calc(100% - 4rem)
+  @media (max-width $MQMobileNarrow)
+    width: calc(100% - 3rem)
   .inner
     min-height 2rem
     margin-top 0
@@ -162,8 +171,8 @@ function flatten (items, res) {
   .next
     float right
     font-weight bold
-	.prev
-		float left
-		font-weight bold
+  .prev
+    float left
+    font-weight bold
 
 </style>
