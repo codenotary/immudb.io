@@ -6,7 +6,7 @@
     <p class="inner">
       <span
         v-if="prev"
-        class="prev flex row"
+        class="prev flex row cn-text-xs align-center"
       >
         <img src="/icons/back.svg" alt="next-arrow" width="20" height="20" style="margin-right: 6px"/>
         <a
@@ -32,7 +32,7 @@
 
       <span
         v-if="next"
-        class="next flex row"
+        class="next flex row cn-text-xs align-center"
       >
         <a
           v-if="next.type === 'external'"
@@ -165,4 +165,5 @@ function flatten (items, res) {
 	.prev
 		float left
 		font-weight bold
+
 </style>
