@@ -25,4 +25,9 @@ export default {
 		text-transform uppercase
 	p
 		margin-bottom 0
+	& > p > code
+		color $cn-color-secondary
+		font-weight bold
+		font-size inherit
+		line-height inherit
 </style>
