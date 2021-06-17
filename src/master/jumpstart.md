@@ -18,6 +18,8 @@ In the most common scenario, you would perform write and read operations on the 
 
 </WrappedSection>
 
+<WrappedSection>
+
 ## SDKs
 
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
@@ -29,6 +31,10 @@ SDKs make it comfortable to talk to the server from your favourite language, wit
 The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
 
 For other unsupported programming languages, [immugw](https://docs.immudb.io/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Getting immudb running
 
@@ -53,6 +59,9 @@ docker run -ti -p 3322:3322 codenotary/immudb:latest
 ```
 
 (you can add the `-d --rm --name immudb` options to send it to the background).
+
+</WrappedSection>
+
 
 ## Connecting from your programming language
 
@@ -295,6 +304,8 @@ If you're using another development language, please read up on our [immugw](htt
 
 ::::
 
+<WrappedSection>
+
 ## SQL Operations with the Go SDK
 
 In order to use SQL from the Go SDK, you create a immudb client and login to the server like usual. First make sure you import:
@@ -367,3 +378,5 @@ for _, r := range qres.Rows {
 ### Additional resources
 
   - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
+
+</WrappedSection>
