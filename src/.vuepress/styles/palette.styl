@@ -18,7 +18,7 @@ $cn-dark-gradient = linear-gradient(90deg, #13264a 26.04%, #24c4a1 99.98%, #24c3
 $cn-dark-gradient_inverse = linear-gradient(-90deg, #13264a 26.04%, #24c4a1 99.98%, #24c3a1 99.99%, #24c4a1 100%);
 
 // Overrides
-$accentColor = #37598d
+$accentColor = $cn-color-secondary
 $borderColor = #dfdfdf
 $textColor = white
 $homePageWidth = 1170px
@@ -71,3 +71,11 @@ $cn-xs-padding = 30px
     -o-transform scale(1)
     transform scale(1)
 
+button-animation-mixin(name, defaultBackgroundColor, secondColor)
+  @keyframes name
+    0%
+      background-color defaultColor
+    50%
+      background-color secondColor
+    100%
+      background-color defaultColor

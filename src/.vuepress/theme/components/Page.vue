@@ -57,8 +57,14 @@ export default {
     margin-top -120px
     //scroll-margin-top $navbarHeight
     //scroll-margin-bottom: -$navbarHeight
-    color $cn-color-secondary
+    //color $cn-color-secondary
+    color white
+    text-transform uppercase
     //scroll-snap-type y mandatory
+  h3
+    padding-top 'calc(%s + 57px)' % ($navbarHeight)
+    margin-top -120px
+    color $cn-color-secondary
   a
     span
       display none
