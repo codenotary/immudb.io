@@ -61,7 +61,7 @@ export default {
     color white
     text-transform uppercase
     //scroll-snap-type y mandatory
-  h3
+  & > h3
     padding-top 'calc(%s + 57px)' % ($navbarHeight)
     margin-top -120px
     color $cn-color-secondary
