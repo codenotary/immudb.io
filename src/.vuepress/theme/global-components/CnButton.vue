@@ -59,7 +59,9 @@ export default {
 <style lang="stylus" scoped>
 ahover,
 afocus,
-aactive
+a:hover,
+a:focus,
+a:active
 	color unset
 	text-decoration unset
 	outline-width 0
@@ -176,7 +178,7 @@ aactive
 		pointer-events none
 
 
-	&active
+	&a:ctive
 		-webkit-animation scale-animation 100ms linear
 
 
