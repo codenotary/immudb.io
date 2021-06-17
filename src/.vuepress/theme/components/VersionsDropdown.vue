@@ -96,7 +96,7 @@ button
 	background-color $cn-color-secondary
 	display none
 	width 128px
-	padding 20px
+	padding 4px
 	flex-direction column
 	align-items center
 	justify-content center
@@ -110,10 +110,10 @@ button
 		top -28px
 	.version-dropdown-item
 		z-index 2
-		width 128px
+		width 100%
 		height 50px
 		color $cn-color-dark !important
-		border-bottom 1px solid white
+		border-bottom 1px solid $cn-color-secondary-light
 		display flex
 		flex-direction row
 		align-items center
