@@ -25,6 +25,7 @@
 	justify-content center
 
 .feature-box
+	box-sizing border-box
 	flex-basis 25ch
 	flex-grow 1
 	display flex
