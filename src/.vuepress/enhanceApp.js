@@ -1,4 +1,3 @@
-import Inkline from '@inkline/inkline';
 import VueFilterDateFormat from 'vue-filter-date-format';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -97,7 +96,6 @@ library.add(faDiscord);
 library.add(faTwitter);
 
 export default ({ Vue, router, siteData, }) => {
-    // Vue.use(Inkline);
     Vue.use(VueFilterDateFormat);
     Vue.component('font-awesome-icon', FontAwesomeIcon);
 
