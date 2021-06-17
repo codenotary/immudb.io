@@ -65,9 +65,9 @@ const getSidebar = version => [
         collapsable: false,
         children: [
             `${version}/sdk`,
-            `${version}/build`,
             `${version}/develop/pg`,
             `${version}/develop/embedding`,
+            `${version}/build`,
         ]
     },
     {
