@@ -23,6 +23,10 @@ export default {
 		margin-top 'calc(-%s - 57px)' % ($navbarHeight)
 		color white
 		text-transform uppercase
+	& > h3
+		padding-top 'calc(%s + 57px)' % ($navbarHeight)
+		margin-top -120px
+		color $cn-color-secondary
 	p
 		margin-bottom 0
 	& > p > code
