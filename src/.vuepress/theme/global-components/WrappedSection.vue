@@ -25,13 +25,8 @@ export default {
 		text-transform uppercase
 	& > h3
 		padding-top 'calc(%s + 57px)' % ($navbarHeight)
-		margin-top -120px
+		margin-top -142px
 		color $cn-color-secondary
 	p
 		margin-bottom 0
-	& > p > code
-		color $cn-color-secondary
-		font-weight bold
-		font-size inherit
-		line-height inherit
 </style>

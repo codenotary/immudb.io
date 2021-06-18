@@ -48,7 +48,6 @@ export default {
 			return `${ prefix }${ version }`
 		},
 		toggleDropdown() {
-		  console.log('opened toggle');
       if (arguments[0]?.button !== 0 || (!arguments[1] && arguments[0]?.path.some(x => x.className?.toString().includes('skip-click-event')))) { // || arguments[0]?.path.some(x => x.className?.toString().includes('version-dropdown-item'))
         return;
       }
@@ -122,6 +121,7 @@ button
 			border-bottom none
 		a
 			color $cn-color-dark !important
+			font-weight normal
   //@media (max-width $MQMobile)
   //  left calc(50% - 100px)
   //&::after
