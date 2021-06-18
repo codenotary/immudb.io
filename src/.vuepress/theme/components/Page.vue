@@ -68,4 +68,16 @@ export default {
   a
     span
       display none
+  .wrapped-picture
+    background-color $cn-color-dark
+    border-radius $cn-border-radius-lg
+    text-align center
+    padding 32px
+    margin-top 32px
+    margin-bottom 32px
+    p
+      margin 0
+  .blend-screen
+    img
+      mix-blend-mode screen
 </style>

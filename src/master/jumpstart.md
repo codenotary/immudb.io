@@ -26,7 +26,11 @@ The immudb server manages the requests from the outside world to the store. In o
 
 SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
 
-![SDK Architecture](/immudb/sdk-arch.png)
+<div class="wrapped-picture">
+
+![SDK Architecture](/immudb/immudb-server.svg)
+
+</div>
 
 The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
 
