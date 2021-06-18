@@ -24,61 +24,91 @@ import './theme/styles/grid.styl';
 
 import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
-const getSidebar = version => [
-    {
-        title: 'Introduction',
-        collapsable: true,
-        sidebarDepth: 0,
-        initialOpenGroupIndex: -1,
-        path: `${version}/`,
-    },
-    {
-        title: 'Learn about immudb',
-        collapsable: false,
-        children: [
-            `${version}/about`,
-            `${version}/concepts`,
-        ]
-    },
-    {
-        title: 'Get started',
-        collapsable: false,
-        children: [
-            `${version}/quickstart`,
-            `${version}/getstarted/webconsole`,
-            `${version}/jumpstart`,
-        ]
-    },
-    {
-        title: 'Operations',
-        collapsable: false,
-        sidebarDepth: 0,
-        children: [
-            `${version}/operations/planning`,
-            `${version}/operations/service`,
-            `${version}/operations/monitoring`,
-        ]
-    },
-    {
-        title: 'Develop',
-        collapsable: false,
-        children: [
-            `${version}/sdk`,
-            `${version}/develop/pg`,
-            `${version}/develop/embedding`,
-            `${version}/build`,
-        ]
-    },
-    {
-        title: 'Reference',
-        collapsable: false,
-        children: [
-            `${version}/reference/configuration`,
-            `${version}/reference/sql`,
-            `${version}/reference/sdk`,
-        ]
-    },
-]
+const getSidebar = version => {
+  let sidebar = []
+  const introduction = {
+    title: 'Introduction',
+    collapsable: true,
+    sidebarDepth: 0,
+    initialOpenGroupIndex: -1,
+    path: `${version}/`,
+  };
+  const learn = {
+    title: 'Learn about immudb',
+    collapsable: false,
+    children: [
+      `${version}/about`,
+      `${version}/concepts`,
+    ]
+  };
+  const getStarted = {
+    title: 'Get started',
+    collapsable: false,
+    children: [
+      `${version}/quickstart`,
+      `${version}/getstarted/webconsole`,
+      `${version}/jumpstart`,
+    ]
+  };
+  const operations = {
+    title: 'Operations',
+    collapsable: false,
+    sidebarDepth: 0,
+    children: [
+      `${version}/operations/planning`,
+      `${version}/operations/service`,
+      `${version}/operations/monitoring`,
+    ]
+  };
+  let develop = {
+    title: 'Develop',
+    collapsable: false,
+    children: [
+    ]
+  };
+
+  if (['/master'/*, '/1.0.0'*/].includes(version)) {
+    develop.children.push(`${version}/develop/connection`);
+    develop.children.push(`${version}/develop/reading`);
+    develop.children.push(`${version}/develop/operations`);
+    develop.children.push(`${version}/develop/history`);
+    develop.children.push(`${version}/develop/streams`);
+    develop.children.push(`${version}/develop/management`);
+    develop.children.push(`${version}/develop/indexes`);
+    develop.children.push(`${version}/develop/transactions`);
+    develop.children.push(`${version}/develop/utilities`);
+    develop.children.push(`${version}/develop/additional`);
+  }
+  else {
+    develop.children.push(
+      `${version}/sdk`,
+    );
+  }
+  develop.children.push(
+    `${version}/develop/pg`,
+    `${version}/develop/embedding`,
+    `${version}/build`,
+  );
+
+  const reference = {
+    title: 'Reference',
+    collapsable: false,
+    children: [
+      `${version}/reference/configuration`,
+      `${version}/reference/sql`,
+      `${version}/reference/sdk`,
+    ]
+  };
+
+  sidebar.push(introduction);
+  sidebar.push(learn);
+  sidebar.push(getStarted);
+  sidebar.push(operations);
+  sidebar.push(develop);
+  sidebar.push(reference);
+
+  return sidebar;
+}
 
 library.add(faCheckCircle);
 library.add(faTimesCircle);
