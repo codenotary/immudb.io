@@ -77,4 +77,7 @@ export default {
     margin-bottom 32px
     p
       margin 0
+  .blend-screen
+    img
+      mix-blend-mode screen
 </style>

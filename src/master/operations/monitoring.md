@@ -1,24 +1,23 @@
 # Health Monitoring
 
-## Web console
+<WrappedSection>
 
-The web console will present a subset of metrics: database size, number of entries and memory usage:
+immudb exposes a Prometheus end-point, by default on port 9497 on `/metrics`.<br/>
+You can use `immuadmin stats` to see these metrics without additional tools:
 
-![Web console metrics](/immudb/webconsole-metrics.png)
+<div class="wrapped-picture blend-screen">
 
-## Prometheus
+![immuadmin stats](/immudb/immuadmin-stats.png)
 
-immudb exposes a Prometheus end-point, by default on port 9497 on `/metrics`.
+</div>
 
 immudb exports the standard Go metrics, so dashboards like [Go metrics](https://grafana.com/grafana/dashboards/10826) work out of the box.
 
+<div class="wrapped-picture blend-screen">
+
 ![immuadmin stats](/immudb/grafana-go.png)
 
-## immuadmin
-
-You can use `immuadmin stats` to see these metrics without additional tools:
-
-![immuadmin stats](/immudb/immuadmin-stats.png)
+</div>
 
 For very simple cases, you can use `immuadmin status` from monitoring scripts to ping the server:
 
@@ -26,3 +25,5 @@ For very simple cases, you can use `immuadmin status` from monitoring scripts to
 $ immuadmin status
 OK - server is reachable and responding to queries
 ```
+
+</WrappedSection>
