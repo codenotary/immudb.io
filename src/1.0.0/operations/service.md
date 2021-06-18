@@ -1,6 +1,8 @@
 
 # Running as a service
 
+<WrappedSection>
+
 Every operating system has different ways of running services. Immudb provides a facility called `immudb service` to hide this complexity.
 
 To install the service run:
@@ -21,3 +23,4 @@ immudb service status
 
 On Linux, `immudb service status` is equivalent to `systemctl status immudb.service`, and is what it does under the hoods.
 
+</WrappedSection>
