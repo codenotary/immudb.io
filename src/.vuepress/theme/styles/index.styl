@@ -196,29 +196,43 @@ ul li::marker
     background-color transparent !important
     border none !important
     color white !important
-    .el-tabs__nav-wrap.is-scrollable
-      .el-tabs__nav-prev
+    margin-bottom -27px !important
+    height 87px
+    .el-tabs__nav-wrap
+      &.is-scrollable
+        .el-tabs__nav-prev
+          height 100%
+          color transparent
+          &:after
+            content ''
+            height 18px
+            width 11px
+            background-image url("/icons/arrow-left.svg")
+            top calc(50% - 9px);
+            left 0
+            position absolute
+        .el-tabs__nav-next
+          height 100%
+          color transparent
+          &:after
+            content ''
+            height 18px
+            width 11px
+            background-image url("/icons/arrow-right.svg")
+            top calc(50% - 9px)
+            right 0
+            position absolute
+      &:not(.is-scrollable)
         height 100%
-        color transparent
-        &:after
-          content ''
-          height 18px
-          width 11px
-          background-image url("/icons/arrow-left.svg")
-          top calc(50% - 9px);
-          left 0
-          position absolute
-      .el-tabs__nav-next
-        height 100%
-        color transparent
-        &:after
-          content ''
-          height 18px
-          width 11px
-          background-image url("/icons/arrow-right.svg")
-          top calc(50% - 9px);
-          right 0
-          position absolute
+        .el-tabs__nav-scroll
+          height 100%
+          .el-tabs__item.is-top
+            height 87px
+            margin-bottom -60px
+            &.is-active
+              z-index 3
+            &:first-of-type
+              margin-left 0 !important
     .el-tabs__item.is-top
       bottom -1px
       border-top-left-radius $cn-border-radius-lg
@@ -234,6 +248,7 @@ ul li::marker
       padding-bottom 21px
       @extend .cn-text-sm
       height unset
+      //margin-bottom -60px
       @media (max-width $MQMobile)
         width 80px !important
         padding-top 13px !important
@@ -243,9 +258,13 @@ ul li::marker
       background-color $cn-color-primary_dark !important
       border none !important
   .el-tabs__content
+    z-index 2
     background-color $cn-color-primary_dark
     border-radius $cn-border-radius-lg !important
     box-shadow $cn-shadow-sm
+    padding 40px !important
+    @media (max-width $MQNarrow)
+      padding 20px !important
 
 [class*='language-']
   @extend .cn-text-sm
