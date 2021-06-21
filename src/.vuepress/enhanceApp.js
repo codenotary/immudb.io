@@ -27,15 +27,20 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 const getSidebar = version => {
   let sidebar = []
   const introduction = {
-    title: 'Introduction',
-    collapsable: true,
+    title: 'Welcome',
+    collapsable: false,
     sidebarDepth: 0,
     initialOpenGroupIndex: -1,
-    path: `${version}/`,
+    // path: `${version}/`,
+    children: [
+      `${version}/`
+    ]
   };
   const learn = {
     title: 'Learn about immudb',
     collapsable: false,
+    sidebarDepth: 1,
+    initialOpenGroupIndex: -1,
     children: [
       `${version}/about`,
       `${version}/concepts`,
