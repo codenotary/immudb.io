@@ -1,6 +1,8 @@
 
 # SQL Reference
 
+<WrappedSection>
+
 ## Data types
 
 * `INTEGER`
@@ -78,3 +80,5 @@ BEGIN TRANSACTION; UPSERT INTO table1 (id, label) VALUES (100, 'label1'); UPSERT
 ```
 USE SNAPSHOT BEFORE TX 1000
 ```
+
+</WrappedSection>
