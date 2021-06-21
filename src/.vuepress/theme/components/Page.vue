@@ -80,4 +80,12 @@ export default {
   .blend-screen
     img
       mix-blend-mode screen
+
+  & > *:not(.wrapped-section)
+    @media (min-width $MQNarrow)
+      margin-left 40px
+      margin-right 40px
+  & > ul
+    @media (min-width $MQNarrow)
+      padding-left 24px
 </style>

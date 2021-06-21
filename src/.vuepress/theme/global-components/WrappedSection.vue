@@ -19,6 +19,7 @@ export default {
 	margin-bottom 32px
 	@media (max-width $MQNarrow)
 		margin-bottom 16px
+		padding 20px
 	h2:first-of-type
 		margin-top 'calc(-%s - 57px)' % ($navbarHeight)
 		color white
