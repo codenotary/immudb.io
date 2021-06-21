@@ -23,6 +23,10 @@
 	display flex
 	flex-flow row wrap
 	justify-content center
+	& ::v-deep + ul
+		p
+			strong
+				color $cn-color-secondary
 
 .feature-box
 	box-sizing border-box
