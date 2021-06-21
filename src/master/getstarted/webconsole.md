@@ -13,6 +13,8 @@ The console allows you to:
 * Create databases
 * Manage permissions for users
 
+<WrappedSection>
+
 ## Accessing the Web Console
 
 Once immudb has started, it will tell you if the web console is enabled and where it is listening:
@@ -25,6 +27,8 @@ immudb  2021/05/17 21:38:30 INFO: Web API server enabled on 0.0.0.0:8080/api (ht
 Just navigating to that address in your web browser will bring you to the login screen:
 
 ![image](/browser.png)
+
+</WrappedSection>
 
 
 

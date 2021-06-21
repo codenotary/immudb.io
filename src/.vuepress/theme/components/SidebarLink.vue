@@ -66,7 +66,6 @@ function renderLink (h, to, text, active, level) {
       'sidebar-link': true
     }
   }
-
   // if (level > 2) {
   //   component.style = {
   //     'padding-left': level + 'rem'
@@ -77,7 +76,7 @@ function renderLink (h, to, text, active, level) {
 }
 
 function renderChildren (h, children, path, route, maxDepth, depth = 1) {
-  if (!children || depth > maxDepth) return null
+  if (!children || !children.length || depth > maxDepth) return null
   return h('ul', { class: 'sidebar-sub-headers' }, children.map(c => {
     const active = isActive(route, path + '#' + c.slug)
     return h('li', { class: 'sidebar-sub-header' }, [
@@ -106,6 +105,35 @@ function renderExternal (h, to, text) {
   //padding-left 1rem
   font-size 0.95em
 
+.sidebar-links > li > .sidebar-link:not(:last-child)
+  //padding-right 10px
+  //&:not(.active)
+  position relative
+  &:after
+    content ''
+    height 19px
+    width 11px
+    background-image url("/icons/arrow-right.svg")
+    right 5px
+    position absolute
+    top calc(50% - 9.5px)
+    transition transform .100s linear
+  &.active
+    position relative
+    &:after
+      //content ''
+      //height 11px
+      //width 19px
+      //background-image url("/icons/arrow-down.svg")
+      //right 10px
+      //position absolute
+      //top calc(50% - 5px)
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      transform: rotate(90deg);
+
 a.sidebar-link
   font-size 1em
   font-weight 400
@@ -116,8 +144,9 @@ a.sidebar-link
   line-height 1.4
   width: 100%
   box-sizing: border-box
-  &:not(.active) + .sidebar-sub-headers
-    display none
+  &:not(.active)
+    & + .sidebar-sub-headers
+      display none
   &:hover
     color $accentColor
   &.active

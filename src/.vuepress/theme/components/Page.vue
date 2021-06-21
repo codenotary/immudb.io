@@ -81,7 +81,7 @@ export default {
     img
       mix-blend-mode screen
 
-  & > *:not(.wrapped-section)
+  & > *:not(.wrapped-section):not(.el-tabs)
     @media (min-width $MQNarrow)
       margin-left 40px
       margin-right 40px
