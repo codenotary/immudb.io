@@ -114,6 +114,8 @@ $navbar-vertical-padding = 0.7rem
   flex-direction row
   align-items center
 
+  a
+    font-weight normal
   a, span, img
     display inline-block
 
