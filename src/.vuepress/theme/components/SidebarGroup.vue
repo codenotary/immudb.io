@@ -82,6 +82,7 @@ export default {
 
 <style lang="stylus">
 .sidebar-group
+  margin-bottom 24px
   .sidebar-group
     padding-left 0.5em
   &:not(.collapsable)
@@ -119,7 +120,7 @@ export default {
   width 100%
   box-sizing border-box
   margin 0
-  border-left 0.25rem solid transparent
+  //border-left 0.25rem solid transparent
   &.open, &:hover
     //color inherit
   .arrow

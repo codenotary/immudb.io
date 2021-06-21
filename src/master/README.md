@@ -16,10 +16,10 @@ The immudb documentation is structured as follows:
 
 
 
-## About
+### About
 In the [About](./about) section, you can lean more about what makes immudb unique, how it works, and what you can use it for.
 
-## Getting started
+### Getting started
 
   * Want to dive right in and play around? Get started with the [user quickstart](./quickstart)
   * Want to use immudb from your favourite programming language? head to the [developer jumpstart](./jumpstart)
@@ -31,18 +31,18 @@ In the [About](./about) section, you can lean more about what makes immudb uniqu
 	
 </WrappedSection>
   
-## Operations
+### Operations
 This section covers what you need to run immudb in a real server or production environment.
 
-## Reference
+### Reference
 Here you can find a comprehensive list of immudb configuration options and developer APIs.
 
-## Help and Support
+### Help and Support
 Join our [Discord community](https://discord.gg/ThSJxNEHhZ)
 
 <CnSocialButton social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external"></CnSocialbutton>
 
-## External Resources
+### External Resources
 
   Here are some external links you may find valuable:
 
