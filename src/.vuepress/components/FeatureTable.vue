@@ -43,9 +43,9 @@
 	color $cn-color-brand
 	margin-bottom 20px
 	&:not(:last-of-type)
-		margin-right 10px
+		margin-right 5px
 	&:not(:first-of-type)
-		margin-left 10px
+		margin-left 5px
 	h3
 		text-align: center
 		margin-bottom 0
