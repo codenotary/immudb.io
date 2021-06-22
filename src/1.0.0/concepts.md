@@ -4,13 +4,23 @@ Download [immudb short research paper](https://codenotary.com/technologies/immud
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
+<WrappedSection>
+
 ## Adding data
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Checking data consistency
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## State signature
 
@@ -44,32 +54,62 @@ immuclient audit-mode --audit-username {immudb-username} --audit-password {immud
 ./immugw --audit --audit-username {immudb-username} --audit-password {immudb-pw} --audit-signature validate
 ```
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Item References
 
 Enables the insertion of a special entry which references to another item.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Primary Index
 
 Index enables queries and search based on the data key.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Secondary Index
 
 Index enables queries and search based on the data value.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Streams
 Allows client server communication with streams of “delimited” []byte messages.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Cryptographic signatures
 
 A signature (PKI) provided by the client can be became part of the insertion process.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Authentication (transport)
 
 Integrated mTLS offers the best approach for machine-to-machine authentication, also providing communications security (entryption) over the transport channel.
 
-# immugw communication
+</WrappedSection>
+
+<WrappedSection>
+
+## immugw communication
 immugw can be found in its [own repository](https://github.com/codenotary/immugw)
 
 immugw proxies REST client communication and gRPC server interface. For security reasons, immugw should not run on the same server as immudb. The following diagram shows how the communication works:
 
-![immugw communication explained](https://raw.githubusercontent.com/codenotary/immugw/master/img/immugw-diagram.png)
+![immugw communication explained](/diagram-immugw.svg)
+
+</WrappedSection>

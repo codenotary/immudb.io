@@ -1,10 +1,16 @@
 # immudb explained
 
+<WrappedSection>
+
 ## What is immudb?
 
 immudb is database with built-in cryptographic proof and verification. It can track changes in sensitive data and the integrity of the history will be protected by the clients, without the need to trust the server.
 
 immudb can operate both as a key-value or relational (SQL) database. You can add new transactions, but deletion or modification of older transactions isn’t allowed, thus making your data immutable. When a key record's value changes over time (such as a bank balance), you can get multiple instances with different timestamps to give you the complete history of that record's changes. You can store a variety of common data types, verification checksums, or JSON.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## What makes immudb special?
 
@@ -15,6 +21,10 @@ immudb can operate both as a key-value or relational (SQL) database. You can add
 - **Verify your data without sacrificing performance.** Data stored in immudb is cryptographically coherent and verifiable, just like blockchains, but without all the complexity. Unlike blockchains, immudb can handle millions of transactions per second, and can be used both as a lightweight service or embedded in your application as a library.
 
 - **Protect yourself from supply-chain attacks.** While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack. Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## How can I use immudb?
 
@@ -37,3 +47,4 @@ Use cases:
 
   - Companies use immudb to protect credit card transactions and to secure processes by storing digital certificates and checksums.
 
+</WrappedSection>

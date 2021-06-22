@@ -11,11 +11,7 @@ Before running a database in production, it is important to plan:
 - Backups
 - Health Monitoring
 
-</WrappedSection>
-
-<WrappedSection>
-
-## Computing Resources
+### Computing Resources
 
 immudb was designed to have a stable memory/CPU footprint.
 
@@ -23,11 +19,7 @@ Memory is pre-allocated based on specified maximum concurrency, maximum number o
 
 With the default settings, it's possible to stress immudb and memory usage should stay around 1.5GB (assuming low-sized values). Otherwise, memory will be needed to maintain the values within a transaction during commit time.
 
-</WrappedSection>
-
-<WrappedSection>
-
-## Disk space and data location
+### Disk space and data location
 
 immudb is an immutable database, this means all history is preserved and therefore disk usage is higher than a normal database.
 

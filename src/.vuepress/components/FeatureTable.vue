@@ -23,6 +23,7 @@
 	display flex
 	flex-flow row wrap
 	justify-content center
+	gap 10px
 	& ::v-deep + ul
 		p
 			strong
@@ -42,10 +43,6 @@
 	max-width 213px
 	color $cn-color-brand
 	margin-bottom 20px
-	&:not(:last-of-type)
-		margin-right 10px
-	&:not(:first-of-type)
-		margin-left 10px
 	h3
 		text-align: center
 		margin-bottom 0
