@@ -9,14 +9,18 @@ The maximum size of a transaction sent with streams is temporarily limited to a 
 
 Supported stream method now available in the SDK are:
 
-	StreamSet
-	StreamGet
-	StreamVerifiedSet
-	StreamVerifiedGet
-	StreamScan
-	StreamZScan
-	StreamHistory
-	StreamExecAll
+<CustomList class="no-horizontal-padding" wide>
+
+* StreamSet
+* StreamGet
+* StreamVerifiedSet
+* StreamVerifiedGet
+* StreamScan
+* StreamZScan
+* StreamHistory
+* StreamExecAll
+
+</CustomList>
 
 :::: tabs
 
