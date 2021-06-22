@@ -15,7 +15,7 @@ immudb exports the standard Go metrics, so dashboards like [Go metrics](https://
 
 <div class="wrapped-picture blend-screen">
 
-![immuadmin stats](/immudb/grafana-go.png)
+![immuadmin stats](/immudb/grafana-go.jpg)
 
 </div>
 
