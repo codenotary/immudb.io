@@ -72,23 +72,30 @@ const getSidebar = version => {
     ]
   };
 
-  if (['/master'/*, '/1.0.0'*/].includes(version)) {
-    develop.children.push(`${version}/develop/connection`);
-    develop.children.push(`${version}/develop/reading`);
-    develop.children.push(`${version}/develop/operations`);
-    develop.children.push(`${version}/develop/history`);
-    develop.children.push(`${version}/develop/streams`);
-    develop.children.push(`${version}/develop/management`);
-    develop.children.push(`${version}/develop/indexes`);
-    develop.children.push(`${version}/develop/transactions`);
-    develop.children.push(`${version}/develop/utilities`);
-    develop.children.push(`${version}/develop/additional`);
+
+  switch (version) {
+    case '/master':
+    case '/1.0.0':
+    {
+      develop.children.push(`${version}/develop/connection`);
+      develop.children.push(`${version}/develop/reading`);
+      develop.children.push(`${version}/develop/operations`);
+      develop.children.push(`${version}/develop/history`);
+      develop.children.push(`${version}/develop/streams`);
+      develop.children.push(`${version}/develop/management`);
+      develop.children.push(`${version}/develop/indexes`);
+      develop.children.push(`${version}/develop/transactions`);
+      develop.children.push(`${version}/develop/utilities`);
+      develop.children.push(`${version}/develop/additional`);
+      break;
+    }
+    default: {
+      develop.children.push(
+        `${version}/sdk`,
+      );
+    }
   }
-  else {
-    develop.children.push(
-      `${version}/sdk`,
-    );
-  }
+
   develop.children.push(
     `${version}/develop/pg`,
     `${version}/develop/embedding`,

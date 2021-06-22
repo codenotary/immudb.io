@@ -4,6 +4,8 @@
 To learn interactively and to get started with immudb from the command line and with programming languages, visit the immudb Playground at <https://play.codenotary.com>
 :::
 
+<WrappedSection>
+
 ## Getting immudb running
 
 You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.0 for linux amd64:
@@ -26,6 +28,10 @@ Alternatively, you may use Docker to run immudb in a ready-to-use container:
 docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
 ```
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Connecting with immuclient
 
 You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.0.0 for linux amd64:
@@ -44,6 +50,10 @@ Alternatively, you may use Docker to run immuclient in a ready-to-use container:
 ```bash
 docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 ```
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Basic operations with immuclient
 
@@ -88,6 +98,10 @@ We can show the history of transactions for key `balance` using the `history` co
 ```
 immuclient> history balance
 ```
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## SQL operations with immuclient
 
@@ -134,6 +148,10 @@ immuclient query "SELECT id, name, salary FROM people;"
 +-----------------------+-------------------------+---------------------------+
 ```
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Time travel
 
 immudb is a immutable database. History is always preserved. With immudb you can travel in time!
@@ -179,3 +197,5 @@ immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, people
 |                        2 | Bob                        |                         30000 |                        30000 |
 +--------------------------+----------------------------+-------------------------------+------------------------------+
 ```
+
+</WrappedSection>

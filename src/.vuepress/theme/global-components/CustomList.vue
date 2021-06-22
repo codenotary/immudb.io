@@ -8,15 +8,20 @@
 export default {
   name: "CustomList",
   props: {
-    wide: {
+    size: {
+      type: String,
+      default: 'normal',
+    },
+    inverse: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
     computedClass() {
       return {
-        'wide-blocks': this.wide,
+        [`${this.size}-blocks`]: true,
+        'inverse-blocks': this.inverse,
       }
     }
   }
@@ -30,6 +35,14 @@ export default {
       gap 22px
       li
         width 188px
+  &.small-blocks
+    ul
+      gap 10px
+      li
+        box-sizing border-box
+        width 140px
+        height 50px
+        border 1px solid $cn-color-grey_dark;
   ul
     display flex
     justify-content flex-start

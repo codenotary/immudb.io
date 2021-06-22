@@ -60,13 +60,9 @@ SELECT id FROM table1 WHERE (id > 0 AND NOT table1.id >= 10) OR table1.title LIK
 SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active
 ```
 
-</WrappedSection>
-
-<WrappedSection>
-
 ### Aggregations
 
-<CustomList class="no-horizontal-padding">
+<CustomList class="no-horizontal-padding" inverse size="small">
 
 * COUNT
 * SUM
@@ -80,10 +76,6 @@ SELECT t.id as d FROM (people AS t) WHERE id <= 3 AND active = @active
 SELECT COUNT() AS c, SUM(age), MIN(age), MAX(age), AVG(age) FROM table1 AS t1
 SELECT active, COUNT() as c, MIN(age), MAX(age) FROM table1 GROUP BY active HAVING COUNT() > 0 ORDER BY active DESC
 ```
-
-</WrappedSection>
-
-<WrappedSection>
 
 ### Transactions
 

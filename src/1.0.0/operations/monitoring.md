@@ -13,7 +13,7 @@ You can use `immuadmin stats` to see these metrics without additional tools:
 
 immudb exports the standard Go metrics, so dashboards like [Go metrics](https://grafana.com/grafana/dashboards/10826) work out of the box.
 
-<div class="wrapped-picture blend-screen">
+<div class="wrapped-picture">
 
 ![immuadmin stats](/immudb/grafana-go.jpg)
 

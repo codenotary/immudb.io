@@ -25,6 +25,8 @@ Some of the most important settings that ones are:
 
 Settings can be specified as command line options to immudb (see `immudb -h`), in a configuration file, or as environment variables.
 
+<WrappedSection>
+
 ## Configuration file
 
 Settings can be specified in a [immudb.toml configuration file](https://raw.githubusercontent.com/codenotary/immudb/master/configs/immudb.toml).
@@ -33,7 +35,12 @@ Which configuration file to use is set with the `--config` option. By default, i
 
 When running immudb as a service, `immudb service install` allows to specify the configuration file to use with the `--config` option.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Environment variables
 
 Settings specified via environment variables take override the configuration file. They are specified in the form of `IMMUDB_`, for example `IMMUDB_DIR` specifies the `dir` variable.
 
+</WrappedSection>
