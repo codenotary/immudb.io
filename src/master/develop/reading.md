@@ -1,4 +1,4 @@
-# READING AND INSERTING DATA
+# Reading and inserting data
 
 The format for writing and reading data is the same both in Set and VerifiedSet, just as it is for reading data both in both Get and VerifiedGet.
 
