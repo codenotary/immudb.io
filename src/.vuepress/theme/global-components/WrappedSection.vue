@@ -17,7 +17,7 @@ export default {
 	background-color: $cn-color-primary_dark
 	padding 40px
 	margin-bottom 32px
-	@media (max-width $MQNarrow)
+	@media (max-width $MQMobile)
 		margin-bottom 16px
 		padding 20px
 	h2:first-of-type
