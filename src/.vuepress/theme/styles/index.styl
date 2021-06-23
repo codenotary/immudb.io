@@ -101,6 +101,7 @@ blockquote
   box-shadow $cn-shadow-sm
   border-radius $cn-border-radius-lg
   background-color $cn-color-dark
+  margin 0
   //max-width 740px
   & > p
     margin 0
@@ -110,13 +111,16 @@ blockquote
       font-weight bold
       font-size: 16px !important
       line-height: 22px !important
+      @media (max-width: $MQMobile)
+        font-size: 12px !important
+        line-height: 15px !important
     a
       font-weight bold
   &:before
     content ''
     position absolute
     height calc(100% - 64px)
-    left 4.32%
+    left 30px
     top 32px
     background #153954
     border 4px solid $cn-color-primary_dark
@@ -268,6 +272,8 @@ ul li::marker
         padding-top 13px !important
         padding-bottom 10px !important
       @media (max-width $MQMobile)
+        border-top-left-radius $cn-border-radius-md
+        border-top-right-radius $cn-border-radius-md
         width 80px !important
         //height unset !important
         padding-top 13px !important
@@ -282,6 +288,9 @@ ul li::marker
     border-radius $cn-border-radius-lg !important
     box-shadow $cn-shadow-sm
     padding 40px !important
+    .el-tab-pane
+      p:first-child
+        margin-top 0
     @media (max-width $MQNarrow)
       padding 20px !important
 

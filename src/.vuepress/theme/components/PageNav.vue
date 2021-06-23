@@ -171,8 +171,19 @@ function flatten (items, res) {
   .next
     float right
     font-weight bold
+    max-width 48%
+    a
+      max-width 100%
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
   .prev
     float left
     font-weight bold
-
+    max-width 48%
+    a
+      max-width 100%
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
 </style>

@@ -83,6 +83,8 @@ export default {
 <style lang="stylus">
 .sidebar-group
   margin-bottom 24px
+  @media (max-width $MQMobile)
+    margin-top 24px
   .sidebar-group
     padding-left 0.5em
   &:not(.collapsable)
