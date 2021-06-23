@@ -87,6 +87,10 @@ button
 	justify-content space-between !important
 	align-items center !important
 	width 128px
+	@media (max-width $MQMobile)
+		width 100px
+		padding 14px 15px !important
+		height 40px !important
 .version-dropdown
 	position absolute
 	box-sizing border-box
