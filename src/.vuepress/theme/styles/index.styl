@@ -199,10 +199,18 @@ ul li::marker
     margin-bottom -27px !important
     height 87px
     .el-tabs__nav-wrap
+      .el-tabs__nav.is-top
+        display flex
+        flex-direction row
+        gap 9px
       &.is-scrollable
+        @media (max-width 1060px)
+          padding-top 23px
         .el-tabs__nav-prev
           height 100%
           color transparent
+          @media (max-width 1060px)
+            height 44px
           &:after
             content ''
             height 18px
@@ -214,6 +222,8 @@ ul li::marker
         .el-tabs__nav-next
           height 100%
           color transparent
+          @media (max-width 1060px)
+            height 44px
           &:after
             content ''
             height 18px
@@ -229,6 +239,8 @@ ul li::marker
           .el-tabs__item.is-top
             height 87px
             margin-bottom -60px
+            @media (max-width $MQMobile)
+              margin-top 23px
             &.is-active
               z-index 3
             &:first-of-type
@@ -241,16 +253,23 @@ ul li::marker
       border-bottom-left-radius none
       border-bottom-right-radius none
       width 130px !important
-      margin-left 5px !important
-      margin-right 5px !important
+      //margin-left 5px !important
+      //margin-right 5px !important
       text-align center
       padding-top 26px
       padding-bottom 21px
       @extend .cn-text-sm
       height unset
       //margin-bottom -60px
+      @media (max-width 1439px)
+        width 110px !important
+      @media (max-width 1060px)
+        width 88px !important
+        padding-top 13px !important
+        padding-bottom 10px !important
       @media (max-width $MQMobile)
         width 80px !important
+        //height unset !important
         padding-top 13px !important
         padding-bottom 10px !important
     .is-top.is-active
