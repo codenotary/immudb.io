@@ -32,9 +32,11 @@ export default {
 .custom-list
   &.wide-blocks
     ul
-      gap 22px
       li
         width 188px
+        @media (max-width $MQMobile)
+          width 150px
+          height 50px
   &.small-blocks
     ul
       gap 10px
@@ -43,6 +45,8 @@ export default {
         width 140px
         height 50px
         border 1px solid $cn-color-grey_dark;
+        @media (max-width $MQMobile)
+          width 125px
   ul
     display flex
     justify-content flex-start
@@ -53,7 +57,7 @@ export default {
     flex-wrap wrap
     gap 10px
     li
-      height 66px
+      height 50px
       width 155px
       box-shadow $cn-shadow-sm
       border-radius 7px
@@ -61,4 +65,6 @@ export default {
       display flex
       justify-content center
       align-items center
+      @media (max-width $MQMobile)
+        width 145px
 </style>
