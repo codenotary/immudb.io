@@ -41,6 +41,7 @@
       </template>
     </Page>
     <Footer/>
+    <CnSocialButton class="chat-widget" is-widget social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external"></CnSocialbutton>
   </div>
 </template>
 
@@ -153,9 +154,17 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-.theme-container
-	min-height 100vh
-	display flex
-	flex-direction column
+<style lang="scss" scoped>
+.theme-container {
+  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat-widget {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  z-index: 100;
+}
 </style>
