@@ -54,7 +54,7 @@ SELECT id, customer_name FROM customers ORDER BY customer_name ASC;
 SELECT COUNT() FROM orders INNER JOIN customers ON orders.productid = customers.id;
 SELECT COUNT() FROM orders INNER JOIN customers ON orders.productid = customers.id WHERE orders.productid = 2;
 SELECT * FROM customers GROUP BY country;
-SELECT product FROM products WHERE product LIKE 'J';													
+SELECT product FROM products WHERE product LIKE 'J';
 SELECT id, product FROM products WHERE (id > 0 AND NOT products.id >= 10) AND (products.product LIKE 'J');
 ```
 
@@ -77,15 +77,15 @@ SELECT c.id, c.customer_name AS name, active FROM (customers AS c) WHERE id <= 3
 </CustomList>
 
 ```
-SELECT COUNT() AS c, SUM(age), MIN(age), MAX(age), AVG(age) FROM customers;														# DOESN' WORK (502)
-SELECT active, COUNT() as c, MIN(age), MAX(age) FROM customers GROUP BY active HAVING COUNT() > 0 ORDER BY active DESC;			# DOESN' WORK (order is limit to one indexed column)
-SELECT active, COUNT() as c, MIN(age), MAX(age) FROM customers GROUP BY active HAVING COUNT() > 0 ORDER BY customer_name DESC;  # DOESN' WORK (502)
+SELECT COUNT() AS c, SUM(age), MIN(age), MAX(age), AVG(age) FROM customers;
+SELECT active, COUNT() as c, MIN(age), MAX(age) FROM customers GROUP BY active HAVING COUNT() > 0 ORDER BY active DESC;
+SELECT active, COUNT() as c, MIN(age), MAX(age) FROM customers GROUP BY active HAVING COUNT() > 0 ORDER BY customer_name DESC;
 ```
 
 ### Transactions
 
 ```
-BEGIN TRANSACTION; UPSERT INTO customers (id, age) VALUES (1, 25); UPSERT INTO products (id, price) VALUES (2, '$5.76'); COMMIT; # DOESN' WORK (unexpected STMT_SEPARATOR)
+BEGIN TRANSACTION; UPSERT INTO customers (id, age) VALUES (1, 25); UPSERT INTO products (id, price) VALUES (2, '$5.76'); COMMIT;
 ```
 
 ### Time travel
@@ -109,7 +109,7 @@ SELECT id, customer_name, ip FROM (customers BEFORE TX 5);
 SELECT id, customer_name as name FROM customers;
 
 # past data
-USE SNAPSHOT BEFORE TX 5;																											# DOESN' WORK (Illegal arguments)
+USE SNAPSHOT BEFORE TX 5;
 SELECT id, customer_name, ip FROM customers;
 ```
 
