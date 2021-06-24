@@ -41,7 +41,7 @@
       </template>
     </Page>
     <Footer/>
-    <CnSocialButton class="chat-widget" is-widget social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external"></CnSocialbutton>
+    <DiscordChatWidget class="chat-widget"></DiscordChatWidget>
   </div>
 </template>
 
@@ -51,6 +51,7 @@ import Navbar from '@theme/components/Navbar.vue'
 import Page from '@theme/components/Page.vue'
 import Sidebar from '@theme/components/Sidebar.vue'
 import Footer from "@theme/components/Footer.vue"
+import DiscordChatWidget from '@theme/components/DiscordChatWidget.vue'
 
 import { resolveSidebarItems } from '../util'
 
@@ -62,7 +63,8 @@ export default {
     Page,
     Sidebar,
     Navbar,
-    Footer
+    Footer,
+    DiscordChatWidget,
   },
 
   data () {
@@ -163,8 +165,8 @@ export default {
 
 .chat-widget {
   position: fixed;
-  bottom: 60px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   z-index: 100;
 }
 </style>
