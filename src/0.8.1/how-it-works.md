@@ -51,7 +51,7 @@ message Signature {
 It's possible to use the environment `IMMUDB_SIGNING_KEY` or `--signingKey` immudb flag.
 
 To generate a valid key it's possible to use `openssl` tool:
-```.bash
+```bash
 openssl ecparam -name prime256v1 -genkey -noout -out my.key
 ```
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.

@@ -47,21 +47,23 @@ export default {
   },
   async mounted() {
     if (this.social === 'discord') {
-     let response = await axios.get('https://discord.com/api/v9/invites/ThSJxNEHhZ?with_counts=true', {
+     const response = await axios.get('https://discord.com/api/v9/invites/ThSJxNEHhZ?with_counts=true', {
        headers: {
          common: {
            'content-type': 'application/json; charset=utf-8',
          },
        },
      });
+
      this.count = response.data.approximate_member_count;
     }
   }
 }
 </script>
 
-<style scoped lang="stylus">
-.social-button-icon
-  height 20px
-  width auto
+<style scoped lang="scss">
+.social-button-icon {
+  height: 20px;
+  width: auto;
+}
 </style>

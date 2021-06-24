@@ -6,7 +6,7 @@
 			<slot>
 			</slot>
 		</router-link>
-		<a class="no-hover" :href="href" v-else-if="href" :rel="rel" :target="target">
+		<a v-else-if="href" class="no-hover" :href="href" :rel="rel" :target="target">
 			<slot></slot>
 		</a>
 		<slot v-else></slot>

@@ -35,16 +35,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-168112067-1');`;
 
-const tawkTo = `var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5f1966f77258dc118beec8d6/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();`;
-
 const vgo = `(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
 vgo('setAccount', '66487182');
 vgo('setTrackByDefault', true);
@@ -82,7 +72,6 @@ module.exports = {
         ['meta', { name: "HandheldFriendly", content: "True" }],
         ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
         ['script', { type: "application/ld+json" }, schemaOrg],
-        ['script', { type: "text/javascript" }, tawkTo],
         ['script', { type: "text/javascript" }, vgo],
     ].concat(process.env.NODE_ENV === 'production' ? [
         ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
