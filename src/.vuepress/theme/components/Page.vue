@@ -54,7 +54,7 @@ export default {
     //padding-top 57px
   h2
     padding-top 'calc(%s + 57px)' % ($navbarHeight)
-    margin-top -120px
+    margin-top -145px
     //scroll-margin-top $navbarHeight
     //scroll-margin-bottom: -$navbarHeight
     //color $cn-color-secondary
@@ -63,7 +63,7 @@ export default {
     //scroll-snap-type y mandatory
   & > h3
     padding-top 'calc(%s + 57px)' % ($navbarHeight)
-    margin-top -120px
+    margin-top -145px
     color $cn-color-secondary
   a
     span

@@ -26,16 +26,25 @@ import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
 const getSidebar = version => {
   let sidebar = []
+
+  /* WELCOME SECTION START */
+
   const introduction = {
     title: 'Welcome',
     collapsable: false,
-    sidebarDepth: 0,
+    sidebarDepth: 1,
     initialOpenGroupIndex: -1,
     // path: `${version}/`,
     children: [
       `${version}/`
     ]
   };
+
+  /* WELCOME SECTION END */
+
+
+  /* LEARN SECTION START */
+
   const learn = {
     title: 'Learn about immudb',
     collapsable: false,
@@ -46,15 +55,47 @@ const getSidebar = version => {
       `${version}/concepts`,
     ]
   };
+
+  /* LEARN SECTION END */
+
+  /* GETSTARTED SECTION START */
+
   const getStarted = {
     title: 'Get started',
     collapsable: false,
     children: [
-      `${version}/quickstart`,
-      `${version}/getstarted/webconsole`,
-      `${version}/jumpstart`,
     ]
   };
+
+
+  // `${version}/quickstart`,
+  //   `${version}/getstarted/webconsole`,
+  //   `${version}/jumpstart`,
+  switch(version) {
+    case '/master':
+    case '/1.0.0':
+    {
+      getStarted.children.push(`${version}/quickstart`);
+      getStarted.children.push(`${version}/getstarted/webconsole`);
+      getStarted.children.push(`${version}/jumpstart`);
+      break;
+    }
+    case '/0.9.2':
+    case '/0.8.1':
+    {
+      getStarted.children.push(`${version}/quickstart`);
+      // getStarted.children.push(`${version}/getstarted/webconsole`);
+      getStarted.children.push(`${version}/jumpstart`);
+      break;
+    }
+    default: {
+    }
+  }
+
+  /* GETSTARTED SECTION END */
+
+  /* OPERATIONS SECTION START */
+
   const operations = {
     title: 'Operations',
     collapsable: false,
@@ -65,13 +106,17 @@ const getSidebar = version => {
       `${version}/operations/monitoring`,
     ]
   };
+
+  /* OPERATIONS SECTION END */
+
+  /* DEVELOP SECTION START */
+
   let develop = {
     title: 'Develop',
     collapsable: false,
     children: [
     ]
   };
-
 
   switch (version) {
     case '/master':
@@ -91,7 +136,7 @@ const getSidebar = version => {
     }
     default: {
       develop.children.push(
-        `${version}/sdk`,
+        `${version}/sdk-api`, // Content needs to be updated
       );
     }
   }
@@ -112,12 +157,23 @@ const getSidebar = version => {
     ]
   };
 
+  /* DEVELOP SECTION END */
+
   sidebar.push(introduction);
-  sidebar.push(learn);
+  if (['/master', '/1.0.0'].includes(version)) {
+    sidebar.push(learn);
+  }
   sidebar.push(getStarted);
-  sidebar.push(operations);
-  sidebar.push(develop);
-  sidebar.push(reference);
+  if (['/master', '/1.0.0'].includes(version)) {
+    sidebar.push(operations);
+  }
+
+  if (['/master', '/1.0.0'].includes(version)) {
+    sidebar.push(develop);
+  }
+  if (['/master', '/1.0.0'].includes(version)) {
+    sidebar.push(reference);
+  }
 
   return sidebar;
 }

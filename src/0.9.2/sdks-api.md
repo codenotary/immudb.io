@@ -1,40 +1,5 @@
 # SDKs api
 
-## Contents
-- [Connection and authentication](#connection-and-authentication)
-    - [Mutual TLS](#mutual-tls)
-    - [Disable authentication](#disable-authentication)
-    - [Verify state signature](#verify-state-signature)
-- [State management](#state-management)
-- [Tamperproof reading and writing](#tamperproof-reading-and-writing)
-    - [Verified get and set](#verified-get-and-set)
-- [Writing and reading](#writing-and-reading)
-    - [Get and Set](#get-and-set)
-    - [Get at and since a transaction](#get-at-and-since-a-transaction)
-    - [Transaction by index](#transaction-by-index)
-    - [Verified transaction by index](#verified-transaction-by-index)
-- [History](#history)
-- [Counting](#counting)
-- [Scan](#scan)
-- [References](#references)
-    - [SetReference and VerifiedSetReference](#setreference-and-verifiedsetreference)
-    - [Resolving reference with transaction id](#resolving-reference-with-transaction-id)
-- [Secondary indexes](#secondary-indexes)
-    - [Sorted sets](#sorted-sets)
-- [Transactions](#transactions)
-    - [SetAll](#setall)
-    - [GetAll](#setall)
-    - [ExecAll](#execall)
-    - [Txs Scan](#txs-scan)
-- [Tamperproofing utilities](#tamperproofing-utilities)
-    - [Current State](#current-state)
-- [User management (ChangePermission,SetActiveUser,DatabaseList)](#user-management)
-- [Multiple databases(CreateDatabase,UseDatabase)](#multiple-databases)
-- [Index cleaning](#index-cleaning)
-- [Health](#health)
-- [Immudb SDKs examples](#immudb-sdks-examples)
-
-
 ## Connection and authentication
 
 immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.

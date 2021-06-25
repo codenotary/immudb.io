@@ -31,7 +31,7 @@
 
 .feature-box
 	box-sizing border-box
-	flex-basis 25ch
+	flex-basis 200px
 	flex-grow 1
 	display flex
 	flex-flow column
