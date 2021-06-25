@@ -1,4 +1,4 @@
-# Introduction 0.8.1
+# Introduction
 
 immudb is a **lightweight, high-speed immutable database** for systems and applications, written in Go.
 With immudb you can track changes in sensitive data in your transactional databases and then record those changes permanently in a
@@ -12,7 +12,11 @@ if your perimeter has been compromised. immudb guarantees immutability by using 
 
 immudb gives you the same **cryptographic verification** of the integrity of data written with **SHA-256** as a classic blockchain without the cost and complexity associated with blockchains today.
 
-## Why immudb?
+<br/>
+
+<WrappedSection>
+
+### Why immudb?
 
 immudb has 4 main benefits:
 
@@ -27,6 +31,10 @@ other systems derived from them, such as **Kubernetes** and **Docker**.
 [![Tweet about
 immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&label=Tweet%20about%20immudb)](https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb)
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Components
 
 - **immudb** is the server binary that listens on port 3322 and provides a gRPC interface
@@ -34,18 +42,24 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 - **immuadmin** is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.
 - **immuclient** is the CLI client for immudb. You can read, write data into immudb from the commandline using direct or interactive mode.
 
-![immudb component overview](https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png)
+[comment]: <> (![immudb component overview]&#40;https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png&#41;)
 
 
 The latest release binaries can be found [here](https://github.com/codenotary/immudb/releases )
 
-## Further readings
+</WrappedSection>
+
+<WrappedSection>
+
+### Further readings
 
 1.  [How it works](how-it-works.md) - How does immudb work internally?
 2.  [Quickstart](quickstart.md) - How to try it now on your systems, get a Docker container running in seconds
 3.  [Command reference](command-reference.md) - Command reference of the components
 4.  [APIs and interfaces](apis-references.md) - API reference and code examples
 
-## License
+### License
 
 immudb is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
+
+</WrappedSection>

@@ -1,5 +1,8 @@
 # Quickstart
 
+<WrappedSection>
+## Getting immudb running
+
 To get started extremely quick using Docker:
 
 ```bash
@@ -7,6 +10,10 @@ docker network create immudbnet
 docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/immudb:latest
 docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:latest -a immudb
 ```
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Download the binaries
 
@@ -23,6 +30,9 @@ brew install immudb
 
 In case you want to run immudb as a service, please check the following [guideline](https://medium.com/swlh/how-to-use-launchd-to-run-services-in-macos-b972ed1e352).
 
+</WrappedSection>
+
+<WrappedSection>
 
 ## Build the binaries
 
@@ -51,6 +61,10 @@ GOOS=darwin GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 ```
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## First start
 
 ### Run immudb binary
@@ -78,8 +92,11 @@ GOOS=windows GOARCH=amd64 make immuclient-static immuadmin-static immudb-static
 # start immudb service
 ./immudb service start
 ```
+<br/>
 
 The linux service is using the following defaults:
+
+<br/>
 
 | File or configuration   | location           |
 | ----------------------- | ------------------ |
@@ -110,7 +127,11 @@ Please make sure to build or download the immugw and immuadmin component and sav
 ./immugw service start
 ```
 
+<br/>
+
 The linux service is using the following defaults:
+
+<br/>
 
 | File or configuration   | location           |
 | ----------------------- | ------------------ |
@@ -118,6 +139,9 @@ The linux service is using the following defaults:
 | pid file                | /var/run/immugw.pid |
 | log files               | /var/log/immudb    |
 
+</WrappedSection>
+
+<WrappedSection>
 
 ## Docker
 If you just want to run immudb and connect using `immuclient`:
@@ -128,8 +152,11 @@ docker run -d --net immudbnet -it --rm --name immudb -p 3322:3322 codenotary/imm
 docker run -it --rm --net immudbnet --name immuclient codenotary/immuclient:latest -a immudb
 ```
 
+<br/>
 
 All services and CLI components are also available as Docker images on [dockerhub](https://hub.docker.com/).
+
+<br/>
 
 | Component | Container image                               |
 | --------- | --------------------------------------------- |
@@ -180,3 +207,5 @@ docker build -t myown/immudb:latest -f Dockerfile .
 docker build -t myown/immuadmin:latest -f Dockerfile.immuadmin .
 docker build -t myown/immuclient:latest -f Dockerfile.immuclient .
 ```
+
+</WrappedSection>

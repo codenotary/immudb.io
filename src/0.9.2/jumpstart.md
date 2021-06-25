@@ -1,21 +1,6 @@
 # Developer Jumpstart for immudb
-[![Slack](https://img.shields.io/badge/join%20slack-%23immutability-brightgreen.svg)](https://slack.vchain.us/) [![Discuss at immudb@googlegroups.com](https://img.shields.io/badge/discuss-immudb%40googlegroups.com-blue.svg)](https://groups.google.com/group/immudb) [![License](https://img.shields.io/github/license/codenotary/immudb4j)](https://github.com/codenotary/immudb/blob/master/LICENSE)
 
-## Contents
-
-- [Introduction](#introduction)
-	- [What is immudb](#what-is-immudb)
-	- [Why use immudb](#why-use-immudb)
-- [Installing the immudb database server](#installing-the-immudb-database-server)
-	- [Get the Docker Image](#get-the-docker-image)
-	- [Download the installer for the latest release](#download-the-installer-for-the-latest-release)
-- [Creating an immudb client instance in your chosen programming language](#creating-an-immudb-client-instance-in-your-chosen-programming-language)
-    - [Integration](#integration)
-    - [Connection and authentication](#connection-and-authentication)
-    - [Tamperproof read and write](#tamperproof-read-and-write)
-    - [Integration](#integration)
-    - [To get going quickly](#to-get-going-quickly)
-- [Conclusion](#conclusion)
+<WrappedSection>
 
 ## Introduction
 This guide helps developers quickly start with CodeNotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
@@ -27,28 +12,9 @@ This section is not yet ready for immudb 0.9. We are working on it in order to i
 ### What is immudb?
 A lightweight, high-speed, immutable database solution capable of processing millions of transactions a second. It provides cryptographic verification of your data integrity without the cost and complexity associated with classic blockchain. You have the flexibility to host immudb on-premise or in the cloud.
 
-<table border="0" >
-	<tr>
-		<td width="33%" valign="top" align="center" >
-			<h3>Immutable</h3>
-			Data is never overwritten. See the history of data updates.
-		</td>
-		<td width="33%" valign="top" align="center" >
-			<h3>Auditable</h3>
-			Tamper-evident history system ensures data authenticity.
-		</td>
-		<td width="33%" valign="top" align="center" >
-			<h3>Secure</h3>
-			Data ownership is verifiable by clients and auditors.
-		</td>
-	</tr>
-	<tr >
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/immutable.svg" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/auditable.svg" width="80px"/></td>
-		<td align="center" ><img src="https://codenotary.io/images/jumpstart/secure.svg" width="80px"/></td>
-	</tr>
+<br/>
 
-</table>
+<FeatureTable/>
 
 The immudb is a non-relational, NoSQL database. Data is a collection of key-values with time stamps. You can add records, but deletion or modification isn’t allowed making your data immutable. When a record's value changes over time (such as a bank balance), you can get multiple instances with different time stamps to give you the complete change history of that record. Store a variety of common data types, verification checksums, or JSONs.
 
@@ -57,11 +23,16 @@ Depending on your use case, immudb might function as your application's primary 
 - For additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
 - For additional information on immudb, see our [documentation](https://docs.immudb.io/master/).
 
+</WrappedSection>
 
-### Why use immudb?
-<img align="right" src="https://codenotary.io/images/immudb/mascot.png" width="240px"/>It ensures the integrity of your organization's data. While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack.  Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
+<WrappedSection>
 
-Use cases:
+## Why use immudb?
+<img align="right" src="/logos/immudb-mascot.svg" width="256px"/>
+
+It ensures the integrity of your organization's data. While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack.  Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
+
+### Use cases
   - Integration with your DevOps ensures code security throughout the development and deployment process. Embed immudb into your [Azure DevOps](https://codenotary.io/blog/securing-your-azure-devops-ecosystem-jenkins-and-kubernetes-aks/) with Jenkins and Kubernetes. Use just [Jenkins](https://codenotary.io/blog/jenkins-build-deployment-pipeline-a-how-to-for-ensuring-integrity/). Alternatively, integrate with [Git Lab](https://codenotary.io/blog/fully-trusted-gitlab-pipeline/) or [GitHub](https://codenotary.io/blog/use-github-actions-for-validated-builds/).
 
   - Guarantee [File Integrity](https://codenotary.io/blog/file-integrity-monitoring-change-management/) of your critical data. Examples include storing your organization's sensitive financial, credit card transactional, invoices, contracts, educational transcripts, and other important data.
@@ -76,6 +47,9 @@ Use cases:
 
   - Protect medical data, test results, or recipes from alteration.
 
+</WrappedSection>
+
+<WrappedSection>
 
 ## Installing the immudb database server
 
@@ -127,6 +101,7 @@ In this section, you will install the immudb database server. You have the follo
 
 4. Continue with the section that follows.
 
+</WrappedSection>
 
 ## Creating an immudb client
 
@@ -350,6 +325,7 @@ If you're using another development language, please read up on our [immugw](htt
   - Learn about the basic coding you will use to interact with your immudb client and database. This guide goes from start to finish, in creating a new client instance, writing and reading data, and much more.
    Take a look at the [SDKs api](/master/sdks-api) page.
 
+<WrappedSection>
 
 ## Conclusion
 
@@ -368,4 +344,7 @@ We've only scratched the surface of immudb's capabilities. Here are some additio
     - Try out [immuadmin](https://docs.immudb.io/0.9.1/immuadmin/)
 - Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
 - Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/0.9.1/README.md) within CodeNotary's immudb GitHub Project.
-<img align="center" src="https://codenotary.io/images/word-tree.png"/>
+
+[comment]: <> (<img align="center" src="https://codenotary.io/images/word-tree.png"/>)
+
+</WrappedSection>
