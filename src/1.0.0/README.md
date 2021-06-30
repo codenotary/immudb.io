@@ -25,7 +25,7 @@ In the [About](./about) section, you can lean more about what makes immudb uniqu
 
 <WrappedSection>
 
-  [![image](/playground.png)](https://play.codenotary.com)
+  [![image](/playground.jpg)](https://play.codenotary.com)
 
 </WrappedSection>
 
