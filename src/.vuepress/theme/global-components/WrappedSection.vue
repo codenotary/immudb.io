@@ -1,12 +1,18 @@
 <template>
-	<div class="wrapped-section">
+	<div class="wrapped-section" :class="{ thin }">
 		<slot />
 	</div>
 </template>
 
 <script>
 export default {
-	name: "WrappedSection"
+	name: "WrappedSection",
+	props: {
+		thin: {
+			type: Boolean,
+			default: false,
+		}
+	}
 }
 </script>
 
@@ -17,6 +23,11 @@ export default {
 	background-color: $cn-color-primary_dark
 	padding 40px
 	margin-bottom 32px
+	overflow hidden
+	&.thin
+		padding 0
+		p
+			margin 0
 	@media (max-width $MQMobile)
 		margin-bottom 16px
 		padding 20px
