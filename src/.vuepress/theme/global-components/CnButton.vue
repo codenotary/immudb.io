@@ -1,6 +1,7 @@
 <template>
 	<button
 		:class="dynamicClass" v-bind="$attrs"
+		:style="buttonStyle"
 	>
 		<router-link v-if="to" class="table_link" :to="to">
 			<slot>
@@ -43,6 +44,10 @@ export default {
 		inline: {
 			type: Boolean,
 			default: false
+		},
+		bottomOffset: {
+			type: String,
+			default: null
 		}
 	},
 	computed: {
@@ -53,6 +58,13 @@ export default {
 				'cn-button_inline': this.inline,
 			};
 		},
+		buttonStyle() {
+			const bottomMargin = this.bottomOffset === null
+				? {}
+				: { 'margin-bottom': `${this.bottomOffset}px` }
+
+			return Object.assign({}, bottomMargin)
+		}
 	},
 };
 </script>
