@@ -36,12 +36,12 @@
       <div class="flex column table" v-for="(table, index) in content.footer.tables" :key="index">
         <p class="table_title cn-font-weight-bold"> {{ table.title }} </p>
         <div v-for="(link, linkIndex) in table.links" :key="linkIndex">
-          <router-link v-if="link.internalLink" class="table_link" :to="link.internalLink">
-            {{ link.label }}
-          </router-link>
-          <a v-else class="table_link" :href="link.href">
+          <a v-if="link.href !== null"  class="table_link" :href="link.href" target="_blank" rel="noopener nofollow noreferrer">
             {{ link.label }}
           </a>
+          <router-link v-else class="table_link" :to="link.internalLink">
+            {{ link.label }}
+          </router-link>
         </div>
       </div>
     </div>

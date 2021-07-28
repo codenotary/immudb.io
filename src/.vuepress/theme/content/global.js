@@ -1,3 +1,6 @@
+const cnHost = 'https://codenotary.com'
+const cnProductURL = `${cnHost}/products`
+
 const GlobalContent = {
   footer: {
     tables: [
@@ -5,13 +8,13 @@ const GlobalContent = {
         title: 'PRODUCTS',
         links: [
           {
-            label: 'CNIL (Self-Hosted)', internalLink: '/products/immutable-ledger', href: null,
+            label: 'CNIL (Self-Hosted)', href: `${cnProductURL}/immutable-ledger`,
           },
           {
-            label: 'CNIL (Cloud)', internalLink: '/products/ci-cd', href: null,
+            label: 'CNIL (Cloud)', href: `${cnProductURL}/ci-cd`,
           },
           {
-            label: 'CNIL Metrics & Logs', internalLink: '/products/immutable-ledger-metrics-and-logs', href: null,
+            label: 'CNIL Metrics & Logs', href: `${cnProductURL}/immutable-ledger-metrics-and-logs`,
           },
         ],
       },
@@ -19,13 +22,13 @@ const GlobalContent = {
         title: 'RESOURCES',
         links: [
           {
-            label: 'Videos', internalLink: null, href: 'https://www.youtube.com/channel/UCYDMxKTM74Acj8LerGrjUuw/videos',
+            label: 'Videos', href: 'https://www.youtube.com/channel/UCYDMxKTM74Acj8LerGrjUuw/videos',
           },
           {
-            label: 'Blogs', internalLink: '/blog', href: null,
+            label: 'Blogs', href: `${cnHost}/blog`,
           },
           {
-            label: 'immudb', internalLink: '/technologies/immudb', href: null,
+            label: 'immudb', href: `${cnHost}/technologies/immudb`,
           },
         ],
       },
@@ -33,16 +36,16 @@ const GlobalContent = {
         title: 'COMPANY',
         links: [
           {
-            label: 'About Us', internalLink: '/about', href: null,
+            label: 'About Us', href: `${cnHost}/about`,
           },
           {
-            label: 'Join Us', internalLink: '/join', href: null,
+            label: 'Join Us', href: `${cnHost}/join`,
           },
           {
-            label: 'Partners', internalLink: '/partners', href: null,
+            label: 'Partners', href: `${cnHost}/partners`,
           },
           {
-            label: 'Contact', internalLink: '/contact', href: null,
+            label: 'Contact', href: `${cnHost}/contact`,
           },
         ],
       },
