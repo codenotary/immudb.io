@@ -62,6 +62,8 @@
     "vuepress-plugin-element-tabs": "^0.2.8"
   },
   "resolutions": {
-    "watchpack": "1.6.1"
+	"watchpack": "1.6.1",
+	"path-parse": ">=1.0.7",
+    "tar": "4.4.18"
   }
 }
