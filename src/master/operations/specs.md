@@ -68,7 +68,7 @@ VerifiableSetReference (VerifiableReferenceRequest) returns (VerifiableTx)
 VerifiableZAdd (VerifiableZAddRequest) returns (VerifiableTx)
 ```
 
-Check official SDKs documentation at [Reference SDK](./reference/sdk).
+Check official SDKs documentation at [develop with immudb](../develop/connection).
 
 ### SQL API
 
@@ -82,7 +82,7 @@ SQLQuery(SQLQueryRequest) returns (SQLQueryResult)
 VerifiableSQLGet (VerifiableSQLGetRequest) returns (VerifiableSQLEntry)
 ```
 
-Check [Reference SQL](./reference/sql) a comprehensive description of SQL statements.
+Check [SQL reference](../reference/sql) for a comprehensive description of SQL statements.
 
 ### S3 Storage Backend
 
