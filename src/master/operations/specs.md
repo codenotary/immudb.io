@@ -99,5 +99,4 @@ export IMMUDB_S3_ENDPOINT="https://${IMMUDB_S3_BUCKET_NAME}.s3.amazonaws.com"
 ./immudb
 ```
 
-
 </WrappedSection>
