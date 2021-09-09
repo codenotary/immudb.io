@@ -61,6 +61,9 @@
     "vue-recaptcha-v3": "^1.9.0",
     "vuepress-plugin-element-tabs": "^0.2.8"
   },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  },
   "resolutions": {
     "watchpack": "1.6.1",
     "path-parse": ">=1.0.7",
