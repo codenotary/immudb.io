@@ -104,6 +104,7 @@ const getSidebar = version => {
       `${version}/operations/planning`,
       `${version}/operations/service`,
       `${version}/operations/monitoring`,
+      `${version}/operations/specs`,
     ]
   };
 
