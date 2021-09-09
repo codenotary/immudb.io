@@ -64,6 +64,9 @@
   "resolutions": {
     "watchpack": "1.6.1",
     "path-parse": ">=1.0.7",
-    "tar": "4.4.18"
+    "tar": "4.4.18",
+    "core-js": "^3.17.2",
+    "fsevents": "^2.3.2",
+    "chokidar/node_modules/fsevents": "^2.3.2",
   }
 }
