@@ -67,6 +67,6 @@
     "tar": "4.4.18",
     "core-js": "^3.17.2",
     "fsevents": "^2.3.2",
-    "chokidar/node_modules/fsevents": "^2.3.2",
+    "chokidar/node_modules/fsevents": "^2.3.2"
   }
 }
