@@ -1,4 +1,4 @@
-# Theoretical limits
+# immudb specs
 
 <WrappedSection>
 
