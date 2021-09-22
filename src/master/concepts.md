@@ -27,7 +27,7 @@ Providing `immudb` with a signing key enables the cryptographic state signature.
 That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state after calling the `currentState` gRPC method.
 
 Here are the gRPC message definitions:
-```proto
+```
 message ImmutableState {
 	uint64 txId = 3;
 	bytes txHash = 4;

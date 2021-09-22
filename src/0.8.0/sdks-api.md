@@ -1050,7 +1050,7 @@ This also permits use of an on-demand serialization/deserialization strategy.
 
 The payload includes a timestamp and a value at the moment. In the near future cryptographic signatures will be added as well. The entire payload contribute to hash generation and is inserted in
 the merkle tree.
-```proto
+```
 message StructuredKeyValue {
 	bytes key = 1;
 	Content value = 2;

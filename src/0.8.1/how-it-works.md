@@ -32,7 +32,7 @@ All the complexity is hidden by the SDK.
 Providing `immudb` with a signing key enables the cryptographic root signature.
 In this way an auditor for instance or a third party client could verify the authenticity of the returned root hash / index pair after calling `currentRoot` gRPC method.
 Here the gRPC message definitions:
-```proto
+```
 message Root {
 	RootIndex payload = 1;
 	Signature signature = 2;
