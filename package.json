@@ -63,13 +63,15 @@
     "vue-recaptcha-v3": "^1.9.0",
     "vuepress-plugin-element-tabs": "^0.2.8"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "resolutions": {
     "watchpack": "1.6.1",
     "path-parse": ">=1.0.7",
     "tar": "4.4.18",
-    "core-js": "^3.17.2"
-  },
-  "optionalDependencies": {
-    "fsevents": "*"
+    "core-js": "^3.17.2",
+    "fsevents": "^2.3.2",
+    "chokidar/node_modules/fsevents": "^2.3.2"
   }
 }

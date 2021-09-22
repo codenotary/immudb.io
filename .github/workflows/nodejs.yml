@@ -14,7 +14,7 @@ jobs:
 
     - name: Build
       run: |
-        npm install --no-optional
+        npm install --prefer-offline --no-audit --no-optional
         npm run build
 
     -   name: Commit changes
