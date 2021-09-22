@@ -70,6 +70,6 @@
     "core-js": "^3.17.2"
   },
   "optionalDependencies": {
-    "fsevents": "^2.3.2"
+    "fsevents": "*"
   }
 }
