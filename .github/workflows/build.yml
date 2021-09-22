@@ -11,5 +11,5 @@ jobs:
 
             - name: Build
               run: |
-                  npm install --prefer-offline --no-audit --no-optional
+                  npm install
                   npm run build
