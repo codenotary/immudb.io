@@ -65,7 +65,8 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
-    case '/1.0.0':
+    case '/1.1.0':
+	case '/1.0.0':
     {
       getStarted.children.push(`${version}/quickstart`);
       getStarted.children.push(`${version}/getstarted/webconsole`);
@@ -121,7 +122,8 @@ const getSidebar = version => {
 
   switch (version) {
     case '/master':
-    case '/1.0.0':
+    case '/1.1.0':
+	case '/1.0.0':
     {
       develop.children.push(`${version}/develop/connection`);
       develop.children.push(`${version}/develop/reading`);
@@ -161,18 +163,18 @@ const getSidebar = version => {
   /* DEVELOP SECTION END */
 
   sidebar.push(introduction);
-  if (['/master', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(learn);
   }
   sidebar.push(getStarted);
-  if (['/master', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(operations);
   }
 
-  if (['/master', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(develop);
   }
-  if (['/master', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(reference);
   }
 
