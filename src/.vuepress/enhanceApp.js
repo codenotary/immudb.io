@@ -28,7 +28,6 @@ const getSidebar = version => {
   let sidebar = []
 
   /* WELCOME SECTION START */
-
   const introduction = {
     title: 'Welcome',
     collapsable: false,
@@ -42,9 +41,7 @@ const getSidebar = version => {
 
   /* WELCOME SECTION END */
 
-
   /* LEARN SECTION START */
-
   const learn = {
     title: 'Learn about immudb',
     collapsable: false,
@@ -59,7 +56,6 @@ const getSidebar = version => {
   /* LEARN SECTION END */
 
   /* GETSTARTED SECTION START */
-
   const getStarted = {
     title: 'Get started',
     collapsable: false,
@@ -67,10 +63,6 @@ const getSidebar = version => {
     ]
   };
 
-
-  // `${version}/quickstart`,
-  //   `${version}/getstarted/webconsole`,
-  //   `${version}/jumpstart`,
   switch(version) {
     case '/master':
     case '/1.0.0':
@@ -84,7 +76,6 @@ const getSidebar = version => {
     case '/0.8.1':
     {
       getStarted.children.push(`${version}/quickstart`);
-      // getStarted.children.push(`${version}/getstarted/webconsole`);
       getStarted.children.push(`${version}/jumpstart`);
       break;
     }
@@ -95,7 +86,6 @@ const getSidebar = version => {
   /* GETSTARTED SECTION END */
 
   /* OPERATIONS SECTION START */
-
   const operations = {
     title: 'Operations',
     collapsable: false,
@@ -104,14 +94,24 @@ const getSidebar = version => {
       `${version}/operations/planning`,
       `${version}/operations/service`,
       `${version}/operations/monitoring`,
-      `${version}/operations/specs`,
     ]
   };
+
+  switch(version) {
+    case '/master':
+    case '/1.1.0':
+    {
+      operations.children.push(`${version}/operations/specs`);
+      break;
+    }
+    default: {
+    }
+  }
+
 
   /* OPERATIONS SECTION END */
 
   /* DEVELOP SECTION START */
-
   let develop = {
     title: 'Develop',
     collapsable: false,
@@ -212,11 +212,4 @@ export default ({ Vue, router, siteData, }) => {
 
         next()
     })
-    /* Homepage redirect as route middleware | Not reliable if built
-    router.afterEach((to, from) => {
-      if (to.path === '/') {
-        router.replace({ path: `/${ latestVersion }/` })
-      }
-    });
-    */
 }
