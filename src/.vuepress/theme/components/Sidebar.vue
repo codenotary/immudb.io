@@ -42,7 +42,7 @@ export default {
       return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
     },
     isAlgoliaSearch() {
-      return this.algolia && this.algolia.apiKey && this.algolia.indexName
+	  return this.algolia && this.algolia.apiKey && this.algolia.indexName
     },
   }
 }

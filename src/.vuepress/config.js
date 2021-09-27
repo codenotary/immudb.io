@@ -88,8 +88,8 @@ module.exports = {
             { text: 'Github', link: 'https://github.com/codenotary/immudb' },
         ],
         algolia: {
-            apiKey: 'e581ef004c097d1f0ff49391645be669',
-            indexName: 'immudb'
+            apiKey: 'f0a5b271a19211753095a25327dbc0a5',
+            indexName: 'prod_immudb'
         }
     },
     plugins: [
