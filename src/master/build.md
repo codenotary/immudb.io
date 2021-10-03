@@ -4,7 +4,7 @@
 
 ## Build the binaries
 
-To build the binaries yourself, simply clone this repo and run
+To build the binaries yourself, simply clone this repo and run:
 
 ```bash
 make all
