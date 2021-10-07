@@ -366,6 +366,24 @@ HAVING COUNT() > 0
 ORDER BY active DESC;
 ```
 
+### Sub-queries
+
+The table in the `SELECT` statement can be replaced with a sub-query.
+
+```sql
+SELECT * FROM (
+    SELECT id, customer_name
+    FROM customers
+    WHERE age < 30
+    AS c
+)
+INNER JOIN (customer_review AS r) ON r.customerid = c.id
+```
+
+Note: the context of a sub-query does not propagate outside,
+      e.g. it is not possible to reference a table from a sub-query
+      in the `WHERE` clause outside of the sub-query.
+
 ### Basic transactions
 
 Multiple insert and upsert statements can be issued within a single transaction.
