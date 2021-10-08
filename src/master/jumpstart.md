@@ -7,7 +7,7 @@ This guide provides developers with the first steps of using immudb from their a
 * Insert and retrieve data
 
 ::: tip
-To learn how to develop for immudb with Python in a guiden online environment, visit the immudb Playground at <https://play.codenotary.com>
+To learn how to develop for immudb with Python in a guided online environment, visit the immudb Playground at <https://play.codenotary.com>
 :::
 
 <WrappedSection>
