@@ -274,6 +274,9 @@ Ordering rows by a value of a column requires a matching index on that column.
 
 ### `INNER JOIN`
 
+immudb supports standard SQL `INNER JOIN` syntax.
+The `INNER` join type is optional.
+
 ```sql
 SELECT *
 FROM orders
@@ -281,12 +284,12 @@ INNER JOIN customers ON orders.customerid = customers.id;
 
 SELECT *
 FROM orders
-INNER JOIN customers ON orders.customerid = customers.id
+JOIN customers ON orders.customerid = customers.id
 WHERE orders.productid = 2;
 
 SELECT * FROM orders
-INNER JOIN customers ON customers.id = orders.customerid
-INNER JOIN products ON products.id = orders.productid
+JOIN customers ON customers.id = orders.customerid
+JOIN products ON products.id = orders.productid
 ```
 
 ### `LIKE` operator
@@ -341,8 +344,12 @@ WHERE (id > 0 AND NOT products.id >= 10)
 
 ```sql
 SELECT c.id, c.customer_name AS name, active
-FROM (customers AS c)
-WHERE id <= 3 AND active = true;
+FROM customers AS c
+WHERE c.id <= 3 AND c.active = true;
+
+SELECT c.id, c.customer_name AS name, active
+FROM customers c
+WHERE c.id <= 3 AND c.active = true;
 ```
 
 Table name aliasing is necessary when using more than one join with the same table.
@@ -406,9 +413,17 @@ SELECT * FROM (
     SELECT id, customer_name
     FROM customers
     WHERE age < 30
-    AS c
 )
-INNER JOIN (customer_review AS r) ON r.customerid = c.id
+INNER JOIN customer_review
+    ON customer_review.customerid = customers.id;
+
+SELECT * FROM (
+    SELECT id, customer_name
+    FROM customers
+    WHERE age < 30
+) AS c
+INNER JOIN customer_review r
+    ON r.customerid = c.id
 ```
 
 Note: the context of a sub-query does not propagate outside,
@@ -443,10 +458,10 @@ using the `BEFORE TX` clause:
 
 ```sql
 SELECT id, product, price
-FROM (products BEFORE TX 13);
+FROM products BEFORE TX 13;
 
 SELECT id, product, price
-FROM (products BEFORE TX 13)
+FROM products BEFORE TX 13
 WHERE id = 2;
 ```
 
