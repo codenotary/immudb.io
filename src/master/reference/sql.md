@@ -312,6 +312,31 @@ WHERE (id > 0 AND NOT products.id >= 10)
   AND (products.product LIKE 'J');
 ```
 
+### `IN` operator
+
+immudb has a basic supports for the `IN` operator.
+
+A `NOT` prefix negates the value of the `IN` operator.
+
+Note: Currently the list for the `IN` operator can not be
+      calculated using a sub-query.
+
+```sql
+SELECT product
+FROM products
+WHERE product IN ('Milk', 'Grapes - Red');
+
+SELECT product
+FROM products
+WHERE product NOT IN ('Milk', 'Grapes - Red');
+
+SELECT id, product
+FROM products
+WHERE (id > 0 AND NOT products.id >= 10)
+  AND (product IN ('Milk', 'Grapes - Red'));
+```
+
+
 ### Column and table aliasing
 
 ```sql
