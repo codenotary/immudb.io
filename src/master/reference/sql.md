@@ -206,7 +206,7 @@ VALUES (1, 1), (1, 2);
 
 INSERT INTO customer_review (customerid, productid, review)
 VALUES
-    (1, 1, "Nice Juice!");
+    (1, 1, 'Nice Juice!');
 ```
 
 ### `UPSERT`
