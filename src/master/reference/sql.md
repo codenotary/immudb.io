@@ -295,10 +295,16 @@ immudb supports the `LIKE` operator.
 Unlike in other SQL engines though, the pattern use a regexp syntax
 supported by the [regexp library in the go language](https://pkg.go.dev/regexp).
 
+A `NOT` prefix negates the value of the `LIKE` operator.
+
 ```sql
 SELECT product
 FROM products
 WHERE product LIKE '(J.*ce|Red)';
+
+SELECT product
+FROM products
+WHERE product NOT LIKE '(J.*ce|Red)';
 
 SELECT id, product
 FROM products
