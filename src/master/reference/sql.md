@@ -127,7 +127,7 @@ require columns to be indexed.
 ```sql
 CREATE INDEX ON customers(customer_name);
 CREATE INDEX ON customers(country, ip);
-CREATE INDEX ON customers(active);
+CREATE INDEX IF NOT EXISTS ON customers(active);
 CREATE UNIQUE INDEX ON customers(email);
 ```
 
@@ -159,6 +159,14 @@ then by the second and so on.
 Note:
 Large indexes will increase the storage requirement and will reduce the performance of data insertion.
 Iterating using small indexes will also be faster than with the large ones.
+
+### `IF NOT EXISTS`
+
+With this clause the `CREATE INDEX` statement will not fail if an index with same type and list of columns already exists.
+This includes a use case where the table is not empty which can be used to simplify database schema initialization.
+
+Note: If the index already exists, it is not compared against the provided index definition neither it is
+      updated to match it.
 
 </WrappedSection>
 
