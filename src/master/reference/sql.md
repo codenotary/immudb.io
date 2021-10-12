@@ -110,7 +110,7 @@ Application logic is responsible for ensuring data consistency and foreign key c
 ```sql
 SELECT * FROM orders
 INNER JOIN customers ON customers.id = orders.customerid
-INNER JOIN products ON products.id = orders.productid
+INNER JOIN products ON products.id = orders.productid;
 ```
 </WrappedSection>
 
@@ -297,7 +297,7 @@ WHERE orders.productid = 2;
 
 SELECT * FROM orders
 JOIN customers ON customers.id = orders.customerid
-JOIN products ON products.id = orders.productid
+JOIN products ON products.id = orders.productid;
 ```
 
 ### `LIKE` operator
@@ -431,7 +431,7 @@ SELECT * FROM (
     WHERE age < 30
 ) AS c
 INNER JOIN customer_review r
-    ON r.customerid = c.id
+    ON r.customerid = c.id;
 ```
 
 Note: the context of a sub-query does not propagate outside,
