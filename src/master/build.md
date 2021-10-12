@@ -4,11 +4,15 @@
 
 ## Build the binaries
 
+Building binaries requires a Linux operating system.
+
 To build the binaries yourself, simply clone this repo and run:
 
 ```bash
 make all
 ```
+
+Below are instructions on how to build binaries for other architectures and systems.
 
 ### Linux (by component)
 
