@@ -414,7 +414,7 @@ ORDER BY active DESC;
 
 ### Sub-queries
 
-The table in the `SELECT` statement can be replaced with a sub-query.
+The table in the `SELECT` or `JOIN` clauses can be replaced with a sub-query.
 
 ```sql
 SELECT * FROM (
@@ -430,7 +430,9 @@ SELECT * FROM (
     FROM customers
     WHERE age < 30
 ) AS c
-INNER JOIN customer_review r
+INNER JOIN (
+    SELECT * FROM customer_review
+) AS r
     ON r.customerid = c.id;
 ```
 
