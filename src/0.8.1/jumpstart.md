@@ -244,22 +244,22 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 
 ::: tab Java
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
