@@ -123,6 +123,18 @@ const getSidebar = version => {
   switch (version) {
     case '/master':
     case '/1.1.0':
+      develop.children.push(`${version}/develop/connection`);
+      develop.children.push(`${version}/develop/reading`);
+      develop.children.push(`${version}/develop/operations`);
+      develop.children.push(`${version}/develop/history`);
+      develop.children.push(`${version}/develop/streams`);
+      develop.children.push(`${version}/develop/management`);
+      develop.children.push(`${version}/develop/indexes`);
+      develop.children.push(`${version}/develop/transactions`);
+      develop.children.push(`${version}/develop/utilities`);
+      develop.children.push(`${version}/develop/additional`);
+      develop.children.push(`${version}/develop/sqlstdlib`);
+      break;
 	case '/1.0.0':
     {
       develop.children.push(`${version}/develop/connection`);
