@@ -6,22 +6,17 @@ You can modify defaults on the immudb server in `immudb.toml` in the config fold
 
 ::: tab Go
 
-The Login method returns a token required for all interactions with the server.
-
 ```go
 c, err := client.NewImmuClient(client.DefaultOptions())
 if err != nil {
     log.Fatal(err)
 }
 ctx := context.Background()
-// login with default username and password and storing a token
-lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb2`))
+// login with default username and password
+_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }
-// set up an authenticated context that will be required in future operations
-md := metadata.Pairs("authorization", lr.Token)
-ctx = metadata.NewOutgoingContext(context.Background(), md)
 ```
 :::
 

@@ -26,10 +26,7 @@ Non-admin permissions are:
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
+	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 
 	err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
 	if err != nil {
@@ -94,7 +91,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const createUserRequest: Parameters.CreateUser = {
 		user: 'myNewUser1',
 		password: 'myS3cretPassword!',
@@ -150,11 +147,7 @@ Users with `PermissionAdmin` can control everything. Non-admin users have restri
 ::: tab Go
 
 This example shows how to create a new database and how to write records to it.
-To create a new database, use `CreateDatabase` method.
-To write into a specific database an authenticated context is required.
-Start by calling the `UseDatabase` method to obtain a `token`.
-A token is used for both authorization and routing commands to a specific database.
-To set up an authenticated context, it's sufficient to put a `token` inside metadata.
+To create a new database, use `CreateDatabase` method then `UseDatabase` to select the newly created one.
 
 ```go
 	client, err := c.NewImmuClient(c.DefaultOptions())
@@ -162,10 +155,7 @@ To set up an authenticated context, it's sufficient to put a `token` inside meta
 		log.Fatal(err)
 	}
 	ctx := context.Background()
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
+	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 
 	err = client.CreateDatabase(ctx, &schema.Database{
 		Databasename: "myimmutabledb",
@@ -179,17 +169,12 @@ To set up an authenticated context, it's sufficient to put a `token` inside meta
 	}
 	fmt.Printf("database list: %v", dbList)
 
-	// creating a context to write in the new database
-	resp, err := client.UseDatabase(ctx, &schema.Database{
+	_, err = client.UseDatabase(ctx, &schema.Database{
 		Databasename: "myimmutabledb",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("auth token: %v", resp.Token)
-
-	md = metadata.Pairs("authorization", resp.Token)
-	ctx = metadata.NewOutgoingContext(context.Background(), md)
 	// writing in myimmutabledb
 	_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
 	if err != nil {
@@ -236,7 +221,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const createDatabaseReq: Parameters.CreateDatabase = {
 		databasename: 'myimmutabledb'
 	}
