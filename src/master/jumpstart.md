@@ -178,7 +178,7 @@ If you're using another language, then read up on our [immugw](https://docs.immu
 
 ### Connection and authentication
 
-The first step is to connect to the database, which listens by default in port 3322, authenticate using the default user and password (`immudb / immudb`), and get a token which can be used in subsequent requests:
+The first step is to connect to the database, which listens by default in port 3322 and authenticate using the default user and password (`immudb / immudb`):
 
 >Note: You can [change the server default options](reference/configuration.md) using environment variables, flags or the `immudb.toml` configuration file.
 
@@ -186,14 +186,11 @@ The first step is to connect to the database, which listens by default in port 3
 
 ::: tab Go
 
->Note: the `Login` method will return a token which can be used in subsequent interactions with the server. This token is set on the context metadata.
-
 ```go
 import (
 	"log"
 	"context"
 	immuclient "github.com/codenotary/immudb/pkg/client"
-	"google.golang.org/grpc/metadata"
 )
 
 client, err := immuclient.NewImmuClient(client.DefaultOptions())
@@ -201,14 +198,11 @@ if err != nil {
     log.Fatal(err)
 }
 ctx := context.Background()
-// login with default username and password and storing a token
-lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+// login with default username and password
+_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 if err != nil {
     log.Fatal(err)
 }
-// set up an authenticated context that will be required in future operations
-md := metadata.Pairs("authorization", lr.Token)
-ctx = metadata.NewOutgoingContext(context.Background(), md)
 ```
 :::
 
@@ -317,26 +311,22 @@ In order to use SQL from the Go SDK, you create a immudb client and login to the
 ```
 "github.com/codenotary/immudb/pkg/api/schema"
 "github.com/codenotary/immudb/pkg/client"
-"google.golang.org/grpc/metadata"
 ```
 
 Then you can create the client and login to the database:
 
 ```go
-c, err := client.NewImmuClient(client.DefaultOptions())
+  c, err := client.NewImmuClient(client.DefaultOptions())
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	ctx := context.Background()
-
-	lr, err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+	_, err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	md := metadata.Pairs("authorization", lr.Token)
-	ctx = metadata.NewOutgoingContext(ctx, md)
 ```
 
 To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:

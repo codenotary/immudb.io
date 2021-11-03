@@ -131,15 +131,12 @@ Check [state signature](/master/immudb/#state-signature) to see how to generate 
     	}
     	ctx := context.Background()
 
-    	lr , err := c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+    	_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
     	if err != nil {
     		log.Fatal(err)
     	}
 
-    	md := metadata.Pairs("authorization", lr.Token)
-    	ctx = metadata.NewOutgoingContext(context.Background(), md)
-
-    	if _, err := c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
+    	if _, err = c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
     		log.Fatal(err)
     	}
 
@@ -287,7 +284,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const verifiedSetReq: Parameters.VerifiedSet = {
 		key: 'hello',
 		value: 'world',

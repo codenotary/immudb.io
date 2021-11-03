@@ -35,12 +35,10 @@ It's possible to specify the chunk size of the stream with `WithStreamChunkSize(
 		log.Fatal(err)
 	}
     ctx := context.Background()
-    lr, err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+    _, err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
     if err != nil {
         log.Fatal(err)
     }
-    md := metadata.Pairs("authorization", lr.Token)
-    ctx = metadata.NewOutgoingContext(context.Background(), md)
     myFileName := "streams.go"
     key1 := []byte("key1")
     val1 := []byte("val1")
