@@ -98,6 +98,3 @@ sw.*
 
 # Algolia configuration
 algolia.config.js
-
-# Docs directory
-docs
