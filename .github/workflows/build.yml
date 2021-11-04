@@ -3,18 +3,25 @@ name: Build
 on: pull_request
 
 jobs:
-    build:
-        runs-on: macos-latest
+  build:
+    runs-on: macos-latest
 
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                node-version: '14.18.0'
-                cache: 'npm'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.18.0'
+          cache: 'npm'
 
-            - name: Build
-              run: |
-                  node --version
-                  npm install
-                  npm run build
+      - name: Build
+        run: |
+          node --version
+          npm install
+          npm run build
+
+  - name: Deploy
+    uses: peaceiris/actions-gh-pages@v3
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      publish_dir: ./docs
+
