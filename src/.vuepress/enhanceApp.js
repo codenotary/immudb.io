@@ -146,12 +146,16 @@ const getSidebar = version => {
 
   if (version === '/master' || version === '/1.1.0') {
     develop.children.push(`${version}/develop/sqlstdlib`);
+    develop.children.push(`${version}/develop/auditor`);
+
+
   }
 
   develop.children.push(
     `${version}/develop/pg`,
     `${version}/develop/embedding`,
     `${version}/build`,
+    
   );
 
   const reference = {

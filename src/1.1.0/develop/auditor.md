@@ -7,8 +7,9 @@ title: Running an Auditor with immuclient
 The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and indipendent compontent. immuclient can act as Auditor by running the following command:
 
 Start interactive:
-`immuclient audit-mode`
-
+```bash
+immuclient audit-mode
+```
 immuclient is now running on the following address:
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
@@ -31,6 +32,7 @@ immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br
 
 immuclient looks for immudb at 127.0.0.1:3322 by deault with the default username and password. Nevertheless a number of parameters can be defined:
 
+```
 immuclient audit-mode            -  Run a foreground auditor
 immuclient audit-mode install    -  Install and runs daemon
 immuclient audit-mode stop       -  Stops the daemon
@@ -68,14 +70,17 @@ Global Flags:
       --tokenfile string                     authentication token file (default path is $HOME or binary location; default filename is )
       --username string                      immudb username used to login
       --value-only                           returning only values for get operations
-
+```
 
 
 ## Running immuclient Auditor as a service
 immuclient as Auditor can be installed in the system with the following command:
 
 Install service:
-`immuclient audit-mode install`
+
+```bash
+immuclient audit-mode install
+```
 
 In this case, all parameters are written into the `immuclient` configuration file:
 * Linux: `/etc/immudb/immuclient.toml`
