@@ -93,6 +93,12 @@ We also provide a docker image starting immuclient as Auditor:
 docker pull codenotary/auditor
 ```
 
+Then it's possible to run the command with:
+
+```bash
+docker run -it -e IMMUCLIENT_IMMUDB_ADDRESS="ip" -e IMMUCLIENT_AUDIT_USERNAME="immudb" -e IMMUCLIENT_AUDIT_PASSWORD="immudb" codenotary/auditor
+```
+
 ## Auditor best practices 
 
 ### How can I be notified if my immudb istance was tampered?
