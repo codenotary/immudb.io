@@ -126,6 +126,8 @@ By configuring `IMMUCLIENT_AUDIT_NOTIFICATION_URL`, a POST request will be sent 
 }
 ```
 
+NOTE: it's not possible to know at which transaction the database was tampered. The Auditor checks every second if the data was tampered - so it's only possible to know at which time frame the tampering was detected.
+
 ### How many Auditors should I run to secure my immudb instance?
 
 A proper setup of one immuclient instance can fit most of cases, but there are ways to increase the security on detecting tampering. A single instance can go offline for any reason: network problems, hardware failures or attacks. Therefore a good practice can be to have multiple Auditor instances running in different zones 
