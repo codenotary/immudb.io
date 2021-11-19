@@ -20,7 +20,7 @@
 ## Introduction
 This guide helps developers quickly start with CodeNotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
-Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+Note: If you're using another development language, please read up on our [immugw](/master/immugw/) option.
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
@@ -234,7 +234,7 @@ Creating a Client.
 :::
 
 ::: tab Others
-If you're using another language, then read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another language, then read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -269,26 +269,26 @@ ctx = metadata.NewOutgoingContext(context.Background(), md)
 
 ::: tab Java
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Node.js
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another development language, please read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -338,7 +338,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another development language, please read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::

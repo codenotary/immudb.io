@@ -34,7 +34,7 @@ SDKs make it comfortable to talk to the server from your favourite language, wit
 
 The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
 
-For other unsupported programming languages, [immugw](https://docs.immudb.io/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
+For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
 
 </WrappedSection>
 
@@ -171,7 +171,7 @@ Creating a Client.
 :::
 
 ::: tab Others
-If you're using another language, then read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another language, then read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -249,11 +249,11 @@ const cl = new ImmudbClient();
 
 ::: tab .Net
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [java sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another development language, please read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -303,7 +303,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/master/immugw/) option.
+If you're using another development language, please read up on our [immugw](/master/immugw/) option.
 :::
 
 ::::
