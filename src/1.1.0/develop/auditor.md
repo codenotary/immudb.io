@@ -4,7 +4,7 @@ title: Running an Auditor with immuclient
 
 # Use immuclient as Auditor
 
-The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and indipendent compontent. immuclient can act as Auditor by running the following commands:
+The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and indipendent compontent. immuclient can act as Auditor by running the following command:
 
 Start interactive:
 `immuclient audit-mode`
@@ -93,8 +93,33 @@ docker pull codenotary/auditor
 ### How can I be notified if my immudb istance was tampered?
 
 It's possible to provide an external url that will be triggered in case a tamper is detected.
-By configuring `IMMUCLIENT_AUDIT_NOTIFICATION_URL`, a POST request will be sent.
+By configuring `IMMUCLIENT_AUDIT_NOTIFICATION_URL`, a POST request will be sent with the following body:
 
+```
+{
+  "current_state": {
+    "hash": "string",
+    "signature": {
+      "public_key": "string",
+      "signature": "string"
+    },
+    "tx": 0
+  },
+  "db": "string",
+  "password": "string",
+  "previous_state": {
+    "hash": "string",
+    "signature": {
+      "public_key": "string",
+      "signature": "string"
+    },
+    "tx": 0
+  },
+  "run_at": "2020-11-13T00:53:42+01:00",
+  "tampered": true,
+  "username": "string"
+}
+```
 
 ### How many Auditors should I run to secure my immudb instance?
 
