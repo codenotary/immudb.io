@@ -22,6 +22,9 @@
 
 ## Running documentation locally
 
+Requirements: node version 13.x.x (NOT working with latest node versions)
+
+
 1. First, install dependencies using `npm install`.
 2. From the root directory, run `npm run dev` in the command line.
 3. Open `http://localhost:8080` in your browser.
