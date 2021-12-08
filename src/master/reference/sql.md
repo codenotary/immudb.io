@@ -5,12 +5,13 @@
 
 ## Data types
 
-| Name    | Description | Length constraints |
-|---------|-------------|--------------------|
-| INTEGER | Signed 64-bit integer value. Usually referred to as `BIGINT` in other databases. | - |
-| BOOLEAN | A boolean value, either `TRUE` or `FALSE` | - |
-| VARCHAR | UTF8-encoded text | Maximum number of bytes in the UTF-8 encoded representation of the string |
-| BLOB    | sequence of bytes | Maximum number of bytes in the sequence |
+| Name      | Description | Length constraints |
+|-----------|-------------|--------------------|
+| INTEGER   | Signed 64-bit integer value. Usually referred to as `BIGINT` in other databases. | - |
+| BOOLEAN   | A boolean value, either `TRUE` or `FALSE` | - |
+| VARCHAR   | UTF8-encoded text | Maximum number of bytes in the UTF-8 encoded representation of the string |
+| BLOB      | sequence of bytes | Maximum number of bytes in the sequence |
+| TIMESTAMP | datetime value with microsecond precision | - |
 
 ### Size constraints
 
@@ -20,6 +21,11 @@ e.g. `BLOB[16]` represents a sequence of up to 16 bytes.
 ### NULL values
 
 `NULL` values in immudb are not unique - two `NULL` values are considered equal on comparisons.
+
+### Timestamp values
+
+Timestamp values are internally stored as a 64-bit signed integer being a number of microseconds since the epoch time.
+Those values are not associated with any timezone, whenever a conversion is needed, it is considered to be in UTC.
 
 </WrappedSection>
 
@@ -40,27 +46,31 @@ CREATE TABLE IF NOT EXISTS customers (
     country       VARCHAR[15],
     age           INTEGER,
     active        BOOLEAN,
+    created_at    TIMESTAMP,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS products (
-    id      INTEGER,
-    product VARCHAR NOT NULL,
-    price   VARCHAR NOT NULL,
+    id          INTEGER,
+    product     VARCHAR NOT NULL,
+    price       VARCHAR NOT NULL,
+    created_at  TIMESTAMP,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS orders (
-    id         INTEGER AUTO_INCREMENT,
-    customerid INTEGER,
-    productid  INTEGER,
+    id          INTEGER AUTO_INCREMENT,
+    customerid  INTEGER,
+    productid   INTEGER,
+    created_at  TIMESTAMP,
     PRIMARY KEY id
 );
 
 CREATE TABLE customer_review(
-    customerid INTEGER,
-    productid  INTEGER,
-    review     VARCHAR,
+    customerid  INTEGER,
+    productid   INTEGER,
+    review      VARCHAR,
+    created_at  TIMESTAMP,
     PRIMARY KEY (customerid, productid)
 );
 ```
@@ -182,7 +192,7 @@ It can be used to add one or multiple values within the same transaction.
 ```sql
 INSERT INTO customers (
     id, customer_name, email, address,
-    city, ip, country, age, active
+    city, ip, country, age, active, created_at
 )
 VALUES (
     1,
@@ -193,20 +203,21 @@ VALUES (
     '127.0.0.15',
     'SE',
     24,
-    true
+    true,
+    NOW()
 );
 
-INSERT INTO products (id, product, price)
+INSERT INTO products (id, product, price, created_at)
 VALUES
-    ( 1, 'Juice - V8, Tomato', '$4.04' ),
-    ( 2, 'Milk', '$3.24' );
+    ( 1, 'Juice - V8, Tomato', '$4.04', NOW() ),
+    ( 2, 'Milk', '$3.24', NOW() );
 
-INSERT INTO orders (customerid, productid)
-VALUES (1, 1), (1, 2);
+INSERT INTO orders (customerid, productid, created_at)
+VALUES (1, 1, NOW()), (1, 2, NOW());
 
-INSERT INTO customer_review (customerid, productid, review)
+INSERT INTO customer_review (customerid, productid, review, created_at)
 VALUES
-    (1, 1, 'Nice Juice!');
+    (1, 1, 'Nice Juice!', NOW());
 ```
 
 ### `UPSERT`
@@ -232,6 +243,29 @@ VALUES
 
 UPSERT INTO orders (id, customerid, productid)
 VALUES (1, 1, 3);
+```
+
+### Timestamp, NOW() and CAST() built-in function
+
+The built-in `NOW()` function returns the current timestamp value as seen on the server.
+
+The `CAST` function can be used to convert a string or an integer to a timestamp value.
+
+The integer value is interpreted as a Unix timestamp (number of seconds since the epoch time).
+
+The string value passed to the `CAST` function must be in one of the following formats:
+`2021-12-08`,  `2021-12-08 17:21`, `2021-12-08 17:21:59`, `2021-12-08 17:21:59.342516`.
+Time components not specified in the string are set to 0.
+
+```sql
+UPSERT INTO products (id, product, price, created_at)
+VALUES
+( 3, 'Bread', '$1.50', NOW() ),
+( 4, 'Spinach', '$0.99', CAST('2021-02-01' AS TIMESTAMP) )
+```
+
+```sql
+SELECT * FROM products WHERE created_at < NOW()
 ```
 
 </WrappedSection>
@@ -278,7 +312,6 @@ Currently only one column can be used in the `ORDER BY` clause.
 The order may be either ascending (`ASC` suffix, default) or descending (`DESC` suffix).
 
 Ordering rows by a value of a column requires a matching index on that column.
-
 
 ### `INNER JOIN`
 
@@ -347,7 +380,6 @@ WHERE (id > 0 AND NOT products.id >= 10)
   AND (product IN ('Milk', 'Grapes - Red'));
 ```
 
-
 ### Column and table aliasing
 
 ```sql
@@ -378,7 +410,7 @@ Available aggregation functions:
 
 ```sql
 SELECT
-    COUNT() AS c,
+    COUNT(*) AS c,
     SUM(age),
     MIN(age),
     MAX(age),
@@ -392,7 +424,7 @@ Results can be grouped by a value of a single column.
 That column must also be used in a matching `ORDER BY` clause.
 
 ```sql
-SELECT COUNT() as customer_count, country
+SELECT COUNT(*) as customer_count, country
 FROM customers
 GROUP BY country
 ORDER BY country;
@@ -403,12 +435,12 @@ ORDER BY country;
 ```sql
 SELECT
     active,
-    COUNT() as c,
+    COUNT(*) as c,
     MIN(age),
     MAX(age)
 FROM customers
 GROUP BY active 
-HAVING COUNT() > 0
+HAVING COUNT(*) > 0
 ORDER BY active DESC;
 ```
 
@@ -449,7 +481,7 @@ The easiest way to tested it is with the `./immuclient exec "..."` shell command
 (make sure to use an escaped `\$` value to avoid cutting out part of the price).
 
 ```sql
-BEGIN TRANSACTION
+BEGIN TRANSACTION;
     UPSERT INTO products (id, price, product)
     VALUES (4, '$5.76', 'Bread');
 
