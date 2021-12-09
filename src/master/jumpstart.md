@@ -196,16 +196,14 @@ The first step is to connect to the database, which listens by default in port 3
 import (
 	"log"
 	"context"
-	immuclient "github.com/codenotary/immudb/pkg/client"
+	immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-client, err := immuclient.NewImmuClient(client.DefaultOptions())
+client, err := immudb.NewClient()
 if err != nil {
     log.Fatal(err)
 }
-ctx := context.Background()
-// login with default username and password
-_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+err = client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
@@ -340,19 +338,23 @@ In order to use SQL from the Go SDK, you create a immudb client and login to the
 "github.com/codenotary/immudb/pkg/client"
 ```
 
-Then you can create the client and login to the database:
+Then you can create the client and open a new session to the database:
 
 ```go
-  c, err := client.NewImmuClient(client.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
+import (
+"log"
+"context"
+immudb "github.com/codenotary/immudb/pkg/client"
+)
 
-	ctx := context.Background()
-	_, err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-	if err != nil {
-		log.Fatal(err)
-	}
+c, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
+err = c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
 ```
 
