@@ -227,10 +227,6 @@ the difference between those two is that `UPSERT` either creates a new or replac
 A new row is created if an entry with the same primary key does not yet exist in the table, 
 otherwise the current row is replaced with the new one.
 
-Currently `UPSERT` can only be performed on tables without secondary indexes
-(other than the one used for the primary key).
-This constraint will be removed in the future.
-
 If a table contains an `AUTO_INCREMENT` primary key,
 the value for that key must be provided
 and the `UPSERT` operation will only update the existing row.
