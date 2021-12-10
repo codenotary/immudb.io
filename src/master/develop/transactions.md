@@ -1,6 +1,89 @@
 # Transactions
+Immudb supports transactions both on key-value and SQL level, but interactive transactions are supported only on SQL with the exception of `execAll` method, that provides some additional properties.
 
-`GetAll`, `SetAll` and `ExecAll` are the foundation of transactions in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
+## SQL interactive transactions
+Interactive transactions are a way to execute multiple SQL statements in a single transaction having the possibility to mix application logic with SQL statements.
+In order to create a transaction, you must call the `NewTx()` method on the client instance. The resulting object is a transaction object that can be used to execute multiple SQL statements, queries, commit or rollback.
+Following there are methods exposed by the transaction object:
+```
+Commit() CommittedSQLTx, error
+Rollback() error
+SQLExec(sql, params) error
+SQLQuery(sql, params) SQLQueryResult, error
+```
+It's possible to rollback a transaction by calling the `Rollback()` method. In this case, the transaction object is no longer valid and should not be used anymore.
+To commit a transaction, you must call the `Commit()` method.
+
+> **Note**: At the moment immudb support only 1 read-write transaction at a time, so it's up the application to ensure that only one read-write transaction is open at a time, or to handle read coflict error.
+
+:::: tabs
+
+::: tab Go
+```go
+  cli := immudb.NewClient()
+
+  err := cli.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  tx1, err := cli.NewTx(context.TODO())
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  err = tx1.SQLExec(context.TODO(), `CREATE TABLE table1(id INTEGER,PRIMARY KEY id);`, nil)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  rand.Seed(time.Now().UnixNano())
+  err = tx1.SQLExec(context.TODO(), fmt.Sprintf("INSERT INTO table1(id) VALUES (%d)", rand.Int()), nil)
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  txh, err := tx1.Commit(context.TODO())
+  if err != nil {
+    log.Fatal(err)
+  }
+  fmt.Printf("Successfully committed rows %d\n", txh.UpdatedRows)
+
+  err = cli.CloseSession(context.TODO())
+  if err != nil {
+    log.Fatal(err)
+  }
+```
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+:::
+
+::::
+## Key Value transactions
+
+`GetAll`, `SetAll` and `ExecAll` are the foundation of transactions at key value level in immudb. They allow the execution of a group of commands in a single step, with two important guarantees:
 * All the commands in a transaction are serialized and executed sequentially. No request issued by another client can ever interrupt the execution of a transaction. This guarantees that the commands are executed as a single isolated operation.
 * Either all of the commands are processed, or none are, so the transaction is also atomic.
 
@@ -71,7 +154,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const getAllReq: Parameters.GetAll = {
 		keysList: ['key1', 'key2', 'key3'],
 		sincetx: 0
@@ -146,7 +229,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const setAllReq: Parameters.SetAll = {
 		kvsList: [
 			{ key: '1,2,3', value: '3,2,1' },
@@ -287,7 +370,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
 	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	
+
 	const { id } = await cl.set({ key: 'persistedKey', value: 'persistedVal' })
 
 	const setOperation = { kv: { key: 'notPersistedKey', value: 'notPersistedVal' } }
