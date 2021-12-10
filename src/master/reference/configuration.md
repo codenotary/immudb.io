@@ -9,7 +9,7 @@ Some of the most important settings that ones are:
 |-------------------|---------|------------------------------------------------------------------------------------------|
 | `dir`               | `./data`  | System and user databases are stored here                                                |
 | `network`           | `tcp`     |                                                                                          |
-| `adress`            | `0.0.0.0` | Listening address                                                                        |
+| `address`            | `0.0.0.0` | Listening address                                                                        |
 | `port`              | `3322`    | Listing port                                                                             |
 | `mtls`              | `false`   | Whether to enable [Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication#mTLS) |
 | `pkey`              |         | If specified, the server can sign the state the clients use to verify immutability       |
