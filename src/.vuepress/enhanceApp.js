@@ -121,7 +121,10 @@ const getSidebar = version => {
   };
 
   switch (version) {
-    case '/master':
+    case '/master': {
+      develop.children.push(`${version}/develop/deleting`);
+  }
+
     case '/1.1.0':
 	  case '/1.0.0':
     {
