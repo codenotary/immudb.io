@@ -468,11 +468,10 @@ Note: the context of a sub-query does not propagate outside,
       e.g. it is not possible to reference a table from a sub-query
       in the `WHERE` clause outside of the sub-query.
 
-### Basic transactions
+###   Transactions
 
 Multiple insert and upsert statements can be issued within a single transaction.
 
-Note: The example below won't work in the current version of the immudb webconsole.
 The easiest way to tested it is with the `./immuclient exec "..."` shell command
 (make sure to use an escaped `\$` value to avoid cutting out part of the price).
 
