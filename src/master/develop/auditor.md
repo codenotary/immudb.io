@@ -4,7 +4,7 @@ title: Running an Auditor with immuclient
 
 # Use immuclient as Auditor
 
-The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and indipendent compontent. immuclient can act as Auditor by running the following command:
+The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and independent component. immuclient can act as Auditor by running the following command:
 
 Start interactive:
 ```bash
@@ -30,7 +30,7 @@ immuclient_audit_result_per_server{server_address="127.0.0.1:3322",server_id="br
 immuclient_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eugq036tfln0ct6o0"} 1.5907565337454605e+09
 ```
 
-immuclient looks for immudb at 127.0.0.1:3322 by deault with the default username and password. Nevertheless a number of parameters can be defined:
+immuclient looks for immudb at 127.0.0.1:3322 by default with the default username and password. Nevertheless a number of parameters can be defined:
 
 ```
 immuclient audit-mode            -  Run a foreground auditor
@@ -99,9 +99,9 @@ Then it's possible to run the command with:
 docker run -it -e IMMUCLIENT_IMMUDB_ADDRESS="ip" -e IMMUCLIENT_AUDIT_USERNAME="immudb" -e IMMUCLIENT_AUDIT_PASSWORD="immudb" codenotary/auditor
 ```
 
-## Auditor best practices 
+## Auditor best practices
 
-### How can I be notified if my immudb istance was tampered?
+### How can I be notified if my immudb instance was tampered?
 
 It's possible to provide an external url that will be triggered in case a tamper is detected.
 By configuring `IMMUCLIENT_AUDIT_NOTIFICATION_URL`, a POST request will be sent with the following body:
@@ -136,7 +136,7 @@ NOTE: it's not possible to know at which transaction the database was tampered. 
 
 ### How many Auditors should I run to secure my immudb instance?
 
-A proper setup of one immuclient instance can fit most of cases, but there are ways to increase the security on detecting tampering. A single instance can go offline for any reason: network problems, hardware failures or attacks. Therefore a good practice can be to have multiple Auditor instances running in different zones 
+A proper setup of one immuclient instance can fit most of cases, but there are ways to increase the security on detecting tampering. A single instance can go offline for any reason: network problems, hardware failures or attacks. Therefore a good practice can be to have multiple Auditor instances running in different zones.
 
 ## License
 
