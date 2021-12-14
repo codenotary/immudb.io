@@ -20,7 +20,7 @@ Make sure to import:
 Create stores for the data and catalog:
 
 ```go
-catalogStore, err := store.Open("catalog", store.DefaultOptions())
+catalogStore, err := store.Open(store.DefaultOptions())
 if err != nil {
 	log.Fatal(err)
 }
@@ -34,7 +34,7 @@ if err != nil {
 And now you can create the SQL engine, passing both stores and a key prefix:
 
 ```go
-engine, err := sql.NewEngine(catalogStore, dataStore, []byte("sql"))
+engine, err := sql.NewEngine(dataStore, []byte("sql"))
 if err != nil {
 	log.Fatal(err)
 }
