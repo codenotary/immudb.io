@@ -9,7 +9,7 @@ It's possible to retrieve all the values for a particular key with the history c
 * `Offset`: the starting index (excluded from the search). Optional
 * `Limit`: maximum returned items. Optional
 * `Desc`: items are returned in reverse order. Optional
-* `SinceTx`:
+* `SinceTx`: immudb will wait that the transaction specified by SinceTx is processed. Optional
 
 :::: tabs
 
