@@ -66,7 +66,6 @@ docker run -ti -p 3322:3322 codenotary/immudb:latest
 
 </WrappedSection>
 
-
 ## Connecting from your programming language
 
 ### Importing the SDK
@@ -85,15 +84,17 @@ go mod init example.com/hello
 ```go
 // Then import the package
 import (
-	immuclient "github.com/codenotary/immudb/pkg/client"
+ immuclient "github.com/codenotary/immudb/pkg/client"
 )
  ```
+
 :::
 
 ::: tab Java
 Just include immudb4j as a dependency in your project:
 
 if using `Maven`:
+
 ```xml
     <dependency>
         <groupId>io.codenotary</groupId>
@@ -103,9 +104,11 @@ if using `Maven`:
 ```
 
 if using `Gradle`:
+
 ```groovy
     compile 'io.codenotary:immudb4j:0.9.0.6'
 ```
+
 [Java SDK repository](https://github.com/codenotary/immudb4j)
 
 immudb4j is currently hosted on both [Maven Central] and [Github Packages].
@@ -129,9 +132,10 @@ Install the package using pip:
 
 *Note*: immudb-py need `grpcio` module from google. On Alpine linux, you need
  these packages in order to correctly build (and install) grpcio:
- - `linux-headers`
- - `python3-dev`
- - `g++`
+
+* `linux-headers`
+* `python3-dev`
+* `g++`
 
 [Python SDK repository](https://github.com/codenotary/immudb-py)
 
@@ -148,7 +152,7 @@ Install the package using npm:
 Include the immudb-node as a dependency in your project.
 
 ```javascript
-	const immudbClient = require('immudb-node')
+ const immudbClient = require('immudb-node')
 ```
 
 [Node.js SDK repository](https://github.com/codenotary/immudb-node)
@@ -159,19 +163,19 @@ Include the immudb-node as a dependency in your project.
 
 Use Microsoft's [NuGet](https://www.nuget.org/packages/Immudb4DotNet/) package manager to get immudb4DotNet.
 
-
 Creating a Client.
 
-  - Using the default configuration.
-	```csharp
-	  var client = new CodeNotary.ImmuDb.ImmuClient("localhost"))
-	```
+* Using the default configuration.
 
-  - The immudb implements IDisposable, so you can wrap it with "using".
+ ```csharp
+   var client = new CodeNotary.ImmuDb.ImmuClient("localhost"))
+ ```
 
-	```csharp
-	using (var client = new CodeNotary.ImmuDb.ImmuClient("localhost", 3322)){}
-	```
+* The immudb implements IDisposable, so you can wrap it with "using".
+
+ ```csharp
+ using (var client = new CodeNotary.ImmuDb.ImmuClient("localhost", 3322)){}
+ ```
 
  [.Net SDK repository](https://github.com/codenotary/immudb4dotnet)
 :::
@@ -194,9 +198,9 @@ The first step is to connect to the database, which listens by default in port 3
 
 ```go
 import (
-	"log"
-	"context"
-	immudb "github.com/codenotary/immudb/pkg/client"
+ "log"
+ "context"
+ immudb "github.com/codenotary/immudb/pkg/client"
 )
 
 client, err := immudb.NewClient()
@@ -208,6 +212,7 @@ if err != nil {
     log.Fatal(err)
 }
 ```
+
 :::
 
 ::: tab Java
@@ -219,17 +224,21 @@ client = ImmuClient.newBuilder()
     .build();
 client.login("immudb", "immudb");
 ```
+
 :::
 
 ::: tab Python
+
 ```python
 from immudb.client import ImmudbClient
 ic=ImmudbClient()
 ic.login("immudb","immudb")
 ```
+
 :::
 
 ::: tab Node.js
+
 ```javascript
 const ImmudbClient = require('immudb-node');
 
@@ -264,6 +273,7 @@ const cl = new ImmudbClient();
   }
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -279,24 +289,24 @@ If you're using another development language, please read up on our [immugw](/ma
 
 ### Tamperproof read and write
 
-
 :::: tabs
 
 You can write with built-in cryptographic verification. The client implements the mathematical validations, while your application uses a traditional read or write function.
 
 ::: tab Go
+
 ```go
     vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
-	if  err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
+ if  err != nil {
+  log.Fatal(err)
+ }
+ fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
 
-	ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
-	if  err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
+ ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
+ if  err != nil {
+  log.Fatal(err)
+ }
+ fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
 :::
@@ -361,24 +371,24 @@ if err != nil {
 To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:
 
 ```go
-	_, err = c.SQLExec(ctx, `
-		BEGIN TRANSACTION
+ _, err = c.SQLExec(ctx, `
+  BEGIN TRANSACTION
           CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);
           CREATE INDEX ON people(name)
-		COMMIT
-	`, map[string]interface{}{})
-		if err != nil {
-		log.Fatal(err)
-	}
+  COMMIT
+ `, map[string]interface{}{})
+  if err != nil {
+  log.Fatal(err)
+ }
 ```
 
 This is also how you perform inserts:
 
 ```go
-	_, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
-	if err != nil {
-		log.Fatal(err)
-	}
+ _, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
+ if err != nil {
+  log.Fatal(err)
+ }
 ```
 
 Once you have data in the database, you can use the `SQLQuery` method of the client to query.
@@ -386,24 +396,24 @@ Once you have data in the database, you can use the `SQLQuery` method of the cli
 Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values:
 
 ```go
-	res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
-	if err != nil {
-		log.Fatal(err)
-	}
+ res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
+ if err != nil {
+  log.Fatal(err)
+ }
 ```
 
 `res` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `res.Rows`. On each iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
 
 ```go
-	for _, r := range res.Rows {
-		for _, v := range r.Values {
-			log.Printf("%s\n", schema.RenderValue(v.Value))
-		}
-	}
+ for _, r := range res.Rows {
+  for _, v := range r.Values {
+   log.Printf("%s\n", schema.RenderValue(v.Value))
+  }
+ }
 ```
 
 ### Additional resources
 
-  - Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
+* Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
 
 </WrappedSection>
