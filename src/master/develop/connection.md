@@ -7,17 +7,21 @@ You can modify defaults on the immudb server in `immudb.toml` in the config fold
 ::: tab Go
 
 ```go
-c, err := client.NewImmuClient(client.DefaultOptions())
-if err != nil {
-    log.Fatal(err)
-}
-ctx := context.Background()
-// login with default username and password
-_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+import (
+  "context"
+  immudb "github.com/codenotary/immudb/pkg/client"
+  "log"
+)
+```
+
+```go
+client:= immudb.NewClient()
+err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
 ```
+
 :::
 
 ::: tab Java
@@ -43,6 +47,7 @@ ImmuClient immuClient = ImmuClient.newBuilder()
 // Login with default credentials.
 immuClient.login("immudb", "immudb");
 ```
+
 :::
 
 ::: tab Python
@@ -69,10 +74,12 @@ If you're using another development language, please read up on our [immugw](/ma
 <WrappedSection>
 
 ### Mutual TLS
+
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
 In order to generate certs, use the openssl tool:
 [generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls).
+
 ```bash
 ./generate.sh localhost mysecretpassword
 ```
@@ -83,23 +90,23 @@ This generates a list of folders containing certificates and private keys to set
 :::: tabs
 
 ::: tab Go
+
 ```go
-	client, err := c.NewImmuClient(
-		c.DefaultOptions().WithMTLsOptions(
-			c.MTLsOptions{}.WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
-				WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
-				WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
-				WithServername("localhost"),
-				).
-			WithMTLs(true),
-		)
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	// login with default username and password
-	lr , err := client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+ c := immudb.NewClient().WithOptions(
+immudb.DefaultOptions().WithMTLsOptions(
+immudb.MTLsOptions{}.WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
+    WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
+    WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
+    WithServername("localhost"),
+    ).
+   WithMTLs(true),
+  )
+ if err != nil {
+  log.Fatal(err)
+ }
+c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 ```
+
 :::
 
 ::: tab Java
@@ -113,6 +120,7 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -125,11 +133,12 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	const loginReq: Parameters.Login = { user: IMMUDB_USER, password: IMMUDB_PWD }
-	const loginRes = await cl.login(loginReq)
-	console.log('success: login:', loginRes)
+ const loginReq: Parameters.Login = { user: IMMUDB_USER, password: IMMUDB_PWD }
+ const loginRes = await cl.login(loginReq)
+ console.log('success: login:', loginRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -143,24 +152,27 @@ If you're using another development language, please read up on our [immugw](/ma
 
 ::::
 
-### Disable authentication
+### Disable authentication. Deprecated
+
 You also have the option to run immudb with authentication disabled. However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
 
 :::: tabs
 
 ::: tab Go
+
 ```go
     client, err := c.NewImmuClient(
-		c.DefaultOptions().WithAuth(false),
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-	vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
-	if  err != nil {
-		log.Fatal(err)
-	}
+  c.DefaultOptions().WithAuth(false),
+ )
+ if err != nil {
+  log.Fatal(err)
+ }
+ vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
+ if  err != nil {
+  log.Fatal(err)
+ }
 ```
+
 :::
 
 ::: tab Java
