@@ -65,6 +65,7 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.0':
     case '/1.1.0':
 	case '/1.0.0':
     {
@@ -100,6 +101,7 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.0':
     case '/1.1.0':
     {
       operations.children.push(`${version}/operations/specs`);
@@ -122,6 +124,7 @@ const getSidebar = version => {
 
   switch (version) {
     case '/master': 
+    case '/1.2.0':
     case '/1.1.0':
 	  case '/1.0.0':
     {
@@ -144,7 +147,7 @@ const getSidebar = version => {
     }
   }
 
-  if (version === '/master' || version === '/1.1.0') {
+  if (version === '/master' || version === '/1.1.0' || version === '/1.2.0') {
     develop.children.push(`${version}/develop/sqlstdlib`);
     develop.children.push(`${version}/develop/auditor`);
 
@@ -179,18 +182,18 @@ const getSidebar = version => {
   /* DEVELOP SECTION END */
 
   sidebar.push(introduction);
-  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.0', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(learn);
   }
   sidebar.push(getStarted);
-  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.0', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(operations);
   }
 
-  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.0', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(develop);
   }
-  if (['/master', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.0', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(reference);
   }
 
