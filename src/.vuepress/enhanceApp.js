@@ -121,10 +121,7 @@ const getSidebar = version => {
   };
 
   switch (version) {
-    case '/master': {
-      develop.children.push(`${version}/develop/deleting`);
-  }
-
+    case '/master': 
     case '/1.1.0':
 	  case '/1.0.0':
     {
@@ -150,6 +147,14 @@ const getSidebar = version => {
   if (version === '/master' || version === '/1.1.0') {
     develop.children.push(`${version}/develop/sqlstdlib`);
     develop.children.push(`${version}/develop/auditor`);
+
+
+  }
+
+  if (version === '/master' || version === '/1.2.0') 
+    {
+      develop.children.push(`${version}/develop/deleting`);
+      develop.children.push(`${version}/develop/expiration`);
 
 
   }
