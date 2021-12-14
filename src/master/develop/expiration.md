@@ -1,6 +1,6 @@
 # Data Expiration
 
-It's possible to achieve data expiration by using the `ExpirableSet` function. It provides logical deletion, it means that it is not phisically deleted from db, but it's not possible to query it anymore after deletion. It's also possible to see expired entries from the sdks using History endpoint, it will display if the entry was expired.
+It's possible to achieve data expiration by using the `ExpirableSet` function. It provides logical deletion, it means that it is not phisically deleted from db, but it's not possible to query it anymore after deletion.
 
 
 :::: tabs
@@ -15,8 +15,8 @@ It's possible to achieve data expiration by using the `ExpirableSet` function. I
     
 	//the following will raise an error with key not found
     _, err = client.Get(ctx, []byte("expirableKey"))
-	if  err != nil {
-		log.Fatal(err)
+	if err == nil || !strings.Contains(err.Error(), "key not found") {
+		log.Fatalf("expecting key not found error: %v", err)
 	}
 
 ```
