@@ -150,8 +150,6 @@ Index do not have explicit name and is referenced by the ordered list of indexed
 Columns of `BLOB` or `VARCHAR` type must have a size limit set on them.
 The maximum allowed value size for one indexed column is 256 bytes.
 
-Values for indexed columns can not be `NULL`
-even if the column is not explicitly marked as `NOT NULL`.
 
 ### Unique indexes
 
