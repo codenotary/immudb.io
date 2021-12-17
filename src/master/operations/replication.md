@@ -3,7 +3,7 @@
 
 <WrappedSection>
 
-## immudb replication
+### Replication strategy
 
 immudb includes support for replication by means of a follower approach. A database can be created or configured either to be a master or a replica of another database.
 
@@ -73,7 +73,7 @@ Replication is configured per database. Thus, the same immudb server may hold se
 
 <div class="wrapped-picture">
 
-![a single immudb server can hold multiple master and replica databases](/immudb/replication-server.jpg)
+<img src="/immudb/replication-server.jpg" width="300" alt="a single immudb server can hold multiple master and replica databases"/>
 
 </div>
 
