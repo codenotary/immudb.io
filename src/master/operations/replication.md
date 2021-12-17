@@ -12,7 +12,9 @@ During replication, master databases have a passive role. The grpc endpoint `Exp
 Replicas are readonly and any direct write operation will be rejected. But queries are supported. Providing the possibility to distribute query loads.
 
 <div class="wrapped-picture">
+
 ![replicator fetches committed txs via grpc calls and replicate them using in-process method invocations](/immudb/replication-comm.jpg)
+
 </div>
 
 ### Replication and users
@@ -39,12 +41,14 @@ Note: Display all database creation flags `./immuadmin database create --help`
 
 Note: Display all replication flags `./immudb --help`
 
-## Multiple replicas
+### Multiple replicas
 
 It's possible to create multiple replicas of a database. Each replica works independently from the others.
 
 <div class="wrapped-picture">
+
 ![multiple replicas of the same master database](/immudb/replication-multiple.jpg)
+
 </div>
 
 Given the master database acts in passive mode, there is not special steps needed in order to create more replicas. Thus, by repeating the same steps to create the first replica it's possible to configure new ones.
@@ -54,19 +58,23 @@ Given the master database acts in passive mode, there is not special steps neede
 In case many replicas are needed or the master database is under heavy load, it's possible to delegate the creation of replicas to an existent replica. This way, the master database is not affected by the total number of replicas being created.
 
 <div class="wrapped-picture">
+
 ![a replica indirectly following the master](/immudb/replication-chain.jpg)
+
 </div>
 
-## External replicator
+### External replicator
 
 By creating a database as a replica but with disabled replication, no replicator is created for the database and an external process could be used to replicate committed transactions from the master. The grpc endpoint `ReplicateTx` may be used to externally replicate a transaction.
 
-## Heterogeneous settings
+### Heterogeneous settings
 
 Replication is configured per database. Thus, the same immudb server may hold several master and replica databases at the same time.
 
 <div class="wrapped-picture">
+
 ![a single immudb server can hold multiple master and replica databases](/immudb/replication-server.jpg)
+
 </div>
 
 </WrappedSection>
