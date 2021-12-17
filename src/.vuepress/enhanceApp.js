@@ -101,6 +101,9 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    {
+      operations.children.push(`${version}/operations/replication`);
+    }
     case '/1.2.1':
     case '/1.1.0':
     {
