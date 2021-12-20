@@ -3,9 +3,15 @@
 
 <WrappedSection>
 
-## immudb replication
+### Replication strategy
 
 immudb includes support for replication by means of a follower approach. A database can be created or configured either to be a master or a replica of another database.
+
+<div class="wrapped-picture">
+
+![replication using grpc clients](/immudb/replication-servers.jpg)
+
+</div>
 
 During replication, master databases have a passive role. The grpc endpoint `ExportTx` is used by replicas to fetch unseen committed transactions from the master.
 
@@ -73,7 +79,7 @@ Replication is configured per database. Thus, the same immudb server may hold se
 
 <div class="wrapped-picture">
 
-![a single immudb server can hold multiple master and replica databases](/immudb/replication-server.jpg)
+<img src="/immudb/replication-server.jpg" width="300" alt="a single immudb server can hold multiple master and replica databases"/>
 
 </div>
 
