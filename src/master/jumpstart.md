@@ -35,6 +35,9 @@ SDKs make it comfortable to talk to the server from your favourite language, wit
 The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
 
 For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
+ 
+The [Ruby](https://github.com/ankane/immudb-ruby) SDK is maintained by the community, credits to [Ankane](https://github.com/ankane).
+
 
 </WrappedSection>
 
