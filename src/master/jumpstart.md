@@ -22,9 +22,30 @@ In the most common scenario, you would perform write and read operations on the 
 
 ## SDKs
 
+SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
+
+The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintainer by the internal team and by the community.
+
+
+| Language         | Maintainer | Immdb version | link | Notes                                                                              |
+|-------------------|---------|------------------|-------------|-----------------------------------------------------------|
+| `go`               | immudb team  | 1.2.1       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
+| `python`               | immudb team  | 1.2.1       |  [link](https://github.com/codenotary/immudb-py) | Verification is not working                                    |
+| `JAVA`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4j)  | Verification is not working                                      |
+| `.NET`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4dotnet)  | Verification is not working                                      |
+| `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
+| `JS`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immu-js) | Verification is not working                 |
+| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.2.1       |   [link](https://github.com/ankane/immudb-ruby) |Verification is not working                 |
+
+
+
+
+For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
+ 
+
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
 
-SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
+
 
 <div class="wrapped-picture">
 
@@ -32,9 +53,8 @@ SDKs make it comfortable to talk to the server from your favourite language, wit
 
 </div>
 
-The most well-known immudb SDK is written in [Golang](https://golang.org/), but there are SDKs available for Python, NodeJS, Java and others.
 
-For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
+
 
 </WrappedSection>
 
