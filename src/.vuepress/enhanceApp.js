@@ -103,6 +103,7 @@ const getSidebar = version => {
     case '/master':
     {
       operations.children.push(`${version}/operations/replication`);
+      operations.children.push(`${version}/operations/backup`);
     }
     case '/1.2.1':
     case '/1.1.0':
