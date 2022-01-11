@@ -4,8 +4,8 @@
       <div class="flex column brand">
         <img
           class="logo"
-          src="/logos/logo_white_codenotary.png"
-          alt="CodeNotary"
+          src="/logos/logo_white_codenotary.svg"
+          alt="Codenotary"
         >
         <p class="brand-description cn-text-xs">
           Immutable notarization for all your sensitive data. On-premise or in the cloud, easy to use tamperproof storage with cryptographic verification, processing millions of transactions a second.
@@ -17,7 +17,7 @@
             </a>
           </li>
           <li>
-            <a href="https://twitter.com/CodeNotary">
+            <a href="https://twitter.com/Codenotary">
               <font-awesome-icon :icon="['fab', 'twitter-square']" />
             </a>
           </li>
@@ -47,7 +47,7 @@
     </div>
     <div class="flex row align-center justify-between copyright">
 <!--          <div class="flex column">-->
-            <span class="">Copyright © {{ year }} CodeNotary, Inc. All rights reserved.</span>
+            <span class="">Copyright © {{ year }} Codenotary, Inc. All rights reserved.</span>
             <div class="row justify-center tos">
               <a href="https://www.codenotary.com/terms-of-service/">
                 Terms of Service

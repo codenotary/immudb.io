@@ -168,13 +168,13 @@ Install the package using npm:
 ```shell
     npm install immudb-node
 ```
-
+Codenotary
 Include the immudb-node as a dependency in your project.
 
 ```javascript
  const immudbClient = require('immudb-node')
 ```
-
+Codenotary
 [Node.js SDK repository](https://github.com/codenotary/immudb-node)
 
 :::

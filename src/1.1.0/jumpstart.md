@@ -158,13 +158,13 @@ Creating a Client.
 
   - Using the default configuration.
 	```csharp
-	  var client = new CodeNotary.ImmuDb.ImmuClient("localhost"))
+	  var client = new Codenotary.ImmuDb.ImmuClient("localhost"))
 	```
 
   - The immudb implements IDisposable, so you can wrap it with "using".
 
 	```csharp
-	using (var client = new CodeNotary.ImmuDb.ImmuClient("localhost", 3322)){}
+	using (var client = new Codenotary.ImmuDb.ImmuClient("localhost", 3322)){}
 	```
 
  [.Net SDK repository](https://github.com/codenotary/immudb4dotnet)

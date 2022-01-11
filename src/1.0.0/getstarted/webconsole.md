@@ -2,7 +2,7 @@
 
 immudb includes an embedded web console which can be accessed via the default port 8080 (`web-server-port` option).
 
-![image](/webconsole.png)
+![image](/webconsole.jpg)
 
 The console allows you to:
 
