@@ -7,7 +7,7 @@
     "dev": "vuepress dev src",
     "prebuild": "npm run images",
     "build": "vuepress build src",
-    "preinstall": "npx npm-force-resolutions",
+    "preinstall": "([ ! -f package-lock.json ] && npm install --package-lock-only --ignore-scripts --no-audit); npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
     "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560"
@@ -76,7 +76,6 @@
     "fsevents": "^2.3.2",
     "highlight.js": ">=10.4.1",
     "path-parse": ">=1.0.7",
-    "postcss": ">=8.2.13",
     "tar": ">=4.4.18",
     "watchpack": "1.6.1"
   }

@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: |
         node --version
-        npm install
+        npm i -f
         npm run build
 
     # -   name: Commit changes
