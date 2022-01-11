@@ -4,7 +4,7 @@ sidebar: false
 
 # Careers
 
-vChain is the Open Source leader for immutable trust solutions such as immudb and CodeNotary.
+vChain is the Open Source leader for immutable trust solutions such as immudb and Codenotary.
 We process tens of millions of transactions every month and are growing fast to new markets and use cases.
 
 We use the following environments and systems:
