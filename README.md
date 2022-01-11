@@ -31,5 +31,5 @@ Requirements: node version 13.x.x (NOT working with latest node versions)
 
 ## Copyright and license
 
-Homepage and documentation copyright 2017-2021 [Immudb Authors](https://github.com/codenotary/immudb/graphs/contributors). 
+Homepage and documentation copyright 2017-2022 [Immudb Authors](https://github.com/codenotary/immudb/graphs/contributors). 
 Docs released under [Creative Commons](https://github.com/codenotary/immudb.io/blob/master/LICENSE).

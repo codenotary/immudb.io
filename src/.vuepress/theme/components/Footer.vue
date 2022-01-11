@@ -47,7 +47,7 @@
     </div>
     <div class="flex row align-center justify-between copyright">
 <!--          <div class="flex column">-->
-            <span class="">Copyright © {{ year }} CodeNotary, Inc. All rights reserved.</span>
+            <span class="">Copyright © {{ year }} codenotary, Inc. All rights reserved.</span>
             <div class="row justify-center tos">
               <a href="https://www.codenotary.com/terms-of-service/">
                 Terms of Service

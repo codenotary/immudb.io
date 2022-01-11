@@ -18,7 +18,7 @@
 - [Conclusion](#conclusion)
 
 ## Introduction
-This guide helps developers quickly start with CodeNotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
+This guide helps developers quickly start with codenotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
 Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 
@@ -54,7 +54,7 @@ The immudb is a non-relational, NoSQL database. Data is a collection of key-valu
 
 Depending on your use case, immudb might function as your application's primary or as a secondary database. As a secondary, complimentary database, use immudb to cross-check the data integrity of your important data (by verifying checksums or comparing stored data values). A secondary database enables you to quickly use immudb without completely re-engineering your existing application.
 
-- For additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
+- For additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within codenotary's immudb GitHub Project.
 - For additional information on immudb, see our [documentation](https://docs.immudb.io/0.8.0/).
 
 
@@ -357,7 +357,7 @@ If you're using another development language, please read up on our [immugw](htt
 
 ## Conclusion
 
-Congratulations for completing the development quick start guide. You've been guided through the essentials you need to know to begin using CodeNotary's immudb solution.
+Congratulations for completing the development quick start guide. You've been guided through the essentials you need to know to begin using codenotary's immudb solution.
 
 You now have:
  - An immudb database server and are familiar with basic authentication.
@@ -370,6 +370,6 @@ We've only scratched the surface of immudb's capabilities. Here are some additio
 - Learn more through our [documentation](https://docs.immudb.io/0.8.0/).
     - Learn more about the immudb [API](https://docs.immudb.io/0.8.0/immudb/grpc-interface.html).
     - Try out [immuadmin](https://docs.immudb.io/0.8.0/immuadmin/)
-- Follow CodeNotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
-- Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within CodeNotary's immudb GitHub Project.
+- Follow codenotary's [blog](https://codenotary.io/blog) for more immudb articles and release announcements.
+- Additional technical background on immudb and its performance, see the [Readme](https://github.com/codenotary/immudb/blob/master/README.md) within codenotary's immudb GitHub Project.
 <img align="center" src="https://codenotary.io/images/word-tree.png"/>
