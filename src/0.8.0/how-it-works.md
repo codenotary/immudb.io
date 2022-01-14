@@ -48,7 +48,7 @@ message Signature {
 	bytes publicKey = 2;
 }
 ```
-It's possible to use the environment `IMMUDB_SIGNING_KEY` or `--signingKey` immudb flag.
+It's possible to use the environment `IMMUDB_SIGNINGKEY` or `--signingKey` immudb flag.
 
 To generate a valid key it's possible to use `openssl` tool:
 ```bash
