@@ -65,9 +65,10 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.2':
     case '/1.2.1':
     case '/1.1.0':
-	case '/1.0.0':
+	  case '/1.0.0':
     {
       getStarted.children.push(`${version}/quickstart`);
       getStarted.children.push(`${version}/getstarted/webconsole`);
@@ -101,6 +102,7 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.2':
     {
       operations.children.push(`${version}/operations/replication`);
     }
@@ -126,7 +128,8 @@ const getSidebar = version => {
   };
 
   switch (version) {
-    case '/master': 
+    case '/master':
+    case '/1.2.2':
     case '/1.2.1':
     case '/1.1.0':
 	  case '/1.0.0':
@@ -150,26 +153,21 @@ const getSidebar = version => {
     }
   }
 
-  if (version === '/master' || version === '/1.1.0' || version === '/1.2.1') {
+  if (version === '/master' || version === '/1.1.0' || version === '/1.2.1' || version === '/1.2.2') {
     develop.children.push(`${version}/develop/sqlstdlib`);
     develop.children.push(`${version}/develop/auditor`);
-
-
   }
 
-  if (version === '/master' || version === '/1.2.1') 
-    {
+  if (version === '/master' || version === '/1.2.1' || version === '/1.2.2') {
       develop.children.push(`${version}/develop/deleting`);
       develop.children.push(`${version}/develop/expiration`);
-
-
   }
 
   develop.children.push(
     `${version}/develop/pg`,
     `${version}/develop/embedding`,
     `${version}/build`,
-    
+
   );
 
   const reference = {
@@ -185,18 +183,17 @@ const getSidebar = version => {
   /* DEVELOP SECTION END */
 
   sidebar.push(introduction);
-  if (['/master', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(learn);
   }
   sidebar.push(getStarted);
-  if (['/master', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(operations);
   }
-
-  if (['/master', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(develop);
   }
-  if (['/master', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(reference);
   }
 
