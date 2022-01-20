@@ -124,7 +124,7 @@ The environment variables are the most popular way to configure Docker container
   IMMUDB_DEVMODE=true
   IMMUDB_MAINTENANCE=false
   IMMUDB_ADMIN_PASSWORD=immudb
-  IMMUDB_SIGNING_KEY=
+  IMMUDB_SIGNINGKEY=
 ```
 
 ## immuadmin
@@ -283,7 +283,7 @@ To reactivate a deactivated user account, you can simply set user permission aga
 
 It's possible to sign each state with a private key.
 In this way clients and auditor can verify the immudb server identity.
-To launch immudb with signatures, either use `--signingKey` flag or `IMMUDB_SIGNING_KEY` environment variable.
+To launch immudb with signatures, either use `--signingKey` flag or `IMMUDB_SIGNINGKEY` environment variable.
 
 ```bash
 ./immudb --signingKey test/signer/ec1.key
