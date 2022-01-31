@@ -304,11 +304,9 @@ ul li::marker
   background: transparent;
 }
 
-
 ::-webkit-scrollbar-thumb {
   background: $cn-color-primary_dark;
   -webkit-border-radius: 1ex;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
 }
 
 ::-webkit-scrollbar-corner {
@@ -316,10 +314,10 @@ ul li::marker
 }
 
 //Firefox Scrollbar
-//* {
-  //scrollbar-color: $cn-color-primary_dark transparent;
-  //scrollbar-width: 20px;
-//}
+html
+  scrollbar-color: $cn-color-primary_dark transparent;
+  scrollbar-width: thin;
+
 
 table
   border-spacing unset
