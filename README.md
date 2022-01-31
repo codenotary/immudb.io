@@ -22,7 +22,7 @@
 
 ## Running documentation locally
 
-Requirements: node version 13.x.x (NOT working with latest node versions)
+Requirements: node version v14.18.3 (NOT working with latest node versions)
 
 
 1. First, install dependencies using `npm install`.
