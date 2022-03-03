@@ -98,6 +98,8 @@ immuclient> history balance
 ```
 
 </WrappedSection>
+<WrappedSection>
+
 ## Basic operations with immuadmin
 Immuadmin is the admin client for immudb. This is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
 
