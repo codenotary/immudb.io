@@ -98,7 +98,25 @@ immuclient> history balance
 ```
 
 </WrappedSection>
+<WrappedSection>
 
+## Basic operations with immuadmin
+Immuadmin is the admin client for immudb. This is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
+
+To get started we need to login to `immuadmin` first. The `admin` user is the similar to the `root` user in MySQL etc.
+```
+immuadmin login immudb
+```
+Once logged in we can create a new database using
+```
+immuadmin database create mydatabase
+```
+Switching to our newly created database. Using immuclient once you are logged in you can select the database you would like to using
+```
+immuclient> use mydatabse
+```
+
+</WrappedSection>
 <WrappedSection>
 
 ## SQL operations with immuclient
@@ -162,7 +180,15 @@ immuclient query "SELECT id, name, salary FROM people WHERE name='Joe';"
 |                     1 | Joe                     |                     20000 |
 +-----------------------+-------------------------+---------------------------+
 ```
-
+We can see the current transaction id using
+```
+  immuclient> current
+  txID:             6
+  hash: e91c254ad58860a02c788dfb5c1a65d6a8846ab1dc649631c7db16fef4af2dec
+  
+```
+This is the transaction id we will be using for the subsequent queries.
+  
 Eg. before the update:
 
 ```
