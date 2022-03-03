@@ -116,8 +116,6 @@ Switching to our newly created database. Using immuclient once you are logged in
 immuclient> use mydatabse
 ```
 
-<WrapedSection>
-
 </WrappedSection>
 <WrappedSection>
 
