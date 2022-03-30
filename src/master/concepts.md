@@ -57,7 +57,7 @@ immuclient audit-mode --audit-username {immudb-username} --audit-password {immud
 
 ## Item References
 
-Enables the insertion of a special entry which references to another item.
+Enables the insertion of a special entry that references another item.
 
 </WrappedSection>
 
