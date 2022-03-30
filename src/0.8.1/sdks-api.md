@@ -8,7 +8,7 @@
 - [Tamperproof writing and reading](#tamperproof-writing-and-reading)
     - [Safe get and set](#safe-get-and-set)
 - [Writing and reading](#writing-and-reading)
-    - [Get and set](#get-and-set)
+    - [Get and Set](#get-and-set)
     - [Get by index](#byIndex)
 - [History](#history)
 - [Counting](#counting)
@@ -344,7 +344,7 @@ This is allowed because generating proofs slightly impact on performances, so pr
 It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the db consistency, but the pattern in which every client is an also an auditor is the more interesting one.
 
-### Get and set
+### Get and Set
 
 :::: tabs
 

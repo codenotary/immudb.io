@@ -536,7 +536,7 @@ Note that generating that proof has a slight performance impact, so primitives a
 It is still possible get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
-### Get and set
+### Get and Set
 
 :::: tabs
 
