@@ -18,7 +18,7 @@
 - [Conclusion](#conclusion)
 
 ## Introduction
-This guide helps developers quickly start with Codenotary's immudb database and client. It guides you from start to finish with code samples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
+This guide helps developers quickly start with Codenotary's immudb database and client. It guides you from start to finish with code examples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
 Note: If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.0/immugw/) option.
 

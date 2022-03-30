@@ -2,7 +2,7 @@
 
 ## Connection and authentication
 
-immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
+The immudb server runs on port 3323 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in `immudb.toml` in the config folder.
 :::: tabs
 
