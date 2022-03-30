@@ -215,7 +215,7 @@ If you're using another development language, please read up on our [immugw](htt
 # Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
-In this way the identity of the server can be proven.
+This ensures the identity of the server.
 Check [state signature](/0.9.0/immudb/#state-signature) to see how to generate a valid key.
 
 :::: tabs
