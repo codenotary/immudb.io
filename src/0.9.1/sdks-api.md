@@ -564,7 +564,7 @@ If you're using another development language, please refer to [immugw](/master/i
 
 ## Writing and reading
 
-The format for writing data is the same in both Set and VerifiedSet, and the same goes for both Get and VerifiedGet.
+The format for writing data is the same in both Set and VerifiedSet, as is the same for reading data in both Get and VerifiedGet.
 
 The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
@@ -2040,7 +2040,7 @@ If you're using another development language, please refer to [immugw](/master/i
 
 ### ExecAll
 
-`ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAll` permits multiple insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](#sorted-sets) option element

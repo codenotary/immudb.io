@@ -1,6 +1,6 @@
 # Reading and inserting data
 
-The format for writing data is the same in both Set and VerifiedSet, and the same goes for both Get and VerifiedGet.
+The format for writing data is the same in both Set and VerifiedSet, as is the same for reading data in both Get and VerifiedGet.
 
 The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
