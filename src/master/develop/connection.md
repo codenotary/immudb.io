@@ -66,7 +66,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -147,7 +147,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -213,7 +213,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to [immugw](/master/immugw/) option.
 :::
 
 ::::

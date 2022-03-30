@@ -5,7 +5,7 @@
 ## Introduction
 This guide helps developers quickly start with Codenotary's immudb database and client. It guides you from start to finish with code examples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
-Note: If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+Note: If you're using another development language, please refer to [immugw](/master/immugw/) option.
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
@@ -263,7 +263,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -313,7 +313,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to [immugw](/master/immugw/) option.
 :::
 
 ::::
