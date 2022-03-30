@@ -3,9 +3,9 @@
 <WrappedSection>
 
 ## Introduction
-This guide helps developers quickly start with Codenotary's immudb database and client. It guides you from start to finish with code examples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
+This guide helps developers quickly get started with Codenotary's immudb database and client. It guides you from start to finish with code examples in Node.js, Java, Python, Go, and .Net. After completing the guide, you will have the basic concepts necessary to begin using immudb within your organization.
 
-Note: If you're using another development language, please refer to [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+Note: If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 
 [comment]: <> (<img  src="https://github.com/codenotary/immudb-docs/raw/master/src/immudb/component-diagram.png" />)
 
@@ -263,7 +263,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please refer to [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -314,7 +314,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please refer to [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::

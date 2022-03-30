@@ -1,6 +1,6 @@
 # How it works
 
-Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to learn about the technical foundations of immudb.
+Download the [immudb short research paper](https://codenotary.com/technologies/immudb/) to learn about the technical foundations of immudb.
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
