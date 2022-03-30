@@ -1494,7 +1494,7 @@ If you're using another development language, please refer to [immugw](https://d
 ::::
 
 ### ExecAll
-`ExecAll` permits multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, reference and zAdd insertions.
+`ExecAll` permits multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](#sorted-sets) option element
