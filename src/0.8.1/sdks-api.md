@@ -8,7 +8,7 @@
 - [Tamperproof writing and reading](#tamperproof-writing-and-reading)
     - [Safe get and set](#safe-get-and-set)
 - [Writing and reading](#writing-and-reading)
-    - [Get and set](#get-and-set)
+    - [Get and Set](#get-and-set)
     - [Get by index](#byIndex)
 - [History](#history)
 - [Counting](#counting)
@@ -83,7 +83,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -140,7 +140,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -188,7 +188,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -279,7 +279,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -331,7 +331,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -344,7 +344,7 @@ This is allowed because generating proofs slightly impact on performances, so pr
 It is still possible get the proofs for a specific item at any time, so the decision on the frequency checks it's completely up to the final users.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the db consistency, but the pattern in which every client is an also an auditor is the more interesting one.
 
-### Get and set
+### Get and Set
 
 :::: tabs
 
@@ -382,7 +382,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -424,14 +424,14 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
 
 ## History
 Immudb is an append only database.
-This means that an update is a new insert of the same key with a new value.
+This means that an _update_ does not change an existing record. Instead, it is a new insert of the **same key** with a **new value**.
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
@@ -515,7 +515,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -558,7 +558,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -678,7 +678,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -776,7 +776,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -846,7 +846,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -913,7 +913,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -988,7 +988,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1101,7 +1101,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1177,7 +1177,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1233,7 +1233,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1274,13 +1274,13 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
 
 ### execAllOps
-`ExecAllOps` like `SetBatch` it permits many insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAllOps` like `SetBatch` it permits multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
 The argument of a ExecAllOps is an array of the following types:
 * `Op_KVs`: ordinary key value item
 * `Op_ZOpts`: [ZAdd](#sorted-sets) option element
@@ -1366,7 +1366,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1441,7 +1441,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1509,7 +1509,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1562,7 +1562,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1653,7 +1653,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1734,7 +1734,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::
@@ -1779,7 +1779,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
+If you're using another development language, please refer to the [immugw](https://docs.immudb.io/0.8.1/immugw/) option.
 :::
 
 ::::

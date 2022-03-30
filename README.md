@@ -25,8 +25,8 @@
 Requirements: node version v14.18.3 (NOT working with latest node versions)
 
 
-1. First, install dependencies using `npm install`.
-2. From the root directory, run `npm run dev` in the command line.
+1. Install dependencies by entering `npm install`.
+2. From the root directory, enter `npm run dev`.
 3. Open `http://localhost:8080` in your browser.
 
 ## Copyright and license
