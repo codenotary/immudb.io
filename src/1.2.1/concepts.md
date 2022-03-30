@@ -88,7 +88,7 @@ Allows client server communication with streams of “delimited” []byte messag
 
 ## Cryptographic signatures
 
-A signature (PKI) provided by the client can be became part of the insertion process.
+A signature (PKI) provided by the client can become part of the insertion process.
 
 </WrappedSection>
 

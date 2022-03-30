@@ -84,7 +84,7 @@ Index enables queries and search based on the data value
 
 ## Cryptographic signatures
 
-A signature (PKI) provided by the client can be became part of the insertion process
+A signature (PKI) provided by the client can become part of the insertion process
 
 ## Authentication (transport)
 
