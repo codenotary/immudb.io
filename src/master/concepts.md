@@ -65,7 +65,7 @@ Enables the insertion of a special entry which references to another item.
 
 ## Primary Index
 
-Index enables queries and search based on the data key.
+The primary index enables queries and search based on the **data key**.
 
 </WrappedSection>
 
@@ -73,7 +73,7 @@ Index enables queries and search based on the data key.
 
 ## Secondary Index
 
-Index enables queries and search based on the data value.
+The secondary index enables queries and search based on the **data value**.
 
 </WrappedSection>
 
