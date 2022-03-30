@@ -367,7 +367,7 @@ If you're using another development language, please refer to [immugw](/master/i
 ### Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
-This ensures the identity of the server.
+This ensures the server identity.
 Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
 
 :::: tabs
@@ -2040,7 +2040,7 @@ If you're using another development language, please refer to [immugw](/master/i
 
 ### ExecAll
 
-`ExecAll` permits multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
+`ExecAll` allows multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](#sorted-sets) option element
