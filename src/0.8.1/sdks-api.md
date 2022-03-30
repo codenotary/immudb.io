@@ -1280,7 +1280,7 @@ If you're using another development language, please refer to [immugw](https://d
 ::::
 
 ### execAllOps
-`ExecAllOps` like `SetBatch` it permits multiple insertions at once. The difference is that is possible to to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAllOps` like `SetBatch` it permits multiple insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
 The argument of a ExecAllOps is an array of the following types:
 * `Op_KVs`: ordinary key value item
 * `Op_ZOpts`: [ZAdd](#sorted-sets) option element
