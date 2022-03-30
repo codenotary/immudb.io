@@ -1,13 +1,13 @@
 # Reading and inserting data
 
-The format for writing and reading data is the same both in Set and VerifiedSet, just as it is for reading data both in both Get and VerifiedGet.
+The format for writing data is the same in both Set and VerifiedSet, as is the same for reading data in both Get and VerifiedGet.
 
 The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
 It is still possible get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
-### Get and set
+### Get and Set
 
 :::: tabs
 
@@ -96,7 +96,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -211,7 +211,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -305,7 +305,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -399,7 +399,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::

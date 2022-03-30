@@ -83,7 +83,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -183,7 +183,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -264,14 +264,14 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
 ### ExecAll
 
-`ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAll` allows multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 
 * `Op_Kv`: ordinary key value item
@@ -432,7 +432,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -577,7 +577,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::

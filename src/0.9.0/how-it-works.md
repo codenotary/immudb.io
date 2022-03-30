@@ -1,6 +1,6 @@
 # How it works
 
-Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
+Download the [immudb short research paper](https://codenotary.com/technologies/immudb/) to learn about the technical foundations of immudb.
 
 This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
 
@@ -44,19 +44,19 @@ immuclient audit-mode --audit-username {immudb-username} --audit-password {immud
 
 ## Item References
 
-Enables the insertion of a special entry which references to another item.
+Enables the insertion of a special entry that references another item.
 
 ## Primary Index
 
-Index enables queries and search based on the data key.
+The primary index enables queries and search based on the **data key**.
 
 ## Secondary Index
 
-Index enables queries and search based on the data value.
+The secondary index enables queries and search based on the **data value**.
 
 ## Cryptographic signatures
 
-A signature (PKI) provided by the client can be became part of the insertion process.
+A signature (PKI) provided by the client can become part of the insertion process.
 
 ## Authentication (transport)
 

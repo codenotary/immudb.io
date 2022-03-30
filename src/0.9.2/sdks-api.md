@@ -2,7 +2,7 @@
 
 ## Connection and authentication
 
-immudb runs on port 3323 as the default. The code samples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
+The immudb server runs on port 3323 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in `immudb.toml` in the config folder.
 :::: tabs
 
@@ -88,7 +88,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -145,7 +145,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -208,7 +208,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -324,7 +324,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -332,7 +332,7 @@ If you're using another development language, please read up on our [immugw](/ma
 ### Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
-In this way the identity of the server can be proven.
+This ensures the server identity.
 Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
 
 :::: tabs
@@ -427,14 +427,14 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
 ## Tamperproof reading and writing
 
-You can read and write records securely using  built-in cryptographic verification.
+You can read and write records securely using built-in cryptographic verification.
 
 
 ### Verified get and set
@@ -522,21 +522,21 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
 ## Writing and reading
 
-The format for writing and reading data is the same both in Set and VerifiedSet, just as it is for reading data both in both Get and VerifiedGet.
+The format for writing data is the same in both Set and VerifiedSet, as is the same for reading data in both Get and VerifiedGet.
 
 The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
 It is still possible get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
-### Get and set
+### Get and Set
 
 :::: tabs
 
@@ -621,7 +621,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -732,7 +732,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -822,7 +822,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -912,7 +912,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -920,7 +920,7 @@ If you're using another development language, please read up on our [immugw](/ma
 ## History
 
 The fundamental property of immudb is that it's an append-only database.
-This means that an update is a new insert of the same key with a new value.
+This means that an _update_ does not change an existing record. Instead, it is a new insert of the **same key** with a **new value**.
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
@@ -1006,7 +1006,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1043,7 +1043,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1235,7 +1235,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1407,7 +1407,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1505,7 +1505,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1613,7 +1613,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1826,7 +1826,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1921,7 +1921,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -1998,14 +1998,14 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
 ### ExecAll
 
-`ExecAll` permits many insertions at once. The difference is that is possible to specify a list of a mix of key value set, reference and zAdd insertions.
+`ExecAll` allows multiple insertions at once. The difference is that it is possible to specify a list of mixes of key/value sets, references and zAdd insertions.
 The argument of a ExecAll is an array of the following types:
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](#sorted-sets) option element
@@ -2161,7 +2161,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2301,7 +2301,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2366,7 +2366,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2504,7 +2504,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2642,7 +2642,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2692,7 +2692,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -2749,7 +2749,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::

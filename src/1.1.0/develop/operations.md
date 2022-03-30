@@ -110,7 +110,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -118,7 +118,7 @@ If you're using another development language, please read up on our [immugw](/ma
 ### Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
-In this way the identity of the server can be proven.
+This ensures the server identity.
 Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
 
 :::: tabs
@@ -213,7 +213,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
@@ -310,7 +310,7 @@ Do you want to make a feature request or help out? Open an issue on [.Net sdk gi
 :::
 
 ::: tab Others
-If you're using another development language, please read up on our [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::

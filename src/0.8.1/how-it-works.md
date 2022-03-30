@@ -1,6 +1,6 @@
 # How it works
 
-Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
+Download the [immudb short research paper](https://codenotary.com/technologies/immudb/) to learn about the technical foundations of immudb.
 
 ## Adding data
 
@@ -84,7 +84,7 @@ Index enables queries and search based on the data value
 
 ## Cryptographic signatures
 
-A signature (PKI) provided by the client can be became part of the insertion process
+A signature (PKI) provided by the client can become part of the insertion process
 
 ## Authentication (transport)
 
