@@ -1,6 +1,6 @@
 # Concepts
 
-Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to have a conceptual understanding of the technical foundations of immudb.
+Download [immudb short research paper](https://codenotary.com/technologies/immudb/) to get a conceptual understanding of the technical foundations of immudb.
 
 <WrappedSection>
 
