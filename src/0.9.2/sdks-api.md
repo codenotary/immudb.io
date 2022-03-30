@@ -529,7 +529,7 @@ If you're using another development language, please read up on our [immugw](/ma
 
 ## Writing and reading
 
-The format for writing and reading data is the same both in Set and VerifiedSet, just as it is for reading data both in both Get and VerifiedGet.
+The format for writing data is the same in both Set and VerifiedSet, and the same goes for both Get and VerifiedGet.
 
 The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
