@@ -469,7 +469,7 @@ If you're using another development language, please read up on our [immugw](/ma
 
 ## Tamperproof reading and writing
 
-You can read and write records securely using  built-in cryptographic verification.
+You can read and write records securely using built-in cryptographic verification.
 
 
 ### Verified get and set
