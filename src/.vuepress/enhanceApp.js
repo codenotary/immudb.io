@@ -102,6 +102,10 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.3':
+    {
+      operations.children.push(`${version}/operations/backwards-compatibility`);
+    }
     case '/1.2.2':
     {
       operations.children.push(`${version}/operations/replication`);
