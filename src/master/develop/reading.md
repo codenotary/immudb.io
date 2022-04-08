@@ -403,3 +403,152 @@ If you're using another development language, please refer to the [immugw](/mast
 :::
 
 ::::
+
+### Conditional writes
+
+Immudb can check additional preconditions before the write operation is made.
+Precondition is checked atomically with the write operation.
+It can be then used to ensure consistent state of data inside the database.
+
+Following preconditions are supported:
+
+* MustExist - precondition checks if given key exists in the database,
+  this precondition takes into consideration logical deletion and data expiration,
+  if the entry was logically deleted or has expired, MustExist precondition for
+  such entry will fail
+* MustNotExist - precondition checks if given key does not exist in the database,
+  this precondition also takes into consideration logical deletion and data expiration,
+  if the entry was logically deleted or has expired, MustNotExist precondition for
+  such entry will succeed
+* NotModifiedAfterTX - precondition checks if given key was not modified after given transaction id,
+  local deletion and setting entry with expiration data is also considered modification of the
+  entry
+
+Entries used in precondition do not have to overlap with keys to be written.
+This allows one to create much more complex constraints such as ability to write only one key from a group of keys.
+
+A write operation using precondition can not be done in an asynchronous way.
+Preconditions are checked twice when processing such requests - first check is done
+against the current state of internal index, the second check is done just before
+persisting the write and requires up-to-date index.
+
+Preconditions are available on `SetAll`, `Reference` and `ExecAll` operations.
+
+:::: tabs
+
+::: tab Go
+
+In go sdk, the `schema` package contains convenient wrappers for creating constraint objects,
+such as `schema.PreconditionKeyMustNotExist`.
+
+#### Example - ensure modification is done atomically when there are concurrent writers
+
+```go
+entry, err := c.Get(ctx, []byte("key"))
+if err != nil {
+    log.Fatal(err)
+}
+
+newValue := modifyValue(entry.Value)
+
+_, err = c.SetAll(ctx, &schema.SetRequest{
+    KVs: []*schema.KeyValue{{
+        Key:   []byte("key"),
+        Value: newValue,
+    }},
+    Preconditions: []*schema.Precondition{
+        schema.PreconditionKeyNotModifiedAfterTX(
+            []byte("key"),
+            entry.Tx,
+        ),
+    },
+})
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Example - allow setting the key only once
+
+```go
+tx, err := client.SetAll(ctx, &schema.SetRequest{
+    KVs: []*schema.KeyValue{
+        {Key: []byte("key"), Value: []byte("val")},
+    },
+    Preconditions: []*schema.Precondition{
+        schema.PreconditionKeyMustNotExist([]byte("key")),
+    },
+})
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Example - set only one key in a group of keys
+
+```go
+tx, err := client.SetAll(ctx, &schema.SetRequest{
+    KVs: []*schema.KeyValue{
+        {Key: []byte("key1"), Value: []byte("val1")},
+    },
+    Preconditions: []*schema.Precondition{
+        schema.PreconditionKeyMustNotExist([]byte("key2")),
+        schema.PreconditionKeyMustNotExist([]byte("key3")),
+        schema.PreconditionKeyMustNotExist([]byte("key4")),
+    },
+})
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Example - check if returned error indicates precondition failure
+
+```go
+import (
+    immuerrors "github.com/codenotary/immudb/pkg/client/errors"
+)
+
+...
+
+tx, err := client.SetAll(ctx, &schema.SetRequest{
+    KVs: []*schema.KeyValue{
+        {Key: []byte("key"), Value: []byte("val")},
+    },
+    Preconditions: []*schema.Precondition{
+        schema.PreconditionKeyMustExist([]byte("key")),
+    },
+})
+immuErr := immuerrors.FromError(err)
+if immuErr != nil && immuErr.Code() == immuerrors.CodIntegrityConstraintViolation {
+    log.Println("Constraint validation failed")
+}
+```
+
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
