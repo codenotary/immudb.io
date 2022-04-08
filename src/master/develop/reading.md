@@ -12,21 +12,23 @@ It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure th
 :::: tabs
 
 ::: tab Go
+
 ```go
-    tx, err = client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
-	if  err != nil {
-		log.Fatal(err)
-	}
+tx, err = client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
+if  err != nil {
+    log.Fatal(err)
+}
 
-	fmt.Printf("Successfully committed tx %d\n", tx.Id)
+fmt.Printf("Successfully committed tx %d\n", tx.Id)
 
-	entry, err := client.Get(ctx, []byte(`hello`))
-	if  err != nil {
-		log.Fatal(err)
-	}
+entry, err := client.Get(ctx, []byte(`hello`))
+if  err != nil {
+    log.Fatal(err)
+}
 
-	fmt.Printf("Successfully retrieved entry: %v\n", entry)
+fmt.Printf("Successfully retrieved entry: %v\n", entry)
 ```
+
 :::
 
 ::: tab Java
@@ -61,6 +63,7 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -73,17 +76,18 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
 
-	const setReq: Parameters.Set = { key: 'hello', value: 'world' }
-	const setRes = await cl.set(setReq)
-	console.log('success: set', setRes)
+    const setReq: Parameters.Set = { key: 'hello', value: 'world' }
+    const setRes = await cl.set(setReq)
+    console.log('success: set', setRes)
 
-	const getReq: Parameters.Get = { key: 'hello' }
-	const getRes = await cl.get(getReq)
-	console.log('success: get', getRes)
+    const getReq: Parameters.Get = { key: 'hello' }
+    const getRes = await cl.get(getReq)
+    console.log('success: get', getRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -103,19 +107,21 @@ You can retrieve a key on a specific transaction with `VerifiedGetAt` and since 
 :::: tabs
 
 ::: tab Go
-```go
-	ventry, err = client.VerifiedGetAt(ctx, []byte(`key`), meta.Id)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
 
-	ventry, err = client.VerifiedGetSince(ctx, []byte(`key`), 4)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
+```go
+ventry, err = client.VerifiedGetAt(ctx, []byte(`key`), meta.Id)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
+
+ventry, err = client.VerifiedGetSince(ctx, []byte(`key`), 4)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
 ```
+
 :::
 
 ::: tab Java
@@ -161,6 +167,7 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -173,28 +180,29 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	const { id } = await cl.set({ key: 'key', value: 'value' })
+    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+    const { id } = await cl.set({ key: 'key', value: 'value' })
 
-	const verifiedGetAtReq: Parameters.VerifiedGetAt = {
-		key: 'key',
-		attx: id
-	}
-	const verifiedGetAtRes = await cl.verifiedGetAt(verifiedGetAtReq)
-	console.log('success: verifiedGetAt', verifiedGetAtRes)
+    const verifiedGetAtReq: Parameters.VerifiedGetAt = {
+        key: 'key',
+        attx: id
+    }
+    const verifiedGetAtRes = await cl.verifiedGetAt(verifiedGetAtReq)
+    console.log('success: verifiedGetAt', verifiedGetAtRes)
 
-	for (let i = 0; i < 4; i++) {
-		await cl.set({ key: 'key', value: `value-${i}` })
-	}
+    for (let i = 0; i < 4; i++) {
+        await cl.set({ key: 'key', value: `value-${i}` })
+    }
 
-	const verifiedGetSinceReq: Parameters.VerifiedGetSince = {
-		key: 'key',
-		sincetx: 2
-	}
-	const verifiedGetSinceRes = await cl.verifiedGetSince(verifiedGetSinceReq)
-	console.log('success: verifiedGetSince', verifiedGetSinceRes)
+    const verifiedGetSinceReq: Parameters.VerifiedGetSince = {
+        key: 'key',
+        sincetx: 2
+    }
+    const verifiedGetSinceRes = await cl.verifiedGetSince(verifiedGetSinceReq)
+    console.log('success: verifiedGetSince', verifiedGetSinceRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -215,30 +223,32 @@ It's possible to retrieve all the keys inside a specific transaction.
 :::: tabs
 
 ::: tab Go
+
 ```go
-    setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
-		{Key: []byte("key1"), Value: []byte("val1")},
-		{Key: []byte("key2"), Value: []byte("val2")},
-	}}
+setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
+    {Key: []byte("key1"), Value: []byte("val1")},
+    {Key: []byte("key2"), Value: []byte("val2")},
+}}
 
-	meta, err := client.SetAll(ctx, setRequest)
-	if err != nil {
-		log.Fatal(err)
-	}
+meta, err := client.SetAll(ctx, setRequest)
+if err != nil {
+    log.Fatal(err)
+}
 
-	tx , err := client.TxByID(ctx, meta.Id)
-	if err != nil {
-		log.Fatal(err)
-	}
+tx , err := client.TxByID(ctx, meta.Id)
+if err != nil {
+    log.Fatal(err)
+}
 
-	for _, entry := range tx.Entries {
-		item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
-	}
+for _, entry := range tx.Entries {
+    item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
+}
 ```
+
 :::
 
 ::: tab Java
@@ -265,6 +275,7 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -277,14 +288,15 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	const { id } = await cl.set({ key: 'key', value: 'value' })
+    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+    const { id } = await cl.set({ key: 'key', value: 'value' })
 
-	const txByIdReq: Parameters.TxById = { tx: id }
-	const txByIdRes = await cl.txById(txByIdReq)
-	console.log('success: txById', txByIdRes)
+    const txByIdReq: Parameters.TxById = { tx: id }
+    const txByIdRes = await cl.txById(txByIdReq)
+    console.log('success: txById', txByIdRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -305,30 +317,32 @@ It's possible to retrieve all the keys inside a specific verified transaction.
 :::: tabs
 
 ::: tab Go
+
 ```go
-    setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
-		{Key: []byte("key1"), Value: []byte("val1")},
-		{Key: []byte("key2"), Value: []byte("val2")},
-	}}
+setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
+    {Key: []byte("key1"), Value: []byte("val1")},
+    {Key: []byte("key2"), Value: []byte("val2")},
+}}
 
-	meta, err := client.SetAll(ctx, setRequest)
-	if err != nil {
-		log.Fatal(err)
-	}
+meta, err := client.SetAll(ctx, setRequest)
+if err != nil {
+    log.Fatal(err)
+}
 
-	tx , err := client.VerifiedTxByID(ctx, meta.Id)
-	if err != nil {
-		log.Fatal(err)
-	}
+tx , err := client.VerifiedTxByID(ctx, meta.Id)
+if err != nil {
+    log.Fatal(err)
+}
 
-	for _, entry := range tx.Entries {
-		item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
-	}
+for _, entry := range tx.Entries {
+    item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
+}
 ```
+
 :::
 
 ::: tab Java
@@ -355,6 +369,7 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -367,14 +382,15 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-	const { id } = await cl.set({ key: 'key', value: 'value' })
-	
-	const verifiedTxByIdReq: Parameters.VerifiedTxById = { tx: id }
-	const verifiedTxByIdRes = await cl.verifiedTxByID(verifiedTxByIdReq)
-	console.log('success: verifiedTxByID', verifiedTxByIdRes)
+    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+    const { id } = await cl.set({ key: 'key', value: 'value' })
+    
+    const verifiedTxByIdReq: Parameters.VerifiedTxById = { tx: id }
+    const verifiedTxByIdRes = await cl.verifiedTxByID(verifiedTxByIdReq)
+    console.log('success: verifiedTxByID', verifiedTxByIdRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
