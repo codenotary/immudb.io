@@ -20,6 +20,10 @@ err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "d
 if err != nil {
     log.Fatal(err)
 }
+
+defer client.CloseSession(context.TODO())
+
+// do amazing stuff
 ```
 
 The server address and port can be set in client options as follows:
@@ -31,6 +35,10 @@ err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "d
 if err != nil {
     log.Fatal(err)
 }
+
+defer client.CloseSession(context.TODO())
+
+// do amazing stuff
 ```
 :::
 
