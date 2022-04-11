@@ -22,6 +22,16 @@ if err != nil {
 }
 ```
 
+The server address and port can be set in client options as follows:
+```go
+opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+client := immudb.NewClient().WithOptions(opts)
+
+err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+```
 :::
 
 ::: tab Java
