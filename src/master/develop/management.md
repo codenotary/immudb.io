@@ -1,4 +1,5 @@
 # Management operations
+
 ## User management
 
 User management is exposed with following methods:
@@ -44,7 +45,7 @@ Non-admin permissions are:
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
 	if err != nil {
 		log.Fatal(err)
@@ -143,19 +144,22 @@ If you're using another development language, please refer to the [immugw](/mast
 
 <br/>
 
-## Multiple databases
+## Database management
 
 Multi-database support is included in immudb server. Immudb automatically creates an initial database named `defaultdb`.
+
 Managing users and databases requires the appropriate privileges. A user with `PermissionAdmin` rights can manage everything. Non-admin users have restricted access and can only read or write databases to which they have been granted permission.
 
-Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), some settings, such as FileSize, are fixed and cannot be changed.
+Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), following ones are fixed and cannot be changed: FileSize, MaxKeyLen, MaxValueLen, MaxTxEntries and IndexOptions.MaxNodeSize.
+
+### Database creation and selection
+
+This example shows how to create a new database and how to write records to it.
+To create a new database, use `CreateDatabaseV2` method then `UseDatabase` to select the newly created one.
 
 :::: tabs
 
 ::: tab Go
-
-This example shows how to create a new database and how to write records to it.
-To create a new database, use `CreateDatabase` method then `UseDatabase` to select the newly created one.
 
 ```go
 	client, err := immudb.NewClient()
@@ -172,18 +176,12 @@ To create a new database, use `CreateDatabase` method then `UseDatabase` to sele
 
 	defer client.CloseSession(ctx)
 
-	err = client.CreateDatabase(ctx, &schema.Database{
-		Databasename: "myimmutabledb",
+	err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
+		 MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	dbList, err := client.DatabaseList(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("database list: %v", dbList)
 
 	_, err = client.UseDatabase(ctx, &schema.Database{
 		Databasename: "myimmutabledb",
@@ -207,14 +205,12 @@ immuClient.createDatabase("db1");
 immuClient.createDatabase("db2");
 
 immuClient.useDatabase("db1");
+
 try {
     immuClient.set("k0", new byte[]{0, 1, 2, 3});
 } catch (CorruptedDataException e) {
     // ...
 }
-
-List<String> dbs = immuClient.databases();
-// We should have three entries: "defaultdb", "db1", and "db2".
 ```
 
 :::
@@ -242,6 +238,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	const createDatabaseReq: Parameters.CreateDatabase = {
 		databasename: 'myimmutabledb'
 	}
+
 	const createDatabaseRes = await cl.createDatabase(createDatabaseReq)
 	console.log('success: createDatabase', createDatabaseRes)
 
@@ -254,6 +251,209 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	await cl.set('key', 'val')
 })()
 ```
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Database listing
+
+This example shows how to list existent databases using `DatabaseListV2` method.
+
+:::: tabs
+
+::: tab Go
+
+```go
+	client, err := immudb.NewClient()
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	ctx := context.Background()
+	
+	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	defer client.CloseSession(ctx)
+
+	res, err := client.DatabaseListV2(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, db := range res.Databases {
+		fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
+	}
+```
+:::
+
+::: tab Java
+```java
+	List<String> dbs = immuClient.databases();
+	// List of database names
+```
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Database loading/unloading
+
+Databases can be dynamically loaded and unloaded without having to restart the server. After the database is unloaded, all its resources are released. Unloaded databases cannot be queried or written to, but their settings can still be changed.
+Upon startup, the immudb server will automatically load databases with the attribute `Autoload` set to true.
+
+Following example shows how to load and unload a database using `LoadDatabase` and `UnloadDatabase` methods.
+
+:::: tabs
+
+::: tab Go
+
+```go
+	client, err := immudb.NewClient()
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	ctx := context.Background()
+	
+	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	defer client.CloseSession(ctx)
+
+	_, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = client.UseDatabase(ctx, &schema.Database{
+		Databasename: "mydb",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// do amazing stuff
+
+	_, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+:::
+
+::: tab Java
+```java
+	List<String> dbs = immuClient.databases();
+	// List of database names
+```
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Database settings
+
+Database settings can be individually changed using `UpdateDatabaseV2` method.
+
+Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), following ones are fixed and cannot be changed: FileSize, MaxKeyLen, MaxValueLen, MaxTxEntries and IndexOptions.MaxNodeSize.
+
+Note: Replication settings take effect without the need of reloading the database.
+
+Following example shows how to update database using `UpdateDatabaseV2` method.
+
+:::: tabs
+
+::: tab Go
+
+```go
+	client, err := immudb.NewClient()
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	ctx := context.Background()
+	
+	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	defer client.CloseSession(ctx)
+
+	res, err := client.UpdateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
+		TxLogCacheSize: &schema.NullableUint32{Value: 1000},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+:::
+
+::: tab Java
+```java
+	List<String> dbs = immuClient.databases();
+	// List of database names
+```
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab .Net
