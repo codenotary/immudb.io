@@ -21,21 +21,30 @@ Non-admin permissions are:
 
 ::: tab Go
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
+	client, err := immudb.NewClient()
 	if err != nil {
-		log.Fatal(err)
+    	log.Fatal(err)
 	}
+
 	ctx := context.Background()
-	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+	
+	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	defer client.CloseSession(ctx)
 
 	err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
 	if err != nil {
 		log.Fatal(err)
 	}
+	
 	err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
 	if err != nil {
 		log.Fatal(err)
@@ -136,11 +145,10 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ## Multiple databases
 
-Starting with version 0.7.0 of immudb, we introduced multi-database support.
-By default, the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
-Handling users and databases requires the appropriate privileges.
-Users with `PermissionAdmin` can control everything. Non-admin users have restricted permissions and can read or write only their databases, assuming sufficient privileges.
-> Each database has default MaxValueLen and MaxKeyLen values. These are fixed respectively to 1MB and 1KB. These values at the moment are not exposed to client SDK and can be modified using internal store options.
+Multi-database support is included in immudb server. Immudb automatically creates an initial database named `defaultdb`.
+Managing users and databases requires the appropriate privileges. A user with `PermissionAdmin` rights can manage everything. Non-admin users have restricted access and can only read or write databases to which they have been granted permission.
+
+Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), some settings, such as FileSize, are fixed and cannot be changed.
 
 :::: tabs
 
@@ -150,12 +158,19 @@ This example shows how to create a new database and how to write records to it.
 To create a new database, use `CreateDatabase` method then `UseDatabase` to select the newly created one.
 
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
+	client, err := immudb.NewClient()
 	if err != nil {
-		log.Fatal(err)
+    	log.Fatal(err)
 	}
+
 	ctx := context.Background()
-	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+	
+	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+    	log.Fatal(err)
+	}
+
+	defer client.CloseSession(ctx)
 
 	err = client.CreateDatabase(ctx, &schema.Database{
 		Databasename: "myimmutabledb",
@@ -163,6 +178,7 @@ To create a new database, use `CreateDatabase` method then `UseDatabase` to sele
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	dbList, err := client.DatabaseList(ctx)
 	if err != nil {
 		log.Fatal(err)
@@ -175,6 +191,7 @@ To create a new database, use `CreateDatabase` method then `UseDatabase` to sele
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	// writing in myimmutabledb
 	_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
 	if err != nil {
@@ -252,7 +269,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 <br/>
 
-## Full and partial index cleaning
+## Index cleaning
 
 Maintaining a healthy disk usage is crucial. immudb has two operations operations aiming to remove unreferenced data from the index.
 A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. The index is generated asynchronous, so new transactions may take place as it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
