@@ -36,7 +36,7 @@
 	display flex
 	flex-flow column
 	align-items center
-	background-color $cn-color-primary_light
+	background-color $cn-color-light
 	border-radius $cn-border-radius-lg
 	padding 20px
 	//height 195px
