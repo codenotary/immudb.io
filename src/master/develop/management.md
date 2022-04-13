@@ -22,34 +22,34 @@ Non-admin permissions are:
 
 ::: tab Go
 ```go
-	client, err := immudb.NewClient()
-	if err != nil {
-    	log.Fatal(err)
-	}
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	ctx := context.Background()
-	
-	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-	if err != nil {
-    	log.Fatal(err)
-	}
+ctx := context.Background()
 
-	defer client.CloseSession(ctx)
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
-	if err != nil {
-		log.Fatal(err)
-	}
+defer client.CloseSession(ctx)
 
-	err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
-	if err != nil {
-		log.Fatal(err)
-	}
+err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
-	if err != nil {
-		log.Fatal(err)
-	}
+err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
+if err != nil {
+    log.Fatal(err)
+}
+
+err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
@@ -162,39 +162,39 @@ To create a new database, use `CreateDatabaseV2` method then `UseDatabase` to se
 ::: tab Go
 
 ```go
-	client, err := immudb.NewClient()
-	if err != nil {
-    	log.Fatal(err)
-	}
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	ctx := context.Background()
-	
-	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-	if err != nil {
-    	log.Fatal(err)
-	}
+ctx := context.Background()
 
-	defer client.CloseSession(ctx)
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
-		 MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+defer client.CloseSession(ctx)
 
-	_, err = client.UseDatabase(ctx, &schema.Database{
-		Databasename: "myimmutabledb",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
+    MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
+})
+if err != nil {
+    log.Fatal(err)
+}
 
-	// writing in myimmutabledb
-	_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
-	if err != nil {
-		log.Fatal(err)
-	}
+_, err = client.UseDatabase(ctx, &schema.Database{
+    Databasename: "myimmutabledb",
+})
+if err != nil {
+    log.Fatal(err)
+}
+
+// writing in myimmutabledb
+_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
@@ -273,35 +273,35 @@ This example shows how to list existent databases using `DatabaseListV2` method.
 ::: tab Go
 
 ```go
-	client, err := immudb.NewClient()
-	if err != nil {
-    	log.Fatal(err)
-	}
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	ctx := context.Background()
-	
-	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-	if err != nil {
-    	log.Fatal(err)
-	}
+ctx := context.Background()
 
-	defer client.CloseSession(ctx)
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	res, err := client.DatabaseListV2(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+defer client.CloseSession(ctx)
 
-	for _, db := range res.Databases {
-		fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
-	}
+res, err := client.DatabaseListV2(ctx)
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, db := range res.Databases {
+    fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
+}
 ```
 :::
 
 ::: tab Java
 ```java
-	List<String> dbs = immuClient.databases();
-	// List of database names
+List<String> dbs = immuClient.databases();
+// List of database names
 ```
 :::
 
@@ -329,7 +329,8 @@ If you're using another development language, please refer to the [immugw](/mast
 ### Database loading/unloading
 
 Databases can be dynamically loaded and unloaded without having to restart the server. After the database is unloaded, all its resources are released. Unloaded databases cannot be queried or written to, but their settings can still be changed.
-Upon startup, the immudb server will automatically load databases with the attribute `Autoload` set to true.
+Upon startup, the immudb server will automatically load databases with the attribute `Autoload` set to true. If a user-created database cannot be loaded successfully, it remains closed, but the server continues to run normally.
+As a default, autoloading is enabled when creating a database, but it can be disabled during creation or turned on/off at any time thereafter.
 
 Following example shows how to load and unload a database using `LoadDatabase` and `UnloadDatabase` methods.
 
@@ -338,46 +339,44 @@ Following example shows how to load and unload a database using `LoadDatabase` a
 ::: tab Go
 
 ```go
-	client, err := immudb.NewClient()
-	if err != nil {
-    	log.Fatal(err)
-	}
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	ctx := context.Background()
-	
-	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-	if err != nil {
-    	log.Fatal(err)
-	}
+ctx := context.Background()
 
-	defer client.CloseSession(ctx)
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	_, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
-	if err != nil {
-		log.Fatal(err)
-	}
+defer client.CloseSession(ctx)
 
-	_, err = client.UseDatabase(ctx, &schema.Database{
-		Databasename: "mydb",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+_, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
+if err != nil {
+    log.Fatal(err)
+}
 
-	// do amazing stuff
+_, err = client.UseDatabase(ctx, &schema.Database{
+    Databasename: "mydb",
+})
+if err != nil {
+    log.Fatal(err)
+}
 
-	_, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
-	if err != nil {
-		log.Fatal(err)
-	}
+// do amazing stuff
+
+_, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
 ::: tab Java
-```java
-	List<String> dbs = immuClient.databases();
-	// List of database names
-```
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
@@ -416,34 +415,32 @@ Following example shows how to update database using `UpdateDatabaseV2` method.
 ::: tab Go
 
 ```go
-	client, err := immudb.NewClient()
-	if err != nil {
-    	log.Fatal(err)
-	}
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	ctx := context.Background()
+ctx := context.Background()
 	
-	err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-	if err != nil {
-    	log.Fatal(err)
-	}
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
 
-	defer client.CloseSession(ctx)
+defer client.CloseSession(ctx)
 
-	res, err := client.UpdateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
-		TxLogCacheSize: &schema.NullableUint32{Value: 1000},
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+res, err := client.UpdateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
+    TxLogCacheSize: &schema.NullableUint32{Value: 1000},
+})
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
 ::: tab Java
-```java
-	List<String> dbs = immuClient.databases();
-	// List of database names
-```
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
@@ -472,8 +469,8 @@ If you're using another development language, please refer to the [immugw](/mast
 ## Index cleaning
 
 Maintaining a healthy disk usage is crucial. immudb has two operations operations aiming to remove unreferenced data from the index.
-A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. The index is generated asynchronous, so new transactions may take place as it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
-In the case of continuous load on the server, the `FlushIndex` operation may be used instead. It will dump the current index into disk while partly removing unreferenced data. The `cleanupPercentage` attribute indicates how much space will be released. Even though this operation blocks transaction processing, choosing a small percentage e.g. 0.1 may not significantly hinder normal operations while reducing used storage space. 
+A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. The index is generated asynchronously, so new transactions may take place while it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
+In the case of continuous load on the server, the `FlushIndex` operation may be used instead. It will dump the current index into disk while partly removing unreferenced data. The `cleanupPercentage` attribute indicates how much space will be scanned for unreferenced data. Even though this operation blocks transaction processing, choosing a small percentage e.g. 0.1 may not significantly hinder normal operations while reducing used storage space. 
 
 Partially compaction may be triggered automatically by immudb. Database settings can be modified to set the `cleanupPercentage` attribute to non-zero in order to accomplish this.
 
@@ -489,14 +486,15 @@ The btree and clean up process is something specific to indexing. And will not l
 
 ::: tab Go
 ```go
-	err = client.CompactIndex(ctx, &emptypb.Empty{})
-	// error handling
+// full async index cleanup
+err = client.CompactIndex(ctx, &emptypb.Empty{})
+// error handling
 
-	err = client.FlushIndex(ctx, &schema.FlushIndexRequest{
-		CleanupPercentage: 0.1,
-		Synced:            true,
-	}))
-	// error handling
+// partial index cleanup
+err = client.FlushIndex(ctx, &schema.FlushIndexRequest{
+    CleanupPercentage: 0.1,
+	Synced:            false, // if true, fsync after writing data to avoid index regeneration in the case of an unexpected crash
+// error handling
 ```
 :::
 
@@ -536,7 +534,7 @@ HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 ::: tab Go
 ```go
-    err = client.HealthCheck(ctx)
+err = client.HealthCheck(ctx)
 ```
 :::
 
