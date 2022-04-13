@@ -62,7 +62,10 @@ When immudb is first run, it is ready to use immediately with the default databa
 - Database name: defaultdb
 - User: immudb
 - Password: immudb
+- Address: 127.0.0.1
 - Port: 3322
+
+`./immudb --help` displays and describes all options available.
 
 Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:
 
