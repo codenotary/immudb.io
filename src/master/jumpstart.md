@@ -12,15 +12,9 @@ To learn how to develop for immudb with Python in a guided online environment, v
 
 <WrappedSection>
 
-## Clients
+## SDKs
 
 In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
-
-</WrappedSection>
-
-<WrappedSection>
-
-## SDKs
 
 SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
 
@@ -38,14 +32,10 @@ The most well-known and recommended immudb SDK is written in [Golang](https://go
 | `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.2.1       |   [link](https://github.com/ankane/immudb-ruby) |Verification is not working                 |
 
 
-
-
 For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
  
 
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
-
-
 
 <div class="wrapped-picture">
 
@@ -53,38 +43,8 @@ The immudb server manages the requests from the outside world to the store. In o
 
 </div>
 
-
-
-
 </WrappedSection>
 
-<WrappedSection>
-
-## Getting immudb running
-
-You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.0.0 for linux amd64:
-
-```bash
-wget https://github.com/vchain-us/immudb/releases/download/v1.0.0/immudb-v1.0.0-linux-amd64
-mv immudb-v1.0.0-linux-amd64 immudb
-chmod +x immudb
-
-# run immudb in the foreground to see all output
-./immudb
-
-# or run immudb in the background
-./immudb -d
-```
-
-Alternatively, you may use Docker to run immudb in a ready-to-use container. In a terminal type:
-
-```bash
-docker run -ti -p 3322:3322 codenotary/immudb:latest
-```
-
-(you can add the `-d --rm --name immudb` options to send it to the background).
-
-</WrappedSection>
 
 ## Connecting from your programming language
 
@@ -224,7 +184,11 @@ import (
  immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-client, err := immudb.NewClient()
+opts := immudb.DefaultOptions().
+            WithAddress("localhost").
+            WithPort(3322)
+
+client := immudb.NewClient().WithOptions(opts)
 if err != nil {
     log.Fatal(err)
 }
@@ -323,18 +287,18 @@ You can write with built-in cryptographic verification. The client implements th
 
 ```go
 vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
- if  err != nil {
-  log.Fatal(err)
- }
+if err != nil {
+    log.Fatal(err)
+}
 
- fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
+fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
 
- ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
- if  err != nil {
-  log.Fatal(err)
- }
+ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
+if err != nil {
+    log.Fatal(err)
+}
  
- fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
+fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
 :::
@@ -417,10 +381,10 @@ To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecReq
 This is also how you perform inserts:
 
 ```go
- _, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
- if err != nil {
-  log.Fatal(err)
- }
+_, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
+if err != nil {
+    log.Fatal(err)
+}
 ```
 
 Once you have data in the database, you can use the `SQLQuery` method of the client to query.
@@ -428,20 +392,20 @@ Once you have data in the database, you can use the `SQLQuery` method of the cli
 Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values:
 
 ```go
- res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
- if err != nil {
-  log.Fatal(err)
- }
+res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
+if err != nil {
+    log.Fatal(err)
+}
 ```
 
 `res` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `res.Rows`. On each iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
 
 ```go
- for _, r := range res.Rows {
-  for _, v := range r.Values {
-   log.Printf("%s\n", schema.RenderValue(v.Value))
-  }
- }
+for _, r := range res.Rows {
+    for _, v := range r.Values {
+        log.Printf("%s\n", schema.RenderValue(v.Value))
+    }
+}
 ```
 
 ### Additional resources
