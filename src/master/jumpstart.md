@@ -100,11 +100,12 @@ In order to use the SDK, you need to download and import the libraries:
 # Make sure your project is using Go Modules
 go mod init example.com/hello
 #go get github.com/codenotary/immudb/pkg/client
+```
 
 ```go
 // Then import the package
 import (
- immuclient "github.com/codenotary/immudb/pkg/client"
+    immudb "github.com/codenotary/immudb/pkg/client"
 )
  ```
 
@@ -227,10 +228,15 @@ client, err := immudb.NewClient()
 if err != nil {
     log.Fatal(err)
 }
+
 err = client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
+
+defer client.CloseSession(context.TODO())
+
+// do amazing stuff
 ```
 
 :::
@@ -316,16 +322,18 @@ You can write with built-in cryptographic verification. The client implements th
 ::: tab Go
 
 ```go
-    vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
+vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
  if  err != nil {
   log.Fatal(err)
  }
+
  fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
 
  ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
  if  err != nil {
   log.Fatal(err)
  }
+ 
  fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
@@ -381,11 +389,15 @@ c, err := immudb.NewClient()
 if err != nil {
     log.Fatal(err)
 }
+
 err = c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
 
+defer c.CloseSession(context.TODO())
+
+// do amazing stuff
 ```
 
 To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:

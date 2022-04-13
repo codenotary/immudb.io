@@ -20,8 +20,26 @@ err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "d
 if err != nil {
     log.Fatal(err)
 }
+
+defer client.CloseSession(context.TODO())
+
+// do amazing stuff
 ```
 
+The server address and port can be set in client options as follows:
+```go
+opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+client := immudb.NewClient().WithOptions(opts)
+
+err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(context.TODO())
+
+// do amazing stuff
+```
 :::
 
 ::: tab Java
@@ -92,19 +110,19 @@ This generates a list of folders containing certificates and private keys to set
 ::: tab Go
 
 ```go
- c := immudb.NewClient().WithOptions(
-immudb.DefaultOptions().WithMTLsOptions(
-immudb.MTLsOptions{}.WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
-    WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
-    WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
-    WithServername("localhost"),
-    ).
-   WithMTLs(true),
-  )
- if err != nil {
-  log.Fatal(err)
- }
-c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+opts := immudb.DefaultOptions().
+		WithMTLs(true).
+		WithMTLsOptions(
+			immudb.MTLsOptions{}.
+                WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
+				WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
+				WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
+				WithServername("localhost"),
+		)
+
+client := immudb.NewClient().WithOptions(opts)
+
+// do amazing stuff
 ```
 
 :::

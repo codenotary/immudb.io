@@ -1,4 +1,5 @@
 # Management operations
+
 ## User management
 
 User management is exposed with following methods:
@@ -21,25 +22,34 @@ Non-admin permissions are:
 
 ::: tab Go
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
-	if err != nil {
-		log.Fatal(err)
-	}
+ctx := context.Background()
+
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(ctx)
+
+err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
+if err != nil {
+    log.Fatal(err)
+}
+
+err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
@@ -134,52 +144,57 @@ If you're using another development language, please refer to the [immugw](/mast
 
 <br/>
 
-## Multiple databases
+## Database management
 
-Starting with version 0.7.0 of immudb, we introduced multi-database support.
-By default, the first database is either called `defaultdb` or based on the environment variable `IMMUDB_DBNAME`.
-Handling users and databases requires the appropriate privileges.
-Users with `PermissionAdmin` can control everything. Non-admin users have restricted permissions and can read or write only their databases, assuming sufficient privileges.
-> Each database has default MaxValueLen and MaxKeyLen values. These are fixed respectively to 1MB and 1KB. These values at the moment are not exposed to client SDK and can be modified using internal store options.
+Multi-database support is included in immudb server. Immudb automatically creates an initial database named `defaultdb`.
+
+Managing users and databases requires the appropriate privileges. A user with `PermissionAdmin` rights can manage everything. Non-admin users have restricted access and can only read or write databases to which they have been granted permission.
+
+Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), following ones are fixed and cannot be changed: FileSize, MaxKeyLen, MaxValueLen, MaxTxEntries and IndexOptions.MaxNodeSize.
+
+### Database creation and selection
+
+This example shows how to create a new database and how to write records to it.
+To create a new database, use `CreateDatabaseV2` method then `UseDatabase` to select the newly created one.
 
 :::: tabs
 
 ::: tab Go
 
-This example shows how to create a new database and how to write records to it.
-To create a new database, use `CreateDatabase` method then `UseDatabase` to select the newly created one.
-
 ```go
-	client, err := c.NewImmuClient(c.DefaultOptions())
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	_ , err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
 
-	err = client.CreateDatabase(ctx, &schema.Database{
-		Databasename: "myimmutabledb",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	dbList, err := client.DatabaseList(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("database list: %v", dbList)
+ctx := context.Background()
 
-	_, err = client.UseDatabase(ctx, &schema.Database{
-		Databasename: "myimmutabledb",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	// writing in myimmutabledb
-	_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
-	if err != nil {
-		log.Fatal(err)
-	}
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(ctx)
+
+err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
+    MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
+})
+if err != nil {
+    log.Fatal(err)
+}
+
+_, err = client.UseDatabase(ctx, &schema.Database{
+    Databasename: "myimmutabledb",
+})
+if err != nil {
+    log.Fatal(err)
+}
+
+// writing in myimmutabledb
+_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
+if err != nil {
+    log.Fatal(err)
+}
 ```
 :::
 
@@ -190,14 +205,12 @@ immuClient.createDatabase("db1");
 immuClient.createDatabase("db2");
 
 immuClient.useDatabase("db1");
+
 try {
     immuClient.set("k0", new byte[]{0, 1, 2, 3});
 } catch (CorruptedDataException e) {
     // ...
 }
-
-List<String> dbs = immuClient.databases();
-// We should have three entries: "defaultdb", "db1", and "db2".
 ```
 
 :::
@@ -225,6 +238,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	const createDatabaseReq: Parameters.CreateDatabase = {
 		databasename: 'myimmutabledb'
 	}
+
 	const createDatabaseRes = await cl.createDatabase(createDatabaseReq)
 	console.log('success: createDatabase', createDatabaseRes)
 
@@ -250,11 +264,215 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
+### Database listing
+
+This example shows how to list existent databases using `DatabaseListV2` method.
+
+:::: tabs
+
+::: tab Go
+
+```go
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
+
+ctx := context.Background()
+
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(ctx)
+
+res, err := client.DatabaseListV2(ctx)
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, db := range res.Databases {
+    fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
+}
+```
+:::
+
+::: tab Java
+```java
+List<String> dbs = immuClient.databases();
+// List of database names
+```
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Database loading/unloading
+
+Databases can be dynamically loaded and unloaded without having to restart the server. After the database is unloaded, all its resources are released. Unloaded databases cannot be queried or written to, but their settings can still be changed.
+Upon startup, the immudb server will automatically load databases with the attribute `Autoload` set to true. If a user-created database cannot be loaded successfully, it remains closed, but the server continues to run normally.
+As a default, autoloading is enabled when creating a database, but it can be disabled during creation or turned on/off at any time thereafter.
+
+Following example shows how to load and unload a database using `LoadDatabase` and `UnloadDatabase` methods.
+
+:::: tabs
+
+::: tab Go
+
+```go
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
+
+ctx := context.Background()
+
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(ctx)
+
+_, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
+if err != nil {
+    log.Fatal(err)
+}
+
+_, err = client.UseDatabase(ctx, &schema.Database{
+    Databasename: "mydb",
+})
+if err != nil {
+    log.Fatal(err)
+}
+
+// do amazing stuff
+
+_, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
+if err != nil {
+    log.Fatal(err)
+}
+```
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Database settings
+
+Database settings can be individually changed using `UpdateDatabaseV2` method.
+
+Each database can be configured with a variety of settings. While some values can be changed at any time (though it may require a database reload to take effect), following ones are fixed and cannot be changed: FileSize, MaxKeyLen, MaxValueLen, MaxTxEntries and IndexOptions.MaxNodeSize.
+
+Note: Replication settings take effect without the need of reloading the database.
+
+Following example shows how to update database using `UpdateDatabaseV2` method.
+
+:::: tabs
+
+::: tab Go
+
+```go
+client, err := immudb.NewClient()
+if err != nil {
+    log.Fatal(err)
+}
+
+ctx := context.Background()
+	
+err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+if err != nil {
+    log.Fatal(err)
+}
+
+defer client.CloseSession(ctx)
+
+res, err := client.UpdateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
+    TxLogCacheSize: &schema.NullableUint32{Value: 1000},
+})
+if err != nil {
+    log.Fatal(err)
+}
+```
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
 <br/>
 
-## Index Cleaning
+## Index cleaning
 
-It's important to keep disk usage under control. `CleanIndex` it's a temporary solution to launch an internal clean routine that could free disk space.
+Maintaining a healthy disk usage is crucial. immudb has two operations operations aiming to remove unreferenced data from the index.
+A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. The index is generated asynchronously, so new transactions may take place while it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
+In the case of continuous load on the server, the `FlushIndex` operation may be used instead. It will dump the current index into disk while partly removing unreferenced data. The `cleanupPercentage` attribute indicates how much space will be scanned for unreferenced data. Even though this operation blocks transaction processing, choosing a small percentage e.g. 0.1 may not significantly hinder normal operations while reducing used storage space. 
+
+Partially compaction may be triggered automatically by immudb. Database settings can be modified to set the `cleanupPercentage` attribute to non-zero in order to accomplish this.
 
 > immudb uses a btree to index key-value entries. While the key is the same submitted by the client, the value stored in the btree is an offset to the file where the actual value as stored, its size and hash value.
 The btree is keep in memory as new data is inserted, getting a key or even the historical values of a key can directly be made by using a mutex lock on the btree but scanning by prefix requires the tree to be stored into disk, this is referred as a snapshot.
@@ -263,11 +481,20 @@ The snapshot creation does not necessarily take place upon each scan by prefix, 
 After some time, several snapshots may be created (specified by flushAfter properties of the btree and the scan requests), the file backing the btree will hold several old snapshots. Thus the clean index process will dump to a different location only the latest snapshot but in this case also writing the unmodified nodes. Once that dump is done, the index folder is replaced by the new one.
 While the clean process is made, no data is indexed and there will be an extra disk space requirement due to the new dump. Once completed, a considerable disk space will be reduced by removing the previously indexed data (older snapshots).
 The btree and clean up process is something specific to indexing. And will not lock transaction processing as indexing is asynchronously generated.
+
 :::: tabs
 
 ::: tab Go
 ```go
-	client.CleanIndex(ctx, &emptypb.Empty{})
+// full async index cleanup
+err = client.CompactIndex(ctx, &emptypb.Empty{})
+// error handling
+
+// partial index cleanup
+err = client.FlushIndex(ctx, &schema.FlushIndexRequest{
+    CleanupPercentage: 0.1,
+	Synced:            false, // if true, fsync after writing data to avoid index regeneration in the case of an unexpected crash
+// error handling
 ```
 :::
 
@@ -307,7 +534,7 @@ HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 ::: tab Go
 ```go
-    err = client.HealthCheck(ctx)
+err = client.HealthCheck(ctx)
 ```
 :::
 
