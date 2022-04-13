@@ -424,8 +424,12 @@ Following preconditions are supported:
   local deletion and setting entry with expiration data is also considered modification of the
   entry
 
-Entries used in precondition do not have to overlap with keys to be written.
-This allows one to create much more complex constraints such as ability to write only one key from a group of keys.
+In many cases, keys used for constraints will be the same as keys for written entries.
+A good example here is a situation when a value is set only if that key does not exist.
+This is not strictly required - keys used in constraints do not have to be the same
+or even overlap with keys for modified entries. An example would be if only one of
+two keys should exist in the database. In such case, the first key will be modified
+and the second key will be used for MustNotExist constraint.
 
 A write operation using precondition can not be done in an asynchronous way.
 Preconditions are checked twice when processing such requests - first check is done
