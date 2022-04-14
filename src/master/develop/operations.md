@@ -102,7 +102,7 @@ from immudb.client import PersistentRootService
 # By default RootService is writing state to RAM
 # You can choose different implementation of RootService
 
-# Persistent root service will save to the disk every verified transaction
+# Persistent root service will save to the disk after every verified transaction
 
 URL = "localhost:3322"  # immudb running on your machine
 LOGIN = "immudb"        # Default username
