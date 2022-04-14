@@ -268,7 +268,7 @@ def main():
         b'aac': b'2',
         b'aac:test1': b'3',
         b'aac:test2': b'1',
-		b'aac:xxx:test': b'2'
+        b'aac:xxx:test': b'2'
     }
     client.setAll(toSet)
     
