@@ -56,8 +56,79 @@ Also, `set` method is overloaded to allow receiving the `key` parameter as a `by
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+import json
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def encode(what: str):
+    return what.encode("utf-8")
+
+def decode(what: bytes):
+    return what.decode("utf-8")
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    
+    # You have to operate on bytes
+    setResult = client.set(b'x', b'y')
+    print(setResult)            # immudb.datatypes.SetResponse
+    print(setResult.id)         # id of transaction
+    print(setResult.verified)   # in this case verified = False
+								# see Tamperproof reading and writing
+
+    # Also you get response in bytes
+    retrieved = client.get(b'x')
+    print(retrieved)        # immudb.datatypes.GetResponse
+    print(retrieved.key)    # Value is b'x'
+    print(retrieved.value)  # Value is b'y'
+    print(retrieved.tx)     # Transaction number
+
+    print(type(retrieved.key))      # <class 'bytes'>
+    print(type(retrieved.value))    # <class 'bytes'>
+
+    # Operating with strings
+    encodedHello = encode("Hello")
+    encodedImmutable = encode("Immutable")
+    client.set(encodedHello, encodedImmutable)
+    retrieved = client.get(encodedHello)
+
+    print(decode(retrieved.value) == "Immutable")   # Value is True
+
+    notExisting = client.get(b'asdasd')
+    print(notExisting)                              # Value is None
+
+
+    # JSON example
+    toSet = {"hello": "immutable"}
+    encodedToSet = encode(json.dumps(toSet))
+    client.set(encodedHello, encodedToSet)
+
+    retrieved = json.loads(decode(client.get(encodedHello).value))
+    print(retrieved)    # Value is {"hello": "immutable"}
+
+    # setAll example - sets all keys to value from dictionary
+    toSet = {
+        b'1': b'test1',
+        b'2': b'test2',
+        b'3': b'test3'
+    }
+
+    client.setAll(toSet)
+    retrieved = client.getAll(list(toSet.keys()))
+    print(retrieved) 
+    # Value is {b'1': b'test1', b'2': b'test2', b'3': b'test3'}
+
+
+if __name__ == "__main__":
+    main()
+```
+
 :::
 
 ::: tab Node.js
@@ -156,8 +227,64 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+
+Python immudb sdk currently doesn't support `VerifiedGetSince` method
+
+```python
+from grpc import RpcError
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    first = client.set(b'justfirsttransaction', b'justfirsttransaction')
+
+    key = b'123123'
+
+    first = client.set(key, b'111')
+    firstTransaction = first.id
+
+    second = client.set(key, b'222')
+    secondTransaction = second.id
+
+    third = client.set(key, b'333')
+    thirdTransaction = third.id
+
+    try:
+        # This key wasn't set on this transaction
+        print(client.verifiedGetAt(key, firstTransaction - 1))
+    except RpcError as exception:
+        print(exception.debug_error_string())
+        print(exception.details())
+
+    verifiedFirst = client.verifiedGetAt(key, firstTransaction) 
+                                    # immudb.datatypes.SafeGetResponse
+    print(verifiedFirst.id)         # id of transaction
+    print(verifiedFirst.key)        # Key that was modified
+    print(verifiedFirst.value)      # Value after this transaction
+    print(verifiedFirst.refkey)     # Reference key
+									# (Queries And History -> setReference)
+    print(verifiedFirst.verified)   # Response is verified or not
+    print(verifiedFirst.timestamp)  # Time of this transaction
+
+    print(client.verifiedGetAt(key, secondTransaction))
+    print(client.verifiedGetAt(key, thirdTransaction))
+
+    try:
+        # Transaction doesn't exists yet
+        print(client.verifiedGetAt(key, thirdTransaction + 1))
+    except RpcError as exception:
+        print(exception.debug_error_string())
+        print(exception.details())
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -260,8 +387,48 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+
+    keyFirst = b'333'
+    keySecond = b'555'
+
+    first = client.set(keyFirst, b'111')
+    firstTransaction = first.id
+
+    second = client.set(keySecond, b'222')
+    secondTransaction = second.id
+
+    toSet = {
+        b'1': b'test1',
+        b'2': b'test2',
+        b'3': b'test3'
+    }
+
+    third = client.setAll(toSet)
+    thirdTransaction = third.id
+
+    keysAtFirst = client.txById(firstTransaction)
+    keysAtSecond = client.txById(secondTransaction)
+    keysAtThird = client.txById(thirdTransaction)
+
+    print(keysAtFirst)  # [b'333']
+    print(keysAtSecond) # [b'555']
+    print(keysAtThird)  # [b'1', b'2', b'3']
+
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -350,8 +517,48 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    
+    keyFirst = b'333'
+    keySecond = b'555'
+
+    first = client.set(keyFirst, b'111')
+    firstTransaction = first.id
+
+    second = client.set(keySecond, b'222')
+    secondTransaction = second.id
+
+    toSet = {
+        b'1': b'test1',
+        b'2': b'test2',
+        b'3': b'test3'
+    }
+
+    third = client.setAll(toSet)
+    thirdTransaction = third.id
+
+    keysAtFirst = client.verifiedTxById(firstTransaction)
+    keysAtSecond = client.verifiedTxById(secondTransaction)
+    keysAtThird = client.verifiedTxById(thirdTransaction)
+
+    print(keysAtFirst)  # [b'333']
+    print(keysAtSecond) # [b'555']
+    print(keysAtThird)  # [b'1', b'2', b'3']
+
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js

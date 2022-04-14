@@ -95,8 +95,32 @@ immuClient.logout();
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+from immudb.client import PersistentRootService
+
+# By default RootService is writing state to RAM
+# You can choose different implementation of RootService
+
+# Persistent root service will save to the disk every verified transaction
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+PERSISTENT_ROOT_SERVICE_PATH = "/tmp/psr.db" 
+
+def main():
+    client = ImmudbClient(URL, rs = PersistentRootService(PERSISTENT_ROOT_SERVICE_PATH))
+    client.login(LOGIN, PASSWORD, database = DB)
+    client.verifiedSet(b'x', b'1')
+    client.verifiedGet(b'x')
+    client.verifiedSet(b'x', b'2')
+    client.verifiedGet(b'x')
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -179,8 +203,35 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+# All operations are checked against public/private key pair
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+KEYFILE = "public_signing_key.pem"  # Public key path 
+                                    # needs immudb server with --signingKey option enabled
+                                    # pointing to corresponding private key
+
+def main():
+    client = ImmudbClient(URL, publicKeyFile = KEYFILE)
+    client.login(LOGIN, PASSWORD, database = DB)
+    client.set(b'x', b'1')
+    client.verifiedGet(b'x')    # This operation will also fail if public key
+                                # is not paired with private one used in immudb
+
+    state = client.currentState()   # immudb.rootService.State
+    print(state.db)         # Current selected DB
+    print(state.txId)       # Current transaction ID
+    print(state.txHash)     # Current transaction hash
+    print(state.signature)  # Current signature
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -266,8 +317,41 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    setResponse = client.verifiedSet(b'x', b'1') # immudb.datatypes.SetResponse
+    print(setResponse.id)       # Id of transaction
+    print(setResponse.verified) # Verified by internal validations (True)
+
+    retrieved = client.verifiedGet(b'x') # immudb.datatypes.SafeGetResponse
+    print(retrieved.id)         # Entry transaction id
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.value)      # Entry value (b'1')
+    print(retrieved.timestamp)  # Entry timestamp 
+    print(retrieved.verified)   # Is verified by internal validations (True)
+    print(retrieved.refkey)     # Entry reference key (None)
+
+    client.verifiedSetReference(b'x', b'referenceto')
+
+    retrieved = client.verifiedGet(b'referenceto')
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.refkey)     # Entry reference key (b'referenceto')
+
+    if(retrieved.verified):
+        print("Value verified!")
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js

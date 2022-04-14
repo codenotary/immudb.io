@@ -72,8 +72,98 @@ immuClient.changePassword(username, password, "newTestTest123!");
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from grpc import RpcError
+from immudb import ImmudbClient
+from enum import IntEnum
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+class Permission(IntEnum):
+    NONE = 0
+    READ = 1
+    READ_WRITE = 2
+    ADMIN = 254
+    SYS_ADMIN = 255
+
+class PermissionAction(IntEnum):
+    GRANT = 0
+    REVOKE = 1
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    passwordForNewUsers = "Te1st!@#Test"
+    try:
+        client.createUser("tester1", passwordForNewUsers, Permission.READ, DB)
+        client.createUser("tester2", passwordForNewUsers, Permission.READ_WRITE, DB)
+        client.createUser("tester3", passwordForNewUsers, Permission.ADMIN, DB)
+    except RpcError as exception:
+        print(exception.details())
+
+    users = client.listUsers().userlist.users # immudb.handler.listUsers.listUsersResponse
+    for user in users:
+        print("User", user.user)
+        print("Created by", user.createdby)
+        print("Creation date", user.createdat)
+        print("Is active", user.active)
+        for permission in user.permissions:
+            print("Permission", permission.database, Permission(permission.permission))
+        print("---")
+
+    client.login("tester3", passwordForNewUsers, DB)
+    client.changePermission(PermissionAction.GRANT, "tester2", DB, Permission.ADMIN)
+    client.changePermission(PermissionAction.REVOKE, "tester2", DB, Permission.ADMIN)
+
+    # Changing password
+    client.changePassword("tester1", "N1ewpassword!", passwordForNewUsers)
+
+    # User logs with new password
+    client.login("tester1", "N1ewpassword!")
+
+    client.login("tester3", passwordForNewUsers, DB)
+    client.changePassword("tester1", passwordForNewUsers, "N1ewpassword!")
+    
+
+    client.login("tester1", passwordForNewUsers, DB)
+
+    # No permissions to write
+    try:
+        client.set(b"test", b"test")
+    except RpcError as exception:
+        print(exception.details())
+
+    # But has permissions to read
+    result = client.get(b"test")
+
+    client.login("tester3", passwordForNewUsers, DB)
+
+    # Now will have permissions to write
+    client.changePermission(PermissionAction.GRANT, "tester1", DB, Permission.READ_WRITE)
+    client.login("tester1", passwordForNewUsers, DB)
+    client.set(b"test", b"test")
+    result = client.get(b"test")
+
+    client.login("tester3", passwordForNewUsers, DB)
+
+    # Now will have permissions to nothing
+    client.changePermission(PermissionAction.REVOKE, "tester1", DB, Permission.READ_WRITE)
+
+    try:
+        client.login("tester1", passwordForNewUsers, DB)
+    except RpcError as exception:
+        print(exception.details())
+    
+    client.login("tester3", passwordForNewUsers, DB)
+    client.changePermission(PermissionAction.GRANT, "tester1", DB, Permission.READ_WRITE)
+
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -203,8 +293,30 @@ List<String> dbs = immuClient.databases();
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    testDatabase = "test"
+    
+    databases = client.databaseList()
+    if(testDatabase not in databases):
+        client.createDatabase(testDatabase)
+
+    client.useDatabase("test")
+    client.set(b"test", b"test")
+    print(client.get(b"test"))
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -320,8 +432,23 @@ boolean isHealthy = immuClient.healthCheck();
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    check = client.healthCheck()    # Returns bool
+    print(check)                    # True
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js

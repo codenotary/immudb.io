@@ -48,8 +48,39 @@ Note that, similar with many other methods, `history` method is overloaded to al
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+
+Python immudb sdk currently doesn't support `SinceTx` parameter
+
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    
+    client.set(b'test', b'1')
+    client.set(b'test', b'2')
+    client.set(b'test', b'3')
+
+    history = client.history(b'test', 0, 100, True) # List[immudb.datatypes.historyResponseItem]
+    responseItemFirst = history[0]
+    print(responseItemFirst.key)    # Entry key (b'test')
+    print(responseItemFirst.value)  # Entry value (b'3')
+    print(responseItemFirst.tx)     # Transaction id
+    
+    responseItemThird = history[2]
+    print(responseItemThird.key)    # Entry key (b'test')
+    print(responseItemThird.value)  # Entry value (b'1')
+    print(responseItemThird.tx)     # Transaction id
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -218,8 +249,45 @@ List<KV> scanResult = immuClient.scan("scan", 1, 5, false);
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    toSet = {
+        b"aaa": b'1',
+        b'bbb': b'2',
+        b'ccc': b'3',
+        b'acc': b'1',
+        b'aac': b'2',
+        b'aac:test1': b'3',
+        b'aac:test2': b'1',
+		b'aac:xxx:test': b'2'
+    }
+    client.setAll(toSet)
+    
+    result = client.scan(b'', b'', True, 100) # All entries
+    print(result)
+    result = client.scan(b'', b'aac', True, 100) # All entries with prefix 'aac' including 'aac'
+    print(result)
+
+    # Seek key example (allows retrieve entries in proper chunks):
+    result = client.scan(b'', b'', False, 3)
+    while result:
+        for item, value in result.items():
+            print("SEEK", item, value)
+        lastKey = list(result.keys())[-1]
+        result = client.scan(lastKey, b'', False, 3)
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -410,8 +478,49 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    client.verifiedSet(b'x', b'1') 
+    client.verifiedSet(b'y', b'1') 
+    retrieved = client.verifiedGet(b'x') 
+    print(retrieved.refkey)     # Entry reference key (None)
+
+    client.verifiedSetReference(b'x', b'reference1')
+    client.setReference(b'x', b'reference2')
+    client.setReference(b'y', b'reference2')
+    client.verifiedSet(b'y', b'2') 
+
+    retrieved = client.verifiedGet(b'reference1')
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.refkey)     # Entry reference key (b'reference1')
+    print(retrieved.verified)   # Entry verification status (True)
+
+    retrieved = client.verifiedGet(b'reference2')
+    print(retrieved.key)        # Entry key (b'y')
+    print(retrieved.refkey)     # Entry reference key (b'reference2')
+    print(retrieved.verified)   # Entry verification status (True)
+    print(retrieved.value)      # Entry value (b'3')
+
+    retrieved = client.verifiedGet(b'x')
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.refkey)     # Entry reference key (None)
+    print(retrieved.verified)   # Entry verification status (True)
+
+    retrieved = client.get(b'reference2')
+    print(retrieved.key)        # Entry key (b'y')
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -538,8 +647,49 @@ Do you want to make a feature request or help out? Open an issue on [Java sdk gi
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    client.verifiedSet(b'x', b'1') 
+    client.verifiedSet(b'y', b'1') 
+    retrieved = client.verifiedGet(b'x') 
+    print(retrieved.refkey)     # Entry reference key (None)
+
+    client.verifiedSetReference(b'x', b'reference1')
+    client.setReference(b'x', b'reference2')
+    client.setReference(b'y', b'reference2')
+    client.verifiedSet(b'y', b'2') 
+
+    retrieved = client.verifiedGet(b'reference1')
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.refkey)     # Entry reference key (b'reference1')
+    print(retrieved.verified)   # Entry verification status (True)
+
+    retrieved = client.verifiedGet(b'reference2')
+    print(retrieved.key)        # Entry key (b'y')
+    print(retrieved.refkey)     # Entry reference key (b'reference2')
+    print(retrieved.verified)   # Entry verification status (True)
+    print(retrieved.value)      # Entry value (b'3')
+
+    retrieved = client.verifiedGet(b'x')
+    print(retrieved.key)        # Entry key (b'x')
+    print(retrieved.refkey)     # Entry reference key (None)
+    print(retrieved.verified)   # Entry verification status (True)
+
+    retrieved = client.get(b'reference2')
+    print(retrieved.key)        # Entry key (b'y')
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
