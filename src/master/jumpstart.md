@@ -59,7 +59,7 @@ In order to use the SDK, you need to download and import the libraries:
 ```shell script
 # Make sure your project is using Go Modules
 go mod init example.com/hello
-#go get github.com/codenotary/immudb/pkg/client
+go get github.com/codenotary/immudb/pkg/client
 ```
 
 ```go
@@ -189,11 +189,7 @@ opts := immudb.DefaultOptions().
             WithPort(3322)
 
 client := immudb.NewClient().WithOptions(opts)
-if err != nil {
-    log.Fatal(err)
-}
-
-err = client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
@@ -349,12 +345,8 @@ import (
 immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-c, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-err = c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+c := immudb.NewClient()
+err := c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
