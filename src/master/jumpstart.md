@@ -345,12 +345,8 @@ import (
 immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-c, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-err = c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+c := immudb.NewClient()
+err := c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
 if err != nil {
     log.Fatal(err)
 }
