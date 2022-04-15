@@ -75,6 +75,8 @@ immuClient.changePassword(username, password, "newTestTest123!");
 ```python
 from grpc import RpcError
 from immudb import ImmudbClient
+from immudb.constants import PERMISSION_ADMIN, PERMISSION_R, PERMISSION_RW
+from immudb.grpc.schema_pb2 import GRANT, REVOKE
 from enum import IntEnum
 
 URL = "localhost:3322"  # immudb running on your machine
@@ -82,25 +84,14 @@ LOGIN = "immudb"        # Default username
 PASSWORD = "immudb"     # Default password
 DB = b"defaultdb"       # Default database name (must be in bytes)
 
-class Permission(IntEnum):
-    NONE = 0
-    READ = 1
-    READ_WRITE = 2
-    ADMIN = 254
-    SYS_ADMIN = 255
-
-class PermissionAction(IntEnum):
-    GRANT = 0
-    REVOKE = 1
-
 def main():
     client = ImmudbClient(URL)
     client.login(LOGIN, PASSWORD, database = DB)
     passwordForNewUsers = "Te1st!@#Test"
     try:
-        client.createUser("tester1", passwordForNewUsers, Permission.READ, DB)
-        client.createUser("tester2", passwordForNewUsers, Permission.READ_WRITE, DB)
-        client.createUser("tester3", passwordForNewUsers, Permission.ADMIN, DB)
+        client.createUser("tester1", passwordForNewUsers, PERMISSION_R, DB)
+        client.createUser("tester2", passwordForNewUsers, PERMISSION_RW, DB)
+        client.createUser("tester3", passwordForNewUsers, PERMISSION_ADMIN, DB)
     except RpcError as exception:
         print(exception.details())
 
@@ -111,20 +102,21 @@ def main():
         print("Creation date", user.createdat)
         print("Is active", user.active)
         for permission in user.permissions:
-            print("Permission", permission.database, Permission(permission.permission))
+            print("Permission", permission.database, permission.permission)
         print("---")
 
     client.login("tester3", passwordForNewUsers, DB)
-    client.changePermission(PermissionAction.GRANT, "tester2", DB, Permission.ADMIN)
-    client.changePermission(PermissionAction.REVOKE, "tester2", DB, Permission.ADMIN)
+    client.changePermission(GRANT, "tester2", DB, PERMISSION_ADMIN)
+    client.changePermission(REVOKE, "tester2", DB, PERMISSION_ADMIN)
 
+    client.login(LOGIN, PASSWORD, database = DB)
     # Changing password
     client.changePassword("tester1", "N1ewpassword!", passwordForNewUsers)
 
     # User logs with new password
     client.login("tester1", "N1ewpassword!")
 
-    client.login("tester3", passwordForNewUsers, DB)
+    client.login(LOGIN, PASSWORD, database = DB)
     client.changePassword("tester1", passwordForNewUsers, "N1ewpassword!")
     
 
@@ -142,7 +134,7 @@ def main():
     client.login("tester3", passwordForNewUsers, DB)
 
     # Now will have permissions to write
-    client.changePermission(PermissionAction.GRANT, "tester1", DB, Permission.READ_WRITE)
+    client.changePermission(GRANT, "tester1", DB, PERMISSION_RW)
     client.login("tester1", passwordForNewUsers, DB)
     client.set(b"test", b"test")
     result = client.get(b"test")
@@ -150,7 +142,7 @@ def main():
     client.login("tester3", passwordForNewUsers, DB)
 
     # Now will have permissions to nothing
-    client.changePermission(PermissionAction.REVOKE, "tester1", DB, Permission.READ_WRITE)
+    client.changePermission(REVOKE, "tester1", DB, PERMISSION_RW)
 
     try:
         client.login("tester1", passwordForNewUsers, DB)
@@ -158,7 +150,7 @@ def main():
         print(exception.details())
     
     client.login("tester3", passwordForNewUsers, DB)
-    client.changePermission(PermissionAction.GRANT, "tester1", DB, Permission.READ_WRITE)
+    client.changePermission(GRANT, "tester1", DB, PERMISSION_RW)
 
 
 if __name__ == "__main__":
