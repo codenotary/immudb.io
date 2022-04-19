@@ -1,6 +1,6 @@
 # Connection and authentication
 
-The immudb server runs on port 3323 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
+The immudb server runs on port 3322 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in `immudb.toml` in the config folder.
 :::: tabs
 
@@ -69,8 +69,35 @@ immuClient.login("immudb", "immudb");
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+
+```python
+from grpc import RpcError
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+
+def main():
+    client = ImmudbClient(URL)
+    # database parameter is optional
+    client.login(LOGIN, PASSWORD, database=DB)
+    client.logout()
+
+    # Bad login
+    try:
+        client.login("verybadlogin", "verybadpassword")
+    except RpcError as exception:
+        print(exception.debug_error_string())
+        print(exception.details())
+
+
+if __name__ == "__main__":
+    main()
+
+```
 :::
 
 ::: tab Node.js

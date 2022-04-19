@@ -68,8 +68,96 @@ Do you want to make a feature request or help out? Open an issue on [Java sdk gi
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+
+Currently immudb Python sdk doesn't support interactive transactions. 
+
+However you can still use non-interactive SQL Transactions.
+
+```python
+from immudb import ImmudbClient
+from uuid import uuid4
+
+URL = "localhost:3322"  # ImmuDB running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+
+    client.sqlExec("""
+        CREATE TABLE IF NOT EXISTS example (
+            uniqueID VARCHAR[64], 
+            value VARCHAR[32],
+            created TIMESTAMP,
+            PRIMARY KEY(uniqueID)
+        );""")
+        
+    client.sqlExec("""
+        CREATE TABLE IF NOT EXISTS related (
+            id INTEGER AUTO_INCREMENT, 
+            uniqueID VARCHAR[64], 
+            relatedValue VARCHAR[32],
+            PRIMARY KEY(id)
+        );""")
+
+    uid1 = str(uuid4())
+    uid2 = str(uuid4())
+    params = {
+        "uid1": uid1,
+        "uid2": uid2
+    }
+    
+    resp = client.sqlExec("""
+        BEGIN TRANSACTION;
+
+        INSERT INTO example (uniqueID, value, created) 
+            VALUES (@uid1, 'test1', NOW()), (@uid2, 'test2', NOW());
+        INSERT INTO related (uniqueID, relatedValue) 
+            VALUES (@uid1, 'related1'), (@uid2, 'related2');
+        INSERT INTO related (uniqueID, relatedValue) 
+            VALUES (@uid1, 'related3'), (@uid2, 'related4');
+
+        COMMIT;
+    """, params)
+    
+    transactionId = resp.txs[0].header.id
+
+    result = client.sqlQuery("""
+        SELECT 
+            related.id,
+            related.uniqueID, 
+            example.value, 
+            related.relatedValue, 
+            example.created
+        FROM related 
+        JOIN example 
+            ON example.uniqueID = related.uniqueID;
+    """)
+    for item in result:
+        id, uid, value, relatedValue, created = item
+        print("ITEM", id, uid, value, relatedValue, created.isoformat())
+
+    
+    result = client.sqlQuery(f"""
+        SELECT 
+            related.id,
+            related.uniqueID, 
+            example.value, 
+            related.relatedValue, 
+            example.created
+        FROM related BEFORE TX {transactionId} 
+        JOIN example BEFORE TX {transactionId} 
+            ON example.uniqueID = related.uniqueID;
+    """)
+    print(result) # You can't see just added entries,
+                  # my fellow time traveller
+
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -146,8 +234,28 @@ immuClient.execAll(
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+
+    client.set(b'key1', b'value1')
+    client.set(b'key2', b'value2')
+    client.set(b'key3', b'value3')
+    
+    response = client.getAll([b'key1', b'key2', b'key3'])
+    print(response) # The same as dictToSetGet, retrieved in one step
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -225,8 +333,31 @@ try {
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+    dictToSetGet = {
+        b'key1': b'value1',
+        b'key2': b'value2',
+        b'key3': b'value3'
+    }
+    response = client.setAll(dictToSetGet)
+    print(response.id) # All in one transaction
+
+    response = client.getAll([b'key1', b'key2', b'key3'])
+    print(response) # The same as dictToSetGet, retrieved in one step
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
@@ -371,8 +502,35 @@ immuClient.execAll(
 :::
 
 ::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+```python
+from immudb import ImmudbClient
+from immudb.datatypes import KeyValue, ZAddRequest, ReferenceRequest
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+
+    toExecute = [
+        KeyValue(b'key', b'value'), 
+        ZAddRequest(b'testscore', 100, b'key'),
+        KeyValue(b'key2', b'value2'), 
+        ZAddRequest(b'testscore', 150, b'key2'),
+        ReferenceRequest(b'reference1', b'key')
+    ]
+    info = client.execAll(toExecute)
+    print(info.id) # All in one transaction
+
+    print(client.zScan(b'testscore', b'', 0, 0, True, 10, True, 0, 200)) # Shows these entries
+    print(client.get(b'reference1'))
+
+if __name__ == "__main__":
+    main()
+```
 :::
 
 ::: tab Node.js
