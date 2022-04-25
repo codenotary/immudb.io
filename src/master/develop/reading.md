@@ -234,8 +234,6 @@ try {
 
 ::: tab Python
 
-Python immudb sdk currently doesn't support `VerifiedGetSince` method
-
 ```python
 from grpc import RpcError
 from immudb import ImmudbClient
@@ -260,6 +258,9 @@ def main():
 
     third = client.set(key, b'333')
     thirdTransaction = third.id
+
+    print(client.verifiedGetSince(key, firstTransaction))   # b"111"
+    print(client.verifiedGetSince(key, firstTransaction + 1))   # b"222"
 
     try:
         # This key wasn't set on this transaction
@@ -290,6 +291,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 ```
 :::
 
