@@ -195,7 +195,7 @@ This is the transaction id we will be using for the subsequent queries.
 Eg. before the update:
 
 ```
-immuclient query "SELECT id, name, salary FROM (people BEFORE TX 3) WHERE name='Joe';"
+immuclient query "SELECT id, name, salary FROM people BEFORE TX 3 WHERE name='Joe';"
 +-----------------------+-------------------------+---------------------------+
 | (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
 +-----------------------+-------------------------+---------------------------+
@@ -206,7 +206,7 @@ immuclient query "SELECT id, name, salary FROM (people BEFORE TX 3) WHERE name='
 or even before the first time insert (guess what, it is empty!):
 
 ```
-immuclient query "SELECT id, name, salary FROM (people BEFORE TX 1) WHERE name='Joe';"
+immuclient query "SELECT id, name, salary FROM people BEFORE TX 1 WHERE name='Joe';"
 +-----------------------+-------------------------+---------------------------+
 | (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
 +-----------------------+-------------------------+---------------------------+
@@ -216,7 +216,7 @@ immuclient query "SELECT id, name, salary FROM (people BEFORE TX 1) WHERE name='
 You can even `TABLE` a table with itself in the past. Imagine you want to see how people salary changed between two points in time:
 
 ```
-immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, peoplenow.salary FROM (people BEFORE TX 3 AS peoplethen) INNER JOIN (people AS peoplenow) ON peoplenow.id=peoplethen.id;"
+immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, peoplenow.salary FROM people BEFORE TX 3 AS peoplethen INNER JOIN people AS peoplenow ON peoplenow.id=peoplethen.id;"
 +--------------------------+----------------------------+-------------------------------+------------------------------+
 | (DEFAULTDB PEOPLENOW ID) | (DEFAULTDB PEOPLENOW NAME) | (DEFAULTDB PEOPLETHEN SALARY) | (DEFAULTDB PEOPLENOW SALARY) |
 +--------------------------+----------------------------+-------------------------------+------------------------------+
