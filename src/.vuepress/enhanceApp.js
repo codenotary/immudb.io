@@ -63,28 +63,15 @@ const getSidebar = version => {
     ]
   };
 
-  switch(version) {
-    case '/master':
-    case '/1.2.3':
-    case '/1.2.2':
-    case '/1.2.1':
-    case '/1.1.0':
-	  case '/1.0.0':
-    {
-      getStarted.children.push(`${version}/quickstart`);
-      getStarted.children.push(`${version}/getstarted/webconsole`);
-      getStarted.children.push(`${version}/jumpstart`);
-      break;
-    }
-    case '/0.9.2':
-    case '/0.8.1':
-    {
-      getStarted.children.push(`${version}/quickstart`);
-      getStarted.children.push(`${version}/jumpstart`);
-      break;
-    }
-    default: {
-    }
+  const minVersion = minVer => versions.indexOf(minVer) <= versions.indexOf(version.slice(1))
+
+  if (minVersion('1.0.0')) {
+    getStarted.children.push(`${version}/quickstart`);
+    getStarted.children.push(`${version}/getstarted/webconsole`);
+    getStarted.children.push(`${version}/jumpstart`);
+  } else {
+    getStarted.children.push(`${version}/quickstart`);
+    getStarted.children.push(`${version}/jumpstart`);
   }
 
   /* GETSTARTED SECTION END */
@@ -101,26 +88,15 @@ const getSidebar = version => {
     ]
   };
 
-  switch(version) {
-    case '/master':
-    case '/1.2.4':
-    case '/1.2.3':
-    {
-      operations.children.push(`${version}/operations/backwards-compatibility`);
-    }
-    case '/1.2.2':
-    {
-      operations.children.push(`${version}/operations/replication`);
-      operations.children.push(`${version}/operations/backup`);
-    }
-    case '/1.2.1':
-    case '/1.1.0':
-    {
-      operations.children.push(`${version}/operations/specs`);
-      break;
-    }
-    default: {
-    }
+  if (minVersion('1.2.3')) {
+    operations.children.push(`${version}/operations/backwards-compatibility`);
+  }
+  if (minVersion('1.2.2')) {
+    operations.children.push(`${version}/operations/replication`);
+    operations.children.push(`${version}/operations/backup`);
+  }
+  if (minVersion('1.1.0')) {
+    operations.children.push(`${version}/operations/specs`);
   }
 
 
@@ -134,42 +110,31 @@ const getSidebar = version => {
     ]
   };
 
-  switch (version) {
-    case '/master':
-    case '/1.2.4':
-    case '/1.2.3':
-    case '/1.2.2':
-    case '/1.2.1':
-    case '/1.1.0':
-	  case '/1.0.0':
-    {
-      develop.children.push(`${version}/develop/connection`);
-      develop.children.push(`${version}/develop/reading`);
-      develop.children.push(`${version}/develop/operations`);
-      develop.children.push(`${version}/develop/history`);
-      develop.children.push(`${version}/develop/streams`);
-      develop.children.push(`${version}/develop/management`);
-      develop.children.push(`${version}/develop/indexes`);
-      develop.children.push(`${version}/develop/transactions`);
-      develop.children.push(`${version}/develop/utilities`);
-      develop.children.push(`${version}/develop/additional`);
-      break;
-    }
-    default: {
-      develop.children.push(
-        `${version}/sdk-api`, // Content needs to be updated
-      );
-    }
+  if (minVersion('1.0.0')) {
+    develop.children.push(`${version}/develop/connection`);
+    develop.children.push(`${version}/develop/reading`);
+    develop.children.push(`${version}/develop/operations`);
+    develop.children.push(`${version}/develop/history`);
+    develop.children.push(`${version}/develop/streams`);
+    develop.children.push(`${version}/develop/management`);
+    develop.children.push(`${version}/develop/indexes`);
+    develop.children.push(`${version}/develop/transactions`);
+    develop.children.push(`${version}/develop/utilities`);
+    develop.children.push(`${version}/develop/additional`);
+  } else {
+    develop.children.push(
+      `${version}/sdk-api`, // Content needs to be updated
+    );
   }
 
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0'].includes(version)) {
+  if (minVersion('1.1.0')) {
     develop.children.push(`${version}/develop/sqlstdlib`);
     develop.children.push(`${version}/develop/auditor`);
   }
 
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1'].includes(version)) {
-      develop.children.push(`${version}/develop/deleting`);
-      develop.children.push(`${version}/develop/expiration`);
+  if (minVersion('1.2.1')) {
+    develop.children.push(`${version}/develop/deleting`);
+    develop.children.push(`${version}/develop/expiration`);
   }
 
   develop.children.push(
@@ -192,17 +157,17 @@ const getSidebar = version => {
   /* DEVELOP SECTION END */
 
   sidebar.push(introduction);
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (minVersion('1.0.0')) {
     sidebar.push(learn);
   }
   sidebar.push(getStarted);
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (minVersion('1.0.0')) {
     sidebar.push(operations);
   }
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (minVersion('1.0.0')) {
     sidebar.push(develop);
   }
-  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (minVersion('1.0.0')) {
     sidebar.push(reference);
   }
 
