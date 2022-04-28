@@ -103,6 +103,7 @@ const getSidebar = version => {
 
   switch(version) {
     case '/master':
+    case '/1.2.4':
     case '/1.2.3':
     {
       operations.children.push(`${version}/operations/backwards-compatibility`);
@@ -135,6 +136,7 @@ const getSidebar = version => {
 
   switch (version) {
     case '/master':
+    case '/1.2.4':
     case '/1.2.3':
     case '/1.2.2':
     case '/1.2.1':
@@ -160,12 +162,12 @@ const getSidebar = version => {
     }
   }
 
-  if (version === '/master' || version === '/1.1.0' || version === '/1.2.1' || version === '/1.2.2' || version === '/1.2.3') {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0'].includes(version)) {
     develop.children.push(`${version}/develop/sqlstdlib`);
     develop.children.push(`${version}/develop/auditor`);
   }
 
-  if (version === '/master' || version === '/1.2.1' || version === '/1.2.2' || version === '/1.2.3') {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1'].includes(version)) {
       develop.children.push(`${version}/develop/deleting`);
       develop.children.push(`${version}/develop/expiration`);
   }
@@ -190,17 +192,17 @@ const getSidebar = version => {
   /* DEVELOP SECTION END */
 
   sidebar.push(introduction);
-  if (['/master', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(learn);
   }
   sidebar.push(getStarted);
-  if (['/master', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(operations);
   }
-  if (['/master', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(develop);
   }
-  if (['/master', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
+  if (['/master', '/1.2.4', '/1.2.3', '/1.2.2', '/1.2.1', '/1.1.0', '/1.0.0'].includes(version)) {
     sidebar.push(reference);
   }
 

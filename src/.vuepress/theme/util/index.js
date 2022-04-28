@@ -239,7 +239,17 @@ function resolveItem (item, pages, base, groupDepth = 1) {
   }
 }
 
-export const versions = ['0.8.1', '0.9.2', '1.0.0', '1.1.0','1.2.1', '1.2.2', '1.2.3', 'master']
+export const versions = [
+  '0.8.1',
+  '0.9.2',
+  '1.0.0',
+  '1.1.0',
+  '1.2.1',
+  '1.2.2',
+  '1.2.3',
+  '1.2.4',
+  'master'
+]
 
 export function getVersionFromRoute (route = { fullPath: '' }) {
   const matches = route.fullPath.match(/[^\/]+/)
