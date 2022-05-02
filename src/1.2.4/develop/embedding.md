@@ -38,6 +38,9 @@ func main() {
 	tx, err := st.NewTx()
 	handleErr(err)
 
+	// ensure tx is closed (it won't affect committed tx)
+	defer tx.Cancel()
+
 	// write key-value pair into the tx context, no change will be applied yet
 	err = tx.Set([]byte("hello"), nil, []byte("immutable-world!"))
 	handleErr(err)
