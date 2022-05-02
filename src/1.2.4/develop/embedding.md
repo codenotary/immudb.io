@@ -101,6 +101,9 @@ func main() {
 	sqltx, _, err := engine.Exec("BEGIN TRANSACTION;", nil, nil)
 	handleErr(err)
 
+	// ensure tx is closed (it won't affect committed tx)
+	defer engine.Exec("ROLLBACK;", nil, sqltx)
+
 	// set the database to use in the context of the ongoing sql tx
 	_, _, err = engine.Exec("USE DATABASE db1;", nil, sqltx)
 	handleErr(err)
@@ -137,9 +140,12 @@ func main() {
 	rowReader, err := engine.Query(`
 			SELECT id, date, creditaccount, debitaccount, amount, description
 			FROM journal
-			WHERE amount > @value
+			WHERE amount > @value;
 	`, map[string]interface{}{"value": 100}, sqltx)
 	handleErr(err)
+
+	// ensure row reader is closed
+	defer rowReader.Close()
 
 	// selected columns can be read from the rowReader
 	cols, err := rowReader.Columns()
@@ -158,8 +164,7 @@ func main() {
 	}
 
 	// close row reader
-	err = rowReader.Close()
-	handleErr(err)
+	rowReader.Close()
 
 	// commit ongoing transaction
 	_, _, err = engine.Exec("COMMIT;", nil, sqltx)
