@@ -237,4 +237,61 @@ immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, people
 |                        2 | Bob                        |                         30000 |                        30000 |
 +--------------------------+----------------------------+-------------------------------+------------------------------+
 ```
+
+</WrappedSection>
+
+<WrappedSection>
+
+## KV Data revisions
+
+Whenever a new value is stored under given key, immudb saves a new revision of that data.
+Revision numbers start with 1 - the first value ever written to the database will have
+a revision number 1, the second will have 2 and so on.
+
+When reading a value from immudb, an explicit revision number can be specified.
+If the provided number is greater than 0, a value for given revision is retrieved.
+If the provided number is less than 0, the nth previous value is retrieved.
+
+```sh
+$ immuclient set key value1
+tx:       2
+rev:      1
+key:      key
+value:    value1
+
+$ immuclient set key value2
+tx:       3
+rev:      2
+key:      key
+value:    value2
+
+$ immuclient set key value3
+tx:       4
+rev:      3
+key:      key
+value:    value3
+
+$ immuclient get key@1  # Get the key at the first revision
+tx:       2
+rev:      1
+key:      key
+value:    value1
+
+$ immuclient get key@-1  # Get the key at the previous revision
+tx:       3
+rev:      2
+key:      key
+value:    value2
+```
+
+The immuclient tool has also the possibility to restore a previous revision for given key.
+
+```sh
+$ immuclient restore key@-2
+tx:       5
+rev:      4
+key:      key
+value:    value1
+```
+
 </WrappedSection>

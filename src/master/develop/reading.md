@@ -345,6 +345,63 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
+### Get at revision
+
+Each historical value for a single key is attached a revision number.
+Revision numbers start with 1 and each overwrite of the same key results in
+a new sequential revision number assignment.
+
+A negative revision number can also be specified which means the nth historical value,
+e.g. -1 is the previous value, -2 is the one before and so on.
+
+:::: tabs
+
+::: tab Go
+
+```go
+// Use dedicated API call
+entry, err := client.GetAtRevision(ctx, []byte("key"), -1)
+if err != nil {
+    log.Fatal(err)
+}
+log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
+
+// Use additional get option
+entry, err = client.Get(ctx, []byte("key"), immudb.AtRevision(-2))
+if err != nil {
+    log.Fatal(err)
+}
+log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
+```
+
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Node.js
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
+:::
+
+::: tab .Net
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
 ### Retrieving transactions by ID
 
 It's possible to retrieve all the keys inside a specific transaction.
