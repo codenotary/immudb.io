@@ -82,7 +82,7 @@ def main():
     print(setResult)            # immudb.datatypes.SetResponse
     print(setResult.id)         # id of transaction
     print(setResult.verified)   # in this case verified = False
-								# see Tamperproof reading and writing
+                                # see Tamperproof reading and writing
 
     # Also you get response in bytes
     retrieved = client.get(b'x')
