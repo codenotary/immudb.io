@@ -8,11 +8,11 @@ To learn interactively and to get started with immudb from the command line and 
 
 ## Getting immudb running
 
-You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.0 for linux amd64:
+You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for linux amd64:
 
 ```bash
-wget https://github.com/vchain-us/immudb/releases/download/v1.0.0/immudb-v1.0.0-linux-amd64
-mv immudb-v1.0.0-linux-amd64 immudb
+wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immudb-v1.2.4-linux-amd64
+mv immudb-v1.2.4-linux-amd64 immudb
 chmod +x immudb
 
 # run immudb in the foreground to see all output
@@ -22,7 +22,7 @@ chmod +x immudb
 ./immudb -d
 ```
 
-Alternatively, you may use Docker to run immudb in a ready-to-use container:
+Alternatively, you may [pull immudb docker image from DockerHub](https://hub.docker.com/r/codenotary/immudb) and run it in a ready-to-use container:
 
 ```sh
 docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
@@ -34,18 +34,15 @@ docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
 
 ## Connecting with immuclient
 
-You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.0.0 for linux amd64:
+You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
-```sh
-wget https://github.com/vchain-us/immudb/releases/download/v1.0.0/immuclient-v1.0.0-linux-amd64
-mv immuclient-v1.0.0-linux-amd64 immuclient
+```bash
+wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuclient-v1.2.4-linux-amd64
+mv immuclient-v1.2.4-linux-amd64 immuclient
 chmod +x immuclient
-
-# start the interactive shell
-./immuclient
 ```
 
-Alternatively, you may use Docker to run immuclient in a ready-to-use container:
+Alternatively, you may [pull immuclient docker image from DockerHub](https://hub.docker.com/r/codenotary/immuclient) and run it in a ready-to-use container:
 
 ```sh
 docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
@@ -71,35 +68,54 @@ When immudb is first run, it is ready to use immediately with the default databa
 
 Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:
 
-```sh
-immuclient> login immudb
+```bash
+$ immuclient login immudb
 Password: immudb
 ```
 
 While immudb supports `set` and `get` for key-value storing and retrieving, its immutability means that we can verify the integrity of the underlying Merkle tree. To do this, we use the `safeset` and `safeget` commands. Let's try setting a value of `100` for the key `balance`:
 
-```sh
-immuclient> safeset balance 100
+```bash
+$ ./immuclient safeset balance 100
+tx:             2
+key:            balance
+value:          100
+verified:       true
 ```
 
 Then, we can immediately overwrite the key `balance` with a value of `9001` instead:
 
-```sh
-immuclient> safeset balance 9001
+```bash
+$ ./immuclient safeset balance 9001
+tx:             3
+key:            balance
+value:          9001
+verified:       true
 ```
 
 If we try to retrieve the current value of key `balance`, we should get `9001`:
 
-```sh
-immuclient> safeget balance
+```bash
+$ ./immuclient safeget balance
+tx:             3
+key:            balance
+value:          9001
+verified:       true 
 ```
 
 Note that at each step so far, the `verified` flag is set to true. This ensures that the Merkle tree remains consistent for each transaction.
 
 We can show the history of transactions for key `balance` using the `history` command:
 
-```sh
-immuclient> history balance
+```bash
+$ ./immuclient history balance
+tx:             2
+key:            balance
+value:          100
+
+tx:             3
+key:            balance
+value:          9001
 ```
 
 </WrappedSection>
@@ -112,20 +128,23 @@ Immuadmin is the admin client for immudb. This is used for a variety of tasks su
 
 To get started we need to login to `immuadmin` first. The `admin` user is the similar to the `root` user in MySQL etc.
 
-```sh
-immuadmin login immudb
+```bash
+$ ./immuadmin login immudb
+Password: immudb
 ```
 
 Once logged in we can create a new database using
 
-```sh
-immuadmin database create mydatabase
+```bash
+$ ./immuadmin database create mydatabase
+database 'mydatabase' {replica: false} successfully created
 ```
 
 Switching to our newly created database. Using immuclient once you are logged in you can select the database you would like to using
 
-```sh
-immuclient> use mydatabse
+```bash
+$ ./immuclient use mydatabase
+Now using mydatabase
 ```
 
 </WrappedSection>
@@ -134,47 +153,47 @@ immuclient> use mydatabse
 
 ## SQL operations with immuclient
 
-In addition to a key-value store, immudb supports the relational model (SQL). For example, to a table:
+In addition to a key-value store, immudb supports the relational model (SQL). For example, to create a table:
 
-```sh
-$ immuclient exec "CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);"
-sql ok, Ctxs: 1 Dtxs: 0
+```bash
+$ ./immuclient exec "CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);"
+Updated rows: 0
 ```
 
 To insert data, use `UPSERT` (insert or update), which will add an entry, or overwrite it if already exists (based on the primary key):
 
-```sh
-$ immuclient exec "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 10000);"
-sql ok, Ctxs: 0 Dtxs: 1
-immuclient exec "UPSERT INTO people(id, name, salary) VALUES (2, 'Bob', 30000);"
-sql ok, Ctxs: 0 Dtxs: 1
+```bash
+$ ./immuclient exec "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 10000);"
+Updated rows: 1
+$ ./immuclient exec "UPSERT INTO people(id, name, salary) VALUES (2, 'Bob', 30000);"
+Updated rows: 1
 ```
 
 To query the data you can use the traditional `SELECT`:
 
-```sh
-$ immuclient query "SELECT id, name, salary FROM people;"
-+-----------------------+-------------------------+---------------------------+
-| (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
-+-----------------------+-------------------------+---------------------------+
-|                     1 | Joe                     |                     10000 |
-|                     2 | Bob                     |                     30000 |
-+-----------------------+-------------------------+---------------------------+
+```bash
+$ ./immuclient query "SELECT id, name, salary FROM people;"
++------------------------+--------------------------+----------------------------+
+| (MYDATABASE PEOPLE ID) | (MYDATABASE PEOPLE NAME) | (MYDATABASE PEOPLE SALARY) |
++------------------------+--------------------------+----------------------------+
+|                      1 | "Joe"                    |                      10000 |
+|                      2 | "Bob"                    |                      30000 |
++------------------------+--------------------------+----------------------------+
 ```
 
-If we upsert again on the primary key "1", the value for "Joe" will be overwriten:
+If we upsert again on the primary key "1", the value for "Joe" will be overwritten:
 
-```sh
-immuclient exec "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 20000);"
-sql ok, Ctxs: 0 Dtxs: 1
+```bash
+$ ./immuclient exec "UPSERT INTO people(id, name, salary) VALUES (1, 'Joe', 20000);"
+Updated rows: 1
 
-immuclient query "SELECT id, name, salary FROM people;"
-+-----------------------+-------------------------+---------------------------+
-| (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
-+-----------------------+-------------------------+---------------------------+
-|                     1 | Joe                     |                     20000 |
-|                     2 | Bob                     |                     30000 |
-+-----------------------+-------------------------+---------------------------+
+$ ./immuclient query "SELECT id, name, salary FROM people;"
++------------------------+--------------------------+----------------------------+
+| (MYDATABASE PEOPLE ID) | (MYDATABASE PEOPLE NAME) | (MYDATABASE PEOPLE SALARY) |
++------------------------+--------------------------+----------------------------+
+|                      1 | "Joe"                    |                      20000 |
+|                      2 | "Bob"                    |                      30000 |
++------------------------+--------------------------+----------------------------+
 ```
 
 </WrappedSection>
@@ -185,57 +204,57 @@ immuclient query "SELECT id, name, salary FROM people;"
 
 immudb is a immutable database. History is always preserved. With immudb you can travel in time!
 
-```sh
-immuclient query "SELECT id, name, salary FROM people WHERE name='Joe';"
-+-----------------------+-------------------------+---------------------------+
-| (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
-+-----------------------+-------------------------+---------------------------+
-|                     1 | Joe                     |                     20000 |
-+-----------------------+-------------------------+---------------------------+
+```bash
+$ ./immuclient query "SELECT id, name, salary FROM people WHERE name='Joe';"
++------------------------+--------------------------+----------------------------+
+| (MYDATABASE PEOPLE ID) | (MYDATABASE PEOPLE NAME) | (MYDATABASE PEOPLE SALARY) |
++------------------------+--------------------------+----------------------------+
+|                      1 | "Joe"                    |                      20000 |
++------------------------+--------------------------+----------------------------+
 ```
 
-We can see the current transaction id using
+We can see the current transaction id using 'current':
 
-```sh
-immuclient> current
-txID:             6
-hash: e91c254ad58860a02c788dfb5c1a65d6a8846ab1dc649631c7db16fef4af2dec
-
+```bash
+$ ./immuclient current
+database:       mydatabase
+txID:           5
+hash:           2986dfeb2d15e55d8189f08c2508318addabe9e773e0b6e329cf23b654cc22e7
 ```
 
 This is the transaction id we will be using for the subsequent queries.
-
+  
 Eg. before the update:
 
-```sh
-immuclient query "SELECT id, name, salary FROM people BEFORE TX 3 WHERE name='Joe';"
-+-----------------------+-------------------------+---------------------------+
-| (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
-+-----------------------+-------------------------+---------------------------+
-|                     1 | Joe                     |                     10000 |
-+-----------------------+-------------------------+---------------------------+
+```bash
+$ ./immuclient query "SELECT id, name, salary FROM people BEFORE TX 5 WHERE name='Joe';"
++------------------------+--------------------------+----------------------------+
+| (MYDATABASE PEOPLE ID) | (MYDATABASE PEOPLE NAME) | (MYDATABASE PEOPLE SALARY) |
++------------------------+--------------------------+----------------------------+
+|                      1 | "Joe"                    |                      10000 |
++------------------------+--------------------------+----------------------------+
 ```
 
 or even before the first time insert (guess what, it is empty!):
 
-```sh
-immuclient query "SELECT id, name, salary FROM people BEFORE TX 1 WHERE name='Joe';"
-+-----------------------+-------------------------+---------------------------+
-| (DEFAULTDB PEOPLE ID) | (DEFAULTDB PEOPLE NAME) | (DEFAULTDB PEOPLE SALARY) |
-+-----------------------+-------------------------+---------------------------+
-+-----------------------+-------------------------+---------------------------+
+```bash
+$ ./immuclient query "SELECT id, name, salary FROM people BEFORE TX 1 WHERE name='Joe';"
++------------------------+--------------------------+----------------------------+
+| (MYDATABASE PEOPLE ID) | (MYDATABASE PEOPLE NAME) | (MYDATABASE PEOPLE SALARY) |
++------------------------+--------------------------+----------------------------+
++------------------------+--------------------------+----------------------------+
 ```
 
 You can even `TABLE` a table with itself in the past. Imagine you want to see how people salary changed between two points in time:
 
-```sh
-immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, peoplenow.salary FROM people BEFORE TX 3 AS peoplethen INNER JOIN people AS peoplenow ON peoplenow.id=peoplethen.id;"
-+--------------------------+----------------------------+-------------------------------+------------------------------+
-| (DEFAULTDB PEOPLENOW ID) | (DEFAULTDB PEOPLENOW NAME) | (DEFAULTDB PEOPLETHEN SALARY) | (DEFAULTDB PEOPLENOW SALARY) |
-+--------------------------+----------------------------+-------------------------------+------------------------------+
-|                        1 | Joe                        |                         10000 |                        20000 |
-|                        2 | Bob                        |                         30000 |                        30000 |
-+--------------------------+----------------------------+-------------------------------+------------------------------+
+```bash
+$ ./immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, peoplenow.salary FROM people BEFORE TX 5 AS peoplethen INNER JOIN people AS peoplenow ON peoplenow.id=peoplethen.id;"
++---------------------------+-----------------------------+--------------------------------+-------------------------------+
+| (MYDATABASE PEOPLENOW ID) | (MYDATABASE PEOPLENOW NAME) | (MYDATABASE PEOPLETHEN SALARY) | (MYDATABASE PEOPLENOW SALARY) |
++---------------------------+-----------------------------+--------------------------------+-------------------------------+
+|                         1 | "Joe"                       |                          10000 |                         20000 |
+|                         2 | "Bob"                       |                          30000 |                         30000 |
++---------------------------+-----------------------------+--------------------------------+-------------------------------+
 ```
 
 </WrappedSection>
@@ -252,32 +271,32 @@ When reading a value from immudb, an explicit revision number can be specified.
 If the provided number is greater than 0, a value for given revision is retrieved.
 If the provided number is less than 0, the nth previous value is retrieved.
 
-```sh
-$ immuclient set key value1
+```bash
+$ ./immuclient set key value1
 tx:       2
 rev:      1
 key:      key
 value:    value1
 
-$ immuclient set key value2
+$ ./immuclient set key value2
 tx:       3
 rev:      2
 key:      key
 value:    value2
 
-$ immuclient set key value3
+$ ./immuclient set key value3
 tx:       4
 rev:      3
 key:      key
 value:    value3
 
-$ immuclient get key@1  # Get the key at the first revision
+$ ./immuclient get key@1  # Get the key at the first revision
 tx:       2
 rev:      1
 key:      key
 value:    value1
 
-$ immuclient get key@-1  # Get the key at the previous revision
+$ ./immuclient get key@-1  # Get the key at the previous revision
 tx:       3
 rev:      2
 key:      key
@@ -286,8 +305,8 @@ value:    value2
 
 The immuclient tool has also the possibility to restore a previous revision for given key.
 
-```sh
-$ immuclient restore key@-2
+```bash
+$ ./immuclient restore key@-2
 tx:       5
 rev:      4
 key:      key
@@ -302,8 +321,8 @@ to any other string that is not part of the key. Also because immuclient will on
 the last occurrence of the revision separator, an explicit 0th revision can be set to read
 the current value behind such key.
 
-```sh
-$ immuclient set some@email.address active
+```bash
+$ ./immuclient set some@email.address active
 tx:       2
 rev:      1
 key:      some@email.address
@@ -317,14 +336,14 @@ value:  active
 hash:   138033b5a89438758fdb3481ba0dc44816d550749f799223587cb30cd7eadf5a
 
 # Disable / change the revision separator through command-line argument
-$ immuclient get --revision-separator="" some@email.address
+$ ./immuclient get --revision-separator="" some@email.address
 tx:       2
 rev:      1
 key:      some@email.address
 value:    active
 
 # Always use the revision number, use 0 for the current value
-$ immuclient get some@email.address@0
+$ ./immuclient get some@email.address@0
 tx:       2
 rev:      1
 key:      some@email.address

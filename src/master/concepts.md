@@ -6,7 +6,7 @@ Download the [immudb short research paper](https://codenotary.s3.amazonaws.com/R
 
 ## Consistency and state signature
 
-Immudb consistency can be verified by any external client or auditor by calculating transaction state and comparing it with one returned from immudb. The state is represented by the root digest of a Merkle Tree and is calculated for every database transaction. It allows for verification at each transaction.
+Immudb consistency can be verified by any external client or auditor by calculating transaction state and comparing it with one returned from immudb. The state is represented by the root digest of a Merkle tree and is calculated for every database transaction. It allows for verification at each transaction.
 
 To increase security, providing immudb with a signing key enables the cryptographic state signature.
 That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state.
