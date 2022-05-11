@@ -1,109 +1,50 @@
 # Concepts
 
-Download the [immudb short research paper](https://codenotary.com/technologies/immudb/) to learn about the technical foundations of immudb.
+Download the [immudb short research paper](https://codenotary.s3.amazonaws.com/Research-Paper-immudb-CodeNotary_v3.0.pdf) to learn about the technical foundations of immudb.
 
 <WrappedSection>
 
-## Adding data
+## Consistency and state signature
 
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
+Immudb consistency can be verified by any external client or auditor by calculating transaction state and comparing it with one returned from immudb. The state is represented by the root digest of a Merkle Tree and is calculated for every database transaction. It allows for verification at each transaction.
 
-</WrappedSection>
-
-<WrappedSection>
-
-## Checking data consistency
-This section is not yet ready for immudb 0.9. We are working on it in order to improve it and we are close to deliver. Stay tuned!
-
-</WrappedSection>
-
-<WrappedSection>
-
-## State signature
-
-Providing `immudb` with a signing key enables the cryptographic state signature.
-That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state after calling the `currentState` gRPC method.
-
-Here are the gRPC message definitions:
-```
-message ImmutableState {
-	uint64 txId = 3;
-	bytes txHash = 4;
-	Signature signature = 5;
-}
-
-message Signature {
-	bytes signature = 1;
-	bytes publicKey = 2;
-}
-```
-
-Check [state signature](old/immudb/#state-signature) and [verify state signature](sdks-api.html#verify-state-signature) paragraphs for additional details.
+To increase security, providing immudb with a signing key enables the cryptographic state signature.
+That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state.
 
 Immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
-To get the signed state in combination with the auditor, launch...
-* ...immuclient with auditor capabilities:
+To get the (signed) state in combination with the immuclient with auditor capabilities:
 ```bash
-immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --audit-signature validate
-```
-* ...with [immugw](https://github.com/codenotary/immugw) with auditor capabilities:
-```bash
-./immugw --audit --audit-username {immudb-username} --audit-password {immudb-pw} --audit-signature validate
+immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
 ```
 
-</WrappedSection>
-
-<WrappedSection>
-
-## Item References
-
-Enables the insertion of a special entry that references another item.
+Check [tamper-proof operations](develop/operations.htm) and [running an auditor with immuclient](develop/auditor.html) paragraphs for additional details.
 
 </WrappedSection>
 
 <WrappedSection>
 
-## Primary Index
+## Key value and SQL
 
-The primary index enables queries and search based on the **data key**.
+Immudb can be used as a tamper-proof key value store or SQL database, with audit history capabilities. Within single immudb instance a user can have both types of databases, it is even possible to have KV and SQL withing single database.
 
-</WrappedSection>
+Key value is a foundation layer for SQL, meaning that SQL is using key value store capabilities underneath. 
 
-<WrappedSection>
-
-## Secondary Index
-
-The secondary index enables queries and search based on the **data value**.
+Check [user quickstart](quickstart.html) for instructions on how to start working with KV or SQL. 
 
 </WrappedSection>
 
 <WrappedSection>
 
-## Streams
-Allows client server communication with streams of “delimited” []byte messages.
+## Operation modes
 
-</WrappedSection>
-
-<WrappedSection>
-
-## Cryptographic signatures
-
-A signature (PKI) provided by the client can become part of the insertion process.
-
-</WrappedSection>
-
-<WrappedSection>
-
-## Authentication (transport)
-
-Integrated mTLS offers the best approach for machine-to-machine authentication, also providing communications security (entryption) over the transport channel.
+Immudb can be run as full database server with [replicas](operations/replication.html) or easily [embedded](develop/embedding.html) as a lightweight database into application.
 
 </WrappedSection>
 
 <WrappedSection>
 
 ## immugw communication
-immugw can be found in its [own repository](https://github.com/codenotary/immugw)
+Immugw can be found in its [own repository](https://github.com/codenotary/immugw)
 
 immugw proxies REST client communication and gRPC server interface. For security reasons, immugw should not run on the same server as immudb. The following diagram shows how the communication works:
 
