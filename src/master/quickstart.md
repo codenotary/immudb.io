@@ -11,21 +11,21 @@ To learn interactively and to get started with immudb from the command line and 
 You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for linux amd64:
 
 ```bash
-wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immudb-v1.2.4-linux-amd64
-mv immudb-v1.2.4-linux-amd64 immudb
-chmod +x immudb
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immudb-v1.2.4-linux-amd64
+$ mv immudb-v1.2.4-linux-amd64 immudb
+$ chmod +x immudb
 
 # run immudb in the foreground to see all output
-./immudb
+$ ./immudb
 
 # or run immudb in the background
-./immudb -d
+$ ./immudb -d
 ```
 
 Alternatively, you may [pull immudb docker image from DockerHub](https://hub.docker.com/r/codenotary/immudb) and run it in a ready-to-use container:
 
-```sh
-docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
+```bash
+$ docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
 ```
 
 </WrappedSection>
@@ -37,15 +37,15 @@ docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
 You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
 ```bash
-wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuclient-v1.2.4-linux-amd64
-mv immuclient-v1.2.4-linux-amd64 immuclient
-chmod +x immuclient
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuclient-v1.2.4-linux-amd64
+$ mv immuclient-v1.2.4-linux-amd64 immuclient
+$ chmod +x immuclient
 ```
 
 Alternatively, you may [pull immuclient docker image from DockerHub](https://hub.docker.com/r/codenotary/immuclient) and run it in a ready-to-use container:
 
-```sh
-docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
+```bash
+$ docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 ```
 
 </WrappedSection>
@@ -69,7 +69,7 @@ When immudb is first run, it is ready to use immediately with the default databa
 Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:
 
 ```bash
-$ immuclient login immudb
+$ ./immuclient login immudb
 Password: immudb
 ```
 
@@ -329,7 +329,7 @@ key:      some@email.address
 value:    active
 
 # Change the revision separator with environment variable
-$ IMMUCLIENT_REVISION_SEPARATOR="###" immuclient get some@email.address
+$ IMMUCLIENT_REVISION_SEPARATOR="###" ./immuclient get some@email.address
 tx:     2
 key:    some@email.address
 value:  active
