@@ -204,7 +204,7 @@ hash: e91c254ad58860a02c788dfb5c1a65d6a8846ab1dc649631c7db16fef4af2dec
 ```
 
 This is the transaction id we will be using for the subsequent queries.
-  
+
 Eg. before the update:
 
 ```sh
@@ -292,6 +292,43 @@ tx:       5
 rev:      4
 key:      key
 value:    value1
+```
+
+### Querying for keys containing revision separator
+
+In some cases, the key can already contain the `@` character reserved for key separator.
+In such case there are few options to read such key. The revision separator can be changed
+to any other string that is not part of the key. Also because immuclient will only scan
+the last occurrence of the revision separator, an explicit 0th revision can be set to read
+the current value behind such key.
+
+```sh
+$ immuclient set some@email.address active
+tx:       2
+rev:      1
+key:      some@email.address
+value:    active
+
+# Change the revision separator with environment variable
+$ IMMUCLIENT_REVISION_SEPARATOR="###" immuclient get some@email.address
+tx:     2
+key:    some@email.address
+value:  active
+hash:   138033b5a89438758fdb3481ba0dc44816d550749f799223587cb30cd7eadf5a
+
+# Disable / change the revision separator through command-line argument
+$ immuclient get --revision-separator="" some@email.address
+tx:       2
+rev:      1
+key:      some@email.address
+value:    active
+
+# Always use the revision number, use 0 for the current value
+$ immuclient get some@email.address@0
+tx:       2
+rev:      1
+key:      some@email.address
+value:    active
 ```
 
 </WrappedSection>
