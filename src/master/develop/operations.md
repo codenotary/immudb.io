@@ -1,5 +1,85 @@
 # Tamper-proof operations
+
 ## State management
+
+### Current State
+
+Current state of immudb provides proof that clients can use to verify immudb:
+
+:::: tabs
+
+::: tab Go
+```go
+    	state, err := client.CurrentState(ctx)
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	fmt.Printf("current state is : %v", state)
+```
+:::
+
+::: tab Python
+```python
+from immudb import ImmudbClient
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+
+def main():
+    client = ImmudbClient(URL)
+    client.login(LOGIN, PASSWORD, database = DB)
+
+    state = client.currentState()   # immudb.rootService.State
+    print(state.db)         # Current selected DB
+    print(state.txId)       # Current transaction ID
+    print(state.txHash)     # Current transaction hash
+    print(state.signature)  # Current signature
+
+if __name__ == "__main__":
+    main()
+```
+:::
+
+::: tab Java
+
+```java
+ImmuState currState = immuClient.currentState();
+
+System.out.printf("The current state is " + currState.toString());
+```
+
+:::
+
+::: tab Node.js
+```ts
+import ImmudbClient from 'immudb-node'
+
+const IMMUDB_HOST = '127.0.0.1'
+const IMMUDB_PORT = '3322'
+const IMMUDB_USER = 'immudb'
+const IMMUDB_PWD = 'immudb'
+
+const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
+
+(async () => {
+	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+	
+	const currentStateRes = await cl.currentState()
+	console.log('success: currentState', currentStateRes)
+})()
+```
+:::
+
+::: tab Others
+If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+:::
+
+::::
+
+### Automated verification of state by Immudb SDK
 
 It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
 
@@ -64,6 +144,35 @@ Following an example how to obtain a client instance with a custom state service
 ```
 :::
 
+::: tab Python
+```python
+from immudb import ImmudbClient
+from immudb.client import PersistentRootService
+
+# By default RootService is writing state to RAM
+# You can choose different implementation of RootService
+
+# Persistent root service will save to the disk after every verified transaction
+
+URL = "localhost:3322"  # immudb running on your machine
+LOGIN = "immudb"        # Default username
+PASSWORD = "immudb"     # Default password
+DB = b"defaultdb"       # Default database name (must be in bytes)
+PERSISTENT_ROOT_SERVICE_PATH = "/tmp/psr.db" 
+
+def main():
+    client = ImmudbClient(URL, rs = PersistentRootService(PERSISTENT_ROOT_SERVICE_PATH))
+    client.login(LOGIN, PASSWORD, database = DB)
+    client.verifiedSet(b'x', b'1')
+    client.verifiedGet(b'x')
+    client.verifiedSet(b'x', b'2')
+    client.verifiedGet(b'x')
+
+if __name__ == "__main__":
+    main()
+```
+:::
+
 ::: tab Java
 
 Any immudb server has its own UUID. This is exposed as part of the login response.
@@ -94,43 +203,9 @@ immuClient.logout();
 
 :::
 
-::: tab Python
-```python
-from immudb import ImmudbClient
-from immudb.client import PersistentRootService
-
-# By default RootService is writing state to RAM
-# You can choose different implementation of RootService
-
-# Persistent root service will save to the disk after every verified transaction
-
-URL = "localhost:3322"  # immudb running on your machine
-LOGIN = "immudb"        # Default username
-PASSWORD = "immudb"     # Default password
-DB = b"defaultdb"       # Default database name (must be in bytes)
-PERSISTENT_ROOT_SERVICE_PATH = "/tmp/psr.db" 
-
-def main():
-    client = ImmudbClient(URL, rs = PersistentRootService(PERSISTENT_ROOT_SERVICE_PATH))
-    client.login(LOGIN, PASSWORD, database = DB)
-    client.verifiedSet(b'x', b'1')
-    client.verifiedGet(b'x')
-    client.verifiedSet(b'x', b'2')
-    client.verifiedGet(b'x')
-
-if __name__ == "__main__":
-    main()
-```
-:::
-
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -173,35 +248,6 @@ Check [state signature](/master/immudb/#state-signature) to see how to generate 
 ```
 :::
 
-::: tab Java
-
-```java
-// Having immudb server running with state signature enabled
-// (by starting it, for example using `immudb --signingKey private_key.pem`)
-// we provision the client with the public key file, and this implies that
-// state signature verification is done on the client side
-// each time the state is retrieved from the server.
-
-File publicKeyFile = new File("path/to/public_key.pem");
-
-immuClient = ImmuClient.newBuilder()
-                    .withServerUrl("localhost")
-                    .withServerPort(3322)
-                    .withServerSigningKey(publicKeyFile.getAbsolutePath())
-                    .build();
-
-try {
-    ImmuState state = immuClient.currentState();
-    // It should all be ok as long as the immudb server has been started with
-    // state signature feature enabled, otherwise, this verification will fail.
-
-} catch (RuntimeException e) {
-    // State signature failed.
-}
-```
-
-:::
-
 ::: tab Python
 ```python
 from immudb import ImmudbClient
@@ -234,6 +280,35 @@ if __name__ == "__main__":
 ```
 :::
 
+::: tab Java
+
+```java
+// Having immudb server running with state signature enabled
+// (by starting it, for example using `immudb --signingKey private_key.pem`)
+// we provision the client with the public key file, and this implies that
+// state signature verification is done on the client side
+// each time the state is retrieved from the server.
+
+File publicKeyFile = new File("path/to/public_key.pem");
+
+immuClient = ImmuClient.newBuilder()
+                    .withServerUrl("localhost")
+                    .withServerPort(3322)
+                    .withServerSigningKey(publicKeyFile.getAbsolutePath())
+                    .build();
+
+try {
+    ImmuState state = immuClient.currentState();
+    // It should all be ok as long as the immudb server has been started with
+    // state signature feature enabled, otherwise, this verification will fail.
+
+} catch (RuntimeException e) {
+    // State signature failed.
+}
+```
+
+:::
+
 ::: tab Node.js
 ```ts
 import ImmudbClient from 'immudb-node'
@@ -253,11 +328,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	console.log('success: currentState', currentStateRes)
 })()
 ```
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -294,26 +364,6 @@ The client implements the mathematical validations, while your application uses 
 
 	fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
 ```
-:::
-
-::: tab Java
-
-```java
-try {
-    TxMetadata txMd = immuClient.verifiedSet(key, val);
-    System.out.println("Successfully committed and verified tx " + txMd.id);
-} catch (VerificationException e) {
-    // ...
-}
-
-try {
-    Entry vEntry = immuClient.verifiedGet(key);
-    System.out.println("Successfully retrieved and verified entry: " + vEntry);
-} catch (VerificationException e) {
-    // ...
-}
-```
-
 :::
 
 ::: tab Python
@@ -354,6 +404,26 @@ if __name__ == "__main__":
 ```
 :::
 
+::: tab Java
+
+```java
+try {
+    TxMetadata txMd = immuClient.verifiedSet(key, val);
+    System.out.println("Successfully committed and verified tx " + txMd.id);
+} catch (VerificationException e) {
+    // ...
+}
+
+try {
+    Entry vEntry = immuClient.verifiedGet(key);
+    System.out.println("Successfully retrieved and verified entry: " + vEntry);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
+:::
+
 ::: tab Node.js
 ```ts
 import ImmudbClient from 'immudb-node'
@@ -383,11 +453,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	console.log('success: verifiedGet', verifiedGetRes)
 })()
 ```
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

@@ -64,6 +64,7 @@ const getSidebar = version => {
   };
 
   const minVersion = minVer => versions.indexOf(minVer) <= versions.indexOf(version.slice(1))
+  const maxVersion = maxVer => versions.indexOf(maxVer) >= versions.indexOf(version.slice(1))
 
   if (minVersion('1.0.0')) {
     getStarted.children.push(`${version}/quickstart`);
@@ -119,7 +120,9 @@ const getSidebar = version => {
     develop.children.push(`${version}/develop/management`);
     develop.children.push(`${version}/develop/indexes`);
     develop.children.push(`${version}/develop/transactions`);
-    develop.children.push(`${version}/develop/utilities`);
+    if (maxVersion('1.2.4')) {
+        develop.children.push(`${version}/develop/utilities`);
+    }
     develop.children.push(`${version}/develop/additional`);
   } else {
     develop.children.push(
