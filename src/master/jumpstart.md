@@ -7,7 +7,11 @@ This guide provides developers with the first steps of using immudb from their a
 * Insert and retrieve data
 
 ::: tip
-To learn how to develop for immudb with Python in a guided online environment, visit the immudb Playground at <https://play.codenotary.com>
+To learn how to develop for immudb with Python in a guided online environment, visit the immudb Playground at <https://play.codenotary.com>.
+:::
+
+::: tip
+Examples used in this documentation can be found in [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
 :::
 
 <WrappedSection>
@@ -16,17 +20,16 @@ To learn how to develop for immudb with Python in a guided online environment, v
 
 In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
 
-SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
+SDKs make it comfortable to talk to the server from your favorite language, without having to deal with details about how to talk to it.
 
-The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintainer by the internal team and by the community.
+The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintained by the internal team and by the community.
 
 
 | Language         | Maintainer | Immdb version | link | Notes                                                                              |
 |-------------------|---------|------------------|-------------|-----------------------------------------------------------|
-| `go`               | immudb team  | 1.2.1       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.2.1       |  [link](https://github.com/codenotary/immudb-py) | Verification is not working                                    |
+| `go`               | immudb team  | 1.2.4       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
+| `python`               | immudb team  | 1.2.3       |  [link](https://github.com/codenotary/immudb-py) |                                     |
 | `JAVA`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4j)  | Verification is not working                                      |
-| `.NET`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4dotnet)  | Verification is not working                                      |
 | `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
 | `JS`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immu-js) | Verification is not working                 |
 | `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.2.1       |   [link](https://github.com/ankane/immudb-ruby) |Verification is not working                 |
@@ -71,6 +74,30 @@ import (
 
 :::
 
+::: tab Python
+Install the package using pip:
+
+```shell
+    pip3 install immudb-py
+```
+
+ Then import the client as follows:
+
+```python
+    from immudb import ImmudbClient
+```
+
+*Note*: immudb-py need `grpcio` module from google. On Alpine linux, you need
+ these packages in order to correctly build (and install) grpcio:
+
+* `linux-headers`
+* `python3-dev`
+* `g++`
+
+[Python SDK repository](https://github.com/codenotary/immudb-py)
+
+:::
+
 ::: tab Java
 Just include immudb4j as a dependency in your project:
 
@@ -98,30 +125,6 @@ immudb4j is currently hosted on both [Maven Central] and [Github Packages].
 [Maven Central]: https://search.maven.org/artifact/io.codenotary/immudb4j
 :::
 
-::: tab Python
-Install the package using pip:
-
-```shell
-    pip3 install immudb-py
-```
-
- Then import the client as follows:
-
-```python
-    from immudb import ImmudbClient
-```
-
-*Note*: immudb-py need `grpcio` module from google. On Alpine linux, you need
- these packages in order to correctly build (and install) grpcio:
-
-* `linux-headers`
-* `python3-dev`
-* `g++`
-
-[Python SDK repository](https://github.com/codenotary/immudb-py)
-
-:::
-
 ::: tab Node.js
 
 Install the package using npm:
@@ -138,27 +141,6 @@ Include the immudb-node as a dependency in your project.
 Codenotary
 [Node.js SDK repository](https://github.com/codenotary/immudb-node)
 
-:::
-
-::: tab .Net
-
-Use Microsoft's [NuGet](https://www.nuget.org/packages/Immudb4DotNet/) package manager to get immudb4DotNet.
-
-Creating a Client.
-
-* Using the default configuration.
-
- ```csharp
-   var client = new CodeNotary.ImmuDb.ImmuClient("localhost"))
- ```
-
-* The immudb implements IDisposable, so you can wrap it with "using".
-
- ```csharp
- using (var client = new CodeNotary.ImmuDb.ImmuClient("localhost", 3322)){}
- ```
-
- [.Net SDK repository](https://github.com/codenotary/immudb4dotnet)
 :::
 
 ::: tab Others
@@ -201,6 +183,16 @@ defer client.CloseSession(context.TODO())
 
 :::
 
+::: tab Python
+
+```python
+from immudb.client import ImmudbClient
+ic=ImmudbClient()
+ic.login("immudb","immudb")
+```
+
+:::
+
 ::: tab Java
 
 ```java
@@ -209,16 +201,6 @@ client = ImmuClient.newBuilder()
     .withServerPort(3322)
     .build();
 client.login("immudb", "immudb");
-```
-
-:::
-
-::: tab Python
-
-```python
-from immudb.client import ImmudbClient
-ic=ImmudbClient()
-ic.login("immudb","immudb")
 ```
 
 :::
@@ -262,11 +244,6 @@ const cl = new ImmudbClient();
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
@@ -299,24 +276,19 @@ fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Ke
 
 :::
 
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -399,9 +371,5 @@ for _, r := range res.Rows {
     }
 }
 ```
-
-### Additional resources
-
-* Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
 
 </WrappedSection>
