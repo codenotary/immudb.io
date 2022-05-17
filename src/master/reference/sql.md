@@ -575,7 +575,7 @@ WHERE id = 2;
 ```
 
 ```sql
-SELECT * FROM sells SINCE '2022-01-06 11:38' UNTIL '2022-01-06 12:00'
+SELECT * FROM sales SINCE '2022-01-06 11:38' UNTIL '2022-01-06 12:00'
 ```
 
 Temporal ranges can be specified using functions and parameters
