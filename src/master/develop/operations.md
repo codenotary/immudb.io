@@ -10,12 +10,12 @@ Current state of immudb provides proof that clients can use to verify immudb:
 
 ::: tab Go
 ```go
-    	state, err := client.CurrentState(ctx)
-    	if err != nil {
-    		log.Fatal(err)
-    	}
+state, err := client.CurrentState(ctx)
+if err != nil {
+    log.Fatal(err)
+}
 
-    	fmt.Printf("current state is : %v", state)
+fmt.Printf("current state is : %v", state)
 ```
 :::
 
@@ -94,53 +94,53 @@ To set up the `stateService` 3 interfaces need to be implemented and provided to
 
 Following an example how to obtain a client instance with a custom state service.
 ```go
-    func MyCustomImmuClient(options *c.Options) (cli c.ImmuClient, err error) {
-    	ctx := context.Background()
+func MyCustomImmuClient(options *c.Options) (cli c.ImmuClient, err error) {
+    ctx := context.Background()
 
-    	cli = c.DefaultClient()
+    cli = c.DefaultClient()
 
-    	options.DialOptions = cli.SetupDialOptions(options)
+    options.DialOptions = cli.SetupDialOptions(options)
 
-    	cli.WithOptions(options)
+    cli.WithOptions(options)
 
-    	var clientConn *grpc.ClientConn
-    	if clientConn, err = cli.Connect(ctx); err != nil {
-    		return nil, err
-    	}
-
-    	cli.WithClientConn(clientConn)
-
-    	serviceClient := schema.NewImmuServiceClient(clientConn)
-    	cli.WithServiceClient(serviceClient)
-
-    	if err = cli.WaitForHealthCheck(ctx); err != nil {
-    		return nil, err
-    	}
-
-    	immudbStateProvider := stateService.NewImmudbStateProvider(serviceClient)
-    	immudbUUIDProvider := stateService.NewImmudbUUIDProvider(serviceClient)
-
-    	customDir := "custom_state_dir"
-    	os.Mkdir(customDir, os.ModePerm)
-    	stateService, err := stateService.NewStateService(
-    		cache.NewFileCache(customDir),
-    		logger.NewSimpleLogger("immuclient", os.Stderr),
-    		immudbStateProvider,
-    		immudbUUIDProvider)
-    	if err != nil {
-    		return nil, err
-    	}
-
-    	dt, err := timestamp.NewDefaultTimestamp()
-    	if err != nil {
-    		return nil, err
-    	}
-
-    	ts := c.NewTimestampService(dt)
-    	cli.WithTimestampService(ts).WithStateService(stateService)
-
-    	return cli, nil
+    var clientConn *grpc.ClientConn
+    if clientConn, err = cli.Connect(ctx); err != nil {
+        return nil, err
     }
+
+    cli.WithClientConn(clientConn)
+
+    serviceClient := schema.NewImmuServiceClient(clientConn)
+    cli.WithServiceClient(serviceClient)
+
+    if err = cli.WaitForHealthCheck(ctx); err != nil {
+        return nil, err
+    }
+
+    immudbStateProvider := stateService.NewImmudbStateProvider(serviceClient)
+    immudbUUIDProvider := stateService.NewImmudbUUIDProvider(serviceClient)
+
+    customDir := "custom_state_dir"
+    os.Mkdir(customDir, os.ModePerm)
+    stateService, err := stateService.NewStateService(
+        cache.NewFileCache(customDir),
+        logger.NewSimpleLogger("immuclient", os.Stderr),
+        immudbStateProvider,
+        immudbUUIDProvider)
+    if err != nil {
+        return nil, err
+    }
+
+    dt, err := timestamp.NewDefaultTimestamp()
+    if err != nil {
+        return nil, err
+    }
+
+    ts := c.NewTimestampService(dt)
+    cli.WithTimestampService(ts).WithStateService(stateService)
+
+    return cli, nil
+}
 ```
 :::
 
@@ -224,27 +224,27 @@ Check [state signature](/master/immudb/#state-signature) to see how to generate 
 
 ::: tab Go
 ```go
-    	c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
-    	if err != nil {
-    		log.Fatal(err)
-    	}
-    	ctx := context.Background()
+c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
+if err != nil {
+    log.Fatal(err)
+}
+ctx := context.Background()
 
-    	_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-    	if err != nil {
-    		log.Fatal(err)
-    	}
+_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
+if err != nil {
+    log.Fatal(err)
+}
 
-    	if _, err = c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
-    		log.Fatal(err)
-    	}
+if _, err = c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
+    log.Fatal(err)
+}
 
-    	var state *schema.ImmutableState
-    	if state, err = c.CurrentState(ctx); err != nil {
-    		log.Fatal(err) // if signature is not verified here is trigger an appropriate error
-    	}
+var state *schema.ImmutableState
+if state, err = c.CurrentState(ctx); err != nil {
+    log.Fatal(err) // if signature is not verified here is trigger an appropriate error
+}
 
-    	fmt.Print(state)
+fmt.Print(state)
 ```
 :::
 
@@ -350,19 +350,19 @@ The client implements the mathematical validations, while your application uses 
 
 ::: tab Go
 ```go
-	tx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
-    if  err != nil {
-    	log.Fatal(err)
-	}
+tx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
+if  err != nil {
+    log.Fatal(err)
+}
 
-	fmt.Printf("Successfully committed and verified tx %d\n", tx.Id)
+fmt.Printf("Successfully committed and verified tx %d\n", tx.Id)
 
-    entry, err := client.VerifiedGet(ctx, []byte(`hello`))
-    if  err != nil {
-    	log.Fatal(err)
-	}
+entry, err := client.VerifiedGet(ctx, []byte(`hello`))
+if  err != nil {
+    log.Fatal(err)
+}
 
-	fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
+fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
 ```
 :::
 
