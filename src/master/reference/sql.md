@@ -543,10 +543,10 @@ SELECT AVG(age) FROM sellers
 
 ### Transactions
 
-Multiple insert and upsert statements can be issued within a single transaction.
+The ACID (Atomicity, Consistency, Isolation, and Durability) compliance is complete.
 
-The easiest way to tested it is with the `./immuclient exec "..."` shell command
-(make sure to use an escaped `\$` value to avoid cutting out part of the price).
+Handling read-write conflicts may be necessary when dealing with concurrent transactions. Getting the error `ErrTxReadConflict` ("tx read conflict") means there was another transaction committed before the current one, and the data it read may have been invalidated.
+MVCC validations have not yet been implemented, therefore there may be false positives generated. Application should rollback the current transaction and start over with a new one.
 
 ```sql
 BEGIN TRANSACTION;
