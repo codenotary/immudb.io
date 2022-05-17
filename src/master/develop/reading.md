@@ -747,7 +747,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ### Conditional writes
 
-Immudb can check additional preconditions before the write operation is made.
+immudb can check additional preconditions before the write operation is made.
 Precondition is checked atomically with the write operation.
 It can be then used to ensure consistent state of data inside the database.
 

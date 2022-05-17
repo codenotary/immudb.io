@@ -1,5 +1,5 @@
 # Streams
-Immudb provides stream capabilities.
+immudb provides stream capabilities.
 Internally it uses “delimited” messages technique, every chunk has a trailer that describe the length of the message. In this way the receiver can recompose chunk by chunk the original payload.
 Stream methods accepts a `readers` as a part of input and output arguments. In this way the large value is decomposed in small chunks that are streamed over the wire.
 Client don't need to allocate the entire value when sending and can read the received one progressively.

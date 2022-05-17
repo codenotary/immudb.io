@@ -228,7 +228,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ## Database management
 
-Multi-database support is included in immudb server. Immudb automatically creates an initial database named `defaultdb`.
+Multi-database support is included in immudb server. immudb automatically creates an initial database named `defaultdb`.
 
 Managing users and databases requires the appropriate privileges. A user with `PermissionAdmin` rights can manage everything. Non-admin users have restricted access and can only read or write databases to which they have been granted permission.
 

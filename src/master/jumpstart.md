@@ -329,7 +329,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ## SQL Operations with the Go SDK
 
-Immudb can be used as an SQL database, and SDKs allow you to quickly make use of it in your application. 
+immudb can be used as an SQL database, and SDKs allow you to quickly make use of it in your application. 
 The sample code below shows how easy it can be. 
 
 ```go

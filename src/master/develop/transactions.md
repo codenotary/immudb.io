@@ -1,6 +1,6 @@
 # Transactions
 
-Immudb supports transactions both on key-value and SQL level, but interactive transactions are supported only on SQL with the exception of `execAll` method, that provides some additional properties.
+immudb supports transactions both on key-value and SQL level, but interactive transactions are supported only on SQL with the exception of `execAll` method, that provides some additional properties.
 
 ## SQL interactive transactions
 

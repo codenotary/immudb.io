@@ -79,7 +79,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Automated verification of state by Immudb SDK
+### Automated verification of state by immudb SDK
 
 It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
 

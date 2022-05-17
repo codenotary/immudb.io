@@ -3,7 +3,7 @@
 
 <WrappedSection>
 
-Every operating system has different ways of running services. Immudb provides a facility called `immudb service` to hide this complexity.
+Every operating system has different ways of running services. immudb provides a facility called `immudb service` to hide this complexity.
 
 To install the service run as root:
 
