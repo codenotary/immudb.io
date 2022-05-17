@@ -199,6 +199,8 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
+<WrappedSection>
+
 ### Disable authentication. Deprecated
 
 You also have the option to run immudb with authentication disabled: 
@@ -208,6 +210,8 @@ $ ./immudb --auth=false
 ```
 
 However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
+
+</WrappedSection>
 
 :::: tabs
 
