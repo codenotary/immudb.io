@@ -560,19 +560,28 @@ COMMIT;
 
 ### Time travel
 
-Time travel allows reading data from SQL as if it was in some previous state.
-The state is indicated by transaction id.
+Time travel allows you to read data from SQL as if it were in a previous state or from a specific time range.
+Initial and final points are optional and can be specified using either a transaction ID or a timestamp.
 
-A historical version of a table can be used in `SELECT` statements
-using the `BEFORE TX` clause:
+The temporal range can be used to filter out rows from the specified (physical) table, but it is not supported in subqueries.
+
+The initial point can be inclusive (`SINCE`) or exclusive (`AFTER`).
+The final point can be inclusive (`UNTIL`) or exclusive (`BEFORE`).
 
 ```sql
 SELECT id, product, price
-FROM products BEFORE TX 13;
-
-SELECT id, product, price
 FROM products BEFORE TX 13
 WHERE id = 2;
+```
+
+```sql
+SELECT * FROM sells SINCE '2022-01-06 11:38' UNTIL '2022-01-06 12:00'
+```
+
+Temporal ranges can be specified using functions and parameters
+
+```sql
+SELECT * FROM mytable SINCE TX @initialTx BEFORE now()
 ```
 
 </WrappedSection>
