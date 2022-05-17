@@ -514,6 +514,33 @@ Note: the context of a sub-query does not propagate outside,
       e.g. it is not possible to reference a table from a sub-query
       in the `WHERE` clause outside of the sub-query.
 
+### Combining query results with `UNION`
+
+It is possible to combine multiple query results with the `UNION` operator.
+
+Subqueries must select the same number and type of columns.
+The final return will assign the same naming as in the first subquery, even if names differ.
+
+```sql
+SELECT customer_name as name
+FROM customers
+WHERE age < 30
+UNION
+SELECT seller_name
+FROM sellers
+WHERE age < 30
+```
+
+Subqueries are not constrained in any way, they can contain aggregations or joins.
+
+Duplicate rows are excluded by default. Using `UNION ALL` will leave duplicate rows in place.
+
+```sql
+SELECT AVG(age) FROM customers
+UNION ALL 
+SELECT AVG(age) FROM sellers
+```
+
 ### Transactions
 
 Multiple insert and upsert statements can be issued within a single transaction.
