@@ -7,7 +7,11 @@ This guide provides developers with the first steps of using immudb from their a
 * Insert and retrieve data
 
 ::: tip
-To learn how to develop for immudb with Python in a guided online environment, visit the immudb Playground at <https://play.codenotary.com>
+To learn how to develop for immudb with Python in a guided online environment, visit the immudb Playground at <https://play.codenotary.com>.
+:::
+
+::: tip
+Examples used in this documentation can be found in [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
 :::
 
 <WrappedSection>
@@ -16,17 +20,16 @@ To learn how to develop for immudb with Python in a guided online environment, v
 
 In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
 
-SDKs make it comfortable to talk to the server from your favourite language, without having to deal with details about how to talk to it.
+SDKs make it comfortable to talk to the server from your favorite language, without having to deal with details about how to talk to it.
 
-The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintainer by the internal team and by the community.
+The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintained by the internal team and by the community.
 
 
 | Language         | Maintainer | Immdb version | link | Notes                                                                              |
 |-------------------|---------|------------------|-------------|-----------------------------------------------------------|
-| `go`               | immudb team  | 1.2.1       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.2.1       |  [link](https://github.com/codenotary/immudb-py) | Verification is not working                                    |
+| `go`               | immudb team  | 1.2.4       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
+| `python`               | immudb team  | 1.2.3       |  [link](https://github.com/codenotary/immudb-py) |                                     |
 | `JAVA`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4j)  | Verification is not working                                      |
-| `.NET`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4dotnet)  | Verification is not working                                      |
 | `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
 | `JS`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immu-js) | Verification is not working                 |
 | `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.2.1       |   [link](https://github.com/ankane/immudb-ruby) |Verification is not working                 |
@@ -71,6 +74,30 @@ import (
 
 :::
 
+::: tab Python
+Install the package using pip:
+
+```shell
+    pip3 install immudb-py
+```
+
+ Then import the client as follows:
+
+```python
+    from immudb import ImmudbClient
+```
+
+*Note*: immudb-py need `grpcio` module from google. On Alpine linux, you need
+ these packages in order to correctly build (and install) grpcio:
+
+* `linux-headers`
+* `python3-dev`
+* `g++`
+
+[Python SDK repository](https://github.com/codenotary/immudb-py)
+
+:::
+
 ::: tab Java
 Just include immudb4j as a dependency in your project:
 
@@ -98,30 +125,6 @@ immudb4j is currently hosted on both [Maven Central] and [Github Packages].
 [Maven Central]: https://search.maven.org/artifact/io.codenotary/immudb4j
 :::
 
-::: tab Python
-Install the package using pip:
-
-```shell
-    pip3 install immudb-py
-```
-
- Then import the client as follows:
-
-```python
-    from immudb import ImmudbClient
-```
-
-*Note*: immudb-py need `grpcio` module from google. On Alpine linux, you need
- these packages in order to correctly build (and install) grpcio:
-
-* `linux-headers`
-* `python3-dev`
-* `g++`
-
-[Python SDK repository](https://github.com/codenotary/immudb-py)
-
-:::
-
 ::: tab Node.js
 
 Install the package using npm:
@@ -138,27 +141,6 @@ Include the immudb-node as a dependency in your project.
 Codenotary
 [Node.js SDK repository](https://github.com/codenotary/immudb-node)
 
-:::
-
-::: tab .Net
-
-Use Microsoft's [NuGet](https://www.nuget.org/packages/Immudb4DotNet/) package manager to get immudb4DotNet.
-
-Creating a Client.
-
-* Using the default configuration.
-
- ```csharp
-   var client = new CodeNotary.ImmuDb.ImmuClient("localhost"))
- ```
-
-* The immudb implements IDisposable, so you can wrap it with "using".
-
- ```csharp
- using (var client = new CodeNotary.ImmuDb.ImmuClient("localhost", 3322)){}
- ```
-
- [.Net SDK repository](https://github.com/codenotary/immudb4dotnet)
 :::
 
 ::: tab Others
@@ -178,25 +160,40 @@ The first step is to connect to the database, which listens by default in port 3
 ::: tab Go
 
 ```go
+package main
+
 import (
- "log"
- "context"
- immudb "github.com/codenotary/immudb/pkg/client"
+	"context"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-opts := immudb.DefaultOptions().
-            WithAddress("localhost").
-            WithPort(3322)
+func main() {
+    opts := immudb.DefaultOptions().
+        WithAddress("localhost").
+        WithPort(3322)
 
-client := immudb.NewClient().WithOptions(opts)
-err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
+    client := immudb.NewClient().WithOptions(opts)
+    err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    defer client.CloseSession(context.TODO())
+
+    // do amazing stuff
 }
+```
 
-defer client.CloseSession(context.TODO())
+:::
 
-// do amazing stuff
+::: tab Python
+
+```python
+from immudb.client import ImmudbClient
+ic=ImmudbClient()
+ic.login("immudb","immudb")
 ```
 
 :::
@@ -209,16 +206,6 @@ client = ImmuClient.newBuilder()
     .withServerPort(3322)
     .build();
 client.login("immudb", "immudb");
-```
-
-:::
-
-::: tab Python
-
-```python
-from immudb.client import ImmudbClient
-ic=ImmudbClient()
-ic.login("immudb","immudb")
 ```
 
 :::
@@ -262,11 +249,6 @@ const cl = new ImmudbClient();
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
@@ -282,26 +264,44 @@ You can write with built-in cryptographic verification. The client implements th
 ::: tab Go
 
 ```go
-vtx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
-if err != nil {
-    log.Fatal(err)
+import (
+	"context"
+	"fmt"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func main() {
+	opts := immudb.DefaultOptions().
+		WithAddress("localhost").
+		WithPort(3322)
+
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.CloseSession(context.TODO())
+
+	vtx, err := client.VerifiedSet(context.TODO(), []byte(`hello`), []byte(`immutable world`))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
+
+	ventry, err := client.VerifiedGet(context.TODO(), []byte(`hello`))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 }
 
-fmt.Printf("Set and verified key '%s' with value '%s' at tx %d\n", []byte(`hello`), []byte(`immutable world`), vtx.Id)
-
-ventry, err := client.VerifiedGet(ctx, []byte(`hello`))
-if err != nil {
-    log.Fatal(err)
-}
- 
-fmt.Printf("Sucessfully verified key '%s' with value '%s' at tx %d\n", ventry.Key, ventry.Value, ventry.Tx)
 ```
 
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
@@ -309,14 +309,14 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -329,79 +329,77 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ## SQL Operations with the Go SDK
 
-In order to use SQL from the Go SDK, you create a immudb client and login to the server like usual. First make sure you import:
-
-```
-"github.com/codenotary/immudb/pkg/api/schema"
-"github.com/codenotary/immudb/pkg/client"
-```
-
-Then you can create the client and open a new session to the database:
+immudb can be used as an SQL database, and SDKs allow you to quickly make use of it in your application. 
+The sample code below shows how easy it can be. 
 
 ```go
+package main
+
 import (
-"log"
-"context"
-immudb "github.com/codenotary/immudb/pkg/client"
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/codenotary/immudb/pkg/api/schema"
+	immudb "github.com/codenotary/immudb/pkg/client"
 )
 
-c := immudb.NewClient()
-err := c.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
+func main() {
+	opts := immudb.DefaultOptions().
+		WithAddress("localhost").
+		WithPort(3322)
+
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// To perform SQL statements, use the SQLExec function, which takes a SQLExecRequest with a SQL operation:
+	_, err = client.SQLExec(context.TODO(), `
+	    BEGIN TRANSACTION;
+	            CREATE TABLE people(id INTEGER, name VARCHAR[256], salary INTEGER, PRIMARY KEY id);
+	            CREATE INDEX ON people(name);
+	    COMMIT;
+	    `,
+		map[string]interface{}{},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// This is also how you perform inserts:
+	_, err = client.SQLExec(context.TODO(),
+		"UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);",
+		map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Once you have data in the database, you can use the SQLQuery method of the client to query.
+	// Both SQLQuery and SQLExec allows named parameters.
+	// Just encode them as @param and pass map[string]{}interface as values:
+	res, err := client.SQLQuery(context.TODO(),
+		"SELECT t.id AS d, t.name FROM people AS t WHERE id <= 3 AND name = @name",
+		map[string]interface{}{"name": "Joe"},
+		true,
+	)
+	if err != nil {
+		fmt.Printf("To tu ?")
+		log.Fatal(err)
+	}
+
+	// res is of the type *schema.SQLQueryResult. In order to iterate over the results,
+	// you iterate over res.Rows. On each iteration, the row r will have a member Values,
+	// which you can iterate to get each column.
+	for _, r := range res.Rows {
+		for _, v := range r.Values {
+			log.Printf("%s\n", schema.RenderValue(v.Value))
+		}
+	}
 }
 
-defer c.CloseSession(context.TODO())
-
-// do amazing stuff
 ```
-
-To perform SQL statements, use the `SQLExec` function, which takes a `SQLExecRequest` with a SQL operation:
-
-```go
- _, err = c.SQLExec(ctx, `
-  BEGIN TRANSACTION
-          CREATE TABLE people(id INTEGER, name VARCHAR, salary INTEGER, PRIMARY KEY id);
-          CREATE INDEX ON people(name)
-  COMMIT
- `, map[string]interface{}{})
-  if err != nil {
-  log.Fatal(err)
- }
-```
-
-This is also how you perform inserts:
-
-```go
-_, err = c.SQLExec(ctx, "UPSERT INTO people(id, name, salary) VALUES (@id, @name, @salary);", map[string]interface{}{"id": 1, "name": "Joe", "salary": 1000})
-if err != nil {
-    log.Fatal(err)
-}
-```
-
-Once you have data in the database, you can use the `SQLQuery` method of the client to query.
-
-Both `SQLQuery` and `SQLExec` allows named parameters. Just encode them as `@param` and pass `map[string]{}interface` as values:
-
-```go
-res, err := c.SQLQuery(ctx, "SELECT t.id as d,t.name FROM (people AS t) WHERE id <= 3 AND name = @name", map[string]interface{}{"name": "Joe"}, true)
-if err != nil {
-    log.Fatal(err)
-}
-```
-
-`res` is of the type `*schema.SQLQueryResult`. In order to iterate over the results, you iterate over `res.Rows`. On each iteration, the row `r` will have a member `Values`, which you can iterate to get each column.
-
-```go
-for _, r := range res.Rows {
-    for _, v := range r.Values {
-        log.Printf("%s\n", schema.RenderValue(v.Value))
-    }
-}
-```
-
-### Additional resources
-
-* Get the [immudb-client-example code](https://github.com/codenotary/immudb-client-examples)
 
 </WrappedSection>
