@@ -1,71 +1,37 @@
 # Connection and authentication
 
 The immudb server runs on port 3322 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
-You can modify defaults on the immudb server in `immudb.toml` in the config folder.
+You can modify defaults on the immudb server in [immudb.toml](https://github.com/codenotary/immudb/blob/master/configs/immudb.toml) in the config folder.
 :::: tabs
 
 ::: tab Go
 
 ```go
+package main
+
 import (
-  "context"
-  immudb "github.com/codenotary/immudb/pkg/client"
-  "log"
+	"context"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
 )
-```
 
-```go
-client:= immudb.NewClient()
-err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
+func main() {
+	opts := immudb.DefaultOptions().
+		WithAddress("localhost").
+		WithPort(3322)
+
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.CloseSession(context.TODO())
+
+	// do amazing stuff
 }
-
-defer client.CloseSession(context.TODO())
-
-// do amazing stuff
 ```
-
-The server address and port can be set in client options as follows:
-```go
-opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
-client := immudb.NewClient().WithOptions(opts)
-
-err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
-}
-
-defer client.CloseSession(context.TODO())
-
-// do amazing stuff
-```
-:::
-
-::: tab Java
-
-Under the hood, during `login`, a token is being retrieved from the server,
-stored in memory and reused for subsequent operations.
-
-The state is internally used for doing _verified_ operations (such as verifiedSet or verifiedGet).
-
-```java
-// Setting the "store" where the internal states are being persisted.
-FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
-            .withStatesFolder("immu_states")
-            .build();
-
-// Creating an new ImmuClient instance.
-ImmuClient immuClient = ImmuClient.newBuilder()
-            .withStateHolder(stateHolder)
-            .withServerUrl("localhost")
-            .withServerPort(3322)
-            .build();
-
-// Login with default credentials.
-immuClient.login("immudb", "immudb");
-```
-
 :::
 
 ::: tab Python
@@ -100,14 +66,35 @@ if __name__ == "__main__":
 ```
 :::
 
+::: tab Java
+
+Under the hood, during `login`, a token is being retrieved from the server,
+stored in memory and reused for subsequent operations.
+
+The state is internally used for doing _verified_ operations (such as verifiedSet or verifiedGet).
+
+```java
+// Setting the "store" where the internal states are being persisted.
+FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+            .withStatesFolder("immu_states")
+            .build();
+
+// Creating an new ImmuClient instance.
+ImmuClient immuClient = ImmuClient.newBuilder()
+            .withStateHolder(stateHolder)
+            .withServerUrl("localhost")
+            .withServerPort(3322)
+            .build();
+
+// Login with default credentials.
+immuClient.login("immudb", "immudb");
+```
+
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -122,8 +109,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
-In order to generate certs, use the openssl tool:
-[generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls).
+In order to generate certs, use the [generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls) tool from immudb repository. It generates a list of folders containing certificates and private keys to set up a mTLS connection.
 
 ```bash
 ./generate.sh localhost mysecretpassword
@@ -131,37 +117,58 @@ In order to generate certs, use the openssl tool:
 
 </WrappedSection>
 
-This generates a list of folders containing certificates and private keys to set up a mTLS connection.
 :::: tabs
 
 ::: tab Go
 
 ```go
-opts := immudb.DefaultOptions().
+package main
+
+import (
+	"context"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func main() {
+	// Folder cotaining MTLS certificates
+	pathToMTLSFolder := "./mtls"
+
+	opts := immudb.DefaultOptions().
+		WithAddress("localhost").
+		WithPort(3322).
 		WithMTLs(true).
 		WithMTLsOptions(
 			immudb.MTLsOptions{}.
-                WithCertificate("{path-to-immudb-src-folder}/tools/mtls/4_client/certs/localhost.cert.pem").
-				WithPkey("{path-to-immudb-src-folder}/tools/mtls/4_client/private/localhost.key.pem").
-				WithClientCAs("{path-to-immudb-src-folder}/tools/mtls/2_intermediate/certs/ca-chain.cert.pem").
+				WithCertificate(pathToMTLSFolder + "/4_client/certs/localhost.cert.pem").
+				WithPkey(pathToMTLSFolder + "/4_client/private/localhost.key.pem").
+				WithClientCAs(pathToMTLSFolder + "/2_intermediate/certs/ca-chain.cert.pem").
 				WithServername("localhost"),
 		)
 
-client := immudb.NewClient().WithOptions(opts)
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-// do amazing stuff
+	defer client.CloseSession(context.TODO())
+
+	// do amazing stuff
+}
 ```
 
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
+:::
+
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Node.js
@@ -186,11 +193,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
@@ -199,25 +201,51 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ### Disable authentication. Deprecated
 
-You also have the option to run immudb with authentication disabled. However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
+You also have the option to run immudb with authentication disabled: 
+
+```bash
+$ ./immudb --auth=false
+```
+
+However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
 
 :::: tabs
 
 ::: tab Go
 
 ```go
-    client, err := c.NewImmuClient(
-  c.DefaultOptions().WithAuth(false),
- )
- if err != nil {
-  log.Fatal(err)
- }
- vi, err := client.VerifiedSet(ctx, []byte(`immudb`), []byte(`hello world`))
- if  err != nil {
-  log.Fatal(err)
- }
+package main
+
+import (
+	"context"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func main() {
+	client, err := immudb.NewImmuClient(
+		immudb.DefaultOptions().
+			WithAddress("localhost").
+			WithPort(3322).
+			WithAuth(false),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = client.VerifiedSet(context.TODO(), []byte(`immudb`), []byte(`hello world`))
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 ```
 
+:::
+
+::: tab Python
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
 ::: tab Java
@@ -242,19 +270,9 @@ try {
 
 :::
 
-::: tab Python
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
-:::
-
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
