@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS customers (
     country       VARCHAR[15],
     age           INTEGER,
     active        BOOLEAN,
-    created_at    TIMESTAMP,
     PRIMARY KEY (id)
 );
 
@@ -121,6 +120,51 @@ Application logic is responsible for ensuring data consistency and foreign key c
 SELECT * FROM orders
 INNER JOIN customers ON customers.id = orders.customerid
 INNER JOIN products ON products.id = orders.productid;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+## Altering tables
+
+immudb supports limited table altering.
+The supported operations are lightweight.
+They do not require any changes to already written row data
+and there is no performance penalty on read/write operations
+in such altered tables.
+
+### `ADD COLUMN`
+
+A new column can be added to an existing table.
+Such column must be nullable.
+For rows that already existed in the table before the alter operation,
+the value of the newly added column will be read as `NULL`.
+New column can not be set as `AUTO_INCREMENT` which is only allowed for the primary key.
+
+```sql
+ALTER TABLE customers
+ADD COLUMN created_time TIMESTAMP;
+
+SELECT customer_name, created_time
+FROM customers;
+```
+
+### `RENAME COLUMN`
+
+An existing column can be renamed.
+The column with the new name must not exist in the table
+when performing the alter operation.
+If the column was previously part of an index,
+such index will continue working with the new column name.
+Renaming a column does not change column's type.
+
+```sql
+ALTER TABLE customers
+RENAME COLUMN created_time TO created_at;
+
+SELECT customer_name, created_at
+FROM customers;
 ```
 
 </WrappedSection>
