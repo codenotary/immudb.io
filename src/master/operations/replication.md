@@ -82,7 +82,7 @@ It's possible to create multiple replicas of a database. Each replica works inde
 
 </div>
 
-Given the master database acts in passive mode, there is no special steps needed in order to create more replicas. Thus, by repeating the same steps to create the first replica it's possible to configure new ones.
+Given the master database acts in passive mode, there are no special steps needed in order to create more replicas. Thus, by repeating the same steps to create the first replica it's possible to configure new ones.
 
 </WrappedSection>
 
