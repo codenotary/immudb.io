@@ -1,6 +1,8 @@
 
 # Getting started with immudb Development
 
+<WrappedSection>
+
 This guide provides developers with the first steps of using immudb from their application and from their favourite programming language:
 
 * Connect to the database
@@ -13,6 +15,8 @@ To learn how to develop for immudb with Python in a guided online environment, v
 ::: tip
 Examples used in this documentation can be found in [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
 :::
+
+</WrappedSection>
 
 <WrappedSection>
 
@@ -50,6 +54,8 @@ The immudb server manages the requests from the outside world to the store. In o
 
 
 ## Connecting from your programming language
+
+<WrappedSection>
 
 ### Importing the SDK
 
@@ -148,6 +154,10 @@ If you're using another language, then read up on our [immugw](/master/immugw/) 
 :::
 
 ::::
+
+</WrappedSection>
+
+<WrappedSection>
 
 ### Connection and authentication
 
@@ -255,6 +265,10 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
+</WrappedSection>
+
+<WrappedSection>
+
 ### Tamperproof read and write
 
 :::: tabs
@@ -324,6 +338,8 @@ If you're using another development language, please refer to the [immugw](/mast
 :::
 
 ::::
+
+</WrappedSection>
 
 <WrappedSection>
 

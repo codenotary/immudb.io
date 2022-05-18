@@ -1,5 +1,7 @@
 # Connection and authentication
 
+### Connection with username and password
+
 The immudb server runs on port 3322 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in [immudb.toml](https://github.com/codenotary/immudb/blob/master/configs/immudb.toml) in the config folder.
 :::: tabs
@@ -103,13 +105,13 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-<WrappedSection>
-
 ### Mutual TLS
 
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
 In order to generate certs, use the [generate.sh](https://github.com/codenotary/immudb/tree/master/tools/mtls) tool from immudb repository. It generates a list of folders containing certificates and private keys to set up a mTLS connection.
+
+<WrappedSection>
 
 ```bash
 ./generate.sh localhost mysecretpassword
@@ -199,19 +201,19 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-<WrappedSection>
-
 ### Disable authentication. Deprecated
 
 You also have the option to run immudb with authentication disabled: 
+
+<WrappedSection>
 
 ```bash
 $ ./immudb --auth=false
 ```
 
-However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
-
 </WrappedSection>
+
+However, without authentication enabled, it's not possible to connect to a server already configured with databases and user permissions. If a valid token is present, authentication is enabled by default.
 
 :::: tabs
 
@@ -284,3 +286,4 @@ If you're using another development language, please refer to the [immugw](/mast
 :::
 
 ::::
+

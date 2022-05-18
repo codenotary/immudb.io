@@ -1,6 +1,8 @@
 
 # The immudb Web Console
 
+<WrappedSection>
+
 immudb includes an embedded web console which can be accessed via the default port 8080 (`web-server-port` option).
 
 ![image](/webconsole.jpg)
@@ -12,6 +14,8 @@ The console allows you to:
 * Configure users
 * Create databases
 * Manage permissions for users
+
+</WrappedSection>
 
 <WrappedSection>
 

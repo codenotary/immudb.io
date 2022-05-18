@@ -88,7 +88,9 @@ const getSidebar = version => {
       `${version}/operations/monitoring`,
     ]
   };
-
+  if (minVersion('1.1.0')) {
+    operations.children.push(`${version}/develop/auditor`);
+  }
   if (minVersion('1.2.3')) {
     operations.children.push(`${version}/operations/backwards-compatibility`);
   }
@@ -100,8 +102,42 @@ const getSidebar = version => {
     operations.children.push(`${version}/operations/specs`);
   }
 
-
   /* OPERATIONS SECTION END */
+
+  /* DEVELOP INTRODUCTION SECTION START */
+  let developIntroduction = {
+      title: 'Develop',
+      collapsable: false,
+      children: [
+      ]
+  };
+
+  if (minVersion('1.3.0')) {
+    developIntroduction.children.push(`${version}/build`);
+    developIntroduction.children.push(`${version}/develop/connection`);
+    developIntroduction.children.push(`${version}/develop/operations`);
+    developIntroduction.children.push(`${version}/develop/management`);
+  }
+  /* DEVELOP INTRODUCTION SECTION END */
+
+  /* DEVELOP KV SECTION START */
+  let developKV = {
+      title: 'Develop with Key Value',
+      collapsable: false,
+      children: [
+      ]
+  };
+
+  if (minVersion('1.3.0')) {
+    developKV.children.push(`${version}/develop/reading`);
+    developKV.children.push(`${version}/develop/history`);
+    developKV.children.push(`${version}/develop/indexes`);
+    developKV.children.push(`${version}/develop/transactions`);
+    developKV.children.push(`${version}/develop/deleting`);
+    developKV.children.push(`${version}/develop/expiration`);
+    developKV.children.push(`${version}/develop/embedding`);
+  }
+  /* DEVELOP KV SECTION END */
 
   /* DEVELOP SECTION START */
   let develop = {
@@ -112,14 +148,14 @@ const getSidebar = version => {
   };
 
   if (minVersion('1.0.0')) {
-    develop.children.push(`${version}/develop/connection`);
-    develop.children.push(`${version}/develop/reading`);
-    develop.children.push(`${version}/develop/operations`);
-    develop.children.push(`${version}/develop/history`);
+    //develop.children.push(`${version}/develop/connection`);
+    //develop.children.push(`${version}/develop/reading`);
+    //develop.children.push(`${version}/develop/operations`);
+    //develop.children.push(`${version}/develop/history`);
     develop.children.push(`${version}/develop/streams`);
-    develop.children.push(`${version}/develop/management`);
-    develop.children.push(`${version}/develop/indexes`);
-    develop.children.push(`${version}/develop/transactions`);
+    //develop.children.push(`${version}/develop/management`);
+    //develop.children.push(`${version}/develop/indexes`);
+    //develop.children.push(`${version}/develop/transactions`);
     if (maxVersion('1.2.4')) {
         develop.children.push(`${version}/develop/utilities`);
     }
@@ -131,21 +167,21 @@ const getSidebar = version => {
   }
 
   if (minVersion('1.1.0')) {
-    develop.children.push(`${version}/develop/sqlstdlib`);
-    develop.children.push(`${version}/develop/auditor`);
+    //develop.children.push(`${version}/develop/sqlstdlib`);
+    //develop.children.push(`${version}/develop/auditor`);
   }
 
   if (minVersion('1.2.1')) {
-    develop.children.push(`${version}/develop/deleting`);
-    develop.children.push(`${version}/develop/expiration`);
+    //develop.children.push(`${version}/develop/deleting`);
+    //develop.children.push(`${version}/develop/expiration`);
   }
 
-  develop.children.push(
-    `${version}/develop/pg`,
-    `${version}/develop/embedding`,
-    `${version}/build`,
+  //develop.children.push(
+    //`${version}/develop/pg`,
+    //`${version}/develop/embedding`,
+    //`${version}/build`,
 
-  );
+  //);
 
   const reference = {
     title: 'Reference',
@@ -159,6 +195,22 @@ const getSidebar = version => {
 
   /* DEVELOP SECTION END */
 
+  /* DEVELOP SQL SECTION START */
+  let developSQL = {
+      title: 'Develop with SQL',
+      collapsable: false,
+      children: [
+      ]
+  };
+
+  if (minVersion('1.3.0')) {
+    developSQL.children.push(`${version}/develop/transactionsSQL`);
+    developSQL.children.push(`${version}/develop/sqlstdlib`);
+    developSQL.children.push(`${version}/develop/pg`);
+    developSQL.children.push(`${version}/develop/embeddingSQL`);
+  }
+  /* DEVELOP SQL SECTION END */
+
   sidebar.push(introduction);
   if (minVersion('1.0.0')) {
     sidebar.push(learn);
@@ -167,7 +219,16 @@ const getSidebar = version => {
   if (minVersion('1.0.0')) {
     sidebar.push(operations);
   }
-  if (minVersion('1.0.0')) {
+  if (minVersion('1.3.0')) {
+    sidebar.push(developIntroduction);
+  }
+  if (minVersion('1.3.0')) {
+    sidebar.push(developKV);
+  }
+  if (minVersion('1.3.0')) {
+    sidebar.push(developSQL);
+  }
+  if (minVersion('1.0.0') /*&& maxVersion('1.2.4')*/) {
     sidebar.push(develop);
   }
   if (minVersion('1.0.0')) {
