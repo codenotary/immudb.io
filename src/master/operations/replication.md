@@ -15,7 +15,7 @@ immudb includes support for replication by means of a follower approach. A datab
 
 During replication, master databases have a passive role. The grpc endpoint `ExportTx` is used by replicas to fetch unseen committed transactions from the master.
 
-Replicas are readonly and any direct write operation will be rejected. But queries are supported. Providing the possibility to distribute query loads.
+Replicas are read only and any direct write operation will be rejected. Using replicas allow to distribute query loads.
 
 <div class="wrapped-picture">
 
@@ -23,33 +23,58 @@ Replicas are readonly and any direct write operation will be rejected. But queri
 
 </div>
 
+</WrappedSection>
+
+<WrappedSection>
 ### Replication and users
 
-As shown in the diagram above, the replicator fetches committed transaction from the master via grpc calls. Internally, the replicator instantiates an immudb client (using the official golang sdk) and fetches unseen committed transactions from the master. In order to do so, the replicator requires valid user credentials, otherwise the master will reject any request.
+As shown in the diagram above, the replicator fetches committed transaction from the master via grpc calls. Internally, the replicator instantiates an immudb client (using the official golang SDK) and fetches unseen committed transactions from the master. In order to do so, the replicator requires valid user credentials with admin permissions, otherwise the master will reject any request.
 
-Note: currently only users with admin permissions are allowed to call `ExportTx` endpoint.
+</WrappedSection>
+
+<WrappedSection>
 
 ### Creating a replica
 
-Creating a replica of an existent database using immuadmin is super easy, replication flags should be provided when the database is created or updated as follow:
+Creating a replica of an existent database using immuadmin is super easy: 
 
-1. Login `./immuadmin login immudb`
+```bash
+$ ./immuadmin login immudb
+Password:
+logged in
+$ ./immuadmin database create --replication-enabled=true --replication-follower-username=immudb --replication-follower-password=immudb --replication-master-database=defaultdb replicadb
+database 'replicadb' {replica: true} successfully created
+```
 
-3. Create a database as a replica of an existent database
+::: tip
+Display all database creation flags with 
 
-`./immuadmin database create --replication-enabled=true --replication-follower-username=immudb --replication-follower-password=immudb --replication-master-database=defaultdb replicadb`
-
-Note: Display all database creation flags `./immuadmin database create --help`
+```bash
+$ ./immuadmin help database create 
+```
+:::
 
 ### Creating a second immudb instance to replicate systemdb and defaultdb behaves similarly
 
-1. Start immudb binary specifying replication flags `./immudb --replication-enabled=true --replication-follower-password=immudb  --replication-follower-username=immudb --replication-master-address=127.0.0.1` 
+Start immudb with enabled replication:
 
-Note: Display all replication flags `./immudb --help`
+```bash
+$ ./immudb --replication-enabled=true --replication-follower-password=immudb  --replication-follower-username=immudb --replication-master-address=127.0.0.1
+```
 
+::: tip
+Display all replication flags 
+```bash
+$ ./immudb --help
+```
+:::
+
+</WrappedSection>
+
+<WrappedSection>
 ### Multiple replicas
 
-It's possible to create multiple replicas of a database. Each replica works independently from the others.
+It's possible to create multiple replicas of a database. Each replica works independently of the others.
 
 <div class="wrapped-picture">
 
@@ -57,7 +82,11 @@ It's possible to create multiple replicas of a database. Each replica works inde
 
 </div>
 
-Given the master database acts in passive mode, there is not special steps needed in order to create more replicas. Thus, by repeating the same steps to create the first replica it's possible to configure new ones.
+Given the master database acts in passive mode, there are no special steps needed in order to create more replicas. Thus, by repeating the same steps to create the first replica it's possible to configure new ones.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ### Replica of a replica
 
@@ -69,9 +98,17 @@ In case many replicas are needed or the master database is under heavy load, it'
 
 </div>
 
+</WrappedSection>
+
+<WrappedSection>
+
 ### External replicator
 
 By creating a database as a replica but with disabled replication, no replicator is created for the database and an external process could be used to replicate committed transactions from the master. The grpc endpoint `ReplicateTx` may be used to externally replicate a transaction.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ### Heterogeneous settings
 
