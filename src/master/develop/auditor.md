@@ -4,12 +4,16 @@ title: Running an Auditor with immuclient
 
 # Use immuclient as Auditor
 
+<WrappedSection>
+
 The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and independent component. immuclient can act as Auditor by running the following command:
 
 Start interactive:
+
 ```bash
 immuclient audit-mode
 ```
+
 immuclient is now running on the following address:
 **immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
 
@@ -39,7 +43,6 @@ immuclient audit-mode stop       -  Stops the daemon
 immuclient audit-mode start      -  Starts initialized daemon
 immuclient audit-mode restart    -  Restarts daemon
 immuclient audit-mode uninstall  -  Removes daemon and its setup
-
 
 Flags:
   -h, --help   help for audit-mode
@@ -72,6 +75,9 @@ Global Flags:
       --value-only                           returning only values for get operations
 ```
 
+</WrappedSection>
+
+<WrappedSection>
 
 ## Running immuclient Auditor as a service
 immuclient as Auditor can be installed in the system with the following command:
@@ -86,6 +92,10 @@ In this case, all parameters are written into the `immuclient` configuration fil
 * Linux: `/etc/immudb/immuclient.toml`
 * Windows: `C:\ProgramData\ImmuClient\config\immuclient.toml`
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Running immuclient Auditor with docker
 We also provide a docker image starting immuclient as Auditor:
 
@@ -98,6 +108,10 @@ Then it's possible to run the command with:
 ```bash
 docker run -it -e IMMUCLIENT_IMMUDB_ADDRESS="ip" -e IMMUCLIENT_AUDIT_USERNAME="immudb" -e IMMUCLIENT_AUDIT_PASSWORD="immudb" codenotary/auditor
 ```
+
+</WrappedSection>
+
+<WrappedSection>
 
 ## Auditor best practices
 
@@ -138,6 +152,4 @@ NOTE: it's not possible to know at which transaction the database was tampered. 
 
 A proper setup of one immuclient instance can fit most of cases, but there are ways to increase the security on detecting tampering. A single instance can go offline for any reason: network problems, hardware failures or attacks. Therefore a good practice can be to have multiple Auditor instances running in different zones.
 
-## License
-
-immuclient is [Apache v2.0 License](https://github.com/codenotary/immudb/blob/master/LICENSE).
+</WrappedSection>
