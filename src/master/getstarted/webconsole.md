@@ -19,7 +19,7 @@ The console allows you to:
 
 <WrappedSection>
 
-## Accessing the Web Console
+### Accessing the Web Console
 
 Once immudb has started, it will tell you if the web console is enabled and where it is listening:
 

@@ -40,14 +40,3 @@ Check [user quickstart](quickstart.html) for instructions on how to start workin
 immudb can be run as full database server with [replicas](operations/replication.html) or easily [embedded](develop/embedding.html) as a lightweight database into application.
 
 </WrappedSection>
-
-<WrappedSection>
-
-## immugw communication
-immugw can be found in its [own repository](https://github.com/codenotary/immugw)
-
-immugw proxies REST client communication and gRPC server interface. For security reasons, immugw should not run on the same server as immudb. The following diagram shows how the communication works:
-
-![immugw communication explained](/diagram-immugw.svg)
-
-</WrappedSection>

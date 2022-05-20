@@ -1,26 +1,6 @@
----
-title: Overview
----
-
 # immugw
 
 immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security
-immugw can be found in a different [repository](https://github.com/codenotary/immugw)
-
-## Contents
- - [Latest binaries](#latest-binaries)
- - [Build](#build)
- - [Docker](#docker)
- - [Run immugw](#run-immugw)
- - [Configuration](#configuration)
- - [immuadmin](#immuadmin)
- - [immugw service](#immugw-service)
- - [Use immugw](#use-immugw)
- - [API](#api)
- - [Auditor](#auditor)
- - [License](#license)
-
-## Latest binaries
 
 [Get the latest builds](https://github.com/codenotary/immugw/releases/latest)
 

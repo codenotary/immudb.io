@@ -68,9 +68,13 @@ const getSidebar = version => {
 
   if (minVersion('1.0.0')) {
     getStarted.children.push(`${version}/quickstart`);
+    if (minVersion('1.3.0')) {
+        getStarted.children.push(`${version}/build`);
+        getStarted.children.push(`${version}/getstarted/clitools`);
+    }
     getStarted.children.push(`${version}/getstarted/webconsole`);
     getStarted.children.push(`${version}/jumpstart`);
-  } else {
+    } else {
     getStarted.children.push(`${version}/quickstart`);
     getStarted.children.push(`${version}/jumpstart`);
   }
@@ -113,10 +117,10 @@ const getSidebar = version => {
   };
 
   if (minVersion('1.3.0')) {
-    developIntroduction.children.push(`${version}/build`);
     developIntroduction.children.push(`${version}/develop/connection`);
     developIntroduction.children.push(`${version}/develop/operations`);
     developIntroduction.children.push(`${version}/develop/management`);
+    developIntroduction.children.push(`${version}/develop/immugw`);
   }
   /* DEVELOP INTRODUCTION SECTION END */
 
@@ -139,62 +143,6 @@ const getSidebar = version => {
   }
   /* DEVELOP KV SECTION END */
 
-  /* DEVELOP SECTION START */
-  let develop = {
-    title: 'Develop',
-    collapsable: false,
-    children: [
-    ]
-  };
-
-  if (minVersion('1.0.0')) {
-    //develop.children.push(`${version}/develop/connection`);
-    //develop.children.push(`${version}/develop/reading`);
-    //develop.children.push(`${version}/develop/operations`);
-    //develop.children.push(`${version}/develop/history`);
-    develop.children.push(`${version}/develop/streams`);
-    //develop.children.push(`${version}/develop/management`);
-    //develop.children.push(`${version}/develop/indexes`);
-    //develop.children.push(`${version}/develop/transactions`);
-    if (maxVersion('1.2.4')) {
-        develop.children.push(`${version}/develop/utilities`);
-    }
-    develop.children.push(`${version}/develop/additional`);
-  } else {
-    develop.children.push(
-      `${version}/sdk-api`, // Content needs to be updated
-    );
-  }
-
-  if (minVersion('1.1.0')) {
-    //develop.children.push(`${version}/develop/sqlstdlib`);
-    //develop.children.push(`${version}/develop/auditor`);
-  }
-
-  if (minVersion('1.2.1')) {
-    //develop.children.push(`${version}/develop/deleting`);
-    //develop.children.push(`${version}/develop/expiration`);
-  }
-
-  //develop.children.push(
-    //`${version}/develop/pg`,
-    //`${version}/develop/embedding`,
-    //`${version}/build`,
-
-  //);
-
-  const reference = {
-    title: 'Reference',
-    collapsable: false,
-    children: [
-      `${version}/reference/configuration`,
-      `${version}/reference/sql`,
-      `${version}/reference/sdk`,
-    ]
-  };
-
-  /* DEVELOP SECTION END */
-
   /* DEVELOP SQL SECTION START */
   let developSQL = {
       title: 'Develop with SQL',
@@ -204,12 +152,74 @@ const getSidebar = version => {
   };
 
   if (minVersion('1.3.0')) {
-    developSQL.children.push(`${version}/develop/transactionsSQL`);
-    developSQL.children.push(`${version}/develop/sqlstdlib`);
-    developSQL.children.push(`${version}/develop/pg`);
-    developSQL.children.push(`${version}/develop/embeddingSQL`);
+    developSQL.children.push(`${version}/develop/sql/transactions`);
+    developSQL.children.push(`${version}/develop/sql/datatypes`);
+    developSQL.children.push(`${version}/develop/sql/tablescreate`);
+    developSQL.children.push(`${version}/develop/sql/tablesalter`);
+    developSQL.children.push(`${version}/develop/sql/insertupdate`);
+    developSQL.children.push(`${version}/develop/sql/indexes`);
+    developSQL.children.push(`${version}/develop/sql/querying`);
+    developSQL.children.push('${version}/develop/sql/catalog');
+    developSQL.children.push(`${version}/develop/sql/sqlstdlib`);
+    developSQL.children.push(`${version}/develop/sql/pg`);
+    developSQL.children.push(`${version}/develop/sql/embeddingSQL`);
   }
   /* DEVELOP SQL SECTION END */
+
+  /* DEVELOP SECTION START */
+  let develop = {
+    title: 'Develop',
+    collapsable: false,
+    children: [
+    ]
+  };
+
+  if (maxVersion('1.2.4')) {
+    if (minVersion('1.0.0') ) {
+        develop.children.push(`${version}/develop/connection`);
+        develop.children.push(`${version}/develop/reading`);
+        develop.children.push(`${version}/develop/operations`);
+        develop.children.push(`${version}/develop/history`);
+        develop.children.push(`${version}/develop/streams`);
+        develop.children.push(`${version}/develop/management`);
+        develop.children.push(`${version}/develop/indexes`);
+        develop.children.push(`${version}/develop/transactions`);
+        develop.children.push(`${version}/develop/utilities`);
+        develop.children.push(`${version}/develop/additional`);
+    } else {
+        develop.children.push(
+        `${version}/sdk-api`, // Content needs to be updated
+        );
+    }
+
+    if (minVersion('1.1.0')) {
+        develop.children.push(`${version}/develop/sqlstdlib`);
+        develop.children.push(`${version}/develop/auditor`);
+    }
+
+    if (minVersion('1.2.1')) {
+        develop.children.push(`${version}/develop/deleting`);
+        develop.children.push(`${version}/develop/expiration`);
+    }
+
+    develop.children.push(
+        `${version}/develop/pg`,
+        `${version}/develop/embedding`,
+        `${version}/build`,
+
+    );
+  }
+
+  /* DEVELOP SECTION END */
+
+  const reference = {
+    title: 'Reference',
+    collapsable: false,
+    children: [
+      `${version}/reference/configuration`,
+      `${version}/reference/sdk`,
+    ]
+  };
 
   sidebar.push(introduction);
   if (minVersion('1.0.0')) {
@@ -228,10 +238,10 @@ const getSidebar = version => {
   if (minVersion('1.3.0')) {
     sidebar.push(developSQL);
   }
-  if (minVersion('1.0.0') /*&& maxVersion('1.2.4')*/) {
+  if (minVersion('1.0.0') && maxVersion('1.2.4')) {
     sidebar.push(develop);
   }
-  if (minVersion('1.0.0')) {
+  if (minVersion('1.0.0') && maxVersion('1.2.4')) {
     sidebar.push(reference);
   }
 
