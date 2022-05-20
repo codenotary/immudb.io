@@ -1,5 +1,7 @@
 # Catalog queries
 
+<WrappedSection>
+
 immudb provides a set of useful built-in functions that can be used to query the catalog.
 
 ### Listing databases
