@@ -1,5 +1,7 @@
 # immugw
 
+<WrappedSection>
+
 immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security
 
 [Get the latest builds](https://github.com/codenotary/immugw/releases/latest)
@@ -241,3 +243,5 @@ immugw_audit_run_at_per_server{server_address="127.0.0.1:3322",server_id="br8eug
 ## License
 
 immugw is [Apache v2.0 License](https://github.com/codenotary/immugw/blob/master/LICENSE).
+
+</WrappedSection>
