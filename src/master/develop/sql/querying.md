@@ -11,9 +11,9 @@ SELECT *
 FROM products;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Selecting specific columns
 
@@ -22,9 +22,9 @@ SELECT id, customer_name, ip
 FROM customers;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Filtering entries
 
@@ -34,9 +34,9 @@ FROM customers
 WHERE country = 'SE' AND city = 'Arvika';
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Ordering by column value
 
@@ -52,9 +52,9 @@ The order may be either ascending (`ASC` suffix, default) or descending (`DESC` 
 
 Ordering rows by a value of a column requires a matching index on that column.
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### INNER JOIN
 
@@ -76,9 +76,9 @@ JOIN customers ON customers.id = orders.customerid
 JOIN products ON products.id = orders.productid;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### LIKE operator
 
@@ -103,9 +103,9 @@ WHERE (id > 0 AND NOT products.id >= 10)
   AND (products.product LIKE 'J');
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### IN operator
 
@@ -131,9 +131,9 @@ WHERE (id > 0 AND NOT products.id >= 10)
   AND (product IN ('Milk', 'Grapes - Red'));
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Column and table aliasing
 
@@ -149,9 +149,9 @@ WHERE c.id <= 3 AND c.active = true;
 
 Table name aliasing is necessary when using more than one join with the same table.
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Aggregations
 
@@ -177,9 +177,9 @@ SELECT
 FROM customers;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Grouping results with GROUP BY
 
@@ -193,9 +193,9 @@ GROUP BY country
 ORDER BY country;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Filtering grouped results with HAVING
 
@@ -211,9 +211,9 @@ HAVING COUNT(*) > 0
 ORDER BY active DESC;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Sub-queries
 
@@ -243,9 +243,9 @@ Note: the context of a sub-query does not propagate outside,
       e.g. it is not possible to reference a table from a sub-query
       in the `WHERE` clause outside of the sub-query.
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Combining query results with UNION
 
@@ -274,9 +274,9 @@ UNION ALL
 SELECT AVG(age) FROM sellers
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Transactions
 
@@ -295,9 +295,9 @@ BEGIN TRANSACTION;
 COMMIT;
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Time travel
 
