@@ -40,7 +40,7 @@ The immudb server manages the requests from the outside world to the store. In o
 
 <WrappedSection>
 
-## immugw communication
+### immugw communication
 
 For other unsupported programming languages, [immugw](/master/immugw/) provides a REST gateway that can be used to talk to the server via generic HTTP.
 
