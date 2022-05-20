@@ -38,9 +38,9 @@ VALUES
     (1, 1, 'Nice Juice!', NOW());
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### UPSERT
 
@@ -63,18 +63,18 @@ UPSERT INTO orders (id, customerid, productid)
 VALUES (1, 1, 3);
 ```
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### ON CONFLICT
 
 The optional `ON CONFLICT` clause specifies an alternative action to raising a unique violation or constraint error.
 `ON CONFLICT DO NOTHING` simply avoids inserting a row as its alternative action. In this case the primary key of the row is returned.
 
-<WrappedSection>
-
 </WrappedSection>
+
+<WrappedSection>
 
 ### Timestamp, NOW() and CAST() built-in function
 
