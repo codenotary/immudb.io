@@ -1,4 +1,4 @@
-# Running immudb
+# Running
 
 ::: tip
 To learn interactively and to get started with immudb from the command line and with programming languages, visit the immudb Playground at <https://play.codenotary.com>

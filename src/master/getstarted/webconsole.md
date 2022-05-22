@@ -1,5 +1,5 @@
 
-# The immudb Web Console
+# Web Console
 
 <WrappedSection>
 

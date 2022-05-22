@@ -11,11 +11,17 @@ The Auditor is a component for checking if immudb was tampered, it's a good prac
 Start interactive:
 
 ```bash
-immuclient audit-mode
+$ ./immuclient audit-mode
+1m0s
+immuclientd 2022/05/22 12:34:11 INFO: starting auditor with a 1m0s interval ...
+immuclientd 2022/05/22 12:34:11 INFO: auditor monitoring HTTP server starting on 0.0.0.0:9477 ...
+immuclientd 2022/05/22 12:34:11 INFO: audit #1 started @ 2022-05-22 12:34:11.543823286 +0200 CEST m=+0.153679785
+immuclientd 2022/05/22 12:34:11 INFO: audit #1 - list of databases to audit has been (re)loaded - 2 database(s) found: [defaultdb mydatabase]
+immuclientd 2022/05/22 12:34:11 INFO: audit #1 - auditing database defaultdb
+immuclientd 2022/05/22 12:34:11 INFO: audit #1 finished in 55.295777ms @ 2022-05-22T12:34:11.599119184+02:00
 ```
 
-immuclient is now running on the following address:
-**immuclient Port: 9477 - http://immuclient-auditor:9477/metrics **
+immuclient is now running on the following address: 0.0.0.0:9477/metrics
 
 example output:
 

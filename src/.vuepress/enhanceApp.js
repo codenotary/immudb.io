@@ -58,7 +58,7 @@ const getSidebar = version => {
   /* GETSTARTED SECTION START */
   const getStarted = {
     title: 'Get started',
-    collapsable: false,
+    collapsable: true,
     children: [
     ]
   };
@@ -66,15 +66,17 @@ const getSidebar = version => {
   const minVersion = minVer => versions.indexOf(minVer) <= versions.indexOf(version.slice(1))
   const maxVersion = maxVer => versions.indexOf(maxVer) >= versions.indexOf(version.slice(1))
 
-  if (minVersion('1.0.0')) {
+  if (minVersion('1.0.0') && maxVersion('1.2.4')) {
     getStarted.children.push(`${version}/quickstart`);
-    if (minVersion('1.3.0')) {
-        getStarted.children.push(`${version}/build`);
-        getStarted.children.push(`${version}/getstarted/clitools`);
-    }
     getStarted.children.push(`${version}/getstarted/webconsole`);
     getStarted.children.push(`${version}/jumpstart`);
-    } else {
+  } else if (minVersion('1.3.0')) {
+      getStarted.children.push(`${version}/getstarted/quickstart`);
+      getStarted.children.push(`${version}/getstarted/build`);
+      getStarted.children.push(`${version}/getstarted/clitools`);
+      getStarted.children.push(`${version}/getstarted/webconsole`);
+      getStarted.children.push(`${version}/getstarted/jumpstart`);
+  } else {
     getStarted.children.push(`${version}/quickstart`);
     getStarted.children.push(`${version}/jumpstart`);
   }
@@ -84,7 +86,7 @@ const getSidebar = version => {
   /* OPERATIONS SECTION START */
   const operations = {
     title: 'Operations',
-    collapsable: false,
+    collapsable: true,
     sidebarDepth: 0,
     children: [
       `${version}/operations/planning`,
@@ -92,15 +94,18 @@ const getSidebar = version => {
       `${version}/operations/monitoring`,
     ]
   };
-  if (minVersion('1.1.0')) {
+  if (minVersion('1.1.0') && maxVersion('1.2.4')) {
     operations.children.push(`${version}/develop/auditor`);
   }
-  if (minVersion('1.2.3')) {
-    operations.children.push(`${version}/operations/backwards-compatibility`);
+  if (minVersion('1.3.0')) {
+    operations.children.push(`${version}/operations/auditor`);
   }
   if (minVersion('1.2.2')) {
     operations.children.push(`${version}/operations/replication`);
     operations.children.push(`${version}/operations/backup`);
+  }
+  if (minVersion('1.2.3')) {
+    operations.children.push(`${version}/operations/backwards-compatibility`);
   }
   if (minVersion('1.1.0')) {
     operations.children.push(`${version}/operations/specs`);
@@ -111,7 +116,7 @@ const getSidebar = version => {
   /* DEVELOP INTRODUCTION SECTION START */
   let developIntroduction = {
       title: 'Develop',
-      collapsable: false,
+      collapsable: true,
       children: [
       ]
   };
@@ -121,13 +126,14 @@ const getSidebar = version => {
     developIntroduction.children.push(`${version}/develop/operations`);
     developIntroduction.children.push(`${version}/develop/management`);
     developIntroduction.children.push(`${version}/develop/immugw`);
+    developIntroduction.children.push(`${version}/develop/apis`);
   }
   /* DEVELOP INTRODUCTION SECTION END */
 
   /* DEVELOP KV SECTION START */
   let developKV = {
       title: 'Develop with Key Value',
-      collapsable: false,
+      collapsable: true,
       children: [
       ]
   };
@@ -146,7 +152,7 @@ const getSidebar = version => {
   /* DEVELOP SQL SECTION START */
   let developSQL = {
       title: 'Develop with SQL',
-      collapsable: false,
+      collapsable: true,
       children: [
       ]
   };
@@ -165,6 +171,20 @@ const getSidebar = version => {
     developSQL.children.push(`${version}/develop/sql/embeddingSQL`);
   }
   /* DEVELOP SQL SECTION END */
+
+  /* RELEASE NOTES SECTION START */
+  let releaseNotes = {
+    title: 'Release Notes',
+    collapsable: true,
+    children: [
+    ]
+  };
+
+  if (minVersion('1.3.0')) {
+    releaseNotes.children.push(`${version}/releasenotes`);
+  }
+
+  /* RELEASE NOTES SECTION END */
 
   /* DEVELOP SECTION START */
   let develop = {
@@ -238,6 +258,9 @@ const getSidebar = version => {
   }
   if (minVersion('1.3.0')) {
     sidebar.push(developSQL);
+  }
+  if (minVersion('1.3.0')) {
+      sidebar.push(releaseNotes);
   }
   if (minVersion('1.0.0') && maxVersion('1.2.4')) {
     sidebar.push(develop);

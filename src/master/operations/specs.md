@@ -83,7 +83,7 @@ SQLQuery(SQLQueryRequest) returns (SQLQueryResult)
 VerifiableSQLGet (VerifiableSQLGetRequest) returns (VerifiableSQLEntry)
 ```
 
-Check [SQL reference](../reference/sql) for a comprehensive description of SQL statements.
+Check [SQL reference](../develop/sql/transactions) for a comprehensive description of SQL statements.
 
 ### S3 Storage Backend
 

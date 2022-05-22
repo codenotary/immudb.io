@@ -2,7 +2,23 @@
 
 <WrappedSection>
 
+Before any operations can be run by immuadmin or immuclient, it is necessary to authenticate against the running immudb server.
+
+When immudb is first run, it is ready to use immediately with the default database and credentials:
+
+- Database name: defaultdb
+- User: immudb
+- Password: immudb
+- Address: 127.0.0.1
+- Port: 3322
+
+</WrappedSection>
+
+<WrappedSection>
+
 ## immuadmin
+
+immuadmin is the admin client for immudb. It is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
 
 You may download the immuadmin binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuadmin, rename it to `immuadmin`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
@@ -24,8 +40,6 @@ $ docker run -it --rm --name immuadmin codenotary/immuadmin:latest status
 
 ### Basic operations
 
-Immuadmin is the admin client for immudb. This is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
-
 To get started we need to login to `immuadmin` first. The `admin` user is the similar to the `root` user in MySQL etc.
 
 ```bash
@@ -40,11 +54,25 @@ $ ./immuadmin database create mydatabase
 database 'mydatabase' {replica: false} successfully created
 ```
 
-Switching to our newly created database. Using immuclient once you are logged in you can select the database you would like to using
+To switch to our newly created database
 
 ```bash
 $ ./immuclient use mydatabase
 Now using mydatabase
+```
+
+To create new user with read/write access to just created database 
+
+```bash
+$ ./immuadmin user create user1 readwrite mydatabase
+Choose a password for user1:
+Confirm password:
+```
+
+For detailed description of immuadmin command arguments use help
+
+```bash
+$ ./immuadmin help
 ```
 
 </WrappedSection>
@@ -52,6 +80,8 @@ Now using mydatabase
 <WrappedSection>
 
 ## immuclient
+
+immuclient is used for interacting with databases, like reading, writing and querying for data or invoking SQL. 
 
 You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
@@ -72,16 +102,6 @@ $ docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 <WrappedSection>
 
 ### Basic operations
-
-Before any operations can be run by immuclient, it is necessary to authenticate against the running immudb server.
-
-When immudb is first run, it is ready to use immediately with the default database and credentials:
-
-- Database name: defaultdb
-- User: immudb
-- Password: immudb
-- Address: 127.0.0.1
-- Port: 3322
 
 To display all available options and their description run:
 
