@@ -1,6 +1,6 @@
-# Connection and authentication
+# Connecting
 
-### Connection with username and password
+## With credentials
 
 The immudb server runs on port 3322 as the default. The code examples below illustrate how to connect your client to the server and authenticate using default options and the default username and password.
 You can modify defaults on the immudb server in [immudb.toml](https://github.com/codenotary/immudb/blob/master/configs/immudb.toml) in the config folder.
@@ -105,7 +105,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Mutual TLS
+### With Mutual TLS
 
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
@@ -201,9 +201,9 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Disable authentication. Deprecated
+### No Auth
 
-You also have the option to run immudb with authentication disabled: 
+You also have the option to run immudb with authentication disabled. This method is depreciated and not recommended.  
 
 <WrappedSection>
 

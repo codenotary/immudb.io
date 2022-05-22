@@ -146,6 +146,7 @@ const getSidebar = version => {
     developKV.children.push(`${version}/develop/deleting`);
     developKV.children.push(`${version}/develop/expiration`);
     developKV.children.push(`${version}/develop/embedding`);
+    developKV.children.push(`${version}/develop/streams`);
   }
   /* DEVELOP KV SECTION END */
 
