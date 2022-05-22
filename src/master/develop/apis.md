@@ -1,4 +1,4 @@
-## gRPC API 
+# gRPC API 
 
 <WrappedSection>
 
