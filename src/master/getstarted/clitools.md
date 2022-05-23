@@ -20,11 +20,11 @@ When immudb is first run, it is ready to use immediately with the default databa
 
 immuadmin is the admin client for immudb. It is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
 
-You may download the immuadmin binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuadmin, rename it to `immuadmin`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
+You may download the immuadmin binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuadmin, rename it to `immuadmin`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.3.0 for Linux amd64:
 
 ```bash
-$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuadmin-v1.2.4-linux-amd64
-$ mv immuadmin-v1.2.4-linux-amd64 immuadmin
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.3.0/immuadmin-v1.3.0-linux-amd64
+$ mv immuadmin-v1.3.0-linux-amd64 immuadmin
 $ chmod +x immuadmin
 ```
 
@@ -83,11 +83,11 @@ $ ./immuadmin help
 
 immuclient is used for interacting with databases, like reading, writing and querying for data or invoking SQL. 
 
-You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
+You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.3.0 for Linux amd64:
 
 ```bash
-$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuclient-v1.2.4-linux-amd64
-$ mv immuclient-v1.2.4-linux-amd64 immuclient
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.3.0/immuclient-v1.3.0-linux-amd64
+$ mv immuclient-v1.3.0-linux-amd64 immuclient
 $ chmod +x immuclient
 ```
 

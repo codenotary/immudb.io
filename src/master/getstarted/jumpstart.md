@@ -20,8 +20,8 @@ The most well-known and recommended immudb SDK is written in [Golang](https://go
 
 | Language         | Maintainer | Immdb version | link | Notes                                                                              |
 |-------------------|---------|------------------|-------------|-----------------------------------------------------------|
-| `go`               | immudb team  | 1.2.4       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.2.3       |  [link](https://github.com/codenotary/immudb-py) |                                     |
+| `go`               | immudb team  | 1.3.0       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
+| `python`               | immudb team  | 1.2.4       |  [link](https://github.com/codenotary/immudb-py) |                                     |
 | `JAVA`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4j)  | Verification is not working                                      |
 | `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
 | `JS`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immu-js) | Verification is not working                 |

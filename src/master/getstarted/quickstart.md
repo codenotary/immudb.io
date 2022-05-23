@@ -6,11 +6,11 @@ To learn interactively and to get started with immudb from the command line and 
 
 <WrappedSection>
 
-You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for linux amd64:
+You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.3.0 for linux amd64:
 
 ```bash
-$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immudb-v1.2.4-linux-amd64
-$ mv immudb-v1.2.4-linux-amd64 immudb
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.3.0/immudb-v1.3.0-linux-amd64
+$ mv immudb-v1.3.0-linux-amd64 immudb
 $ chmod +x immudb
 
 # run immudb in the foreground to see all output
