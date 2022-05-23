@@ -53,4 +53,22 @@ SELECT "table", "name", "type" FROM COLUMNS('mytable');
 SELECT name FROM COLUMNS('mytable') WHERE type = 'VARCHAR';
 ```
 
+### Listing indexes of a table
+
+The `INDEXES()` function returns a list of indexes for a table. It takes a single argument which is the name of the table.
+The table will be looked up in the currently selected database.
+
+```sql
+SELECT * FROM INDEXES('mytable');
+```
+
+This source can also be constrained with the WHERE clause and set of columns to retrieve.
+
+Note: because colum names can use reserved identifiers such as `table`, make sure to enclose those in double-quotes.
+
+```sql
+SELECT "table", "name", "unique", "primary" FROM INDEXES('mytable');
+SELECT name FROM INDEXES('mytable') WHERE "unique";
+```
+
 </WrappedSection>
