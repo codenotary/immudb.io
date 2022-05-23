@@ -1,4 +1,4 @@
-# KV Secondary indexes
+# Secondary indexes
 
 On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
 

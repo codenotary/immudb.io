@@ -1,8 +1,6 @@
-# Tamper-proof operations
+# State management
 
-## State management
-
-### Current State
+## Current State
 
 Current state of immudb provides proof that clients can use to verify immudb:
 
@@ -79,7 +77,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Automated verification of state by immudb SDK
+## Automated verification of state by immudb SDK
 
 It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
 
@@ -214,7 +212,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Verify state signature
+## Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
 This ensures the server identity.
@@ -337,126 +335,3 @@ If you're using another development language, please refer to the [immugw](/mast
 ::::
 
 <br/>
-
-## Tamperproof reading and writing
-
-You can read and write records securely using a built-in cryptographic verification.
-
-
-### Verified get and set
-The client implements the mathematical validations, while your application uses a traditional read or write function.
-
-:::: tabs
-
-::: tab Go
-```go
-tx, err := client.VerifiedSet(ctx, []byte(`hello`), []byte(`immutable world`))
-if  err != nil {
-    log.Fatal(err)
-}
-
-fmt.Printf("Successfully committed and verified tx %d\n", tx.Id)
-
-entry, err := client.VerifiedGet(ctx, []byte(`hello`))
-if  err != nil {
-    log.Fatal(err)
-}
-
-fmt.Printf("Successfully retrieved and verified entry: %v\n", entry)
-```
-:::
-
-::: tab Python
-```python
-from immudb import ImmudbClient
-
-URL = "localhost:3322"  # immudb running on your machine
-LOGIN = "immudb"        # Default username
-PASSWORD = "immudb"     # Default password
-DB = b"defaultdb"       # Default database name (must be in bytes)
-
-def main():
-    client = ImmudbClient(URL)
-    client.login(LOGIN, PASSWORD, database = DB)
-    setResponse = client.verifiedSet(b'x', b'1') # immudb.datatypes.SetResponse
-    print(setResponse.id)       # Id of transaction
-    print(setResponse.verified) # Verified by internal validations (True)
-
-    retrieved = client.verifiedGet(b'x') # immudb.datatypes.SafeGetResponse
-    print(retrieved.id)         # Entry transaction id
-    print(retrieved.key)        # Entry key (b'x')
-    print(retrieved.value)      # Entry value (b'1')
-    print(retrieved.timestamp)  # Entry timestamp 
-    print(retrieved.verified)   # Is verified by internal validations (True)
-    print(retrieved.refkey)     # Entry reference key (None)
-
-    client.verifiedSetReference(b'x', b'referenceto')
-
-    retrieved = client.verifiedGet(b'referenceto')
-    print(retrieved.key)        # Entry key (b'x')
-    print(retrieved.refkey)     # Entry reference key (b'referenceto')
-
-    if(retrieved.verified):
-        print("Value verified!")
-
-if __name__ == "__main__":
-    main()
-```
-:::
-
-::: tab Java
-
-```java
-try {
-    TxMetadata txMd = immuClient.verifiedSet(key, val);
-    System.out.println("Successfully committed and verified tx " + txMd.id);
-} catch (VerificationException e) {
-    // ...
-}
-
-try {
-    Entry vEntry = immuClient.verifiedGet(key);
-    System.out.println("Successfully retrieved and verified entry: " + vEntry);
-} catch (VerificationException e) {
-    // ...
-}
-```
-
-:::
-
-::: tab Node.js
-```ts
-import ImmudbClient from 'immudb-node'
-import Parameters from 'immudb-node/types/parameters'
-
-const IMMUDB_HOST = '127.0.0.1'
-const IMMUDB_PORT = '3322'
-const IMMUDB_USER = 'immudb'
-const IMMUDB_PWD = 'immudb'
-
-const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
-
-(async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-
-	const verifiedSetReq: Parameters.VerifiedSet = {
-		key: 'hello',
-		value: 'world',
-	}
-	const verifiedSetRes = await cl.verifiedSet(verifiedSetReq)
-	console.log('success: verifiedSet', verifiedSetRes)
-
-	const verifiedGetReq: Parameters.VerifiedGet = {
-		key: 'hello',
-	}
-	const verifiedGetRes = await cl.verifiedGet(verifiedGetReq)
-	console.log('success: verifiedGet', verifiedGetRes)
-})()
-```
-:::
-
-::: tab Others
-If you're using another development language, please refer to the [immugw](/master/immugw/) option.
-:::
-
-::::

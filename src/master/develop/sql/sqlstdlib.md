@@ -1,5 +1,7 @@
 # GO SQL std library
 
+<WrappedSection>
+
 From immudb `v1.1.0` is possible to use go standard library sql interface to query data.
 ```go
 import (
@@ -53,3 +55,5 @@ Available SSL modes are:
 * **disable**. SSL is off
 * **insecure-verify**. SSL is on but client will not check the server name.
 * **require**. SSL is on.
+
+</WrappedSection>

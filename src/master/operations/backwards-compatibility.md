@@ -12,26 +12,34 @@ needed an updated method of proof calculation in order to verify newly added dat
 In some cases it is very hard or impossible to update the verification code on the client side.
 If this is the case, immudb offers a way to disable metadata to maintain compatibility with older clients.
 
+</WrappedSection>
+
+<WrappedSection>
+
 #### Enabling the 1.1 proof compatibility mode
 
 *Note: backwards compatibility mode is currently not available for the `detaultdb` database.*
 
 When creating new database, the mode can be specified with:
 
-```sh
-immuadmin database create <db-name> --write-tx-header-version 0
+```bash
+$ ./immuadmin database create <db-name> --write-tx-header-version 0
 ```
 
 Enabling compatibility mode for existing databases can be done by:
 
-```sh
-immuadmin database update <db-name> --write-tx-header-version 0
+```bash
+$ ./immuadmin database update <db-name> --write-tx-header-version 0
 ```
 
 *Note: immudb restart is needed to make this change effective.*
 
 In order to re-enable metadata-enhanced proofs,
 update database settings with `--write-tx-header-version 1` option.
+
+</WrappedSection>
+
+<WrappedSection>
 
 #### Limitations of 1.1 compatibility mode
 

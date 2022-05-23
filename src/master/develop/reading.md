@@ -1,59 +1,84 @@
-# Reading and inserting data
+# Reads And Writes
 
-The format for writing data is the same in both Set and VerifiedSet, as is the same for reading data in both Get and VerifiedGet.
-
-The only difference is that VerifiedSet returns proofs needed to mathematically verify that the data was not tampered.
+Most of the methods in SDKs have `Verified` equivalent, i.e. `Get` and `VerifiedGet`. The only difference is that with `Verified` methods proofs needed to mathematically verify that the data was not tampered are returned by the server and the verification is done automatically by SDKs. 
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
-It is still possible get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
+It is still possible to get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
 It's possible also to use dedicated [auditors](immuclient/#auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
-### Get and Set
+## Get and Set
+
+`Get`/`VerifiedGet` and `Set`/`VerifiedSet` methods allow for basic operations on a Key Value level. 
 
 :::: tabs
 
 ::: tab Go
 
 ```go
-tx, err = client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
-if  err != nil {
-    log.Fatal(err)
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/codenotary/immudb/pkg/api/schema"
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func main() {
+	opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.CloseSession(context.TODO())
+
+	// Without verification
+	tx, err := client.Set(context.TODO(), []byte(`x`), []byte(`y`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Set: tx: %d", tx.Id)
+
+	entry, err := client.Get(context.TODO(), []byte(`x`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Get: %v", entry)
+
+	tx, err = client.SetAll(context.TODO(), &schema.SetRequest{
+		KVs: []*schema.KeyValue{
+			{Key: []byte(`1`), Value: []byte(`test1`)},
+			{Key: []byte(`2`), Value: []byte(`test2`)},
+			{Key: []byte(`3`), Value: []byte(`test3`)},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("SetAll: tx: %d", tx.Id)
+
+	entries, err := client.GetAll(context.TODO(), [][]byte{[]byte(`1`), []byte(`2`), []byte(`3`)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("GetAll: %+v", entries)
+
+	// With verification
+	tx, err = client.VerifiedSet(context.TODO(), []byte(`xx`), []byte(`yy`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("VerifiedSet: tx: %d", tx.Id)
+
+	entry, err = client.Get(context.TODO(), []byte(`xx`))
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("VerifiedGet: %v", entry)
 }
-
-fmt.Printf("Successfully committed tx %d\n", tx.Id)
-
-entry, err := client.Get(ctx, []byte(`hello`))
-if  err != nil {
-    log.Fatal(err)
-}
-
-fmt.Printf("Successfully retrieved entry: %v\n", entry)
 ```
-
-:::
-
-::: tab Java
-
-```java
-String key = "key1";
-byte[] value = new byte[]{1, 2, 3};
-
-try {
-    immuClient.set(key, value);
-} catch (CorruptedDataException e) {
-    // ...
-}
-
-try {
-    value = immuClient.get(key);
-} catch (Exception e) {
-    // ...
-}
-```
-
-Note that `value` is a primitive byte array. You can set the value of a String using:<br/>
-`"some string".getBytes(StandardCharsets.UTF_8)`
-
-Also, `set` method is overloaded to allow receiving the `key` parameter as a `byte[]` data type.
 
 :::
 
@@ -133,6 +158,32 @@ if __name__ == "__main__":
 
 :::
 
+::: tab Java
+
+```java
+String key = "key1";
+byte[] value = new byte[]{1, 2, 3};
+
+try {
+    immuClient.set(key, value);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+try {
+    value = immuClient.get(key);
+} catch (Exception e) {
+    // ...
+}
+```
+
+Note that `value` is a primitive byte array. You can set the value of a String using:<br/>
+`"some string".getBytes(StandardCharsets.UTF_8)`
+
+Also, `set` method is overloaded to allow receiving the `key` parameter as a `byte[]` data type.
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -161,72 +212,93 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
-### Get at and since a transaction
+## Get at and since a transaction
 
-You can retrieve a key on a specific transaction with `VerifiedGetAt` and since a specific transaction with `VerifiedGetSince`.
+You can retrieve a key on a specific transaction with `GetAt`/`VerifiedGetAt`. If you need to check the last value of a key after given transaction (which represent state of the indexer), you can use `GetSince`/`VerifiedGetSince`.
 :::: tabs
 
 ::: tab Go
 
 ```go
-ventry, err = client.VerifiedGetAt(ctx, []byte(`key`), meta.Id)
-if err != nil {
-    log.Fatal(err)
-}
-fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
+package main
 
-ventry, err = client.VerifiedGetSince(ctx, []byte(`key`), 4)
-if err != nil {
-    log.Fatal(err)
-}
-fmt.Printf("Successfully retrieved entry at %v with value %s\n", ventry.Tx, ventry.Value)
-```
+import (
+	"context"
+	"log"
 
-:::
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
 
-::: tab Java
+func main() {
+	opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-```java
-byte[] key = "key1".getBytes(StandardCharsets.UTF_8);
-byte[] val = new byte[]{1, 2, 3, 4, 5};
-TxMetadata txMd = null;
+	defer client.CloseSession(context.TODO())
 
-try {
-    txMd = immuClient.set(key, val);
-} catch (CorruptedDataException e) {
-    // ...
-}
+	key := []byte(`123123`)
+	var txIDs []uint64
+	for _, v := range [][]byte{[]byte(`111`), []byte(`222`), []byte(`333`)} {
+		txID, err := client.Set(context.TODO(), key, v)
+		if err != nil {
+			log.Fatal(err)
+		}
+		txIDs = append(txIDs, txID.Id)
+	}
 
-// The standard (traditional) get options:
+	otherTxID, err := client.Set(context.TODO(), []byte(`other`), []byte(`other`))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-KV kv = immuClient.getAt(key, txMd.id);
+	// Without verification
+	entry, err := client.GetSince(context.TODO(), key, txIDs[0])
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("GetSince first: %+v", entry)
 
-kv = immuClient.getSince(key, txMd.id);
+	// With verification
+	entry, err = client.VerifiedGetSince(context.TODO(), key, txIDs[0]+1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("VerifiedGetSince second: %+v", entry)
 
-// The verified get flavours:
+	// GetAt txID after inserting other data
+	_, err = client.GetAt(context.TODO(), key, otherTxID.Id)
+	if err == nil {
+		log.Fatalf("This should not happen, %+v", entry)
+	}
 
-Entry vEntry = null;
-try {
-    vEntry = immuClient.verifiedGetAt(key, vEntry.txId);
-} catch (VerificationException e) {
-    // ...
-}
+	// Without verification
+	entry, err = client.GetAt(context.TODO(), key, txIDs[1])
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("GetAt second: %+v", entry)
 
-try {
-    vEntry = immuClient.verifiedGetSince(key, vEntry.txId);
-} catch (VerificationException e) {
-    // ...
+	// With verification
+	entry, err = client.VerifiedGetAt(context.TODO(), key, txIDs[2])
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("VerifiedGetAt third: %+v", entry)
+
+	// VerifiedGetAt txID after inserting other data
+	entry, err = client.VerifiedGetAt(context.TODO(), key, otherTxID.Id)
+	if err == nil {
+		log.Fatalf("This should not happen, %+v", entry)
+	}
 }
 ```
 
@@ -295,6 +367,43 @@ if __name__ == "__main__":
 ```
 :::
 
+::: tab Java
+
+```java
+byte[] key = "key1".getBytes(StandardCharsets.UTF_8);
+byte[] val = new byte[]{1, 2, 3, 4, 5};
+TxMetadata txMd = null;
+
+try {
+    txMd = immuClient.set(key, val);
+} catch (CorruptedDataException e) {
+    // ...
+}
+
+// The standard (traditional) get options:
+
+KV kv = immuClient.getAt(key, txMd.id);
+
+kv = immuClient.getSince(key, txMd.id);
+
+// The verified get flavours:
+
+Entry vEntry = null;
+try {
+    vEntry = immuClient.verifiedGetAt(key, vEntry.txId);
+} catch (VerificationException e) {
+    // ...
+}
+
+try {
+    vEntry = immuClient.verifiedGetSince(key, vEntry.txId);
+} catch (VerificationException e) {
+    // ...
+}
+```
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -334,18 +443,13 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
-### Get at revision
+## Get at revision
 
 Each historical value for a single key is attached a revision number.
 Revision numbers start with 1 and each overwrite of the same key results in
@@ -359,26 +463,41 @@ e.g. -1 is the previous value, -2 is the one before and so on.
 ::: tab Go
 
 ```go
-// Use dedicated API call
-entry, err := client.GetAtRevision(ctx, []byte("key"), -1)
-if err != nil {
-    log.Fatal(err)
-}
-log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
+package main
 
-// Use additional get option
-entry, err = client.Get(ctx, []byte("key"), immudb.AtRevision(-2))
-if err != nil {
-    log.Fatal(err)
+import (
+	"context"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func main() {
+	opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.CloseSession(context.TODO())
+
+	// Use dedicated API call
+	entry, err := client.GetAtRevision(context.TODO(), []byte("key"), -1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
+
+	// Use additional get option
+	entry, err = client.Get(context.TODO(), []byte("key"), immudb.AtRevision(-2))
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
 }
-log.Printf("Retrieved entry at revision %d: %s", entry.Revision, string(entry.Value))
 ```
 
-:::
-
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
 ::: tab Python
@@ -386,14 +505,14 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -402,7 +521,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Retrieving transactions by ID
+## Get at TXID
 
 It's possible to retrieve all the keys inside a specific transaction.
 
@@ -411,45 +530,74 @@ It's possible to retrieve all the keys inside a specific transaction.
 ::: tab Go
 
 ```go
-setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
-    {Key: []byte("key1"), Value: []byte("val1")},
-    {Key: []byte("key2"), Value: []byte("val2")},
-}}
+package main
 
-meta, err := client.SetAll(ctx, setRequest)
-if err != nil {
-    log.Fatal(err)
-}
+import (
+	"context"
+	"log"
 
-tx , err := client.TxByID(ctx, meta.Id)
-if err != nil {
-    log.Fatal(err)
-}
+	"github.com/codenotary/immudb/pkg/api/schema"
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
 
-for _, entry := range tx.Entries {
-    item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
-}
-```
+func main() {
+	opts := immudb.DefaultOptions().WithAddress("localhost").WithPort(3322)
+	client := immudb.NewClient().WithOptions(opts)
+	err := client.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-:::
+	defer client.CloseSession(context.TODO())
 
-::: tab Java
+	setTxFirst, err := client.SetAll(context.TODO(),
+		&schema.SetRequest{KVs: []*schema.KeyValue{
+			{Key: []byte("key1"), Value: []byte("val1")},
+			{Key: []byte("key2"), Value: []byte("val2")},
+		}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("First txID: %d", setTxFirst.Id)
 
-```java
-TxMetadata txMd = null;
-try {
-    txMd = immuClient.verifiedSet(key, val);
-} catch (VerificationException e) {
-    // ...
-}
-try {
-    Tx tx = immuClient.txById(txMd.id);
-} catch (MaxWidthExceededException | NoSuchAlgorithmException e) {
-    // ...
+	// Set keys in another transaction
+	setTxSecond, err := client.SetAll(context.TODO(),
+		&schema.SetRequest{KVs: []*schema.KeyValue{
+			{Key: []byte("key1"), Value: []byte("val11")},
+			{Key: []byte("key2"), Value: []byte("val22")},
+		}})
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Second txID: %d", setTxSecond.Id)
+
+	// Without verification
+	tx, err := client.TxByID(context.TODO(), setTxFirst.Id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, entry := range tx.Entries {
+		item, err := client.GetAt(context.TODO(), entry.Key, setTxFirst.Id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("retrieved: %+v", item)
+	}
+
+	// With verification
+	tx, err = client.VerifiedTxByID(context.TODO(), setTxSecond.Id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, entry := range tx.Entries {
+		item, err := client.VerifiedGetAt(context.TODO(), entry.Key, setTxSecond.Id)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("retrieved: %+v", item)
+	}
 }
 ```
 
@@ -500,6 +648,24 @@ if __name__ == "__main__":
 ```
 :::
 
+::: tab Java
+
+```java
+TxMetadata txMd = null;
+try {
+    txMd = immuClient.verifiedSet(key, val);
+} catch (VerificationException e) {
+    // ...
+}
+try {
+    Tx tx = immuClient.txById(txMd.id);
+} catch (MaxWidthExceededException | NoSuchAlgorithmException e) {
+    // ...
+}
+```
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -525,152 +691,13 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](/master/immugw/) option.
 :::
 
 ::::
 
-### Retrieving verified transactions by ID
-
-It's possible to retrieve all the keys inside a specific verified transaction.
-
-:::: tabs
-
-::: tab Go
-
-```go
-setRequest := &schema.SetRequest{KVs: []*schema.KeyValue{
-    {Key: []byte("key1"), Value: []byte("val1")},
-    {Key: []byte("key2"), Value: []byte("val2")},
-}}
-
-meta, err := client.SetAll(ctx, setRequest)
-if err != nil {
-    log.Fatal(err)
-}
-
-tx , err := client.VerifiedTxByID(ctx, meta.Id)
-if err != nil {
-    log.Fatal(err)
-}
-
-for _, entry := range tx.Entries {
-    item, err := client.VerifiedGetAt(ctx, entry.Key, meta.Id)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("retrieved key %s and val %s\n", item.Key, item.Value)
-}
-```
-
-:::
-
-::: tab Java
-
-```java
-TxMetadata txMd = null;
-try {
-    txMd = immuClient.verifiedSet(key, val);
-} catch (VerificationException e) {
-    // ...
-}
-try {
-    Tx tx = immuClient.verifiedTxById(txMd.id);
-} catch (VerificationException e) {
-    // ...
-}
-```
-
-:::
-
-::: tab Python
-```python
-from immudb import ImmudbClient
-
-URL = "localhost:3322"  # immudb running on your machine
-LOGIN = "immudb"        # Default username
-PASSWORD = "immudb"     # Default password
-DB = b"defaultdb"       # Default database name (must be in bytes)
-
-def main():
-    client = ImmudbClient(URL)
-    client.login(LOGIN, PASSWORD, database = DB)
-    
-    keyFirst = b'333'
-    keySecond = b'555'
-
-    first = client.set(keyFirst, b'111')
-    firstTransaction = first.id
-
-    second = client.set(keySecond, b'222')
-    secondTransaction = second.id
-
-    toSet = {
-        b'1': b'test1',
-        b'2': b'test2',
-        b'3': b'test3'
-    }
-
-    third = client.setAll(toSet)
-    thirdTransaction = third.id
-
-    keysAtFirst = client.verifiedTxById(firstTransaction)
-    keysAtSecond = client.verifiedTxById(secondTransaction)
-    keysAtThird = client.verifiedTxById(thirdTransaction)
-
-    print(keysAtFirst)  # [b'333']
-    print(keysAtSecond) # [b'555']
-    print(keysAtThird)  # [b'1', b'2', b'3']
-
-
-if __name__ == "__main__":
-    main()
-```
-:::
-
-::: tab Node.js
-
-```ts
-import ImmudbClient from 'immudb-node'
-import Parameters from 'immudb-node/types/parameters'
-
-const IMMUDB_HOST = '127.0.0.1'
-const IMMUDB_PORT = '3322'
-const IMMUDB_USER = 'immudb'
-const IMMUDB_PWD = 'immudb'
-
-const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
-
-(async () => {
-    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
-    const { id } = await cl.set({ key: 'key', value: 'value' })
-    
-    const verifiedTxByIdReq: Parameters.VerifiedTxById = { tx: id }
-    const verifiedTxByIdRes = await cl.verifiedTxByID(verifiedTxByIdReq)
-    console.log('success: verifiedTxByID', verifiedTxByIdRes)
-})()
-```
-
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
-::: tab Others
-If you're using another development language, please refer to the [immugw](/master/immugw/) option.
-:::
-
-::::
-
-### Retrieving transactions by ID with filters
+## Filter Transactions
 
 The transaction entries are generated by writing key-value pairs, referencing keys, associating scores to key-value pairs (with `ZAdd` operation), and by mapping SQL data model into key-value model.
 
@@ -719,24 +746,19 @@ for _, entry := range tx.Entries {
 
 :::
 
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
-:::
-
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
+::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others
@@ -745,7 +767,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### Conditional writes
+## Conditional writes
 
 immudb can check additional preconditions before the write operation is made.
 Precondition is checked atomically with the write operation.
@@ -872,24 +894,19 @@ if immuErr != nil && immuErr.Code() == immuerrors.CodIntegrityConstraintViolatio
 
 :::
 
-::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j)
-:::
-
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
 :::
 
-::: tab Node.js
+::: tab Java
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node)
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j)
 :::
 
-::: tab .Net
+::: tab Node.js
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
 ::: tab Others

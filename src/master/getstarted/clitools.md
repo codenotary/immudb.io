@@ -1,38 +1,87 @@
-# User Quickstart with immudb and immuclient
-
-::: tip
-To learn interactively and to get started with immudb from the command line and with programming languages, visit the immudb Playground at <https://play.codenotary.com>
-:::
+# CLI tools
 
 <WrappedSection>
 
-## Getting immudb running
+Before any operations can be run by immuadmin or immuclient, it is necessary to authenticate against the running immudb server.
 
-You may download the immudb binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immudb, rename it to `immudb`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for linux amd64:
+When immudb is first run, it is ready to use immediately with the default database and credentials:
+
+- Database name: defaultdb
+- User: immudb
+- Password: immudb
+- Address: 127.0.0.1
+- Port: 3322
+
+</WrappedSection>
+
+<WrappedSection>
+
+## immuadmin
+
+immuadmin is the admin client for immudb. It is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
+
+You may download the immuadmin binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuadmin, rename it to `immuadmin`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
 ```bash
-$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immudb-v1.2.4-linux-amd64
-$ mv immudb-v1.2.4-linux-amd64 immudb
-$ chmod +x immudb
-
-# run immudb in the foreground to see all output
-$ ./immudb
-
-# or run immudb in the background
-$ ./immudb -d
+$ wget https://github.com/vchain-us/immudb/releases/download/v1.2.4/immuadmin-v1.2.4-linux-amd64
+$ mv immuadmin-v1.2.4-linux-amd64 immuadmin
+$ chmod +x immuadmin
 ```
 
-Alternatively, you may [pull immudb docker image from DockerHub](https://hub.docker.com/r/codenotary/immudb) and run it in a ready-to-use container:
+Alternatively, you may [pull immuclient docker image from DockerHub](https://hub.docker.com/r/codenotary/immuadmin) and run it in a ready-to-use container:
 
 ```bash
-$ docker run -d --net host -it --rm --name immudb codenotary/immudb:latest
+$ docker run -it --rm --name immuadmin codenotary/immuadmin:latest status
 ```
 
 </WrappedSection>
 
 <WrappedSection>
 
-## Connecting with immuclient
+### Basic operations
+
+To get started we need to login to `immuadmin` first. The `admin` user is the similar to the `root` user in MySQL etc.
+
+```bash
+$ ./immuadmin login immudb
+Password: immudb
+```
+
+Once logged in we can create a new database using
+
+```bash
+$ ./immuadmin database create mydatabase
+database 'mydatabase' {replica: false} successfully created
+```
+
+To switch to our newly created database
+
+```bash
+$ ./immuclient use mydatabase
+Now using mydatabase
+```
+
+To create new user with read/write access to just created database 
+
+```bash
+$ ./immuadmin user create user1 readwrite mydatabase
+Choose a password for user1:
+Confirm password:
+```
+
+For detailed description of immuadmin command arguments use help
+
+```bash
+$ ./immuadmin help
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+## immuclient
+
+immuclient is used for interacting with databases, like reading, writing and querying for data or invoking SQL. 
 
 You may download the immuclient binary from [the latest releases on Github](https://github.com/codenotary/immudb/releases/latest). Once you have downloaded immuclient, rename it to `immuclient`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.2.4 for Linux amd64:
 
@@ -52,19 +101,13 @@ $ docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 
 <WrappedSection>
 
-## Basic operations with immuclient
+### Basic operations
 
-Before any operations can be run by immuclient, it is necessary to authenticate against the running immudb server.
+To display all available options and their description run:
 
-When immudb is first run, it is ready to use immediately with the default database and credentials:
-
-- Database name: defaultdb
-- User: immudb
-- Password: immudb
-- Address: 127.0.0.1
-- Port: 3322
-
-`./immudb --help` displays and describes all options available.
+```bash
+$ ./immudb help
+```
 
 Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:
 
@@ -122,36 +165,7 @@ value:          9001
 
 <WrappedSection>
 
-## Basic operations with immuadmin
-
-Immuadmin is the admin client for immudb. This is used for a variety of tasks such as creating and updating databases and users. Creating backups, restoring from backups etc.
-
-To get started we need to login to `immuadmin` first. The `admin` user is the similar to the `root` user in MySQL etc.
-
-```bash
-$ ./immuadmin login immudb
-Password: immudb
-```
-
-Once logged in we can create a new database using
-
-```bash
-$ ./immuadmin database create mydatabase
-database 'mydatabase' {replica: false} successfully created
-```
-
-Switching to our newly created database. Using immuclient once you are logged in you can select the database you would like to using
-
-```bash
-$ ./immuclient use mydatabase
-Now using mydatabase
-```
-
-</WrappedSection>
-
-<WrappedSection>
-
-## SQL operations with immuclient
+### SQL operations
 
 In addition to a key-value store, immudb supports the relational model (SQL). For example, to create a table:
 
@@ -200,7 +214,7 @@ $ ./immuclient query "SELECT id, name, salary FROM people;"
 
 <WrappedSection>
 
-## Time travel
+### Time travel
 
 immudb is a immutable database. History is always preserved. With immudb you can travel in time!
 
@@ -261,7 +275,7 @@ $ ./immuclient query "SELECT peoplenow.id, peoplenow.name, peoplethen.salary, pe
 
 <WrappedSection>
 
-## KV Data revisions
+### KV Data revisions
 
 Whenever a new value is stored under given key, immudb saves a new revision of that data.
 Revision numbers start with 1 - the first value ever written to the database will have
