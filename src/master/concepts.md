@@ -17,7 +17,7 @@ To get the (signed) state in combination with the immuclient with auditor capabi
 immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
 ```
 
-Check [tamper-proof operations](develop/operations.html) and [running an auditor with immuclient](develop/auditor.html) paragraphs for additional details.
+Check [tamper-proof operations](develop/operations) and [running an auditor with immuclient](develop/auditor) paragraphs for additional details.
 
 </WrappedSection>
 

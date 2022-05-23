@@ -94,9 +94,6 @@ const getSidebar = version => {
       `${version}/operations/monitoring`,
     ]
   };
-  if (minVersion('1.1.0') && maxVersion('1.2.4')) {
-    operations.children.push(`${version}/develop/auditor`);
-  }
   if (minVersion('1.3.0')) {
     operations.children.push(`${version}/operations/auditor`);
   }

@@ -105,7 +105,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### With Mutual TLS
+## With Mutual TLS
 
 To enable mutual authentication, a certificate chain must be provided to both the server and client.
 That will cause each to authenticate with the other simultaneously.
@@ -201,7 +201,7 @@ If you're using another development language, please refer to the [immugw](/mast
 
 ::::
 
-### No Auth
+## No Auth
 
 You also have the option to run immudb with authentication disabled. This method is depreciated and not recommended.  
 
