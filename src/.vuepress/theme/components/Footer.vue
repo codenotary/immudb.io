@@ -10,28 +10,20 @@
         <p class="brand-description cn-text-xs">
           Immutable notarization for all your sensitive data. On-premise or in the cloud, easy to use tamperproof storage with cryptographic verification, processing millions of transactions a second.
         </p>
-        <ul class="social-links list cn-text-xs">
-          <li>
-            <a href="https://github.com/codenotary">
-              <font-awesome-icon :icon="['fab', 'github-square']" />
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/Codenotary">
-              <font-awesome-icon :icon="['fab', 'twitter-square']" />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com/Codenotary-Inc-106257094666687">
-              <font-awesome-icon :icon="['fab', 'facebook-square']" />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/company/codenotary/">
-              <font-awesome-icon :icon="['fab', 'linkedin']" />
-            </a>
-          </li>
-        </ul>
+        <div class="social-links">
+          <a href="https://github.com/codenotary">
+            <font-awesome-icon :icon="['fab', 'github-square']" />
+          </a>
+          <a href="https://twitter.com/Codenotary">
+            <font-awesome-icon :icon="['fab', 'twitter-square']" />
+          </a>
+          <a href="https://www.facebook.com/Codenotary-Inc-106257094666687">
+            <font-awesome-icon :icon="['fab', 'facebook-square']" />
+          </a>
+          <a href="https://www.linkedin.com/company/codenotary/">
+            <font-awesome-icon :icon="['fab', 'linkedin']" />
+          </a>
+        </div>
       </div>
       <div class="flex column table" v-for="(table, index) in content.footer.tables" :key="index">
         <p class="table_title cn-font-weight-bold"> {{ table.title }} </p>
@@ -137,19 +129,12 @@ export default {
 
 
   .social-links
+    display: flex;
+    gap: 12px;
+    font-size: 30px;
     list-style none
-    padding-left 0
-    margin-top 0
-    li
-      display inline
-    font-size 30px !important
-    margin-bottom 0
     a
       color white
-    li
-      margin-right 4px !important
-
-
 
   .table
     display flex
