@@ -132,7 +132,6 @@ export default {
     display: flex;
     gap: 12px;
     font-size: 30px;
-    list-style none
     a
       color white
 
