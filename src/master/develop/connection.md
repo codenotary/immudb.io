@@ -100,7 +100,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](immugw) option.
 :::
 
 ::::
@@ -196,7 +196,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](immugw) option.
 :::
 
 ::::
@@ -282,7 +282,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](/master/immugw/) option.
+If you're using another development language, please refer to the [immugw](immugw) option.
 :::
 
 ::::
