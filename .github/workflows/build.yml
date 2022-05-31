@@ -26,4 +26,4 @@ jobs:
       - name: Links check
         uses: becheran/mlc@v0.14.3
         with:
-          args: ./src
+          args: ./src/master
