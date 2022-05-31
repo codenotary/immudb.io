@@ -18,3 +18,12 @@ jobs:
           node --version
           npm i -f
           npm run build
+
+  links-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Links check
+        uses: becheran/mlc@v0.14.3
+        with:
+          args: ./src
