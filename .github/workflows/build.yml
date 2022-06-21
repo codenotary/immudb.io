@@ -26,4 +26,10 @@ jobs:
       - name: Links check
         uses: becheran/mlc@v0.14.3
         with:
-          args: ./src/master
+          args: >
+            ./src/master
+            -r /.src/.vuepress/public/
+            --ignore-links
+                https://github.com/codenotary/immudb4dotnet/issues/new
+                https://github.com/codenotary/immu-js
+                https://twitter.com/intent/tweet*
