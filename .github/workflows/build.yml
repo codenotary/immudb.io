@@ -28,7 +28,7 @@ jobs:
         with:
           args: >
             ./src/master
-            -r /.src/.vuepress/public/
+            -r ./src/.vuepress/public/
             --ignore-links
                 https://github.com/codenotary/immudb4dotnet/issues/new
                 https://github.com/codenotary/immu-js
