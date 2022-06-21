@@ -37,6 +37,6 @@ Check [user quickstart](getstarted/quickstart) for instructions on how to start 
 
 ## Operation modes
 
-immudb can be run as full database server with [replicas](operations/replication.html) or easily [embedded](develop/embedding.html) as a lightweight database into application.
+immudb can be run as full database server with [replicas](operations/replication.md) or easily [embedded](develop/embedding.md) as a lightweight database into application.
 
 </WrappedSection>
