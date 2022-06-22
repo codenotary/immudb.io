@@ -17,7 +17,7 @@ To get the (signed) state in combination with the immuclient with auditor capabi
 immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
 ```
 
-Check [tamper-proof operations](develop/operations) and [running an auditor with immuclient](operations/auditor) paragraphs for additional details.
+Check [tamper-proof operations](develop/operations.md) and [running an auditor with immuclient](operations/auditor.md) paragraphs for additional details.
 
 </WrappedSection>
 
@@ -27,9 +27,9 @@ Check [tamper-proof operations](develop/operations) and [running an auditor with
 
 immudb can be used as a tamper-proof key value store or SQL database, with audit history capabilities. Within single immudb instance a user can have multiple databases of both types, it is even possible to have KV and SQL withing single database.
 
-Key value is a foundation layer for SQL, meaning that SQL is using key value store capabilities underneath. 
+Key value is a foundation layer for SQL, meaning that SQL is using key value store capabilities underneath.
 
-Check [user quickstart](getstarted/quickstart) for instructions on how to start working with KV or SQL. 
+Check [user quickstart](getstarted/quickstart.md) for instructions on how to start working with KV or SQL.
 
 </WrappedSection>
 

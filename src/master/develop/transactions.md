@@ -139,7 +139,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -264,7 +264,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -275,8 +275,8 @@ If you're using another development language, please refer to the [immugw](immug
 The argument of a `ExecAll` is an array of the following types:
 
 * `Op_Kv`: ordinary key value item
-* `Op_ZAdd`: [ZAdd](indexes#sorted-sets) option element
-* `Op_Ref`: [Reference](history#references) option element
+* `Op_ZAdd`: [ZAdd](indexes.md#sorted-sets) option element
+* `Op_Ref`: [Reference](history.md#references) option element
 
 It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
 
@@ -480,7 +480,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -625,7 +625,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -746,7 +746,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::

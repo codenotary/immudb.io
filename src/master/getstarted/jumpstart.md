@@ -42,7 +42,7 @@ The immudb server manages the requests from the outside world to the store. In o
 
 ### immugw communication
 
-For other unsupported programming languages, [immugw](../develop/immugw) provides a REST gateway that can be used to talk to the server via generic HTTP.
+For other unsupported programming languages, [immugw](../develop/immugw.md) provides a REST gateway that can be used to talk to the server via generic HTTP.
 
 immugw can be found in its [own repository](https://github.com/codenotary/immugw)
 

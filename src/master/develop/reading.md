@@ -3,11 +3,11 @@
 Most of the methods in SDKs have `Verified` equivalent, i.e. `Get` and `VerifiedGet`. The only difference is that with `Verified` methods proofs needed to mathematically verify that the data was not tampered are returned by the server and the verification is done automatically by SDKs. 
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
 It is still possible to get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
-It's possible also to use dedicated [auditors](../operations/auditor) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
+It's possible also to use dedicated [auditors](../operations/auditor.md) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
 ## Get and Set
 
-`Get`/`VerifiedGet` and `Set`/`VerifiedSet` methods allow for basic operations on a Key Value level. In addition, `GetAll` and `SetAll` methods allow for adding and reading in a single transaction. See [transactions chapter](transactions) for more details.
+`Get`/`VerifiedGet` and `Set`/`VerifiedSet` methods allow for basic operations on a Key Value level. In addition, `GetAll` and `SetAll` methods allow for adding and reading in a single transaction. See [transactions chapter](transactions.md) for more details.
 
 :::: tabs
 
@@ -213,7 +213,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -444,7 +444,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -516,7 +516,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -692,7 +692,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -840,7 +840,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
