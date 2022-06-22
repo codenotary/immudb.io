@@ -72,7 +72,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -207,7 +207,7 @@ Do you want to make a feature request or help out? Open an issue on [Node.js sdk
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::
@@ -216,7 +216,24 @@ If you're using another development language, please refer to the [immugw](immug
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
 This ensures the server identity.
-Check [state signature](/master/immudb/#state-signature) to see how to generate a valid key.
+
+To run immudb server with state signature use:
+
+```bash
+./immudb --signingKey test/signer/ec1.key
+```
+
+To generate an elliptic curve private key use:
+
+```bash
+openssl ecparam -name prime256v1 -genkey -noout -out private.key
+```
+
+To generate the public key from the previous one:
+
+```bash
+openssl ec -in private.key -pubout -out public.key
+```
 
 :::: tabs
 
@@ -329,7 +346,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 :::
 
 ::: tab Others
-If you're using another development language, please refer to the [immugw](immugw) option.
+If you're using another development language, please refer to the [immugw](immugw.md) option.
 :::
 
 ::::

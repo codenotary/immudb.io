@@ -18,3 +18,19 @@ jobs:
           node --version
           npm i -f
           npm run build
+
+  links-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Links check
+        uses: becheran/mlc@19f75f995fe510740f15221dc82d749af45b522f # v0.14.3
+        with:
+          args: >
+            ./src/master
+            -r ./src/.vuepress/public/
+            --ignore-links
+                https://github.com/codenotary/immudb4dotnet/issues/new
+                https://github.com/codenotary/immu-js
+                https://twitter.com/intent/tweet*
+            --match-file-extension
