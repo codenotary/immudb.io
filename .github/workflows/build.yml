@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Links check
-        uses: becheran/mlc@v0.14.3
+        uses: becheran/mlc@19f75f995fe510740f15221dc82d749af45b522f # v0.14.3
         with:
           args: >
             ./src/master
