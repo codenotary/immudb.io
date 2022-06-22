@@ -34,6 +34,8 @@ Depending on your use case, immudb might function as your application's primary 
 ### Use cases
 
 - Integration with your DevOps ensures code security throughout the development and deployment process. Embed immudb into your [Azure DevOps](https://codenotary.io/blog/securing-your-azure-devops-ecosystem-jenkins-and-kubernetes-aks/) with Jenkins and Kubernetes. Use just [Jenkins](https://codenotary.io/blog/jenkins-build-deployment-pipeline-a-how-to-for-ensuring-integrity/). Alternatively, integrate with [GitLab](https://codenotary.io/blog/fully-trusted-gitlab-pipeline/) or [GitHub](https://codenotary.io/blog/use-github-actions-for-validated-builds/).
+- Guarantee File Integrity of your critical data. Examples include storing your organization's sensitive financial, credit card transactional, invoices, contracts, educational transcripts, and other important data.
+- Ensure integrity of your legal Documents and Invoices, contracts, forms, and your downloads and emails.
 - Save your Internet of Things (IoT) sensor data as a failsafe plan for loss of data.
 - Keep your investment guidelines or stock market data tamperproof for your investment bank or client financial portfolios.
 - Store important log files to keep them tamperproof to meet regulations like PCI compliance.
