@@ -2,6 +2,8 @@
 
 <WrappedSection>
 
+## Prometheus metrics
+
 immudb exposes a Prometheus end-point, by default on port 9497 on `/metrics`.<br/>
 
 ```bash
@@ -60,9 +62,7 @@ OK - server is reachable and responding to queries
 
 <WrappedSection>
 
-## Prometheus metrics - guide
-
-### Database size
+## Database size
 
 Following metric contains the information about the disk space usage in bytes for each individual database:
 
@@ -85,7 +85,11 @@ Those dashboards can be used to forecast disk usage and make sure it’s not get
 
 </div>
 
-### Database entries
+</WrappedSection>
+
+<WrappedSection>
+
+## Database entries
 
 Following prometheus metric calculates the number of new KV entries added to the database since the start of the process:
 
@@ -106,7 +110,11 @@ This chart does not display the total amount of KV entries and will be reset to 
 
 </div>
 
-### Indexer metrics
+</WrappedSection>
+
+<WrappedSection>
+
+## Indexer metrics
 
 Immudb does expose metrics related to internal indexing process:
 
@@ -124,7 +132,11 @@ immudb_last_indexed_trx_id{db="systemdb"} 2
 
 Those metrics are used on various graphs on the [Grafana dashboard][grafana-dashboard].
 
-#### Indexed %
+</WrappedSection>
+
+<WrappedSection>
+
+### Indexed %
 
 This graph shows the total percentage of all transactions in the database that has been indexed so far.
 In a healthy situation, this chart should remain at or close to 100%.
@@ -137,7 +149,11 @@ indicating that additional rate limiting should be added to db writers.
 
 </div>
 
-#### Indexing / Commit rate
+</WrappedSection>
+
+<WrappedSection>
+
+### Indexing / Commit rate
 
 This chart shows the rate of new transactions added to the database and the rate of indexing those transactions. If the indexing rate is smaller than the commit rate, this means that the database isn’t keeping up with the indexing. In applications where only synchronous writes are performed or where data can be immediately indexed, the indexing rate line (Idx) and commit rate line (Cmt) will overlap.
 
@@ -147,7 +163,11 @@ This chart shows the rate of new transactions added to the database and the rate
 
 </div>
 
-#### TRXs Left to Index
+</WrappedSection>
+
+<WrappedSection>
+
+### TRXs Left to Index
 
 This chart shows the number of transactions waiting for indexing. This value should be close to zero and should have a decreasing tendency.
 
@@ -157,7 +177,11 @@ This chart shows the number of transactions waiting for indexing. This value sho
 
 </div>
 
-#### TRX Count
+</WrappedSection>
+
+<WrappedSection>
+
+### TRX Count
 
 This chart shows the total number of transactions in the database.
 
@@ -167,7 +191,11 @@ This chart shows the total number of transactions in the database.
 
 </div>
 
-### Btree metrics
+</WrappedSection>
+
+<WrappedSection>
+
+## Btree metrics
 
 immudb exposes various metrics per btree instance. The `id` label is a relative path for the location of the btree on disk.
 Currently there's a single btree instance per one database.
@@ -222,7 +250,11 @@ immudb_btree_nodes_data_end{id="data/systemdb/index"} 281
 
 [Grafana dashboard][grafana-dashboard] exposes both some basic and more advanced btree statistics.
 
-#### Btree Cache Size / Btree Cache Hit %
+</WrappedSection>
+
+<WrappedSection>
+
+### Btree Cache Size / Btree Cache Hit %
 
 Those two charts show internal statistics about immudb btree cache.
 In order to avoid reading large amounts of data on every btree operation,
@@ -246,7 +278,11 @@ in the btree portion close to previously accessed entries.
 
 </div>
 
-#### Btree Depth
+</WrappedSection>
+
+<WrappedSection>
+
+### Btree Depth
 
 This chart shows the depth of the tree.
 Since btrees are auto-balancing data structures,
@@ -259,7 +295,11 @@ The depth of the tree indicates what is the amount of nodes traversed by each bt
 
 </div>
 
-#### Btree Child Node Count Distributions
+</WrappedSection>
+
+<WrappedSection>
+
+### Btree Child Node Count Distributions
 
 These graphs show the distribution of the amount of child nodes.
 In a healthy btree like the one below,
@@ -277,7 +317,11 @@ more uniform and shorter lengths for its data.
 
 </div>
 
-#### Flush Statistics
+</WrappedSection>
+
+<WrappedSection>
+
+### Flush Statistics
 
 immudb keeps recent btree changes in memory to reduce the amount of data to be written to disk.
 In order to persist those changes, there’s a btree flush process called once a threshold of new and modified entries is reached.
@@ -300,7 +344,11 @@ By looking at those maximum values, we can see how much data needs to be written
 During normal DB operation, it should be steady over time.
 An unbound growth of those maximums could indicate that the flush operation is too aggressive and the threshold should be adjusted.
 
-#### Compaction Statistics
+</WrappedSection>
+
+<WrappedSection>
+
+### Compaction Statistics
 
 Similarly to flush statistics, immudb exposes the same set of values for full compaction.
 
@@ -313,7 +361,11 @@ Similarly to flush statistics, immudb exposes the same set of values for full co
 
 </div>
 
-#### Data Size for Btree Nodes
+</WrappedSection>
+
+<WrappedSection>
+
+### Data Size for Btree Nodes
 
 immudb internally uses append-only files to store data.
 That is also used for btree nodes.
@@ -330,7 +382,11 @@ is being reduced whenever a cleanup operation is performed.
 
 </div>
 
-### S3 storage metrics
+</WrappedSection>
+
+<WrappedSection>
+
+## S3 storage metrics
 
 Various metrics are exposed when working with remote storage such as S3.
 Those can be used to help analyzing s3 performance and resource consumption.
