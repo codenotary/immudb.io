@@ -10,27 +10,34 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14.18.3'
-        cache: 'npm'
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.18.3'
+          cache: 'npm'
 
-    - name: Build
-      run: |
-        node --version
-        npm i -f
-        npm run build
+      - name: Node version
+        run: node --version
 
-    # -   name: Commit changes
-    #     uses: EndBug/add-and-commit@v4
-    #     with:
-    #         message: "Updated documentation and images."
-    #         add: "."
-    #     env:
-    #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # cache node_modules
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        id: node-modules-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
 
-    -   name: Deploy
+      - name: Node dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm i -f
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
