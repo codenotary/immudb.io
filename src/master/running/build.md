@@ -22,6 +22,17 @@ GOOS=windows GOARCH=amd64 make all
 
 <WrappedSection>
 
+### macOS specific
+
+The community already added immudb to [HomeBrew](https://formulae.brew.sh/formula/immudb), therefore you can simply run
+```bash
+brew install immudb
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
 ### Build the Docker images
 
 If you want to build the container images yourself, simply clone [immudb repository](https://github.com/codenotary/immudb) and run:

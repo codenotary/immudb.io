@@ -1,8 +1,12 @@
 # State management
 
+<WrappedSection>
+
 ## Current State
 
 Current state of immudb provides proof that clients can use to verify immudb:
+
+</WrappedSection>
 
 :::: tabs
 
@@ -77,9 +81,13 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Automated verification of state by immudb SDK
 
 It's the responsibility of the immudb client to track the server state. That way it can check each verified read or write operation against a trusted state.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -212,10 +220,16 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Verify state signature
 
 If `immudb` is launched with a private signing key, each signed request can be verified with the public key.
 This ensures the server identity.
+
+</WrappedSection>
+
+<WrappedSection>
 
 To run immudb server with state signature use:
 
@@ -234,6 +248,8 @@ To generate the public key from the previous one:
 ```bash
 openssl ec -in private.key -pubout -out public.key
 ```
+
+</WrappedSection>
 
 :::: tabs
 

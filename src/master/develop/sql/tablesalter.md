@@ -1,10 +1,14 @@
 # Altering tables
 
+<WrappedSection>
+
 immudb supports limited table altering.
 The supported operations are lightweight.
 They do not require any changes to already written row data
 and there is no performance penalty on read/write operations
 in such altered tables.
+
+</WrappedSection>
 
 <WrappedSection>
 

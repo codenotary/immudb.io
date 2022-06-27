@@ -1,13 +1,9 @@
 
 # SDKs
 
-<WrappedSection>
-
 ::: tip
 Examples used in this documentation can be found in [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
 :::
-
-</WrappedSection>
 
 <WrappedSection>
 
@@ -18,14 +14,13 @@ SDKs make it comfortable to talk to the server from your favorite language, with
 The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintained by the internal team and by the community.
 
 
-| Language         | Maintainer | Immdb version | link | Notes                                                                              |
+| Language         | Maintainer | Latest immdb version | link | Notes                                                                              |
 |-------------------|---------|------------------|-------------|-----------------------------------------------------------|
 | `go`               | immudb team  | 1.3.0       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.2.4       |  [link](https://github.com/codenotary/immudb-py) |                                     |
-| `JAVA`               | immudb team  | 1.2.1       |   [link](https://github.com/codenotary/immudb4j)  | Verification is not working                                      |
+| `python`               | immudb team  | 1.3.0       |  [link](https://github.com/codenotary/immudb-py) |                                     |
+| `JAVA`               | immudb team  | 1.3.0       |   [link](https://github.com/codenotary/immudb4j)  |                                      |
 | `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
-| `JS`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immu-js) | Verification is not working                 |
-| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.2.1       |   [link](https://github.com/ankane/immudb-ruby) |Verification is not working                 |
+| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.3.0       |   [link](https://github.com/ankane/immudb-ruby) |                 |
 
 
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.

@@ -4,7 +4,11 @@
 
 immudb provides a set of useful built-in functions that can be used to query the catalog.
 
-### Listing databases
+</WrappedSection>
+
+<WrappedSection>
+
+## Listing databases
 
 The `DATABASES()` function can be used as a source of data returning the list of databases
 that can be accessed by the user running the query.
@@ -19,7 +23,11 @@ This source can also be constrained using the `WHERE` clause and the set of colu
 SELECT name FROM DATABASES() WHERE name LIKE '.*db1.*';
 ```
 
-### Listing tables
+</WrappedSection>
+
+<WrappedSection>
+
+## Listing tables
 
 The `TABLES()` function can be used as a source of data returning the list of tables in the
 currently selected database.
@@ -35,7 +43,11 @@ SELECT name FROM TABLES()
 WHERE name like '.*est.*'
 ```
 
-### Listing columns of a table
+</WrappedSection>
+
+<WrappedSection>
+
+## Listing columns of a table
 
 The `COLUMNS()` function returns the list of columns for a table. It takes a single argument which is the name of the table.
 The table will be looked up in the currently selected database.
@@ -53,7 +65,11 @@ SELECT "table", "name", "type" FROM COLUMNS('mytable');
 SELECT name FROM COLUMNS('mytable') WHERE type = 'VARCHAR';
 ```
 
-### Listing indexes of a table
+</WrappedSection>
+
+<WrappedSection>
+
+## Listing indexes of a table
 
 The `INDEXES()` function returns a list of indexes for a table. It takes a single argument which is the name of the table.
 The table will be looked up in the currently selected database.

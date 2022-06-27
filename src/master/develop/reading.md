@@ -1,13 +1,25 @@
 # Reads And Writes
 
+::: tip
+Examples in multiple languages can be found at following links: [immudb SDKs examples](https://github.com/codenotary/immudb-client-examples)
+:::
+
+<WrappedSection>
+
 Most of the methods in SDKs have `Verified` equivalent, i.e. `Get` and `VerifiedGet`. The only difference is that with `Verified` methods proofs needed to mathematically verify that the data was not tampered are returned by the server and the verification is done automatically by SDKs. 
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
 It is still possible to get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
 It's possible also to use dedicated [auditors](../operations/auditor.md) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ## Get and Set
 
 `Get`/`VerifiedGet` and `Set`/`VerifiedSet` methods allow for basic operations on a Key Value level. In addition, `GetAll` and `SetAll` methods allow for adding and reading in a single transaction. See [transactions chapter](transactions.md) for more details.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -218,9 +230,14 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Get at and since a transaction
 
 You can retrieve a key on a specific transaction with `GetAt`/`VerifiedGetAt`. If you need to check the last value of a key after given transaction (which represent state of the indexer), you can use `GetSince`/`VerifiedGetSince`.
+
+</WrappedSection>
+
 :::: tabs
 
 ::: tab Go
@@ -449,6 +466,8 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Get at revision
 
 Each historical value for a single key is attached a revision number.
@@ -457,6 +476,8 @@ a new sequential revision number assignment.
 
 A negative revision number can also be specified which means the nth historical value,
 e.g. -1 is the previous value, -2 is the one before and so on.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -521,9 +542,13 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Get at TXID
 
 It's possible to retrieve all the keys inside a specific transaction.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -697,6 +722,8 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ## Conditional writes
 
 immudb can check additional preconditions before the write operation is made.
@@ -730,6 +757,8 @@ against the current state of internal index, the second check is done just befor
 persisting the write and requires up-to-date index.
 
 Preconditions are available on `SetAll`, `Reference` and `ExecAll` operations.
+
+</WrappedSection>
 
 :::: tabs
 

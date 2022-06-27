@@ -1,12 +1,12 @@
----
-title: Running an Auditor with immuclient
----
+# Tampering detection
 
-# Use immuclient as Auditor
+The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and independent component.
 
 <WrappedSection>
 
-The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and independent component. immuclient can act as Auditor by running the following command:
+## Running an Auditor with immuclient
+
+immuclient can act as Auditor by running the following command:
 
 Start interactive:
 

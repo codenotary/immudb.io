@@ -2,9 +2,9 @@
 
 <WrappedSection>
 
-immugw is the intelligent REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security. 
+immugw is a REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security. 
 
-You may download the immug binary from [the latest releases on Github](https://github.com/codenotary/immugw/releases/latest). Once you have downloaded immugw, rename it to `immugw`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.1.0 for linux amd64:
+You may download the immugw binary from [the latest releases on Github](https://github.com/codenotary/immugw/releases/latest). Once you have downloaded immugw, rename it to `immugw`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.1.0 for linux amd64:
 
 ```bash
 $ wget https://github.com/codenotary/immugw/releases/download/v1.1.0/immugw-v1.1.0-linux-amd64

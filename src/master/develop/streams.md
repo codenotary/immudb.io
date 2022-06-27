@@ -1,4 +1,7 @@
 # Streams
+
+<WrappedSection>
+
 immudb provides stream capabilities.
 Internally it uses “delimited” messages technique, every chunk has a trailer that describe the length of the message. In this way the receiver can recompose chunk by chunk the original payload.
 Stream methods accepts a `readers` as a part of input and output arguments. In this way the large value is decomposed in small chunks that are streamed over the wire.
@@ -21,6 +24,8 @@ Supported stream method now available in the SDK are:
 * StreamExecAll
 
 </CustomList>
+
+</WrappedSection>
 
 :::: tabs
 

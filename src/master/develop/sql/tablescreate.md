@@ -43,6 +43,10 @@ CREATE TABLE customer_review(
 );
 ```
 
+</WrappedSection>
+
+<WrappedSection>
+
 ### IF NOT EXISTS
 
 With this clause the `CREATE TABLE` statement will not fail if a table with same name already exists.
@@ -50,9 +54,17 @@ With this clause the `CREATE TABLE` statement will not fail if a table with same
 Note: If the table already exists, it is not compared against the provided table definition neither it is
       updated to match it.
 
+</WrappedSection>
+
+<WrappedSection>
+
 ### NOT NULL
 
 Columns marked as not null can not have a null value assigned.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ### PRIMARY KEY
 
@@ -63,6 +75,10 @@ Columns used in a primary key can not have `NULL` values assigned,
 even if those columns are not explicitly marked as `NOT NULL`.
 
 Primary key creates an implicit unique index on all contained columns.
+
+</WrappedSection>
+
+<WrappedSection>
 
 ### AUTO_INCREMENT
 

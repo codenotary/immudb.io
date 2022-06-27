@@ -1,8 +1,10 @@
 # Secondary indexes
 
-On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
+<WrappedSection>
 
 ## Sorted sets
+
+On top of the key value store immudb provides secondary indexes to help developers to handle complex queries.
 
 The `sorted set` data type provides a simple secondary index that can be created with immudb.
 This data structure contains a set of references to other key-value entries.
@@ -55,6 +57,8 @@ Reading data from the set can be done using the following operations:
 > To avoid waiting for the index (and  thus to allow reading the data from some older state),
 > set the `SinceTx` to a very high value exceeding the most recent transaction id
 > (e.g. maximum int value) and set `NoWait` to `true`.
+
+</WrappedSection>
 
 :::: tabs
 

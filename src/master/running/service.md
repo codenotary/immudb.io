@@ -24,3 +24,11 @@ $ ./immudb service status
 On Linux, `immudb service status` is equivalent to `systemctl status immudb.service`, and is what it does under the hoods.
 
 </WrappedSection>
+
+<WrappedSection>
+
+### macOS specific
+
+In case you want to run immudb as a service, please check the following [guideline](https://medium.com/swlh/how-to-use-launchd-to-run-services-in-macos-b972ed1e352).
+
+</WrappedSection>

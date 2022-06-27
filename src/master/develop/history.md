@@ -1,5 +1,7 @@
 # Queries and history
 
+<WrappedSection>
+
 The fundamental property of immudb is that it's an append-only database.
 This means that an _update_ does not change an existing record. Instead, it is a new insert of the **same key** with a **new value**.
 It's possible to retrieve all the values for a particular key with the history command.
@@ -10,6 +12,8 @@ It's possible to retrieve all the values for a particular key with the history c
 * `Limit`: maximum returned items. Optional
 * `Desc`: items are returned in reverse order. Optional
 * `SinceTx`: immudb will wait that the transaction specified by SinceTx is processed. Optional
+
+</WrappedSection>
 
 :::: tabs
 
@@ -125,9 +129,13 @@ If you're using another development language, please refer to the [immugw](immug
 
 <br/>
 
+<WrappedSection>
+
 ## Counting
 
 Counting entries is not supported at the moment.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -164,6 +172,8 @@ If you're using another development language, please refer to the [immugw](immug
 
 <br/>
 
+<WrappedSection>
+
 ## Scan
 
 The `scan` command is used to iterate over the collection of elements present in the currently selected database.
@@ -176,7 +186,9 @@ The `scan` command is used to iterate over the collection of elements present in
 * `SinceTx`: immudb will wait that the transaction provided by SinceTx be processed. Optional
 * `NoWait`: Default false. When true scan doesn't wait for the index to be fully  generated and returns the last indexed value. Optional
 
->  To gain speed it's possible to specify `noWait=true`. The control will be returned to the caller immediately, without waiting for the indexing to complete. When `noWait` is used, keep in mind that the returned data may not be yet up to date with the inserted data, as the indexing might not have completed.
+To gain speed it's possible to specify `noWait=true`. The control will be returned to the caller immediately, without waiting for the indexing to complete. When `noWait` is used, keep in mind that the returned data may not be yet up to date with the inserted data, as the indexing might not have completed.
+
+</WrappedSection>
 
 :::: tabs
 
@@ -395,13 +407,15 @@ If you're using another development language, please refer to the [immugw](immug
 
 <br/>
 
+<WrappedSection>
+
 ## References
 
 `SetReference` is like a "tag" operation. It appends a reference on a key/value element.
 As a consequence, when we retrieve that reference with a `Get` or `VerifiedGet` the value retrieved will be the original value associated with the original key.
 Its ```VerifiedReference``` counterpart is the same except that it also produces the inclusion and consistency proofs.
 
-### SetReference and VerifiedSetReference
+</WrappedSection>
 
 :::: tabs
 
@@ -608,9 +622,14 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ### GetReference and VerifiedGetReference
 
 When reference is resolved with get or verifiedGet in case of multiples equals references the last reference is returned.
+
+</WrappedSection>
+
 :::: tabs
 
 ::: tab Go
@@ -749,9 +768,13 @@ If you're using another development language, please refer to the [immugw](immug
 
 ::::
 
+<WrappedSection>
+
 ### Resolving reference with transaction id
 
 It's possible to bind a reference to a key on a specific transaction using `SetReferenceAt` and `VerifiedSetReferenceAt`
+
+</WrappedSection>
 
 :::: tabs
 

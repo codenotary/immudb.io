@@ -28,7 +28,7 @@ $ mv immuadmin-v1.3.0-linux-amd64 immuadmin
 $ chmod +x immuadmin
 ```
 
-Alternatively, you may [pull immuclient docker image from DockerHub](https://hub.docker.com/r/codenotary/immuadmin) and run it in a ready-to-use container:
+Alternatively, you may [pull immuadmin docker image from DockerHub](https://hub.docker.com/r/codenotary/immuadmin) and run it in a ready-to-use container:
 
 ```bash
 $ docker run -it --rm --name immuadmin codenotary/immuadmin:latest status
