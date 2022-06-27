@@ -52,15 +52,13 @@ immudb can be used as a tamper-proof key value store or SQL database, with audit
 
 Key value is a foundation layer for SQL, meaning that SQL is using key value store capabilities underneath.
 
-Check [user quickstart](getstarted/quickstart.md) for instructions on how to start working with KV or SQL.
-
 </WrappedSection>
 
 <WrappedSection>
 
 ## Standalone and Embeddable
 
-immudb can be run as full database server with [replicas](operations/replication.md) or easily [embedded](develop/embedding.md) as a lightweight database into application.
+immudb can be run as full database server with [replicas](production/replication.md) or easily [embedded](embedded/embedding.md) as a lightweight database into application.
 
 </WrappedSection>
 
@@ -95,7 +93,7 @@ To get the (signed) state in combination with the immuclient with auditor capabi
 immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
 ```
 
-Check [tamper-proof operations](develop/operations.md) and [running an auditor with immuclient](operations/auditor.md) paragraphs for additional details.
+Check [auditor](production/auditor.md) section for additional details.
 
 </WrappedSection>
 

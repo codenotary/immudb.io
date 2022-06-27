@@ -9,7 +9,7 @@ Examples in multiple languages can be found at following links: [immudb SDKs exa
 Most of the methods in SDKs have `Verified` equivalent, i.e. `Get` and `VerifiedGet`. The only difference is that with `Verified` methods proofs needed to mathematically verify that the data was not tampered are returned by the server and the verification is done automatically by SDKs. 
 Note that generating that proof has a slight performance impact, so primitives are allowed without the proof.
 It is still possible to get the proofs for a specific item at any time, so the decision about when or how frequently to do checks (with the Verify version of a method) is completely up to the user.
-It's possible also to use dedicated [auditors](../operations/auditor.md) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
+It's possible also to use dedicated [auditors](../production/auditor.md) to ensure the database consistency, but the pattern in which every client is also an auditor is the more interesting one.
 
 </WrappedSection>
 
