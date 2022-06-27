@@ -13,11 +13,26 @@ jobs:
           node-version: '14.18.3'
           cache: 'npm'
 
+      - name: Node version
+        run: node --version
+
+      # cache node_modules
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        id: node-modules-cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Node dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm i -f
+
       - name: Build
-        run: |
-          node --version
-          npm i -f
-          npm run build
+        run: npm run build
 
   links-check:
     runs-on: ubuntu-latest
