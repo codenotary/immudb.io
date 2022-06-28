@@ -71,10 +71,6 @@ Do you want to make a feature request or help out? Open an issue on [Java sdk gi
 
 ::: tab Python
 
-Currently immudb Python sdk doesn't support interactive transactions. 
-
-However you can still use non-interactive SQL Transactions.
-
 ```python
 from immudb import ImmudbClient
 from uuid import uuid4
@@ -155,6 +151,42 @@ def main():
     """)
     print(result) # You can't see just added entries,
                   # my fellow time traveller
+
+
+    # interactive session
+    with client.openManagedSession(LOGIN, PASSWORD, database = DB) as session:
+        transaction = session.newTx()
+        for _ in range(3):
+            uidNow1 = str(uuid4())
+            uidNow2 = str(uuid4())
+            transaction.sqlExec("""INSERT INTO example (uniqueID, value, created) 
+                VALUES (@uid1, 'test130', NOW()), (@uid2, 'test131', NOW());""", {"uid1": uidNow1, "uid2": uidNow2})
+        resp = transaction.commit()
+
+        transaction = session.newTx()
+        resultsSize = getResultsList(transaction)
+        print("RESULTS SIZE", resultsSize) # Results size is +6 becasue we commited new transaction
+
+        for _ in range(3):
+            uidNow1 = str(uuid4())
+            uidNow2 = str(uuid4())
+            transaction.sqlExec("""INSERT INTO example (uniqueID, value, created) 
+                VALUES (@uid1, 'test130', NOW()), (@uid2, 'test131', NOW());""", {"uid1": uidNow1, "uid2": uidNow2})
+
+        resultsSize = getResultsList(transaction)
+        print("RESULTS SIZE", resultsSize)  # Results size is +6 becasue we still not commited transaction
+
+        transaction.rollback()
+
+        transaction = session.newTx()
+
+        resultsSize = getResultsList(transaction)  
+        print("RESULTS SIZE", resultsSize) # Results size is -6 becasue we rollback transaction
+        
+def getResultsList(transaction):
+    results = transaction.sqlQuery(f"""
+        SELECT example.value FROM example""")
+    return len(results)
 
 
 if __name__ == "__main__":
