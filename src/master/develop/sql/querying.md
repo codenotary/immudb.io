@@ -326,3 +326,26 @@ SELECT * FROM mytable SINCE TX @initialTx BEFORE now()
 ```
 
 </WrappedSection>
+
+<WrappedSection>
+
+### Skipping entries with OFFSET clause
+
+Using `OFFSET` clause in SQL queries can be used to skip an initial list of entries from the result set.
+Internally offsets are implemented by skipping entries from the result on the server side thus it may come with performance penalty when the value of such offset is large.
+
+```sql
+SELECT *
+FROM products;
+OFFSET 30 LIMIT 10
+```
+
+```sql
+SELECT id, customer_name, email
+FROM customers
+WHERE country = 'SE' AND city = 'Arvika';
+ORDER BY customer_name
+OFFSET 100 LIMIT 50
+```
+
+</WrappedSection>
