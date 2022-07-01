@@ -78,7 +78,8 @@ The optional `ON CONFLICT` clause specifies an alternative action to raising a u
 
 ### Timestamp, NOW() and CAST() built-in function
 
-The built-in `NOW()` function returns the current timestamp value as seen on the server.
+The built-in `NOW()` function returns the transaction creation time as seen on the server.
+In the scope of a single transaction, it always returns the same result time.
 
 The `CAST` function can be used to convert a string or an integer to a timestamp value.
 
