@@ -35,7 +35,7 @@ const getSidebar = version => {
     return getSidebarBeforeV1_3_1(version);
   }
 
-  if (version == '1.3.1') {
+  if (version == '/1.3.1') {
     return getSidebarV1_3_1(version);
   }
 
