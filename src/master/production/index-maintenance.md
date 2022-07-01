@@ -3,14 +3,14 @@
 <WrappedSection>
 
 Maintaining a healthy disk usage is crucial. immudb has two operations operations aiming to remove unreferenced data from the index.
-A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. The index is generated asynchronously, so new transactions may take place while it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
+A full index clean-up is achieved by calling `CompactIndex`, which is a routine that creates a fresh index based on the current state, removing all intermediate data generated over time. 
+The index is generated asynchronously, so new transactions may take place while it is created. As a result, if the server is constantly overloaded, there will likely be blocking times when the newly compacted index replaces the current one.
+
 In the case of continuous load on the server, the `FlushIndex` operation may be used instead. It will dump the current index into disk while partly removing unreferenced data. The `cleanupPercentage` attribute indicates how much space will be scanned for unreferenced data. Even though this operation blocks transaction processing, choosing a small percentage e.g. 0.1 may not significantly hinder normal operations while reducing used storage space. 
 
 Partial compaction may be triggered automatically by immudb. Database settings can be modified to set the `cleanupPercentage` attribute to non-zero in order to accomplish this.
 
 </WrappedSection>
-
-<WrappedSection>
 
 :::: tabs
 
@@ -106,8 +106,6 @@ If you're using another development language, please refer to the [immugw](../co
 :::
 
 ::::
-
-</WrappedSection>
 
 <WrappedSection>
 

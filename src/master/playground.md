@@ -1,6 +1,6 @@
 # Playground
 
-[**immudb Playground** is an interactive environment for learning about immudb](https://play.codenotary.com):
+[**immudb Playground**](https://play.codenotary.com) is an interactive environment for learning about immudb:
 
 <WrappedSection>
 

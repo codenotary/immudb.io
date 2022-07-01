@@ -10,9 +10,8 @@ immudb supports transactions both on key-value and SQL level, but interactive tr
 
 Interactive transactions are a way to execute multiple SQL statements in a single transaction. This makes possible to delegate application logic to SQL statements - a very common use case is for example checking if the balance > 0 before making a purchase.
 In order to create a transaction, you must call the `NewTx()` method on the client instance. The resulting object is a transaction object that can be used to execute multiple SQL statements, queries, commit or rollback.
-Following there are methods exposed by the transaction object:
 
-</WrappedSection>
+Following methods are exposed by the transaction object:
 
 ```go
 Commit() CommittedSQLTx, error
@@ -20,8 +19,6 @@ Rollback() error
 SQLExec(sql, params) error
 SQLQuery(sql, params) SQLQueryResult, error
 ```
-
-<WrappedSection>
 
 It's possible to rollback a transaction by calling the `Rollback()` method. In this case, the transaction object is no longer valid and should not be used anymore.
 To commit a transaction, you must call the `Commit()` method.

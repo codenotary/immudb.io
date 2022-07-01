@@ -2,13 +2,13 @@
 
 The Auditor is a component for checking if immudb was tampered, it's a good practice to run the auditor as a separate and independent component.
 
+immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
+
 <WrappedSection>
 
 ## Running an Auditor with immuclient
 
 immuclient can act as Auditor by running the following command:
-
-Start interactive:
 
 ```bash
 $ ./immuclient audit-mode
@@ -79,6 +79,11 @@ Global Flags:
       --tokenfile string                     authentication token file (default path is $HOME or binary location; default filename is )
       --username string                      immudb username used to login
       --value-only                           returning only values for get operations
+```
+
+To get the (signed) state in combination with the immuclient with auditor capabilities:
+```bash
+immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
 ```
 
 </WrappedSection>

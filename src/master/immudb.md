@@ -21,7 +21,7 @@ immudb can operate both as a key-value or relational (SQL) database. You can add
 
 - **Verify your data without sacrificing performance.** Data stored in immudb is cryptographically coherent and verifiable, just like blockchains, but without all the complexity. Unlike blockchains, immudb can handle millions of transactions per second, and can be used both as a lightweight service or embedded in your application as a library.
 
-- **Protect yourself from supply-chain attacks.** While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack. Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
+- **Protect yourself from cyber attacks.** While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack. Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
 
 </WrappedSection>
 
@@ -66,7 +66,7 @@ immudb can be run as full database server with [replicas](production/replication
 
 ## Running platforms
 
-immudb server runs in most operating systems: BSD, Linux, OS X, Solaris, Windows, IBM z/OS
+immudb server runs in most operating systems: BSD, Linux, OS X, Solaris, Windows, IBM z/OS.
 
 </WrappedSection>
 
@@ -74,7 +74,7 @@ immudb server runs in most operating systems: BSD, Linux, OS X, Solaris, Windows
 
 ## S3 Storage Backend
 
-immudb can store its data in the Amazon S3 service (or a compatible alternative). The following example shows how to run immudb with the S3 storage enabled:
+immudb can store its data in the Amazon S3 service (or a compatible alternative).
 
 </WrappedSection>
 
@@ -86,12 +86,6 @@ immudb consistency can be verified by any external client or auditor by calculat
 
 To increase security, immudb can be provisioned with a signing key to ensure non-repudiation of database states. The immudb server will subsequently sign the state on request from a client application.
 That means that an auditor or a third party client, for instance, could verify the authenticity of the returned current state.
-
-immuclient and [immugw](https://github.com/codenotary/immugw) are shipped with auditor capabilities.
-To get the (signed) state in combination with the immuclient with auditor capabilities:
-```bash
-immuclient audit-mode --audit-username {immudb-username} --audit-password {immudb-pw} --server-signing-pub-key {state-public-key}
-```
 
 Check [auditor](production/auditor.md) section for additional details.
 

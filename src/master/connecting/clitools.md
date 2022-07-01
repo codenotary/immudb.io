@@ -106,7 +106,7 @@ $ docker run -it --rm --net host --name immuclient codenotary/immuclient:latest
 To display all available options and their description run:
 
 ```bash
-$ ./immudb help
+$ ./immuclient help
 ```
 
 Running `login immudb` from within immuclient will use the default database name and port. All you need to supply is the user and password:

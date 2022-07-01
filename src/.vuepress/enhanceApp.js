@@ -121,7 +121,7 @@ const getSidebarMaster = version => {
   };
 
   developKV.children.push(`${version}/develop/reading`);
-  developKV.children.push(`${version}/develop/history`);
+  developKV.children.push(`${version}/develop/queries-history`);
   developKV.children.push(`${version}/develop/indexes`);
   developKV.children.push(`${version}/develop/transactions`);
   developKV.children.push(`${version}/develop/deleting`);

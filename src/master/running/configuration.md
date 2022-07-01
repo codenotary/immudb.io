@@ -1,31 +1,37 @@
 
 # Configuration
 
-This page describes how to set different settings in immudb.
-
 <WrappedSection>
 
-| Parameter         | Default | Description                                                                              |
-|-------------------|---------|------------------------------------------------------------------------------------------|
-| `dir`               | `./data`  | System and user databases are stored here                                                |
-| `network`           | `tcp`     |                                                                                          |
-| `address`            | `0.0.0.0` | Listening address                                                                        |
-| `port`              | `3322`    | Listing port                                                                             |
-| `mtls`              | `false`   | Whether to enable [Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication#mTLS) |
-| `pkey`              |         | If specified, the server can sign the state the clients use to verify immutability       |
-| `auth`              | `true`    | If enabled, immudb will require user and password from the client                        |
-| `clientcas`         |         | Client certificate authority                                                             |
-| `maintenance`       |         | Maintenance mode. Override the authentication flag                                       |
-| `sync`              |         | Runs in sync mode. Prevents data loss but affects performance                            |
-| `token-expiry-time` | `1440`    | Client token expiry time, in minutes                                                     |
-| `web-server`         | `true`   | Embedded web console server                                                     |
-| `web-server-port`    | `8080`   | Embeded web console port server                                                     |
-| `pgsql-server`    | `true`   | pqsql protocol compatibility server (allows to connect from pgsql compatible clients)                                                     |
-| `pgsql-server-port`    | `5432`   | pqsql protocol compatibility server port                                                      |
+This page describes how to set different settings in immudb.
+
+Settings can be specified as command line options to immudb (see `immudb -h`), in a configuration file, or as environment variables.
 
 </WrappedSection>
 
-Settings can be specified as command line options to immudb (see `immudb -h`), in a configuration file, or as environment variables.
+<WrappedSection>
+
+### Settings
+
+| Parameter           | Default    | Description                                                                              |
+|---------------------|------------|------------------------------------------------------------------------------------------|
+| `dir`               | `./data`   | System and user databases are stored here                                                |
+| `network`           | `tcp`      |                                                                                          |
+| `address`           | `0.0.0.0`  | Listening address                                                                        |
+| `port`              | `3322`     | Listing port                                                                             |
+| `mtls`              | `false`    | Whether to enable [Mutual TLS](https://en.wikipedia.org/wiki/Mutual_authentication#mTLS) |
+| `pkey`              |            | If specified, the server can sign the state the clients use to verify immutability       |
+| `auth`              | `true`     | If enabled, immudb will require user and password from the client                        |
+| `clientcas`         |            | Client certificate authority                                                             |
+| `maintenance`       | `false`    | Maintenance mode. Override the authentication flag                                       |
+| `sync`              | `true`     | Runs in sync mode. Prevents data loss but affects performance                            |
+| `token-expiry-time` | `1440`     | Client token expiry time, in minutes                                                     |
+| `web-server`        | `true`     | Embedded web console server                                                              |
+| `web-server-port`   | `8080`     | Embeded web console port server                                                          |
+| `pgsql-server`      | `true`     | pqsql protocol compatibility server (allows to connect from pgsql compatible clients)    |
+| `pgsql-server-port` | `5432`     | pqsql protocol compatibility server port                                                 |
+
+</WrappedSection>
 
 <WrappedSection>
 
