@@ -285,7 +285,7 @@ The argument of a `ExecAll` is an array of the following types:
 
 * `Op_Kv`: ordinary key value item
 * `Op_ZAdd`: [ZAdd](indexes.md#sorted-sets) option element
-* `Op_Ref`: [Reference](history.md#references) option element
+* `Op_Ref`: [Reference](queries-history.md#references) option element
 
 It's possible to persist and reference items that are already persisted on disk. In that case is mandatory to provide the index of the referenced item. This has to be done for:
 
