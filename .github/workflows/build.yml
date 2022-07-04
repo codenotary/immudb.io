@@ -34,10 +34,11 @@ jobs:
       - name: Build
         run: npm run build
 
-  links-check:
+  quality-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Links check
         uses: becheran/mlc@19f75f995fe510740f15221dc82d749af45b522f # v0.14.3
         with:
@@ -49,3 +50,6 @@ jobs:
                 https://github.com/codenotary/immu-js
                 https://twitter.com/intent/tweet*
             --match-file-extension
+
+      - name: Check of configuration options list
+        run: ./checks/configuration.sh
