@@ -57,11 +57,11 @@ Below is the list of operations that do not rely on the index at all.
 The SQL layer heavily depends on the B-tree index thus it can not be used when immudb is
 treated as an immutable ledger only.
 
-[get-at-since]: <../develop/reading.md#get-at-and-since-a-transaction>
-[get-at-TxID]: <../develop/reading.md#get-at-txid>
-[tx-scan]: <../develop/transactions.md#txscan>
-[exec-all]: <../develop/transactions.md#execall>
-[cond-write]: <../develop/reading.md#conditional-writes>
+[get-at-since]: ../develop/reading.md#get-at-and-since-a-transaction
+[get-at-TxID]: ../develop/reading.md#get-at-txid
+[tx-scan]: ../develop/transactions.md#txscan
+[exec-all]: ../develop/transactions.md#execall
+[cond-write]: ../develop/reading.md#conditional-writes
 
 ### Indexed KV layer - asynchronous
 

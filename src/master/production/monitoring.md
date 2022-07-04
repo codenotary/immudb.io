@@ -23,7 +23,7 @@ go_gc_duration_seconds_count 7
 
 Querying metrics with a simple curl command is not a very practical solution. immudb has predefined Grafana dashboard visualizing some of the key metrics. This dashboard can be downloaded from [immudb github repository][grafana-dashboard].
 
-[grafana-dashboard]: <https://github.com/codenotary/immudb/blob/master/tools/monitoring/grafana-dashboard.json>
+[grafana-dashboard]: https://github.com/codenotary/immudb/blob/master/tools/monitoring/grafana-dashboard.json
 
 <div class="wrapped-picture">
 
