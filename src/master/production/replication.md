@@ -122,6 +122,29 @@ Replication is configured per database. Thus, the same immudb server may hold se
 
 </WrappedSection>
 
+<WrappedSection>
+### Replicator tool
+
+You may need to keep a copy of every database on one immudb instance on another, so that when a new database is created
+on the main instance, a replicated database is created on the replica.
+
+In that case you can use the [replicator tool](https://github.com/codenotary/immudb-tools/tree/main/replicator), part of the
+[immudb tools](https://github.com/codenotary/immudb-tools).
+
+This tool connects to two immudb instance, one main instance and a replica. Periodically, scans the list of databases
+present on the main instance and it compares that with the list of databases present on the replica. If it finds any new
+databases that are missing on the replicas, it will recreate it on the replica and it will configure it to start following
+its counterpart on the main.
+
+If necessary (usually it is) it will also create the replication user on the main instance for the new database(s).
+
+Using this tool you won't need to manually configure replicated databases on replica instance(s).
+
+You can have more information about this tool on its [README page](https://github.com/codenotary/immudb-tools/tree/main/replicator).
+
+</WrappedSection>
+
+
 
 
 
