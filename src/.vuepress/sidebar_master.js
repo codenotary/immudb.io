@@ -45,6 +45,7 @@ export const getSidebarMaster = version => {
   immudbInProduction.children.push(`${version}/production/replication`);
   immudbInProduction.children.push(`${version}/production/s3-storage`);
   immudbInProduction.children.push(`${version}/production/backwards-compatibility`);
+  immudbInProduction.children.push(`${version}/production/performance-guide`);
   /* RUNNING IMMUDB IN PRODUCTION SECTION END */
 
   /* CONNECTING SECTION START */
