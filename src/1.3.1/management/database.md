@@ -20,7 +20,7 @@ To create a new database, use `CreateDatabaseV2` method.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/1.3.1/database-create/main.go
+<<< @/src/code-examples/go/database-create/main.go
 :::
 
 ::: tab Java
@@ -124,7 +124,7 @@ This example shows how to list existent databases using `DatabaseListV2` method.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/1.2.3/database-list/main.go
+<<< @/src/code-examples/go/database-list/main.go
 :::
 
 ::: tab Java
@@ -194,7 +194,7 @@ Following example shows how to load and unload a database using `LoadDatabase` a
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/1.2.3/database-load-unload/main.go
+<<< @/src/code-examples/go/database-load-unload/main.go
 :::
 
 ::: tab Java
@@ -240,7 +240,7 @@ Following example shows how to update database using `UpdateDatabaseV2` method.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/1.2.3/database-settings/main.go
+<<< @/src/code-examples/go/database-settings/main.go
 :::
 
 ::: tab Java

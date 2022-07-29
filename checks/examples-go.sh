@@ -14,22 +14,31 @@ find "src/code-examples/go/" -type f -name '*.go' | while read N; do
     go build -o /tmp/build-output .
 done
 
-cd "$DIR"
-
-echo "--- Checking examples used in master version if compile with newest SDK"
+cd "$DIR/src"
 
 TMP_DIR="$(mktemp -d -t examples-check-XXXXXXXXXX)"
-cp -R "src/code-examples/go" "${TMP_DIR}"
+cp -R "code-examples/go" "${TMP_DIR}"
 
-grep -Eh '<<< @/src/code-examples/go' -R src/master/ \
-| sort \
-| uniq \
-| sed 's|^<<< @/src/code-examples/||' \
-| while read N; do
-    echo "$N"
-    cd "$(dirname "$TMP_DIR/$N")"
-    go get github.com/codenotary/immudb@master &>/dev/null
-    go build -o /tmp/build-output .
+ls -1 | grep -E '^([0-9.]+|master)$' | while read N; do
+
+    VER="$N"
+    if [[ "$VER" != "master" ]]; then
+        VER="v${VER}"
+    fi
+
+    echo "--- Checking examples used in $N"
+
+    (grep -Eh '<<< @/src/code-examples/go' -R "$DIR/src/$N/" || true) \
+    | sort \
+    | uniq \
+    | sed 's|^<<< @/src/code-examples/||g' \
+    | while read F; do
+        echo "$F"
+        cd "$(dirname "$TMP_DIR/$F")"
+        go get "github.com/codenotary/immudb@${VER}" &> /dev/null
+        go build -o /tmp/build-output .
+    done
+
 done
 
 echo "--- examples validated successfully"
