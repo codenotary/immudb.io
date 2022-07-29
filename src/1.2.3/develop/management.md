@@ -211,42 +211,7 @@ To create a new database, use `CreateDatabaseV2` method then `UseDatabase` to se
 :::: tabs
 
 ::: tab Go
-
-```go
-client, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-ctx := context.Background()
-
-err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
-}
-
-defer client.CloseSession(ctx)
-
-err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
-    MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
-})
-if err != nil {
-    log.Fatal(err)
-}
-
-_, err = client.UseDatabase(ctx, &schema.Database{
-    Databasename: "myimmutabledb",
-})
-if err != nil {
-    log.Fatal(err)
-}
-
-// writing in myimmutabledb
-_, err = client.Set(ctx, []byte(`key`), []byte(`val`))
-if err != nil {
-    log.Fatal(err)
-}
-```
+<<< @/src/code-examples/go/database-create-use/main.go
 :::
 
 ::: tab Java
@@ -322,31 +287,7 @@ This example shows how to list existent databases using `DatabaseListV2` method.
 :::: tabs
 
 ::: tab Go
-
-```go
-client, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-ctx := context.Background()
-
-err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
-}
-
-defer client.CloseSession(ctx)
-
-res, err := client.DatabaseListV2(ctx)
-if err != nil {
-    log.Fatal(err)
-}
-
-for _, db := range res.Databases {
-    fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
-}
-```
+<<< @/src/code-examples/go/database-list/main.go
 :::
 
 ::: tab Java
@@ -388,41 +329,7 @@ Following example shows how to load and unload a database using `LoadDatabase` a
 :::: tabs
 
 ::: tab Go
-
-```go
-client, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-ctx := context.Background()
-
-err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
-}
-
-defer client.CloseSession(ctx)
-
-_, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
-if err != nil {
-    log.Fatal(err)
-}
-
-_, err = client.UseDatabase(ctx, &schema.Database{
-    Databasename: "mydb",
-})
-if err != nil {
-    log.Fatal(err)
-}
-
-// do amazing stuff
-
-_, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
-if err != nil {
-    log.Fatal(err)
-}
-```
+<<< @/src/code-examples/go/database-load-unload/main.go
 :::
 
 ::: tab Java
@@ -464,29 +371,7 @@ Following example shows how to update database using `UpdateDatabaseV2` method.
 :::: tabs
 
 ::: tab Go
-
-```go
-client, err := immudb.NewClient()
-if err != nil {
-    log.Fatal(err)
-}
-
-ctx := context.Background()
-	
-err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-if err != nil {
-    log.Fatal(err)
-}
-
-defer client.CloseSession(ctx)
-
-res, err := client.UpdateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
-    TxLogCacheSize: &schema.NullableUint32{Value: 1000},
-})
-if err != nil {
-    log.Fatal(err)
-}
-```
+<<< @/src/code-examples/go/database-settings/main.go
 :::
 
 ::: tab Java

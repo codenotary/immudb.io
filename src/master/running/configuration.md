@@ -29,6 +29,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `max-recv-msg-size`             | `33554432` | max message size in bytes the server can receive                                                     |
 | `max-session-age-time`          | infinity   | max session age time is a duration after which session will be forcibly closed                       |
 | `max-session-inactivity-time`   | `3m0s` | max session inactivity time is a duration after which an active session is declared inactive by the server. A session is kept active if server is still receiving requests from client (keep-alive or other methods) |
+| `max-sessions`                  | `100`      | maximum number of simultaneously opened sessions                                                     |
 | `metrics-server`                | `true`     | enable or disable Prometheus endpoint                                                                |
 | `metrics-server-port`           | `9477`     | Prometheus endpoint port                                                                             |
 | `mtls`                          | `false`    | enable mutual tls                                                                                    |
@@ -38,6 +39,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `pidfile`                       | ``         | pid path with filename. E.g. /var/run/immudb.pid                                                     |
 | `pkey`                          | ``         | server private key path                                                                              |
 | `port`                          | `3322`     | port number                                                                                          |
+| `pprof`                         | `false`    | add pprof profiling endpoint on the metrics server                                                   |
 | `replication-enabled`           | `false`    | set systemdb and defaultdb as replica                                                                |
 | `replication-follower-password` | ``         | password used for replication of systemdb and defaultdb                                              |
 | `replication-follower-username` | ``         | username used for replication of systemdb and defaultdb                                              |

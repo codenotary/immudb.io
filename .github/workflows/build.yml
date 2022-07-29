@@ -49,7 +49,16 @@ jobs:
                 https://github.com/codenotary/immudb4dotnet/issues/new
                 https://github.com/codenotary/immu-js
                 https://twitter.com/intent/tweet*
+                https://www.php.net/manual/en/book.pgsql.php
             --match-file-extension
 
       - name: Check of configuration options list
         run: ./checks/configuration.sh
+
+  examples-check-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+      - name: Check go examples
+        run: ./checks/examples-go.sh
