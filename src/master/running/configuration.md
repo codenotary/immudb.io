@@ -38,6 +38,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `pidfile`                       | ``         | pid path with filename. E.g. /var/run/immudb.pid                                                     |
 | `pkey`                          | ``         | server private key path                                                                              |
 | `port`                          | `3322`     | port number                                                                                          |
+| `pprof`                         | `false`    | add pprof profiling endpoint on the metrics server                                                   |
 | `replication-enabled`           | `false`    | set systemdb and defaultdb as replica                                                                |
 | `replication-follower-password` | ``         | password used for replication of systemdb and defaultdb                                              |
 | `replication-follower-username` | ``         | username used for replication of systemdb and defaultdb                                              |
