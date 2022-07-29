@@ -25,35 +25,35 @@ To create a new database, use `CreateDatabaseV2` method.
 package main
 
 import (
-	"context"
-	"log"
+    "context"
+    "log"
 
-	immudb "github.com/codenotary/immudb/pkg/client"
+    "github.com/codenotary/immudb/pkg/api/schema"
+    immudb "github.com/codenotary/immudb/pkg/client"
 )
 
 func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
+    client := immudb.NewClient()
     ctx := context.Background()
 
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+    err := client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
     if err != nil {
         log.Fatal(err)
     }
 
     defer client.CloseSession(ctx)
 
-    err = client.CreateDatabaseV2(ctx, "myimmutabledb", &schema.DatabaseNullableSettings{
-        MaxConcurrency: 10, // this setting determines how many transactions can be handled concurrently
+    res, err := client.CreateDatabaseV2(ctx, "mydb", &schema.DatabaseNullableSettings{
+        // this setting determines how many transactions can be handled concurrently
+        MaxConcurrency: &schema.NullableUint32{Value: 10},
     })
     if err != nil {
         log.Fatal(err)
     }
+    log.Print("Database created, server response: ", res)
 }
 ```
+
 :::
 
 ::: tab Java
@@ -87,6 +87,7 @@ public class App {
 :::
 
 ::: tab Python
+
 ```python
 from immudb import ImmudbClient
 
@@ -104,9 +105,11 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
 :::
 
 ::: tab Node.js
+
 ```ts
 import ImmudbClient from 'immudb-node'
 import Parameters from 'immudb-node/types/parameters'
@@ -119,16 +122,17 @@ const IMMUDB_PWD = 'immudb'
 const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 (async () => {
-	await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
+    await cl.login({ user: IMMUDB_USER, password: IMMUDB_PWD })
 
-	const createDatabaseReq: Parameters.CreateDatabase = {
-		databasename: 'myimmutabledb'
-	}
+    const createDatabaseReq: Parameters.CreateDatabase = {
+        databasename: 'myimmutabledb'
+    }
 
-	const createDatabaseRes = await cl.createDatabase(createDatabaseReq)
-	console.log('success: createDatabase', createDatabaseRes)
+    const createDatabaseRes = await cl.createDatabase(createDatabaseReq)
+    console.log('success: createDatabase', createDatabaseRes)
 })()
 ```
+
 :::
 
 ::: tab .Net
@@ -158,21 +162,17 @@ This example shows how to list existent databases using `DatabaseListV2` method.
 package main
 
 import (
-	"context"
-	"log"
+    "context"
+    "log"
 
-	immudb "github.com/codenotary/immudb/pkg/client"
+    immudb "github.com/codenotary/immudb/pkg/client"
 )
 
 func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
+    client := immudb.NewClient()
     ctx := context.Background()
 
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+    err := client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
     if err != nil {
         log.Fatal(err)
     }
@@ -185,13 +185,15 @@ func main() {
     }
 
     for _, db := range res.Databases {
-        fmt.Printf("database: %s, loaded: %v\r\n", db.Name, db.Loaded)
+        log.Printf("database: %s, loaded: %v", db.Name, db.Loaded)
     }
 }
 ```
+
 :::
 
 ::: tab Java
+
 ```java
 package io.codenotary.immudb.helloworld;
 
@@ -218,6 +220,7 @@ public class App {
 
 }
 ```
+
 :::
 
 ::: tab Python
@@ -261,47 +264,45 @@ Following example shows how to load and unload a database using `LoadDatabase` a
 package main
 
 import (
-	"context"
-	"log"
+    "context"
+    "log"
 
-	immudb "github.com/codenotary/immudb/pkg/client"
+    "github.com/codenotary/immudb/pkg/api/schema"
+    immudb "github.com/codenotary/immudb/pkg/client"
 )
 
 func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
+    client := immudb.NewClient()
     ctx := context.Background()
 
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+    err := client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
     if err != nil {
         log.Fatal(err)
     }
-
     defer client.CloseSession(ctx)
 
-    _, err = client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{Database: "mydb"})
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    _, err = client.UseDatabase(ctx, &schema.Database{
-        Databasename: "mydb",
+    unloadRes, err := client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{
+        Database: "mydb",
     })
     if err != nil {
         log.Fatal(err)
     }
 
-    // do amazing stuff
+    log.Print("Database unloaded, server response: ", unloadRes)
 
-    _, err = client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{Database: "mydb"})
+    // Do db maintenance - e.g. backup physical files from disk
+
+    loadRes, err := client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{
+        Database: "mydb",
+    })
     if err != nil {
         log.Fatal(err)
     }
+
+    log.Print("Database loaded, server response: ", loadRes)
 }
 ```
+
 :::
 
 ::: tab Java
@@ -352,21 +353,19 @@ Following example shows how to update database using `UpdateDatabaseV2` method.
 package main
 
 import (
-	"context"
-	"log"
+    "context"
+    "fmt"
+    "log"
 
-	immudb "github.com/codenotary/immudb/pkg/client"
+    "github.com/codenotary/immudb/pkg/api/schema"
+    immudb "github.com/codenotary/immudb/pkg/client"
 )
 
 func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
+    client := immudb.NewClient()
     ctx := context.Background()
-        
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+
+    err := client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
     if err != nil {
         log.Fatal(err)
     }
@@ -379,8 +378,11 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
+
+    fmt.Println("Database settings updated, server response: ", res)
 }
 ```
+
 :::
 
 ::: tab Java
