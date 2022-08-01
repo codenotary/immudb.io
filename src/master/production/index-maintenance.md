@@ -144,7 +144,7 @@ In all three modes, new indexes are calculated and old one are discarded. Indexe
 :::: tabs
 ::: tab Online compaction
 
-This kind of compaction is performed by immudb during normal write operations: once the new written data reaches the percentage threshold configured per one database, immudb rebuilds its indexes up to the same percentage, discarding old ones.
+This kind of compaction is performed by immudb during normal write operations: once the amount of new written data reaches the percentage threshold configured per one database, immudb cleans up specified percentage of the index data, discarding old unreferenced data.
 
 For every database, users can specify a percentage of total written data to be reindexed on every write.
 
