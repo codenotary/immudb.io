@@ -131,7 +131,7 @@ on the main instance, a replicated database is created on the replica.
 In that case you can use the [replicator tool](https://github.com/codenotary/immudb-tools/tree/main/replicator), part of the
 [immudb tools](https://github.com/codenotary/immudb-tools).
 
-This tool connects to two immudb instance, one main instance and a replica. Periodically, scans the list of databases
+This tool connects to two immudb instances, one main instance and a replica. Periodically, scans the list of databases
 present on the main instance and it compares that with the list of databases present on the replica. If it finds any new
 databases that are missing on the replicas, it will recreate it on the replica and it will configure it to start following
 its counterpart on the main.
