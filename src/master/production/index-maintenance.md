@@ -148,7 +148,7 @@ This kind of compaction is performed by immudb during normal write operations: o
 
 For every database, users can specify a percentage of total written data to be reindexed on every write.
 
-This tool can be used to enable this mode, and to set the percentage threshold. Once this is done, there is no need to run this tool: the compaction will happen automatically.
+The compactor tool can be used to enable this mode, and to set the percentage threshold. Once this is done, there is no need to run compactor tool periodically: the compaction will happen automatically.
 :::
 
 ::: tab Flush compaction
