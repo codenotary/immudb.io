@@ -141,28 +141,24 @@ The maintenance can be performed in three different ways:
 
 In all three modes, new indexes are calculated and old one are discarded. Indexes are organized in chunk files; each time a file only contains discarded indexes, it is automatically deleted.
 
-:::: tabs
-::: tab Online compaction
+### Online compaction
 
 This kind of compaction is performed by immudb during normal write operations: once the amount of new written data reaches the percentage threshold configured per one database, immudb cleans up specified percentage of the index data, discarding old unreferenced data.
 
 For every database, users can specify a percentage of total written data to be reindexed on every write.
 
 The compactor tool can be used to enable this mode, and to set the percentage threshold. Once this is done, there is no need to run compactor tool periodically: the compaction will happen automatically.
-:::
 
-::: tab Flush compaction
+
+### Flush compaction
 
 In this mode, the tool calls for immudb to immediately perform a partial compaction, reindexing the oldest data up to the specified percentage. It is similar to the previous mode, but it is performed immediately and must be periodically issued.
 The advantage is that you have control on the time when compaction is performed, so that you can leverage periods of less intense activity (e.g.: weekends or nights).
-:::
 
-:::tab Full compaction
+
+### Full compaction
 
 All indexes are rebuilt. Very resource intensive, but it gives you the most compact representation of indexes.
-:::
-
-::::
 
 You can get more information in the [README](https://github.com/codenotary/immudb-tools/tree/main/compactor)
 
