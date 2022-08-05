@@ -487,3 +487,31 @@ you should consider switching back to local disk and an alternative remote stora
 </div>
 
 </WrappedSection>
+
+<WrappedSection>
+
+## immuguard health check tool
+
+To help you check global immudb health, and reliably deploy immudb in production environment, you can use immuguard,
+the health check tool you can find in the [immudb-tools](https://github.com/codenotary/immudb-tools) repository.
+
+This simple tool periodically polls immudb, checking the state of every loaded database, and exposes a simple REST endpoint
+that can be used by docker or kubernetes probes. You simply have to configure it to talk to immudb, by providing its address
+and some credentials. 
+
+Then you can poll endpoint `/immustatus` on port 8085. If immudb is operating normally and all databases are responsive, you will get a 200 HTTP return code, and the string "OK". You will get a 500 HTTP code instead, and the string "FAIL" if immudb is not responding.
+
+This configuration snippet shows how to use the `/immustatus` endpoint on kubernetes:
+
+```yaml
+        livenessProbe:
+          httpGet:
+            path: /immustatus
+            port: 8085
+          failureThreshold: 5
+          periodSeconds: 60
+```
+
+You can find more information about it on its [README](https://github.com/codenotary/immudb-tools/tree/main/immuguard) page.
+
+</WrappedSection>
