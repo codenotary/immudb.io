@@ -17,10 +17,10 @@ The most well-known and recommended immudb SDK is written in [Golang](https://go
 | Language         | Maintainer | Latest immdb version | link | Notes                                                                              |
 |-------------------|---------|------------------|-------------|-----------------------------------------------------------|
 | `go`               | immudb team  | 1.3.2       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.3.2       |  [link](https://github.com/codenotary/immudb-py) |                                     |
+| `python`               | immudb team  | 1.3.1       |  [link](https://github.com/codenotary/immudb-py) |                                     |
 | `JAVA`               | immudb team  | 1.3.2       |   [link](https://github.com/codenotary/immudb4j)  |                                      |
 | `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
-| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.3.2       |   [link](https://github.com/ankane/immudb-ruby) |                 |
+| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.3.0       |   [link](https://github.com/ankane/immudb-ruby) |                 |
 
 
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
