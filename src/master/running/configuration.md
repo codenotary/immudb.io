@@ -25,6 +25,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `devmode`                       | `false`    | enable dev mode: accept remote connections without auth                                              |
 | `dir`                           | `./data`   | data folder                                                                                          |
 | `logfile`                       | ``         | log path with filename. E.g. /tmp/immudb/immudb.log                                                  |
+| `logformat`                     | `text`     | log format e.g. text/json                                                                            |
 | `maintenance`                   | `false`    | override the authentication flag                                                                     |
 | `max-recv-msg-size`             | `33554432` | max message size in bytes the server can receive                                                     |
 | `max-session-age-time`          | infinity   | max session age time is a duration after which session will be forcibly closed                       |
