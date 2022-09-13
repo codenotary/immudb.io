@@ -367,23 +367,7 @@ Its ```VerifiedReference``` counterpart is the same except that it also produces
 :::: tabs
 
 ::: tab Go
-```go
-	_, err = client.Set(ctx, []byte(`firstKey`),[]byte(`firstValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	reference, err := client.SetReference(ctx, []byte(`myTag`), []byte(`firstKey`))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("%v\n", reference)
-	firstItem, err := client.Get(ctx, []byte(`myTag`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", firstItem)
-```
+<<< @/src/code-examples/go/develop-kv-references/main.go
 
 Example with verifications
 
