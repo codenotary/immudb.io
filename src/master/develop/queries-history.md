@@ -372,24 +372,7 @@ Its ```VerifiedReference``` counterpart is the same except that it also produces
 
 Example with verifications
 
-```go
-	_, err = client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	reference, err = client.VerifiedSetReference(ctx, []byte(`mySecondTag`), []byte(`secondKey`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", reference)
-
-	secondItem, err := client.Get(ctx, []byte(`mySecondTag`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", secondItem)
-```
-
+<<< @/src/code-examples/go/develop-kv-references-verified/main.go
 :::
 
 ::: tab Java
