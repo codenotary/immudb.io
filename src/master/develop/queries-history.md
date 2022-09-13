@@ -7,6 +7,7 @@ This means that an _update_ does not change an existing record. Instead, it is a
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
+
 * `Key`: a key of an item
 * `Offset`: the starting index (excluded from the search). Optional
 * `Limit`: maximum returned items. Optional
@@ -18,21 +19,7 @@ It's possible to retrieve all the values for a particular key with the history c
 :::: tabs
 
 ::: tab Go
-```go
-    client.Set(ctx, []byte(`hello`), []byte(`immutable world`))
-	client.Set(ctx, []byte(`hello`), []byte(`immudb`))
-
-	req := &schema.HistoryRequest{
-		Key: []byte(`hello`),
-	}
-
-	entries, err := client.History(ctx, req)
-	if  err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("Successfully retrieved %d entries for key %s\n", len(entries), req.Key)
-```
+<<< @/src/code-examples/go/develop-kv-history/main.go
 :::
 
 ::: tab Java
