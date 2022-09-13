@@ -672,27 +672,7 @@ It's possible to bind a reference to a key on a specific transaction using `SetR
 :::: tabs
 
 ::: tab Go
-```go
-	meta, err := client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ , err = client.Set(ctx, []byte(`secondKey`),[]byte(`thirdValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	reference, err = client.VerifiedSetReferenceAt(ctx, []byte(`myThirdTag`), []byte(`secondKey`), meta.Id )
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", reference)
-
-	thirdItem, err := client.Get(ctx, []byte(`myThirdTag`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", thirdItem)
-```
+<<< @/src/code-examples/go/develop-kv-references-txid/main.go
 :::
 
 ::: tab Java
