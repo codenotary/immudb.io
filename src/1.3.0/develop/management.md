@@ -571,11 +571,11 @@ If you're using another development language, please refer to the [immugw](/mast
 ## HealthCheck
 
 HealthCheck return an error if `immudb` status is not ok.
+
 :::: tabs
+
 ::: tab Go
-```go
-err = client.HealthCheck(ctx)
-```
+<<< @/src/code-examples/go/connect-healthcheck/main.go
 :::
 
 ::: tab Java

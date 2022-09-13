@@ -7,36 +7,9 @@ HealthCheck return an error if `immudb` status is not ok.
 </WrappedSection>
 
 :::: tabs
+
 ::: tab Go
-```go
-package main
-
-import (
-	"context"
-	"log"
-
-	immudb "github.com/codenotary/immudb/pkg/client"
-)
-
-func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    ctx := context.Background()
-
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    defer client.CloseSession(ctx)
-
-    err = client.HealthCheck(ctx)
-    // error handling
-}
-```
+<<< @/src/code-examples/go/connect-healthcheck/main.go
 :::
 
 ::: tab Java
