@@ -10,7 +10,8 @@
     "preinstall": "([ ! -f package-lock.json ] && npm install --package-lock-only --ignore-scripts --no-audit); npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
-    "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560"
+    "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560",
+    "algolia:index": "node src/.vuepress/algolia_index.js"
   },
   "repository": {
     "type": "git",
@@ -56,9 +57,14 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
+    "algoliasearch": "^4.14.2",
     "axios": "^0.21.1",
+    "cli-progress": "^3.11.2",
     "f": "^1.4.0",
+    "fs": "0.0.1-security",
+    "glob": "^8.0.3",
     "reading-time": "^1.2.0",
+    "slugify": "^1.6.5",
     "vue-filter-date-format": "^1.3.1",
     "vue-github-button": "^1.2.0",
     "vue-owl-carousel": "^2.0.3",
