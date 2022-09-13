@@ -6,20 +6,7 @@ It's possible to achieve data expiration by using the `ExpirableSet` function. I
 :::: tabs
 
 ::: tab Go
-```go
-
-    _, err = client.ExpirableSet(ctx, []byte("expirableKey"), []byte("expirableValue"), time.Now())
-    if  err != nil {
-		log.Fatal(err)
-    }
-    
-	//the following will raise an error with key not found
-    _, err = client.Get(ctx, []byte("expirableKey"))
-	if err == nil || !strings.Contains(err.Error(), "key not found") {
-		log.Fatalf("expecting key not found error: %v", err)
-	}
-
-```
+<<< @/src/code-examples/go/develop-kv-expiration/main.go
 :::
 
 ::: tab Java
