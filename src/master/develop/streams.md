@@ -73,33 +73,10 @@ It's possible to read returned value chunk by chunk if needed. This grant to the
 To read chunk by chunk the inner gRPC protobuffer client is needed.
 Then it's possible to use `kvStreamReceiver` to retrieve the key and a value reader. Such reader will fill provided byte array with received data and will return the number of read bytes or error.
 If no message is present it returns 0 and io.EOF. If the message is complete it returns 0 and nil, in that case successive calls to Read will returns a new message.
+
 > There are several receivers available (zStreamReceiver, vEntryStreamReceiver, execAllStreamReceiver) and also a primitive receiver MsgReceiver. The last one can be used to receive a simple row []byte message without additional logics.
-```go
-    sc := client.GetServiceClient()
-	gs, err := sc.StreamGet(ctx, &schema.KeyRequest{ Key: []byte(myFileName)})
-    if err != nil {
-		log.Fatal(err)
-	}
-	kvr := stream.NewKvStreamReceiver(stream.NewMsgReceiver(gs), stream.DefaultChunkSize)
 
-	key, vr, err := kvr.Next()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("read %s key", key)
-
-	chunk := make([]byte, 4096)
-	for {
-		l, err := vr.Read(chunk)
-		if err != nil && err != io.EOF {
-			log.Fatal(err)
-		}
-		if err == io.EOF {
-			break
-		}
-		fmt.Printf("read %d byte\n", l)
-	}
-```
+<<< @/src/code-examples/go/develop-kv-streams-chunked-reading/main.go
 :::
 
 ::: tab Java
