@@ -34,60 +34,7 @@ Here an example on how to send a large file and a regular key value to immudb.
 
 It's possible to specify the chunk size of the stream with `WithStreamChunkSize()` method.
 
-```go
-    client, err := immuclient.NewImmuClient(immuclient.DefaultOptions().WithStreamChunkSize(4096))
-	if err != nil {
-		log.Fatal(err)
-	}
-    ctx := context.Background()
-    _, err = client.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-    if err != nil {
-        log.Fatal(err)
-    }
-    myFileName := "streams.go"
-    key1 := []byte("key1")
-    val1 := []byte("val1")
-    f, err := os.Open(myFileName)
-    if err != nil {
-        log.Fatal(err)
-    }
-    stats, err := os.Stat(myFileName)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    kv1 := &stream.KeyValue{
-        Key: &stream.ValueSize{
-            Content: bytes.NewBuffer(key1),
-            Size:    len(key1),
-        },
-        Value: &stream.ValueSize{
-            Content: bytes.NewBuffer(val1),
-            Size:    len(val1),
-        },
-    }
-    kv2 := &stream.KeyValue{
-        Key: &stream.ValueSize{
-            Content: bytes.NewBuffer([]byte(myFileName)),
-            Size:    len(myFileName),
-        },
-        Value: &stream.ValueSize{
-            Content: f,
-            Size:    int(stats.Size()),
-        },
-    }
-
-    kvs := []*stream.KeyValue{kv1, kv2}
-    _, err = client.StreamSet(ctx, kvs)
-    if err != nil {
-        log.Fatal(err)
-    }
-    entry, err := client.StreamGet(ctx, &schema.KeyRequest{ Key: []byte(myFileName)})
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("returned key %s", entry.Key)
-```
+<<< @/src/code-examples/go/develop-kv-streams/main.go
 :::
 
 ::: tab Java
