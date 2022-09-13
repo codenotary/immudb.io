@@ -31,7 +31,7 @@ Requirements: node version v14.18.3 (NOT working with latest node versions)
 
 ## Indexing to algolia
 
-From the root directory, enter `algolia:index`.
+From the root directory, enter `npm run algolia:index`.
 
 ## Copyright and license
 
