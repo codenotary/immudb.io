@@ -6,33 +6,7 @@ It's possible to achieve deletion by using the `Delete` function. It provides lo
 :::: tabs
 
 ::: tab Go
-```go
-    tx, err = client.Set(ctx, []byte("1,2,3"), []byte("3,2,1"))
-	if  err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("Successfully committed tx %d\n", tx.Id)
-
-	entry, err := client.Get(ctx, []byte("1,2,3"))
-	if  err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("Successfully retrieved entry: %v\n", entry)
-
-	_, err = client.Delete(ctx, []byte("1,2,3"))
-	if  err != nil {
-		log.Fatal(err)
-	}
-
-	//the following will raise an error with key not found
-	_, err = client.Get(ctx, []byte("1,2,3"))
-	if  err != nil {
-		log.Fatal(err)
-	}
-
-```
+<<< @/src/code-examples/go/develop-kv-deleting/main.go
 :::
 
 ::: tab Java
