@@ -5,6 +5,7 @@ This means that an _update_ does not change an existing record. Instead, it is a
 It's possible to retrieve all the values for a particular key with the history command.
 
 `History` accepts the following parameters:
+
 * `Key`: a key of an item
 * `Offset`: the starting index (excluded from the search). Optional
 * `Limit`: maximum returned items. Optional
@@ -170,46 +171,7 @@ The `scan` command is used to iterate over the collection of elements present in
 
 An ordinary `scan` command and a reversed one.
 
-```go
-    client.Set(ctx, []byte(`aaa`), []byte(`item1`))
-    client.Set(ctx, []byte(`bbb`), []byte(`item2`))
-    client.Set(ctx, []byte(`abc`),[]byte(`item3`))
-
-    scanReq := &schema.ScanRequest{
-        Prefix:  []byte(`a`),
-    }
-
-    list, err := client.Scan(ctx, scanReq)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("%v\n", list)
-    scanReq1 := &schema.ScanRequest{
-        SeekKey: []byte{0xFF},
-        Prefix:  []byte(`a`),
-        Desc:    true,
-    }
-
-    list, err = client.Scan(ctx, scanReq1)
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Printf("%v\n", list)
-
-    // scan on all key  values on the current database, with a fresh snapshot
-	scanReq2 := &schema.ScanRequest{
-		SeekKey: []byte{0xFF},
-		Desc:    true,
-		SinceTx: math.MaxUint64,
-	}
-
-	list, err = client.Scan(ctx, scanReq2)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", list)
-```
-
+<<< @/src/code-examples/go/develop-kv-scan/main.go
 :::
 
 ::: tab Java
