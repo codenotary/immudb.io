@@ -547,29 +547,7 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 :::: tabs
 
 ::: tab Go
-
-```go
-    _, err = client.Set(ctx, []byte(`secondKey`),[]byte(`secondValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = client.Set(ctx, []byte(`secondKey`),[]byte(`thirdValue`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	reference, err = client.VerifiedSetReference(ctx, []byte(`myThirdTag`), []byte(`secondKey`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", reference)
-
-	thirdItem, err := client.Get(ctx, []byte(`myThirdTag`))
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%v\n", thirdItem)
-```
-
+<<< @/src/code-examples/go/develop-kv-references-get/main.go
 :::
 
 ::: tab Java
