@@ -214,29 +214,7 @@ Check [state signature](/master/immudb/#state-signature) to see how to generate 
 :::: tabs
 
 ::: tab Go
-```go
-c, err := client.NewImmuClient(client.DefaultOptions().WithServerSigningPubKey("../../immudb/src/wrong.public.key"))
-if err != nil {
-    log.Fatal(err)
-}
-ctx := context.Background()
-
-_ , err = c.Login(ctx, []byte(`immudb`), []byte(`immudb`))
-if err != nil {
-    log.Fatal(err)
-}
-
-if _, err = c.Set(ctx, []byte(`immudb`), []byte(`hello world`)); err != nil {
-    log.Fatal(err)
-}
-
-var state *schema.ImmutableState
-if state, err = c.CurrentState(ctx); err != nil {
-    log.Fatal(err) // if signature is not verified here is trigger an appropriate error
-}
-
-fmt.Print(state)
-```
+<<< @/src/code-examples/go/state-verify-signature/main.go
 :::
 
 ::: tab Python
