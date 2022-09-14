@@ -15,42 +15,7 @@ Partial compaction may be triggered automatically by immudb. Database settings c
 :::: tabs
 
 ::: tab Go
-```go
-package main
-
-import (
-	"context"
-	"log"
-
-	immudb "github.com/codenotary/immudb/pkg/client"
-)
-
-func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    ctx := context.Background()
-        
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    defer client.CloseSession(ctx)
-
-    // partial index cleanup
-    err = client.FlushIndex(ctx, &schema.FlushIndexRequest{
-        CleanupPercentage: 0.1,
-        Synced:            false, // if true, fsync after writing data to avoid index regeneration in the case of an unexpected crash
-    // error handling
-
-    // full async index cleanup
-    err = client.CompactIndex(ctx, &emptypb.Empty{})
-    // error handling
-}
-```
+<<< @/src/code-examples/go/maintenance-index/main.go
 :::
 
 ::: tab Java
