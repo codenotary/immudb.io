@@ -11,14 +11,7 @@ Current state of immudb provides proof that clients can use to verify immudb:
 :::: tabs
 
 ::: tab Go
-```go
-state, err := client.CurrentState(ctx)
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Printf("current state is : %v", state)
-```
+<<< @/src/code-examples/go/state-current/main.go
 :::
 
 ::: tab Python
