@@ -30,43 +30,7 @@ To commit a transaction, you must call the `Commit()` method.
 :::: tabs
 
 ::: tab Go
-
-```go
-  cli := immudb.NewClient()
-
-  err := cli.OpenSession(context.TODO(), []byte(`immudb`), []byte(`immudb`), "defaultdb")
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  tx1, err := cli.NewTx(context.TODO())
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  err = tx1.SQLExec(context.TODO(), `CREATE TABLE table1(id INTEGER,PRIMARY KEY id);`, nil)
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  rand.Seed(time.Now().UnixNano())
-  err = tx1.SQLExec(context.TODO(), fmt.Sprintf("INSERT INTO table1(id) VALUES (%d)", rand.Int()), nil)
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  txh, err := tx1.Commit(context.TODO())
-  if err != nil {
-    log.Fatal(err)
-  }
-  fmt.Printf("Successfully committed rows %d\n", txh.UpdatedRows)
-
-  err = cli.CloseSession(context.TODO())
-  if err != nil {
-    log.Fatal(err)
-  }
-```
-
+<<< @/src/code-examples/go/develop-sql-transactions/main.go
 :::
 
 ::: tab Java
@@ -76,7 +40,7 @@ Do you want to make a feature request or help out? Open an issue on [Java sdk gi
 
 ::: tab Python
 
-Currently immudb Python sdk doesn't support interactive transactions. 
+Currently immudb Python sdk doesn't support interactive transactions.
 
 However you can still use non-interactive SQL Transactions.
 
