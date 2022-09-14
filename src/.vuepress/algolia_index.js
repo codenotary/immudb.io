@@ -1,10 +1,11 @@
 const algoliasearch = require('algoliasearch')
+require('dotenv').config()
 const glob = require("glob")
 const {
   readFileSync
 } = require("fs")
-const client = algoliasearch('2MY54GAA5W', '5ba37f0a8d8da6bbbe202e6707ca1998')
-const index = client.initIndex('immudb')
+const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_WRIGHT_API_KEY)
+const index = client.initIndex(process.env.ALGOLIA_INDEX)
 var MarkdownIt = require('markdown-it');
 const cliProgress = require('cli-progress');
 var slugify = require('slugify')
@@ -21,6 +22,7 @@ try {
    */
   glob("./src/**/*.md", {}, async function (er, files) {
     const itemsToIndex = []
+    await index.clearObjects()
 
     /**
      * We loop through all md files so we can scrap each one of them and finally index them into algolia.
