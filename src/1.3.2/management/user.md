@@ -23,47 +23,7 @@ Non-admin permissions are:
 :::: tabs
 
 ::: tab Go
-```go
-package main
-
-import (
-	"context"
-	"log"
-
-	immudb "github.com/codenotary/immudb/pkg/client"
-)
-
-func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    ctx := context.Background()
-
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    defer client.CloseSession(ctx)
-
-    err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
-    if err != nil {
-        log.Fatal(err)
-    }
-}
-```
+<<< @/src/code-examples/go/user-create/main.go
 :::
 
 ::: tab Java

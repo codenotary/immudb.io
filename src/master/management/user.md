@@ -3,6 +3,7 @@
 <WrappedSection>
 
 User management is exposed with following methods:
+
 * CreateUser
 * ChangePermission
 * ChangePassword
@@ -10,10 +11,12 @@ User management is exposed with following methods:
 Password must have between 8 and 32 letters, digits and special characters of which at least 1 uppercase letter, 1 digit and 1 special character.
 
 Admin permissions are:
+
 * PermissionSysAdmin = 255
 * PermissionAdmin = 254
 
 Non-admin permissions are:
+
 * PermissionNone = 0
 * PermissionR = 1
 * PermissionRW = 2
@@ -23,47 +26,7 @@ Non-admin permissions are:
 :::: tabs
 
 ::: tab Go
-```go
-package main
-
-import (
-	"context"
-	"log"
-
-	immudb "github.com/codenotary/immudb/pkg/client"
-)
-
-func main() {
-    client, err := immudb.NewClient()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    ctx := context.Background()
-
-    err = client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    defer client.CloseSession(ctx)
-
-    err = client.CreateUser(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), auth.PermissionR, "defaultdb")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    err = client.ChangePermission(ctx, schema.PermissionAction_GRANT, "myNewUser1", "defaultDB",  auth.PermissionRW)
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    err = client.ChangePassword(ctx, []byte(`myNewUser1`), []byte(`myS3cretPassword!`), []byte(`myNewS3cretPassword!`))
-    if err != nil {
-        log.Fatal(err)
-    }
-}
-```
+<<< @/src/code-examples/go/user-create/main.go
 :::
 
 ::: tab Java
