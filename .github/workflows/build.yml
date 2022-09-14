@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.18.3'
-          cache: 'npm'
+          node-version: "14.18.3"
+          cache: "npm"
 
       - name: Node version
         run: node --version
@@ -33,6 +33,9 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Index algolia
+        run: npm run algolia:index
 
   quality-checks:
     runs-on: ubuntu-latest
