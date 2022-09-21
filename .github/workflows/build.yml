@@ -42,9 +42,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Index algolia
-        run: npm run algolia:index
-
   quality-checks:
     runs-on: ubuntu-latest
     steps:

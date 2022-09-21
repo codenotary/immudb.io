@@ -45,6 +45,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Index algolia
+        run: npm run algolia:index
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
