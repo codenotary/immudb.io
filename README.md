@@ -29,6 +29,10 @@ Requirements: node version v14.18.3 (NOT working with latest node versions)
 2. From the root directory, enter `npm run dev`.
 3. Open `http://localhost:8080` in your browser.
 
+## Indexing to algolia
+
+From the root directory, enter `npm run algolia:index`.
+
 ## Copyright and license
 
 Homepage and documentation copyright 2017-2021 [Immudb Authors](https://github.com/codenotary/immudb/graphs/contributors). 

@@ -8,10 +8,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: create .env
+        run: |
+          cat <<EOF > .env
+          ALGOLIA_API_KEY=${{secrets.ALGOLIA_API_KEY}}
+          ALGOLIA_APP_ID=${{secrets.ALGOLIA_API_ID}}
+          ALGOLIA_INDEX=immudb
+          ALGOLIA_WRIGHT_API_KEY=${{secrets.ALGOLIA_WRIGHT_API_KEY}}
+          EOF
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.18.3'
-          cache: 'npm'
+          node-version: "14.18.3"
+          cache: "npm"
 
       - name: Node version
         run: node --version
