@@ -62,7 +62,8 @@ func main() {
 	}
 	fmt.Printf("%v\n", list)
 
-	// scan on all key  values on the current database, with a fresh snapshot
+	// scan on all key  values on the current database,
+	// with a fresh snapshot
 	scanReq2 := &schema.ScanRequest{
 		SeekKey: []byte{0xFF},
 		Desc:    true,

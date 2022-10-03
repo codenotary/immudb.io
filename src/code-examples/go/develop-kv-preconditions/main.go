@@ -39,18 +39,21 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_, err = client.SetAll(context.TODO(), &schema.SetRequest{
-		KVs: []*schema.KeyValue{{
-			Key:   []byte("key"),
-			Value: []byte("value2"),
-		}},
-		Preconditions: []*schema.Precondition{
-			schema.PreconditionKeyNotModifiedAfterTX(
-				[]byte("key"),
-				entry.Tx,
-			),
+	_, err = client.SetAll(
+		context.TODO(),
+		&schema.SetRequest{
+			KVs: []*schema.KeyValue{{
+				Key:   []byte("key"),
+				Value: []byte("value2"),
+			}},
+			Preconditions: []*schema.Precondition{
+				schema.PreconditionKeyNotModifiedAfterTX(
+					[]byte("key"),
+					entry.Tx,
+				),
+			},
 		},
-	})
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -96,7 +99,8 @@ func main() {
 		},
 	})
 	immuErr := immuerrors.FromError(err)
-	if immuErr != nil && immuErr.Code() == immuerrors.CodIntegrityConstraintViolation {
+	if immuErr != nil &&
+		immuErr.Code() == immuerrors.CodIntegrityConstraintViolation {
 		log.Println("Constraint validation failed")
 	}
 

@@ -30,11 +30,19 @@ func main() {
 	defer client.CloseSession(context.TODO())
 
 	sc := client.GetServiceClient()
-	gs, err := sc.StreamGet(context.TODO(), &schema.KeyRequest{Key: []byte("key")})
+	gs, err := sc.StreamGet(
+		context.TODO(),
+		&schema.KeyRequest{
+			Key: []byte("key"),
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
-	kvr := stream.NewKvStreamReceiver(stream.NewMsgReceiver(gs), stream.DefaultChunkSize)
+	kvr := stream.NewKvStreamReceiver(
+		stream.NewMsgReceiver(gs),
+		stream.DefaultChunkSize,
+	)
 
 	key, vr, err := kvr.Next()
 	if err != nil {

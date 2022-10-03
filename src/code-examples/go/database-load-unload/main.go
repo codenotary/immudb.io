@@ -12,15 +12,23 @@ func main() {
 	client := immudb.NewClient()
 	ctx := context.Background()
 
-	err := client.OpenSession(ctx, []byte(`immudb`), []byte(`immudb`), "defaultdb")
+	err := client.OpenSession(
+		ctx,
+		[]byte(`immudb`),
+		[]byte(`immudb`),
+		"defaultdb",
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer client.CloseSession(ctx)
 
-	unloadRes, err := client.UnloadDatabase(ctx, &schema.UnloadDatabaseRequest{
-		Database: "mydb",
-	})
+	unloadRes, err := client.UnloadDatabase(
+		ctx,
+		&schema.UnloadDatabaseRequest{
+			Database: "mydb",
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -29,9 +37,12 @@ func main() {
 
 	// Do db maintenance - e.g. backup physical files from disk
 
-	loadRes, err := client.LoadDatabase(ctx, &schema.LoadDatabaseRequest{
-		Database: "mydb",
-	})
+	loadRes, err := client.LoadDatabase(
+		ctx,
+		&schema.LoadDatabaseRequest{
+			Database: "mydb",
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}

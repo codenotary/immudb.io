@@ -69,7 +69,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	entry, err := client.StreamGet(context.TODO(), &schema.KeyRequest{Key: []byte(myFileName)})
+	entry, err := client.StreamGet(
+		context.TODO(),
+		&schema.KeyRequest{
+			Key: []byte(myFileName),
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}

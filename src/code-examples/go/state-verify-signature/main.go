@@ -47,7 +47,8 @@ func main() {
 
 	state, err := client.CurrentState(context.TODO())
 	if err != nil {
-		log.Fatal(err) // if signature is not verified here is trigger an appropriate error
+		// if signature is not verified here is trigger an appropriate error
+		log.Fatal(err)
 	}
 
 	fmt.Print(state)
