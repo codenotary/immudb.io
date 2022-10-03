@@ -19,8 +19,8 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `admin-password`                | `immudb`   | admin password as plain-text or base64 encoded (must be prefixed with 'enc:' if it is encoded)       |
 | `auth`                          | `true`     | enable auth                                                                                          |
 | `certificate`                   | ``         | server certificate file path                                                                         |
-| `config`                        | ``         | config file (default path are configs or $HOME. Default filename is immudb.                          |
 | `clientcas`                     | ``         | clients certificates list. Aka certificate authority                                                 |
+| `config`                        | ``         | config file (default path are configs or $HOME. Default filename is immudb.                          |
 | `detached`                      | `false`    | run immudb in background                                                                             |
 | `devmode`                       | `false`    | enable dev mode: accept remote connections without auth                                              |
 | `dir`                           | `./data`   | data folder                                                                                          |
@@ -41,11 +41,16 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `pkey`                          | ``         | server private key path                                                                              |
 | `port`                          | `3322`     | port number                                                                                          |
 | `pprof`                         | `false`    | add pprof profiling endpoint on the metrics server                                                   |
-| `replication-enabled`           | `false`    | set systemdb and defaultdb as replica                                                                |
+| `replication-allow-tx-discarding` | `false`     | allow precommitted transactions to be discarded if the follower diverges from the master |
+| `replication-commit-concurrency`  | `10` | number of concurrent replications |
 | `replication-follower-password` | ``         | password used for replication of systemdb and defaultdb                                              |
 | `replication-follower-username` | ``         | username used for replication of systemdb and defaultdb                                              |
+| `replication-is-replica`      | `false` | set systemdb and defaultdb as replica  |
 | `replication-master-address`    | ``         | master address (if replica=true)                                                                     |
 | `replication-master-port`       | `3322`     | master port (if replica=true)                                                                        |
+| `replication-prefetch-tx-buffer-size` | `100`     | maximum number of prefeched transactions  |
+| `replication-sync-enabled` | `false` | enable synchronous replication  |
+| `replication-sync-followers` | `0`   | set a minimum number of followers for ack replication before transactions can be committed  |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |
@@ -58,7 +63,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `synced`                        | `true`     | synced mode prevents data lost under unexpected crashes but affects performance                      |
 | `token-expiry-time`             | `1440`     | client authentication token expiration time. Minutes                                                 |
 | `web-server`                    | `true`     | enable or disable web/console server                                                                 |
-| `web-server-port`               | `8080`     | web/console server port                                                                              |
+| `web-server-port`               | `8080`     | web/console server port   |
 
 </WrappedSection>
 
