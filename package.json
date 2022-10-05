@@ -73,6 +73,7 @@
     "vuepress-plugin-element-tabs": "^0.2.8"
   },
   "resolutions": {
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^5.1.2",
+    "tar": "^4.4.18"
   }
 }
