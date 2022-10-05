@@ -79,6 +79,7 @@
     "scss-tokenizer": "^0.4.3",
     "highlight.js": "^10.4.1",
     "markdown-it": "^12.3.2",
-    "postcss": "^7.0.36"
+    "postcss": "^7.0.36",
+    "trim-newlines": "^3.0.1"
   }
 }
