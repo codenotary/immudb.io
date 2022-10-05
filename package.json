@@ -81,6 +81,7 @@
     "markdown-it": "^12.3.2",
     "postcss": "^7.0.36",
     "trim-newlines": "^3.0.1",
-    "nth-check": "^2.0.1"
+    "nth-check": "^2.0.1",
+    "striptags": "^3.2.0"
   }
 }
