@@ -7,11 +7,11 @@
     "dev": "vuepress dev src",
     "prebuild": "npm run images",
     "build": "vuepress build src",
-    "preinstall": "([ ! -f package-lock.json ] && npm install --package-lock-only --ignore-scripts --no-audit); npx npm-force-resolutions",
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
     "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560",
-    "algolia:index": "node src/.vuepress/algolia_index.js"
+    "algolia:index": "node src/.vuepress/algolia_index.js",
+    "preinstall": "npx npm-force-resolutions"
   },
   "repository": {
     "type": "git",
