@@ -42,6 +42,20 @@ public class App {
 
 :::
 
+::: tab .NET
+
+The following code snippets show how to invoke the healthcheck endpoint:
+
+``` csharp
+    Immuclient immuClient = new ImmuClient("localhost", 3322);
+    await immuClient.Open("immudb", "immudb", "defaultdb");
+
+    bool result = await immuClient.HealthCheck();
+    Console.WriteLine(result);
+```
+
+:::
+
 ::: tab Python
 ```python
 from immudb import ImmudbClient
@@ -79,11 +93,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	await cl.health()
 })()
 ```
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

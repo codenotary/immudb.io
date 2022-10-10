@@ -102,9 +102,19 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+var dbName = "mydatabase";
+await client.CreateDatabase(dbName);
+await client.UseDatabase(dbName);
+
+await client.Close();
+```
+
 :::
 
 ::: tab Others
@@ -168,9 +178,21 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+var databases = await client.Databases();
+foreach(var database in databases)
+{
+    Console.WriteLine(database);
+}
+
+await client.Close();
+```
+
 :::
 
 ::: tab Others
@@ -212,9 +234,9 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
+::: tab .NET
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others
@@ -258,9 +280,9 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
+::: tab .NET
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others

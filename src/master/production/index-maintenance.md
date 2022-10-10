@@ -51,6 +51,21 @@ public class App {
 ```
 :::
 
+::: tab .NET
+
+```csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+await client.FlushIndex(0.1f, false);
+
+await client.Close();
+
+```
+
+:::
+
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
@@ -59,11 +74,6 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

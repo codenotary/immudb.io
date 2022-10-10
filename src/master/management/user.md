@@ -71,6 +71,7 @@ public class App {
 
 :::
 
+
 ::: tab Python
 ```python
 from grpc import RpcError
@@ -203,9 +204,28 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+::: tab .NET
+
+```csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+try
+{
+    await client.CreateUser("testUser", "testTest123!", Permission.PERMISSION_ADMIN, "defaultdb");
+}
+catch (Exception e)
+{
+    Console.WriteLine($"An exception in create user: {e}");
+    return;
+}
+
+await client.ChangePassword("testUser", "testTest123!", "newTestTest123!");
+await client.Close();
+
+```
+
 :::
 
 ::: tab Others

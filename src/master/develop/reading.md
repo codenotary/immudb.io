@@ -129,6 +129,20 @@ Also, `set` method is overloaded to allow receiving the `key` parameter as a `by
 
 :::
 
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+await client.Set("k123", "v123");
+string v = await client.Get("k123").ToString();
+
+await client.Close();
+```
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -277,6 +291,23 @@ try {
 
 :::
 
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+byte[] v2 = new byte[] { 0, 1, 2, 3 };
+
+TxHeader hdr2 = await client.VerifiedSet("k2", v2);
+Entry ventry2 = await client.VerifiedGet("k2");
+Entry e = await client.GetSinceTx("k2", hdr2.Id);
+Console.WriteLine(e.ToString());
+
+```
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -347,6 +378,11 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab .NET
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
@@ -439,6 +475,36 @@ try {
 
 :::
 
+::: tab .NET
+
+```csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+TxMetadata txMd = null;
+try 
+{
+    txMd = immuClient.VerifiedSet(key, val);
+}
+catch (VerificationException e) 
+{
+    Console.WriteLine("A VerificationException occurred.")
+}
+try 
+{
+    Tx tx = immuClient.TxById(txMd.id);
+} 
+catch (Exception e) 
+{
+    Console.WriteLine("An exception occurred.")
+}
+
+await client.Close();
+```
+
+:::
+
 ::: tab Node.js
 
 ```ts
@@ -524,6 +590,11 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Java
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j)
+:::
+
+::: tab .NET
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j)
 :::

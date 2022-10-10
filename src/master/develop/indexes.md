@@ -101,6 +101,47 @@ List<KV> zScan2 = immuClient.zScan("set2", 5, false);
 
 :::
 
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+byte[] value1 = { 0, 1, 2, 3 };
+byte[] value2 = { 4, 5, 6, 7 };
+
+try
+{
+    await client.Set("zadd1", value1);
+    await client.Set("zadd2", value2);
+}
+catch (CorruptedDataException e)
+{
+   Console.WriteLine("A CorruptedDataException occurred.");
+}
+
+try
+{
+    await client.ZAdd("set1", "zadd1", 1);
+    await client.ZAdd("set1", "zadd2", 2);
+
+    await client.ZAdd("set2", "zadd1", 2);
+    await client.ZAdd("set2", "zadd2", 1);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("A CorruptedDataException occurred");
+}
+
+List<ZEntry> zScan1 = await client.ZScan("set1", 5, false);
+
+Console.WriteLine(zScan1.Count);
+
+await client.Close();
+```
+
+:::
+
 ::: tab Python
 ```python
 from immudb import ImmudbClient
@@ -200,7 +241,7 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 ::: tab .Net
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others
