@@ -239,10 +239,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
-:::
 
 ::: tab Others
 If you're using another development language, please refer to the [immugw](../connecting/immugw.md) option.
