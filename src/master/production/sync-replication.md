@@ -210,3 +210,89 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    The client will block. This is because the primarydb requires 1 sync follower, and since the replica server is down, there is no ack from the replica server, hence synchronous transaction is blocked.
 
 </WrappedSection>
+
+<WrappedSection>
+
+## Recovering from a replica loss
+
+The primary node will continue read and write operations as long as enough replicas can send a write confirmations to the primary node.
+If there are not enough confirmations, write operations will be queued and will wait for enough replicas to synchronize with the cluster.
+Read operations in such case will continue to work.
+
+The simplest way to recover the replica is to simply add another one into the cluster and setup replication in a the same way as during
+the initial cluster setup, e.g.:
+
+```shell
+$ immuadmin database create replicadb -p 3324 \
+   --replication-enabled \
+   --replication-master-address 127.0.0.1 \
+   --replication-master-database primarydb \
+   --replication-follower-username immudb \
+   --replication-follower-password immudb \
+   --replication-master-port 3322 \
+   --replication-sync-enabled \
+   --replication-prefetch-tx-buffer-size 1000 \
+   --replication-commit-concurrency 100
+```
+
+Such replica will start fetching transactions from the primary node and as soon as it synchronizes all transactions
+it will become a valid member of the quorum for transaction confirmation.
+
+### Speeding up initial replica synchronization
+
+The replication process may be slow in case of large databases. Replica will fetch all transactions performing additional checksum
+calculations and validations. That way the security of the whole cluster is further hardened revealing tampering attempt in any transaction
+in the database including those transactions that were not accessed in a very long time.
+
+There are situations however when the speed of recovery is crucial. In such situation the data of the database may be copied from
+another cluster node. This should be done while the database is unloaded:
+
+#### Step 1. Create replica database
+
+```shell
+$ ./immuadmin database create replicadb -p 3324 \
+   --replication-enabled \
+   --replication-master-address 127.0.0.1 \
+   --replication-master-database primarydb \
+   --replication-follower-username immudb \
+   --replication-follower-password immudb \
+   --replication-master-port 3322 \
+   --replication-sync-enabled \
+   --replication-prefetch-tx-buffer-size 1000 \
+   --replication-commit-concurrency 100
+database 'replicadb' {replica: true} successfully created
+```
+
+#### Step 2. Unload replica from the database
+
+Once database is unloaded, we can safely work on the files of that database.
+
+```shell
+$ ./immuadmin database unload replicadb
+database 'replicadb' successfully unloaded
+```
+
+#### Step 3. Copy files from other node
+
+```shell
+$ rsync -ave --delete \
+   <HEALTHY_REPLICA_HOST>:<HEALTHYREPLICA_DATA_DIR>/replicadb/ \
+   <NEW_REPLICA_HOST>:<NEW_REPLICA_DATA_DIR>/replicadb/
+sending incremental file list
+....
+
+sent 590,357,187 bytes  received 230 bytes  168,673,547.71 bytes/sec
+total size is 590,212,158  speedup is 1.00
+```
+
+> Note: if there are writes on the database happening during the sync, it is necessary to
+> unload the source replica before copying files to avoid inconsistencies between database files.
+
+#### Step 4. Load database on new replica
+
+```shell
+$ ./immuadmin database load replicadb
+database 'replicadb' successfully unloaded
+```
+
+</WrappedSection>
