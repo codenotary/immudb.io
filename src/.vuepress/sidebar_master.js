@@ -44,6 +44,7 @@ export const getSidebarMaster = version => {
   immudbInProduction.children.push(`${version}/production/backup`);
   immudbInProduction.children.push(`${version}/production/replication`);
   immudbInProduction.children.push(`${version}/production/sync-replication`);
+  immudbInProduction.children.push(`${version}/production/fips`);
   immudbInProduction.children.push(`${version}/production/s3-storage`);
   immudbInProduction.children.push(`${version}/production/backwards-compatibility`);
   immudbInProduction.children.push(`${version}/production/performance-guide`);
