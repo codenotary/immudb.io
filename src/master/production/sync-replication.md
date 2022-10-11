@@ -2,7 +2,7 @@
 
 <WrappedSection>
 
-### Synchronous Replication
+## Synchronous Replication
 
 Replication is a common technique used in distributed databases to achieve scalable data distribution for better fault tolerance. Multiple replicas of a primary database server are created for higher durability. One of the replication methods is to update each replica as part of a single atomic transaction, also known as synchronous replication. Consensus algorithms apply this approach to achieve strong consistency on a replicated data set. Immudb now supports the option for synchronous replication.
 
@@ -38,7 +38,7 @@ The primary server keeps a record of the current state of each replica. The curr
 
 <WrappedSection>
 
-### Deciding on number of servers in a cluster
+## Deciding on number of servers in a cluster
 
 Synchronous replication in a cluster can function only if the majority of servers are up and running. In systems doing data replication, it is important to consider the throughput of write operations. Every time data is written to the cluster, it needs to be copied to multiple replicas. Every additional server adds some overhead to complete this write. The latency of data write is directly proportional to the number of servers forming the quorum.
 
@@ -46,7 +46,7 @@ Synchronous replication in a cluster can function only if the majority of server
 
 <WrappedSection>
 
-### Settings
+## Settings
 
 Synchronous replication is enabled per database. The following flags in the `immuadmin` tool will help in setting up synchronous replication for your database.
 
@@ -69,7 +69,7 @@ Flags:
 
 <WrappedSection>
 
-### Setup
+## Setup
 
 This setup guides you through a simple demonstration of how synchronous replication works in ImmuDB. Starting with a 2-node local cluster, you'll write some data and verify that it replicates in sync.
 
@@ -84,13 +84,13 @@ Make sure you already have [ImmuDB installed](../running/download.md).
 1. Run the primary server:
 
    ```bash
-   $  ./immudb --dir data_master
+   $ immudb --dir data_master
    ```
 
 2. In a new terminal, start replica server:
 
    ```bash
-   $  ./immudb --dir data_follower \
+   $ immudb --dir data_follower \
       --port=3324 \
       --pgsql-server=false \
       --metrics-server=false
@@ -101,7 +101,7 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    Login to immudb
 
    ```shell
-   $ /immuadmin login immudb
+   $ immuadmin login immudb
    ```
 
    Create a database `db` that requires 1 confirmation from the synchronous followers to do the commit. 
@@ -109,9 +109,9 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    > Note that `replication-sync-followers` is not the number of existing followers, but the number of confirmations needed, which ideally should be set to `ceil(number of followers/2)` to commit a transaction on the primary server.
 
    ```shell
-   $ ./immuadmin database create primarydb \
-   --replication-sync-followers 1 \
-   --replication-sync-enabled
+   $ immuadmin database create primarydb \
+      --replication-sync-followers 1 \
+      --replication-sync-enabled
    ```
 
    At this point, the `primarydb` has been created on the primary server.
@@ -121,22 +121,22 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    Login to immudb
 
    ```shell
-   $ /immuadmin login immudb -p 3324
+   $ immuadmin login immudb -p 3324
    ```
 
    Create a database `replicadb` which will sync from the primary server's database `primarydb`
 
    ```shell
-   $ ./immuadmin database create replicadb -p 3324 \
-   --replication-enabled \
-   --replication-master-address 127.0.0.1 \
-   --replication-master-database primarydb \
-   --replication-follower-username immudb \
-   --replication-follower-password immudb \
-   --replication-master-port 3322 \
-   --replication-sync-enabled \
-   --replication-prefetch-tx-buffer-size 1000 \
-   --replication-commit-concurrency 100
+   $ immuadmin database create replicadb -p 3324 \
+      --replication-enabled \
+      --replication-master-address 127.0.0.1 \
+      --replication-master-database primarydb \
+      --replication-follower-username immudb \
+      --replication-follower-password immudb \
+      --replication-master-port 3322 \
+      --replication-sync-enabled \
+      --replication-prefetch-tx-buffer-size 1000 \
+      --replication-commit-concurrency 100
    ```
 
    At this point, the `replicadb` has been created on the replica server to sync with the `primarydb` on master server.
@@ -148,19 +148,19 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    Login to immudb
 
    ```shell
-   $ ./immuclient login immudb
+   $ immuclient login immudb
    ```
 
    Select database
 
    ```shell
-   $ ./immuclient use primarydb
+   $ immuclient use primarydb
    ```
 
    Set a value
 
    ```shell
-   $ ./immuclient safeset foo bar
+   $ immuclient safeset foo bar
    ```
 
 2. Verify the transaction on the replica server using the [`immuclient`](../connecting/clitools.md) command:
@@ -168,19 +168,19 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    Login to immudb
 
    ```shell
-   $ ./immuclient login immudb -p 3324
+   $ immuclient login immudb -p 3324
    ```
 
    Select database
 
    ```shell
-   $ ./immuclient use primarydb -p 3324
+   $ immuclient use primarydb -p 3324
    ```
 
    Verify the key
 
    ```shell
-   $ ./immuclient safeget foo -p 3324
+   $ immuclient safeget foo -p 3324
    ```
 
 #### Step 3. Stop the replica server
@@ -192,19 +192,19 @@ Make sure you already have [ImmuDB installed](../running/download.md).
    Login to immudb
 
    ```shell
-   $ ./immuclient login immudb
+   $ immuclient login immudb
    ```
 
    Select database
 
    ```shell
-   $ ./immuclient use primarydb
+   $ immuclient use primarydb
    ```
 
    Set a value
 
    ```shell
-   $ ./immuclient safeset foo bar
+   $ immuclient safeset foo bar
    ```
 
    The client will block. This is because the primarydb requires 1 sync follower, and since the replica server is down, there is no ack from the replica server, hence synchronous transaction is blocked.
