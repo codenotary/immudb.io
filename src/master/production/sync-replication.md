@@ -26,7 +26,7 @@ ImmuDB provides support for synchronous replication by means of a follower appro
 
 - `ReplicateTx`: Used by replicas to commit precommitted transactions (fetched from the primary) on the replica server.
 
-The primary server keeps a record of the current state of each replica. The current state of each replica is updated through the `ExportTx` grpc call from the replica server. So when a new transaction request comes to the primary server, it precommits the transaction, and checks if a quorum (on the transaction) has been reached by the replica server(s) by checking their state continously. If the quorum was reached, the transaction is marked as successful.
+The primary server keeps a record of the current state of each replica. The current state of each replica is updated through the `ExportTx` grpc call from the replica server. So when a new transaction request comes to the primary server, it precommits the transaction, and checks if a quorum (on the transaction) has been reached by the replica server(s) by checking their state continuously. If the quorum was reached, the transaction is marked as successful.
 
 <div class="wrapped-picture">
 
@@ -302,9 +302,9 @@ database 'replicadb' successfully unloaded
 ## Recovering from a primary loss
 
 Current immudb cluster setup requires the primary node to be always predefined.
-This mean that in case of a primary node loss, it is necessary to manually switch another replica to become the primary node.
+This mean that in case of a primary node loss, it is necessary to manually switch another replica to the primary node.
 
-#### Step 1. Inspect states of all replicas in the cluster and chose the new primary node
+#### Step 1. Inspect states of all replicas in the cluster and choose the new primary node
 
 ```shell
 $ immuclient login immudb
