@@ -296,3 +296,73 @@ database 'replicadb' successfully unloaded
 ```
 
 </WrappedSection>
+
+<WrappedSection>
+
+## Recovering from a primary loss
+
+Current immudb cluster setup requires the primary node to be always predefined.
+This mean that in case of a primary node loss, it is necessary to manually switch another replica to become the primary node.
+
+#### Step 1. Inspect states of all replicas in the cluster and chose the new primary node
+
+```shell
+$ immuclient login immudb
+Password:
+Successfully logged in
+
+$ immuclient use replicadb
+Now using replicadb
+
+$ immuclient status
+database:  replicadb
+txID:      734931
+hash:      5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
+```
+
+The node with highest txID value should become the new primary node.
+
+#### Step 2. Switch the selected replica to become new primary
+
+```shell
+$ immuadmin database update replicadb -p 3324 \
+   --replication-sync-enabled \
+   --replication-sync-followers 1 \
+   --replication-is-replica=false
+database 'replicadb' {replica: false} successfully updated
+```
+
+> Note that the number of required sync followers may be temporarily lowered due to the loss of the primary node.
+
+#### Step 3. Switch other replicas to follow new primary
+
+```shell
+$ immuadmin database update replicadb -p 3325 \
+   --replication-master-address 127.0.0.1 \
+   --replication-master-database replicadb \
+   --replication-master-port 3324
+```
+
+#### Step 4. Truncate precommitted transactions on other replicas if needed
+
+It may happen that the new replica will reject synchronizing with the new primary.
+In such case immudb will report an error in logs:
+
+```text
+immudb 2022/10/11 15:57:42 ERROR: follower commit state at 'replicadb' diverged from master's
+```
+
+To fix that issue please restart immudb with the `--replication-allow-tx-discarding` flag that will
+discard any transaction on the replica that has not yet been fully committed.
+
+#### Step 5. Start a new replica to restore original cluster size
+
+Because the primary node was irrecoverably lost, a new replica should be spawned in its place.
+Please refer to the previous section dealing with the loss of replica for more details
+on how to add a replacement replica node.
+
+#### Step 6. Point immudb clients to the new primary node
+
+Clients performing write operations should now be switched to the new primary node.
+
+</WrappedSection>
