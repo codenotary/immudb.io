@@ -366,3 +366,31 @@ on how to add a replacement replica node.
 Clients performing write operations should now be switched to the new primary node.
 
 </WrappedSection>
+
+<WrappedSection>
+
+## Changing configuration of a locked primary database
+
+In most cases the primary node can be easily updated and the change will be applied without the need for a restart.
+That way the primary node can change the number of required confirmations, turn on and of synchronous replication
+and even be changed to a replica.
+
+There can be a situation though where the database is already blocked with writes waiting for confirmations from
+replicas. This could happen if replicas became unavailable or as a result of misconfiguration where too high value of
+replica confirmations was set.
+
+In this situation trying to change the configuration of the database will lock as well and will be unblocked once
+the database itself continue committing transactions.
+
+If the database can not be fixed to restore commits (e.g. if it is impossible to add enough synced replicas quick enough),
+the following workaround can be used (please note that it requires immudb restart):
+
+1. Update database settings, e.g. run `immuadmin database update` command - that operation will lock indefinitely but will
+   already persist new database settings
+2. Restart the immudb database instance - upon restart, the configuration of the database is read and applied from persistent settings
+   thus it will apply the configuration set in previous step.
+
+With this approach, the number of required confirmations can be lowered down to correct value or even disabled
+by switching to asynchronous replication.
+
+</WrappedSection>
