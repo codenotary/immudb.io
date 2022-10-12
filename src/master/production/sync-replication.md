@@ -8,15 +8,15 @@ Replication is a common technique used in distributed databases to achieve scala
 
 ### Architecture
 
-In synchronous replication, each commit of a write transaction will wait until the confirmation that the commit has been committed to both the primary and quorum of replica server(s). This method minimizes the possibility of data loss.
+In synchronous replication, each commit of a write transaction will wait until there is a confirmation that the commit has been committed to both the primary and quorum of replica server(s). This method minimizes the possibility of data loss.
 
-immudb uses a quorum-based technique to enforce consistent operation in a distributed cluster. A quorum of replicas is used to ensure that synchronous replication is achieved even when replication is not completed across all replica servers. A quorum is a majority of the number of replicas in a cluster setup. The quorum can be set when you create or update your database.
+immudb uses a quorum-based technique to enforce consistent operation in a distributed cluster. A quorum of replicas is used to ensure that synchronous replication is achieved even when replication is not completed across all replica servers. A quorum is a majority of the number of replicas in a cluster setup. The quorum can be set when creating or updating the database on the primary node.
 
-The primary server will wait for acknowledgment from a quorum of replica server(s) that each transaction is committed before proceeding. The drawback is that if enough replica server(s) go down or can’t commit a transaction, and the quorum is not reached, the primary server goes into a hung state.
+The primary server will wait for acknowledgment from a quorum of replica server(s) that each transaction is durably stored before proceeding. The drawback is that if enough replica server(s) go down or can’t commit a transaction, and the quorum is not reached, the primary server goes into a hung state.
 
 ![synchronous replication](/immudb/replication-sync.png)
 
-Compare this to the asynchronous replication mode, the primary server does not need to wait for transaction-completion acknowledgment from the replica server. The replication transactions queue up on the replica server, and the two servers can remain out-of-sync for a specified time until the processing completes.
+Comparing this to the asynchronous replication mode, the primary server does not need to wait for transaction-completion acknowledgment from the replica server. The replication transactions queue up on the replica server, and the two servers can remain out-of-sync for a specified time until the processing completes.
 
 ![asynchronous replication](/immudb/replication-async.png)
 
@@ -304,7 +304,7 @@ database 'replicadb' successfully unloaded
 ## Recovering from a primary loss
 
 Current immudb cluster setup requires the primary node to be always predefined.
-This mean that in case of a primary node loss,
+This means that in case of a primary node loss,
 it is necessary to manually promote a replica to become the primary node.
 
 #### Step 1. Inspect states of all replicas in the cluster and choose the new primary node
