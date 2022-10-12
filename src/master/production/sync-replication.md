@@ -4,13 +4,13 @@
 
 ## Synchronous Replication
 
-Replication is a common technique used in distributed databases to achieve scalable data distribution for better fault tolerance. Multiple replicas of a primary database server are created for higher durability. One of the replication methods is to update each replica as part of a single atomic transaction, also known as synchronous replication. Consensus algorithms apply this approach to achieve strong consistency on a replicated data set. Immudb now supports the option for synchronous replication.
+Replication is a common technique used in distributed databases to achieve scalable data distribution for better fault tolerance. Multiple replicas of a primary database server are created for higher durability. One of the replication methods is to update each replica as part of a single atomic transaction, also known as synchronous replication. Consensus algorithms apply this approach to achieve strong consistency on a replicated data set. immudb now supports the option for synchronous replication.
 
 ### Architecture
 
 In synchronous replication, each commit of a write transaction will wait until the confirmation that the commit has been committed to both the primary and quorum of replica server(s). This method minimizes the possibility of data loss.
 
-ImmuDB uses a quorum-based technique to enforce consistent operation in a distributed cluster. A quorum of replicas is used to ensure that synchronous replication is achieved even when replication is not completed across all replica servers. A quorum is a majority of the number of replicas in a cluster setup. The quorum can be set when you create or update your database.
+immudb uses a quorum-based technique to enforce consistent operation in a distributed cluster. A quorum of replicas is used to ensure that synchronous replication is achieved even when replication is not completed across all replica servers. A quorum is a majority of the number of replicas in a cluster setup. The quorum can be set when you create or update your database.
 
 The primary server will wait for acknowledgment from a quorum of replica server(s) that each transaction is committed before proceeding. The drawback is that if enough replica server(s) go down or can’t commit a transaction, and the quorum is not reached, the primary server goes into a hung state.
 
@@ -20,7 +20,7 @@ Compare this to the asynchronous replication mode, the primary server does not n
 
 ![asynchronous replication](/immudb/replication-async.png)
 
-ImmuDB provides support for synchronous replication by means of a follower approach. There are two grpc endpoint used for replication:
+immudb provides support for synchronous replication by means of a follower approach. There are two grpc endpoint used for replication:
 
 - `ExportTx`: Used by replicas to fetch precommitted transactions from the primary database server, and also to send the current database state to update the primary server.
 
@@ -40,7 +40,7 @@ The primary server keeps a record of the current state of each replica. The curr
 
 ## Deciding on number of servers in a cluster
 
-Synchronous replication in a cluster can function only if the majority of servers are up and running. In systems doing data replication, it is important to consider the throughput of write operations. Every time data is written to the cluster, it needs to be copied to multiple replicas. Every additional server adds some overhead to complete this write. The latency of data write is directly proportional to the number of servers forming the quorum.
+Synchronous replication in a cluster can function only if the majority of servers are up and running. In systems with enabled data replication, it is important to consider the throughput of write operations. Every time data is written to the cluster, it needs to be copied to multiple replicas. Every additional server adds some overhead to complete this write. The latency of data write is directly proportional to the number of servers forming the quorum.
 
 </WrappedSection>
 
@@ -71,11 +71,11 @@ Flags:
 
 ## Setup
 
-This setup guides you through a simple demonstration of how synchronous replication works in ImmuDB. Starting with a 2-node local cluster, you'll write some data and verify that it replicates in sync.
+This setup guides you through a simple demonstration of how synchronous replication works in immudb. Starting with a 2-node local cluster, you'll write some data and verify that it replicates in sync.
 
 #### Before you begin
 
-Make sure you already have [ImmuDB installed](../running/download.md).
+Make sure you already have [immudb installed](../running/download.md).
 
 > Since you're running a local cluster, all nodes use the same hostname (`localhost`).
 
@@ -215,11 +215,11 @@ Make sure you already have [ImmuDB installed](../running/download.md).
 
 ## Recovering from a replica loss
 
-The primary node will continue read and write operations as long as enough replicas can send a write confirmations to the primary node.
+The primary node will continue read and write operations as long as the required quorum of replicas can send write confirmation to the primary node.
 If there are not enough confirmations, write operations will be queued and will wait for enough replicas to synchronize with the cluster.
-Read operations in such case will continue to work.
+Read operations in such cases will continue to work.
 
-The simplest way to recover the replica is to simply add another one into the cluster and setup replication in a the same way as during
+The simplest way to recover the replica is to simply add a new replica into the cluster and setup replication in the same way as during
 the initial cluster setup, e.g.:
 
 ```shell
@@ -235,22 +235,24 @@ $ immuadmin database create replicadb -p 3324 \
    --replication-commit-concurrency 100
 ```
 
-Such replica will start fetching transactions from the primary node and as soon as it synchronizes all transactions
+The new replica will start fetching transactions from the primary node and as soon as it synchronizes all transactions
 it will become a valid member of the quorum for transaction confirmation.
 
 ### Speeding up initial replica synchronization
 
-The replication process may be slow in case of large databases. Replica will fetch all transactions performing additional checksum
-calculations and validations. That way the security of the whole cluster is further hardened revealing tampering attempt in any transaction
-in the database including those transactions that were not accessed in a very long time.
+The synchronization process of a new replica may take a lot of time if the database is large or has to handle a lot of normal traffic.
+Such replica will fetch all transactions performing additional checksum calculations and validations.
+That way the security of the whole cluster is further hardened revealing tampering attempts in any transaction
+in the database including those transactions that were not accessed for a very long time.
 
-There are situations however when the speed of recovery is crucial. In such situation the data of the database may be copied from
-another cluster node. This should be done while the database is unloaded:
+There are situations however when the speed of recovery is crucial.
+In such a situations the data of the database may be copied from another cluster node.
+This should be done while the database is unloaded:
 
 #### Step 1. Create replica database
 
 ```shell
-$ ./immuadmin database create replicadb -p 3324 \
+$ immuadmin database create replicadb -p 3324 \
    --replication-enabled \
    --replication-master-address 127.0.0.1 \
    --replication-master-database primarydb \
@@ -268,7 +270,7 @@ database 'replicadb' {replica: true} successfully created
 Once database is unloaded, we can safely work on the files of that database.
 
 ```shell
-$ ./immuadmin database unload replicadb
+$ immuadmin database unload replicadb
 database 'replicadb' successfully unloaded
 ```
 
@@ -291,7 +293,7 @@ total size is 590,212,158  speedup is 1.00
 #### Step 4. Load database on new replica
 
 ```shell
-$ ./immuadmin database load replicadb
+$ immuadmin database load replicadb
 database 'replicadb' successfully unloaded
 ```
 
@@ -302,7 +304,8 @@ database 'replicadb' successfully unloaded
 ## Recovering from a primary loss
 
 Current immudb cluster setup requires the primary node to be always predefined.
-This mean that in case of a primary node loss, it is necessary to manually switch another replica to the primary node.
+This mean that in case of a primary node loss,
+it is necessary to manually promote a replica to become the primary node.
 
 #### Step 1. Inspect states of all replicas in the cluster and choose the new primary node
 
@@ -371,26 +374,26 @@ Clients performing write operations should now be switched to the new primary no
 
 ## Changing configuration of a locked primary database
 
-In most cases the primary node can be easily updated and the change will be applied without the need for a restart.
-That way the primary node can change the number of required confirmations, turn on and of synchronous replication
-and even be changed to a replica.
+In most cases the primary database can be easily updated and the change will be applied without the need for a restart.
+That way the primary node can change the number of required confirmations,
+enable/disable synchronous replication and even be converted to a replica.
 
-There can be a situation though where the database is already blocked with writes waiting for confirmations from
-replicas. This could happen if replicas became unavailable or as a result of misconfiguration where too high value of
-replica confirmations was set.
+There can be a situation though where the database is already blocked with writes waiting for confirmations from replicas.
+This could happen if replicas became unavailable
+or as a result of misconfiguration where the replicas quorum value was set to some large value.
 
-In this situation trying to change the configuration of the database will lock as well and will be unblocked once
-the database itself continue committing transactions.
+In this situation trying to change the configuration of the database will block as well and will be unblocked once
+the database itself continues committing transactions.
 
-If the database can not be fixed to restore commits (e.g. if it is impossible to add enough synced replicas quick enough),
+If the database can not be fixed to restore commits (e.g. if it is impossible to add enough synced replicas quickly enough),
 the following workaround can be used (please note that it requires immudb restart):
 
-1. Update database settings, e.g. run `immuadmin database update` command - that operation will lock indefinitely but will
+1. Update database settings, e.g. run `immuadmin database update` command - that operation will block indefinitely but will
    already persist new database settings
 2. Restart the immudb database instance - upon restart, the configuration of the database is read and applied from persistent settings
-   thus it will apply the configuration set in previous step.
+   thus it will apply the configuration set in the previous step.
 
-With this approach, the number of required confirmations can be lowered down to correct value or even disabled
-by switching to asynchronous replication.
+With this approach, the number of required confirmations can be lowered down to the correct value
+or disabled to switch to asynchronous replication.
 
 </WrappedSection>
