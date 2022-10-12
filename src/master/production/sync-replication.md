@@ -353,11 +353,17 @@ It may happen that the new replica will reject synchronizing with the new primar
 In such case immudb will report an error in logs:
 
 ```text
-immudb 2022/10/11 15:57:42 ERROR: follower commit state at 'replicadb' diverged from master's
+immudb 2022/10/11 15:57:42 ERROR: follower precommit state at 'replicadb' diverged from master's
 ```
 
-To fix that issue please restart immudb with the `--replication-allow-tx-discarding` flag that will
-discard any transaction on the replica that has not yet been fully committed.
+To fix this issue the replica may need to discard precommited transactions.
+This can be easily instructed with the flag `replication-allow-tx-discarding` as follows:
+
+```shell
+$ immuadmin database update replicadb -p 3325 --replication-allow-tx-discarding
+```
+
+In the case immudb instance itself is run a replica, to fix that issue please restart immudb with the `--replication-allow-tx-discarding` flag that will discard any transaction on the replica that has not yet been fully committed.
 
 #### Step 5. Start a new replica to restore original cluster size
 
