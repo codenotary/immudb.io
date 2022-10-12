@@ -53,7 +53,7 @@ Synchronous replication is enabled per database. The following flags in the `imm
 ```bash
 Flags:
       --replication-allow-tx-discarding              allow precommitted transactions to be discarded if the follower diverges from the master
-      --replication-commit-concurrency uint32        set the number of threads for concurrent replication
+      --replication-commit-concurrency uint32        number of concurrent replications (default 10)
       --replication-follower-password string         set password used for replication
       --replication-follower-username string         set username used for replication
       --replication-is-replica                       set database as a replica
@@ -61,8 +61,8 @@ Flags:
       --replication-master-database string           set master database to be replicated
       --replication-master-port uint32               set master port
       --replication-prefetch-tx-buffer-size uint32   maximum number of prefeched transactions (default 100)
+      --replication-sync-acks uint32                 set a minimum number of replica acknowledgements required before transactions can be committed
       --replication-sync-enabled                     enable synchronous replication
-      --replication-sync-followers uint32            set a minimum number of followers for ack replication before transactions can be committed
 ```
 
 </WrappedSection>
@@ -104,13 +104,14 @@ Make sure you already have [immudb installed](../running/download.md).
    $ immuadmin login immudb
    ```
 
-   Create a database `db` that requires 1 confirmation from the synchronous followers to do the commit. 
+   Create a database `db` that requires 1 confirmation from the synchronous followers to do the commit.
 
-   > Note that `replication-sync-followers` is not the number of existing followers, but the number of confirmations needed, which ideally should be set to `ceil(number of followers/2)` to commit a transaction on the primary server.
+   > Note that the number of confirmations needed (`--replication-sync-acks` option) should be set to `ceil(number of followers/2)`
+     to achieve majority-based quorum.
 
    ```shell
    $ immuadmin database create primarydb \
-      --replication-sync-followers 1 \
+      --replication-sync-acks 1 \
       --replication-sync-enabled
    ```
 
@@ -330,7 +331,7 @@ The node with highest txID value should become the new primary node.
 ```shell
 $ immuadmin database update replicadb -p 3324 \
    --replication-sync-enabled \
-   --replication-sync-followers 1 \
+   --replication-sync-acks 1 \
    --replication-is-replica=false
 database 'replicadb' {replica: false} successfully updated
 ```

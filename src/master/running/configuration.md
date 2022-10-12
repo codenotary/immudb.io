@@ -49,8 +49,8 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `replication-master-address`    | ``         | master address (if replica=true)                                                                     |
 | `replication-master-port`       | `3322`     | master port (if replica=true)                                                                        |
 | `replication-prefetch-tx-buffer-size` | `100`     | maximum number of prefeched transactions  |
+| `replication-sync-acks` | `0`   | set a minimum number of replica acknowledgements required before transactions can be committed  |
 | `replication-sync-enabled` | `false` | enable synchronous replication  |
-| `replication-sync-followers` | `0`   | set a minimum number of followers for ack replication before transactions can be committed  |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |
