@@ -1,6 +1,6 @@
 import { versions } from './theme/util'
 
-export const getSidebarBeforeV1_3_1 = version => {
+export default version => {
   let sidebar = []
 
   /* WELCOME SECTION START */
