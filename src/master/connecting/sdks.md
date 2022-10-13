@@ -1,29 +1,17 @@
 
 # SDKs
 
-::: tip
-Examples used in this documentation can be found in [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
-:::
-
 <WrappedSection>
 
-In the most common scenario, you would perform write and read operations on the database talking to the server. In this case your application will be a client to immudb.
+::: tip
+The SDK usage examples throughout our docs can be found in the [immudb examples repository](https://github.com/codenotary/immudb-client-examples).
+:::
 
-SDKs make it comfortable to talk to the server from your favorite language, without having to deal with details about how to talk to it.
+The immudb SDKs make it comfortable to talk to an immudb server from your favorite language, without needing to worry about the implementation details of the server's communication protocol.
 
-The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintained by the internal team and by the community.
+The most common way to access an immudb database is via a client embedded in an application, which then communicates with the immudb server to perform read and write operations on the database. The immudb SDKs provide a convenient way to do this, wrapping the gRPC protocol in the familiar APIs and conventions of your preferred programming language.
 
-
-| Language         | Maintainer | Latest immdb version | link | Notes                                                                              |
-|-------------------|---------|------------------|-------------|-----------------------------------------------------------|
-| `go`               | immudb team  | 1.3.2       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.3.2       |  [link](https://github.com/codenotary/immudb-py) |                                     |
-| `JAVA`               | immudb team  | 1.3.2       |   [link](https://github.com/codenotary/immudb4j)  |                                      |
-| `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
-| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.3.2       |   [link](https://github.com/ankane/immudb-ruby) |                 |
-
-
-The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
+For more information about the immudb SDKs, see the [SDKs](../integrate/sdks.md) page.
 
 <div class="wrapped-picture">
 
