@@ -383,8 +383,31 @@ Do you want to make a feature request or help out? Open an issue on [Java sdk gi
 :::
 
 ::: tab .NET
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+
+``` csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+string key = "hello";
+
+try
+{
+    await client.VerifiedSet(key, "immutable world!");
+    Entry entry1 = await client.VerifiedGetAtRevision(key, 0);
+    Console.WriteLine(entry1.ToString());
+    await client.VerifiedSet(key, "immutable world again!");
+    Entry entry2 = await client.VerifiedGetAtRevision(key, -1);
+    Console.WriteLine(entry2.ToString());
+}
+catch (VerificationException e)
+{
+    // VerificationException means Data Tampering detected!
+    // This means the history of changes has been tampered.
+    Console.WriteLine(e.ToString());
+}
+await client.Close();
+```
+
 :::
 
 ::: tab Node.js

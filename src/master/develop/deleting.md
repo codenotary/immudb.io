@@ -30,7 +30,7 @@ string key = "hello";
 try
 {
     await client.VerifiedSet(key, "immutable world!");
-    await client.Delete("key");
+    await client.Delete(key);
 }
 catch (VerificationException e)
 {
