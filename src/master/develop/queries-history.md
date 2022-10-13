@@ -450,6 +450,7 @@ try {
     // ...
 }
 ```
+:::
 
 ::: tab .NET
 
@@ -740,9 +741,34 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
+
 ::: tab .NET
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
+
+```csharp
+
+using ImmuDB;
+using ImmuDB.Exceptions;
+using ImmuDB.SQL;
+
+namespace simple_app;
+
+class Program
+{
+    public static async Task Main(string[] args)
+    {
+      var client = new ImmuClient();
+
+      await client.Open("immudb", "immudb","defaultdb");
+      await client.VerifiedSet("mykey", "myvalue");
+      await client.VerifiedSetReference("myreference", "mykey");
+      Entry result = await client.Get("myreference");
+
+      System.Console.WriteLine(result.ToString());
+    }
+}
+
+```
+
 :::
 
 ::: tab Others
@@ -798,6 +824,7 @@ try {
 ::: tab .NET
 
 ```csharp
+
 var client = new ImmuClient();
 await client.Open("immudb", "immudb", "defaultdb");
 
