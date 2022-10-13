@@ -11,6 +11,7 @@ find "src/code-examples/go/" -type f -name '*.go' | while read N; do
     echo "$N"
     cd "$(dirname "$DIR/$N")"
     go mod download
+    go mod tidy
     go build -o /tmp/build-output .
 done
 
