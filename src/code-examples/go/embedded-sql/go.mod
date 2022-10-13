@@ -2,7 +2,7 @@ module github.com/codenotary/hello-embedded-immutable-world
 
 go 1.18
 
-require github.com/codenotary/immudb v1.3.1
+require github.com/codenotary/immudb v1.4.0
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
