@@ -108,12 +108,16 @@ try {
       })
     })
 
+    console.log("Items to index:", itemsToIndex.length)
+
     /**
      * Its a big process and for this reason i am using progressBar
      * and letting the user know that the app is not stuck and actually is processing 
      */
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
     progressBar.start(itemsToIndex.length, 0);
+
+    batchSize = 1000
 
     /**
      * Apologies for using for loop instead of Promise.all map
@@ -122,16 +126,12 @@ try {
      * 
      * We loop thought all the items and indexing them to algolia
      */
-    for (let i = 0; i < itemsToIndex.length; i++) {
+    for (let i = 0; i < itemsToIndex.length; i+= batchSize) {
       try {
-        await index.saveObject(itemsToIndex[i], {
+        progressBar.update(i);
+        await index.saveObjects(itemsToIndex.slice(i, i+batchSize), {
           autoGenerateObjectIDIfNotExist: true
         })
-
-        /**
-         * Updates the progressBar by 1 after successfully index document
-         */
-        progressBar.update(i);
       } catch (error) {
         console.log(error);
       }
