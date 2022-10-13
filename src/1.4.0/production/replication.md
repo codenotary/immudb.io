@@ -42,7 +42,7 @@ Creating a replica of an existent database using immuadmin is super easy:
 $ ./immuadmin login immudb
 Password:
 logged in
-$ ./immuadmin database create --replication-enabled=true --replication-follower-username=immudb --replication-follower-password=immudb --replication-master-database=defaultdb replicadb
+$ ./immuadmin database create --replication-is-replica --replication-follower-username=immudb --replication-follower-password=immudb --replication-master-database=defaultdb replicadb
 database 'replicadb' {replica: true} successfully created
 ```
 
@@ -59,7 +59,7 @@ $ ./immuadmin help database create
 Start immudb with enabled replication:
 
 ```bash
-$ ./immudb --replication-enabled=true --replication-follower-password=immudb  --replication-follower-username=immudb --replication-master-address=127.0.0.1
+$ ./immudb --replication-is-replica --replication-follower-password=immudb  --replication-follower-username=immudb --replication-master-address=127.0.0.1
 ```
 
 ::: tip

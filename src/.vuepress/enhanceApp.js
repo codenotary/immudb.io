@@ -24,11 +24,11 @@ import './theme/styles/grid.styl';
 
 import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
 
-import getSidebarBeforeV1_3_1 from './sidebar_before_v1_3_1'
-import getSidebarV1_3_1 from './sidebar_v1_3_1'
-import getSidebarV1_3_2 from './sidebar_v1_3_2'
-import getSidebarV1_4_0 from './sidebar_v1_4_0'
-import getSidebarMaster from './sidebar_master'
+import { getSidebarBeforeV1_3_1 } from './sidebar_before_v1_3_1'
+import { getSidebarV1_3_1 } from './sidebar_v1_3_1'
+import { getSidebarV1_3_2 } from './sidebar_v1_3_2'
+import { getSidebarV1_4_0 } from './sidebar_v1_4_0'
+import { getSidebarMaster } from './sidebar_master'
 
 const getSidebar = version => {
   const maxVersion = maxVer => versions.indexOf(maxVer) >= versions.indexOf(version.slice(1))

@@ -1,4 +1,4 @@
-export default version => {
+export const getSidebarV1_4_0 = version => {
   let sidebar = []
 
   /* WELCOME SECTION START */
