@@ -9,6 +9,7 @@ const index = client.initIndex(process.env.ALGOLIA_INDEX)
 var MarkdownIt = require('markdown-it');
 const cliProgress = require('cli-progress');
 var slugify = require('slugify')
+const _ = require("lodash")
 
 
 try {
@@ -110,14 +111,17 @@ try {
 
     console.log("Items to index:", itemsToIndex.length)
 
+    const batchSize = 1000
+
+    let chunksToIndex = _.chunk(itemsToIndex, batchSize)
+
     /**
      * Its a big process and for this reason i am using progressBar
      * and letting the user know that the app is not stuck and actually is processing 
      */
     const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-    progressBar.start(itemsToIndex.length, 0);
+    progressBar.start(chunksToIndex.length, 0);
 
-    batchSize = 1000
 
     /**
      * Apologies for using for loop instead of Promise.all map
@@ -126,10 +130,10 @@ try {
      * 
      * We loop thought all the items and indexing them to algolia
      */
-    for (let i = 0; i < itemsToIndex.length; i+= batchSize) {
+    for (let i = 0; i < chunksToIndex.length; i++) {
       try {
         progressBar.update(i);
-        await index.saveObjects(itemsToIndex.slice(i, i+batchSize), {
+        await index.saveObjects(chunksToIndex[i], {
           autoGenerateObjectIDIfNotExist: true
         })
       } catch (error) {
