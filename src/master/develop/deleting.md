@@ -18,6 +18,31 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
+::: tab .NET
+
+``` csharp
+
+var client = ImmuClient.NewBuilder().WithServerUrl(immudbServerAddress).Build();
+await client.Open("immudb", "immudb", "defaultdb");
+
+string key = "hello";
+
+try
+{
+    await client.VerifiedSet(key, "immutable world!");
+    await client.Delete(key);
+}
+catch (VerificationException e)
+{
+    // VerificationException means Data Tampering detected!
+    // This means the history of changes has been tampered.
+    Console.WriteLine(e.ToString());
+}
+await client.Close();
+```
+
+:::
+
 ::: tab Python
 ```python
 from immudb import ImmudbClient
@@ -46,11 +71,6 @@ if __name__ == "__main__":
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

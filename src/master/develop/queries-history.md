@@ -38,6 +38,34 @@ Note that, similar with many other methods, `history` method is overloaded to al
 
 :::
 
+::: tab .NET
+
+```csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+try
+{
+    await client.Set("history1", value1);
+    await client.Set("history1", value2);
+    await client.Set("history2", value1);
+    await client.Set("history2", value2);
+    await client.Set("history2", value3);
+}
+catch (CorruptedDataException e)
+{
+   Console.WriteLine("Failed at set.", e);
+}
+
+List<Entry> historyResponse1 = await client.History("history1", 10, 0, false);
+
+await client.Close();
+```
+Note that, similar with many other methods, `history` method is overloaded to allow different kinds/set of parameters.
+
+:::
+
 ::: tab Python
 
 Python immudb sdk currently doesn't support `SinceTx` parameter
@@ -103,11 +131,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](../connecting/immugw.md) option.
 :::
@@ -146,9 +169,9 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
+::: tab .NET
 This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others
@@ -202,6 +225,35 @@ try {
 // Example of using scan(prefix, sinceTxId, limit, desc).
 List<KV> scanResult = immuClient.scan("scan", 1, 5, false);
 // We expect two entries in the result.
+```
+
+`scan` is an overloaded method, therefore multiple flavours of it with different parameter options exist.
+
+:::
+
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+byte[] value1 = { 0, 1, 2, 3 };
+byte[] value2 = { 4, 5, 6, 7 };
+
+try
+{
+    await client.Set("scan1", value1);
+    await client.Set("scan2", value2);
+}
+catch (CorruptedDataException e)
+{
+    Assert.Fail("Failed at set.", e);
+}
+
+List<Entry> scanResult = await client.Scan("scan", 5, false);
+Console.WriteLine(scanResult.Count);
+
+await client.Close();
 ```
 
 `scan` is an overloaded method, therefore multiple flavours of it with different parameter options exist.
@@ -342,11 +394,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
-
 ::: tab Others
 If you're using another development language, please refer to the [immugw](../connecting/immugw.md) option.
 :::
@@ -402,6 +449,54 @@ try {
 } catch (VerificationException e) {
     // ...
 }
+```
+:::
+
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+byte[] key = Encoding.UTF8.GetBytes("testRef");
+byte[] val = Encoding.UTF8.GetBytes("abc");
+
+TxHeader? setTxHdr = null;
+try
+{
+    setTxHdr = await client.Set(key, val);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at set.", e);
+    return;
+}
+
+byte[] ref1Key = Encoding.UTF8.GetBytes("ref1_to_testRef");
+byte[] ref2Key = Encoding.UTF8.GetBytes("ref2_to_testRef");
+
+TxHeader? ref1TxHdr = null;
+try
+{
+    ref1TxHdr = await client.SetReference(ref1Key, key);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at setReference", e);
+    return;
+}
+
+TxHeader? ref2TxHdr = null;
+try
+{
+    ref2TxHdr = await client.SetReference(ref2Key, key, setTxHdr.Id);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at setReferenceAt.", e);
+}
+
+await client.Close();
 ```
 
 :::
@@ -526,10 +621,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
-:::
 
 ::: tab Others
 If you're using another development language, please refer to the [immugw](../connecting/immugw.md) option.
@@ -650,9 +741,34 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 ```
 :::
 
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+
+::: tab .NET
+
+```csharp
+
+using ImmuDB;
+using ImmuDB.Exceptions;
+using ImmuDB.SQL;
+
+namespace simple_app;
+
+class Program
+{
+    public static async Task Main(string[] args)
+    {
+      var client = new ImmuClient();
+
+      await client.Open("immudb", "immudb","defaultdb");
+      await client.VerifiedSet("mykey", "myvalue");
+      await client.VerifiedSetReference("myreference", "mykey");
+      Entry result = await client.Get("myreference");
+
+      System.Console.WriteLine(result.ToString());
+    }
+}
+
+```
+
 :::
 
 ::: tab Others
@@ -705,6 +821,56 @@ try {
 
 :::
 
+::: tab .NET
+
+```csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+byte[] key = Encoding.UTF8.GetBytes("testRef");
+byte[] val = Encoding.UTF8.GetBytes("abc");
+
+TxHeader? setTxHdr = null;
+try
+{
+    setTxHdr = await client.Set(key, val);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at set.", e);
+    return;
+}
+
+byte[] ref1Key = Encoding.UTF8.GetBytes("ref1_to_testRef");
+byte[] ref2Key = Encoding.UTF8.GetBytes("ref2_to_testRef");
+
+TxHeader? ref1TxHdr = null;
+try
+{
+    ref1TxHdr = await client.SetReference(ref1Key, key);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at SetReference", e);
+    return;
+}
+
+TxHeader? ref2TxHdr = null;
+try
+{
+    ref2TxHdr = await client.SetReference(ref2Key, key, setTxHdr.Id);
+}
+catch (CorruptedDataException e)
+{
+    Console.WriteLine("Failed at SetReference.", e);
+}
+
+await client.Close();
+```
+
+:::
+
 ::: tab Python
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Python sdk github project](https://github.com/codenotary/immudb-py/issues/new)
@@ -740,11 +906,6 @@ const cl = new ImmudbClient({ host: IMMUDB_HOST, port: IMMUDB_PORT });
 	console.log('success: get second item by reference', getSecondItemRes)
 })()
 ```
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

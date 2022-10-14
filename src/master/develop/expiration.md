@@ -18,6 +18,25 @@ This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 :::
 
+::: tab .NET
+
+``` csharp
+
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+await client.ExpirableSet("key1", "value1", DateTime.Now.AddDays(1));
+
+Entry entry = await client.VerifiedGet("key1");
+Console.WriteLine(entry.ToString());
+await client.Close();
+
+```
+
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
 ::: tab Python
 ```python
 from immudb import ImmudbClient
@@ -48,11 +67,6 @@ if __name__ == "__main__":
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
-:::
-
-::: tab .Net
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
 :::
 
 ::: tab Others

@@ -48,6 +48,20 @@ System.out.printf("The current state is " + currState.toString());
 
 :::
 
+::: tab .NET
+
+```csharp
+var client = new ImmuClient();
+await client.Open("immudb", "immudb", "defaultdb");
+
+var state = client.State;
+System.Console.WriteLine($"The current state is: {state}");
+
+await client.Close();
+```
+
+:::
+
 ::: tab Node.js
 ```ts
 import ImmudbClient from 'immudb-node'
@@ -202,6 +216,36 @@ immuClient.logout();
 
 :::
 
+::: tab .NET
+
+Any immudb server has its own UUID. This is exposed as part of the login response.
+.NET SDK can use any implementation of the `ImmuStateHolder` interface, which specifies two methods:
+
+- `ImmuState GetState(Sstring serverUuid, string database)` for getting a state.
+- `void SetState(string serverUuid, ImmuState state)` for setting a state.
+
+Note that a state is related to a specific database (identified by its name) and a server (identified by the UUID).
+Currently, .NET SDK offers one implementations of this interface for storing and retriving a state, `FileImmuStateHolder`,
+that uses a disk file based store.
+
+As most of the code snippets include `FileImmuStateHolder`, please find below an example using the in-memory alternative:
+
+```csharp
+ FileImmuStateHolder stateHolder = FileImmuStateHolder.NewBuilder()
+                                        .WithStatesFolder("./my_immuapp_states")
+                                        .Build();
+
+ImmuClient immuClient = ImmuClient.NewBuilder()
+                                  .WithStateHolder(stateHolder)
+                                  .Build();
+
+await client.Open("immudb", "immudb", "defaultdb");
+await client.Close();
+
+```
+
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
@@ -306,6 +350,47 @@ try {
 
 } catch (RuntimeException e) {
     // State signature failed.
+}
+```
+
+:::
+
+::: tab .NET
+
+```csharp
+// Having immudb server running with state signature enabled
+// (by starting it, for example using `immudb --signingKey private_key.pem`)
+// we provision the client with the public key file, and this implies that
+// state signature verification is done on the client side
+// each time the state is retrieved from the server.
+
+Assembly asm = Assembly.GetExecutingAssembly();
+string resourceName = "public_key.pem";
+AsymmetricKeyParameter assymKey;
+ImmuClient client;
+try
+{
+    using (Stream? stream = asm.GetManifestResourceStream(resourceName))
+    {
+        if (stream == null)
+        {
+            Assert.Fail("Could not read resource");
+        }
+        using (TextReader tr = new StreamReader(stream))
+        {
+            PemReader pemReader = new PemReader(tr);
+            assymKey = (AsymmetricKeyParameter)pemReader.ReadObject();
+        }
+    }
+    client = ImmuClient.NewBuilder()
+                .WithServerUrl("localhost")
+                .WithServerSigningKey(assymKey)
+                .Build();
+}
+catch (Exception e)
+{
+    Console.WriteLine($"An exception occurred: {e}");
+    return;
 }
 ```
 

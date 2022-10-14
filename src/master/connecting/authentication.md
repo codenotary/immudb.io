@@ -73,6 +73,69 @@ immuClient.login("immudb", "immudb");
 
 :::
 
+::: tab .NET
+
+The following code snippets show how to create a client.
+
+Using default configuration:
+
+``` csharp
+    ImmuClient immuClient = ImmuClient.NewBuilder().Build();
+
+    // or
+
+    Immuclient immuClient = new ImmuClient();
+    Immuclient immuClient = new ImmuClient("localhost", 3322);
+
+```
+
+Setting `immudb` url and port:
+
+``` csharp
+    ImmuClient immuClient = ImmuClient.NewBuilder()
+                                .WithServerUrl("localhost")
+                                .WithServerPort(3322)
+                                .Build();
+
+    ImmuClient immuClient = ImmuClient.NewBuilder()
+                                .WithServerUrl("localhost")
+                                .WithServerPort(3322)
+                                .Build();
+
+```
+
+Customizing the `State Holder`:
+
+``` csharp
+    FileImmuStateHolder stateHolder = FileImmuStateHolder.NewBuilder()
+                                        .WithStatesFolder("./my_immuapp_states")
+                                        .Build();
+
+    ImmuClient immuClient = ImmuClient.NewBuilder()
+                                      .WithStateHolder(stateHolder)
+                                      .Build();
+```
+
+Use `Open` and `Close` methods to initiate and terminate user sessions:
+
+``` csharp
+    await immuClient.Open("usr1", "pwd1", "defaultdb");
+
+    // Interact with immudb using logged-in user.
+    //...
+
+    await immuClient.Close();
+
+    // or one liner open the session right 
+    client = await ImmuClient.NewBuilder().Open();
+
+    //then close it
+    await immuClient.Close();
+
+```
+
+:::
+
 ::: tab Node.js
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
@@ -116,6 +179,11 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 ::: tab Java
 This feature is not yet supported or not documented.
 Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+:::
+
+::: tab .NET
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [.NET SDK github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Node.js

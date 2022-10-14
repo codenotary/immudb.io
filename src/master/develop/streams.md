@@ -52,9 +52,9 @@ Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
+::: tab .NET
 Streams is not supported yet in this language SDK.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others
@@ -94,9 +94,9 @@ Streams is not supported yet in this language SDK.
 Do you want to make a feature request or help out? Open an issue on [Node.js sdk github project](https://github.com/codenotary/immudb-node/issues/new)
 :::
 
-::: tab .Net
+::: tab .NET
 Streams is not supported yet in this language SDK.
-Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4dotnet/issues/new)
+Do you want to make a feature request or help out? Open an issue on [.Net sdk github project](https://github.com/codenotary/immudb4net/issues/new)
 :::
 
 ::: tab Others
