@@ -129,7 +129,7 @@ Make sure you already have [immudb installed](../running/download.md).
 
    ```shell
    $ immuadmin database create replicadb -p 3324 \
-      --replication-enabled \
+      --replication-is-replica \
       --replication-master-address 127.0.0.1 \
       --replication-master-database primarydb \
       --replication-follower-username immudb \
@@ -225,7 +225,7 @@ the initial cluster setup, e.g.:
 
 ```shell
 $ immuadmin database create replicadb -p 3324 \
-   --replication-enabled \
+   --replication-is-replica \
    --replication-master-address 127.0.0.1 \
    --replication-master-database primarydb \
    --replication-follower-username immudb \
@@ -254,7 +254,7 @@ This should be done while the database is unloaded:
 
 ```shell
 $ immuadmin database create replicadb -p 3324 \
-   --replication-enabled \
+   --replication-is-replica \
    --replication-master-address 127.0.0.1 \
    --replication-master-database primarydb \
    --replication-follower-username immudb \
@@ -307,6 +307,8 @@ database 'replicadb' successfully unloaded
 Current immudb cluster setup requires the primary node to be always predefined.
 This means that in case of a primary node loss,
 it is necessary to manually promote a replica to become the primary node.
+Generally, electing the new master depends on the number of available instances,
+their precommit state, and the replication-sync-acks setting on the master.
 
 #### Step 1. Inspect states of all replicas in the cluster and choose the new primary node
 
@@ -319,12 +321,32 @@ $ immuclient use replicadb
 Now using replicadb
 
 $ immuclient status
-database:  replicadb
-txID:      734931
-hash:      5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
+database:         replicadb
+txID:             734931
+hash:             5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
+precommittedTxID: 734931
+precommittedHash: 5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
 ```
 
-The node with highest txID value should become the new primary node.
+It's important to carefully choose the new master node in order to avoid losing committed transactions.
+It is generally a good idea to promote some instance as a master that has already precommitted the largest
+transaction contained in at least `replication-sync-acks` instances.
+
+In the following scenario, we consider a three-node cluster with an unreachable master:
+
+```shell
+# state in replica1
+precommittedTxID: 734931
+precommittedHash: 5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
+
+# state in replica2
+precommittedTxID: 734920
+precommittedHash: 2a4f41c3d5b03ff014ca30b53d23ee3a098936c3b2a8a0d6e9b3b540cac166a1
+```
+
+In the event that the primary node becomes unavailable, a replica with a higher precommittedTxID should be chosen as the master.
+If `replication-sync-acks` is 2, both replicas must acknowledge precommit before the master can commit.
+In the scenario above, this would mean 734920 was the most recent committed transaction. Therefore, replica2 could also be selected as the new master.
 
 #### Step 2. Switch the selected replica to become new primary
 
@@ -353,11 +375,17 @@ It may happen that the new replica will reject synchronizing with the new primar
 In such case immudb will report an error in logs:
 
 ```text
-immudb 2022/10/11 15:57:42 ERROR: follower commit state at 'replicadb' diverged from master's
+immudb 2022/10/11 15:57:42 ERROR: follower precommit state at 'replicadb' diverged from master's
 ```
 
-To fix that issue please restart immudb with the `--replication-allow-tx-discarding` flag that will
-discard any transaction on the replica that has not yet been fully committed.
+To fix this issue the replica may need to discard precommited transactions.
+This can be easily instructed with the flag `replication-allow-tx-discarding` as follows:
+
+```shell
+$ immuadmin database update replicadb -p 3325 --replication-allow-tx-discarding
+```
+
+In the case immudb instance itself is run a replica, to fix that issue please restart immudb with the `--replication-allow-tx-discarding` flag that will discard any transaction on the replica that has not yet been fully committed.
 
 #### Step 5. Start a new replica to restore original cluster size
 

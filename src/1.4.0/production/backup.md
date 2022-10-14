@@ -62,7 +62,7 @@ During restore process `immuadmin` checks if checksum, reported by database afte
 
 ### Replica flag handling
 
-It is possible to restore data only to the replica database. During full restore database automatically created as replica (replica flag is switched off after restore), but for incremental restore `immuadmin` assumes database is already in replica mode (user can use `immuadmin database update <database> --replication-enabled` command to switch on replica mode).
+It is possible to restore data only to the replica database. During full restore database automatically created as replica (replica flag is switched off after restore), but for incremental restore `immuadmin` assumes database is already in replica mode (user can use `immuadmin database update <database> --replication-is-replica` command to switch on replica mode).
 
 However, it is possible to automatically switch on and off replica mode for incremental backup using `--force-replica` command line option.
 

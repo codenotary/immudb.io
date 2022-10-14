@@ -2,9 +2,10 @@ module database-create
 
 go 1.18
 
-require github.com/codenotary/immudb v1.3.1
-
+require	github.com/codenotary/immudb v1.3.1
+	
 require (
+	google.golang.org/protobuf v1.28.1
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29 // indirect
 	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
