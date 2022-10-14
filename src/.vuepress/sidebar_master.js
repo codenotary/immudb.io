@@ -79,6 +79,20 @@ export default version => {
   };
   /* MANAGEMENT SECTION END */
 
+  /* DEVELOP APPS SECTION START */
+  let developApps = {
+      title: 'Develop Applications',
+      collapsable: true,
+      children: [
+      ]
+  };
+
+  developApps.children.push(`${version}/integrate/sdks`);
+  developApps.children.push(`${version}/integrate/python`);
+  developApps.children.push(`${version}/integrate/node`);
+
+  /* DEVELOP APPS SECTION END */
+
   /* DEVELOP KV SECTION START */
   let developKV = {
       title: 'Develop with Key Value',
@@ -115,7 +129,7 @@ export default version => {
   developSQL.children.push(`${version}/develop/sql/catalog`);
   developSQL.children.push(`${version}/develop/sql/sqlstdlib`);
   developSQL.children.push(`${version}/develop/sql/pg`);
-  
+
   /* DEVELOP SQL SECTION END */
 
   /* EMBEDDED SECTION START */
@@ -138,7 +152,7 @@ export default version => {
   };
 
   releaseNotes.children.push(`${version}/releasenotes`);
-  
+
   /* RELEASE NOTES SECTION END */
 
   sidebar.push(introduction);
@@ -146,10 +160,11 @@ export default version => {
   sidebar.push(immudbInProduction);
   sidebar.push(connecting);
   sidebar.push(management);
+  sidebar.push(developApps);
   sidebar.push(developKV);
   sidebar.push(developSQL);
   sidebar.push(embedded);
   sidebar.push(releaseNotes);
-  
+
   return sidebar;
 }
