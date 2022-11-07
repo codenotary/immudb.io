@@ -13,15 +13,22 @@ SDKs make it comfortable to talk to the server from your favorite language, with
 
 The most well-known and recommended immudb SDK is written in [Golang](https://golang.org/), but there are other SDKs available, both maintained by the internal team and by the community.
 
+| Language | Maintainer           | Latest version | link                | Notes                        |
+|----------|----------------------|----------------|---------------------|------------------------------|
+| `go`     | immudb team          | 1.4.0          | [link][sdk-go]      |                              |
+| `python` | immudb team          | 1.4.0          | [link][sdk-python]  |                              |
+| `JAVA`   | immudb team          | 0.9.10.12      | [link][sdk-java]    |                              |
+| `.NET`   | immudb team          | 1.0.5          | [link][sdk-dotnet]  |                              |
+| `NODE`   | immudb team          | 1.0.4          | [link][sdk-node]    | Verification is not working  |
+| `ruby`   | Community ([Ankane]) | 0.1.1          | [link][sdk-ruby]    |                              |
 
-| Language         | Maintainer | Latest immdb version | link | Notes                                                                              |
-|-------------------|---------|------------------|-------------|-----------------------------------------------------------|
-| `go`               | immudb team  | 1.4.0       |     [link](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client)  |                                   |
-| `python`               | immudb team  | 1.4.0       |  [link](https://github.com/codenotary/immudb-py) |                                     |
-| `JAVA`               | immudb team  | 1.4.0       |   [link](https://github.com/codenotary/immudb4j)  |                                      |
-| `NODE`               | immudb team | 1.2.1       |   [link](https://github.com/codenotary/immudb-node) | Verification is not working                 |
-| `ruby`               | Community ([Ankane](https://github.com/ankane))  | 1.4.0       |   [link](https://github.com/ankane/immudb-ruby) |                 |
-
+[sdk-go]: https://pkg.go.dev/github.com/codenotary/immudb/pkg/client
+[sdk-python]: https://github.com/codenotary/immudb-py
+[sdk-java]: https://github.com/codenotary/immudb4j
+[sdk-dotnet]: https://github.com/codenotary/immudb4net
+[sdk-node]: https://github.com/codenotary/immudb-node
+[sdk-ruby]: https://github.com/ankane/immudb-ruby
+[Ankane]: https://github.com/ankane
 
 The immudb server manages the requests from the outside world to the store. In order to insert or retrieve data, you need to talk with the server.
 
