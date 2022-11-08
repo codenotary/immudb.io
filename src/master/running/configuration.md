@@ -41,16 +41,16 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `pkey`                          | ``         | server private key path                                                                              |
 | `port`                          | `3322`     | port number                                                                                          |
 | `pprof`                         | `false`    | add pprof profiling endpoint on the metrics server                                                   |
-| `replication-allow-tx-discarding` | `false`     | allow precommitted transactions to be discarded if the follower diverges from the master |
-| `replication-commit-concurrency`  | `10` | number of concurrent replications |
-| `replication-follower-password` | ``         | password used for replication of systemdb and defaultdb                                              |
-| `replication-follower-username` | ``         | username used for replication of systemdb and defaultdb                                              |
-| `replication-is-replica`      | `false` | set systemdb and defaultdb as replica  |
-| `replication-master-address`    | ``         | master address (if replica=true)                                                                     |
-| `replication-master-port`       | `3322`     | master port (if replica=true)                                                                        |
-| `replication-prefetch-tx-buffer-size` | `100`     | maximum number of prefeched transactions  |
-| `replication-sync-acks` | `0`   | set a minimum number of replica acknowledgements required before transactions can be committed  |
-| `replication-sync-enabled` | `false` | enable synchronous replication  |
+| `replication-allow-tx-discarding` | `false`  | allow precommitted transactions to be discarded if the replica diverges from the primary             |
+| `replication-commit-concurrency` | `10`      | number of concurrent replications                                                                    |
+| `replication-is-replica`        | `false`    | set systemdb and defaultdb as replica                                                                |
+| `replication-prefetch-tx-buffer-size` | `100`| maximum number of prefeched transactions                                                             |
+| `replication-primary-host`      | ``         | primary database host (if replica=true)                                                              |
+| `replication-primary-password`  | ``         | password in the primary database used for replication of systemdb and defaultdb                      |
+| `replication-primary-port`      | `3322`     | primary database port (if replica=true) (default 3322)                                               |
+| `replication-primary-username`  | ``         | username in the primary database used for replication of systemdb and defaultdb                      |
+| `replication-sync-acks`         | `0`        | set a minimum number of replica acknowledgements required before transactions can be committed       |
+| `replication-sync-enabled`      | `false`    | enable synchronous replication                                                                       |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |

@@ -323,12 +323,12 @@ Replication settings:
 
 | Name | Type | Description |
 |------|------|-------------|
-| replica | Bool | if true, the database is a replica of another one |
-| masterDatabase | String | name of the database to replicate |
-| masterAddress | String | hostname of the master immudb instance |
-| masterPort | Uint32 | tcp port of the master immudb instance |
-| followerUsername | String | username used to connect to the master immudb instance |
-| followerPassword | String | password used to connect to the master immudb instance |
+| replica         | Bool   | if true, the database is a replica of another one |
+| primaryDatabase | String | name of the database to replicate |
+| primaryHost     | String | hostname of the primary immudb instance |
+| primaryPort     | Uint32 | tcp port of the primary immudb instance |
+| primaryUsername | String | username used to connect to the primary immudb instance |
+| primaryPassword | String | password used to connect to the primary immudb instance |
 
 Additional index options:
 

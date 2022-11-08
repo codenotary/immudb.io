@@ -52,17 +52,18 @@ Synchronous replication is enabled per database. The following flags in the `imm
 
 ```bash
 Flags:
-      --replication-allow-tx-discarding              allow precommitted transactions to be discarded if the follower diverges from the master
+      --replication-allow-tx-discarding              allow precommitted transactions to be discarded if the replica diverges from the primary
       --replication-commit-concurrency uint32        number of concurrent replications (default 10)
-      --replication-follower-password string         set password used for replication
-      --replication-follower-username string         set username used for replication
       --replication-is-replica                       set database as a replica
-      --replication-master-address string            set master address
-      --replication-master-database string           set master database to be replicated
-      --replication-master-port uint32               set master port
       --replication-prefetch-tx-buffer-size uint32   maximum number of prefeched transactions (default 100)
+      --replication-primary-database string          set primary database to be replicated
+      --replication-primary-host string              set primary database host
+      --replication-primary-password string          set password used for replication to connect to the primary database
+      --replication-primary-port uint32              set primary database port
+      --replication-primary-username string          set username used for replication to connect to the primary database
       --replication-sync-acks uint32                 set a minimum number of replica acknowledgements required before transactions can be committed
       --replication-sync-enabled                     enable synchronous replication
+
 ```
 
 </WrappedSection>
@@ -84,13 +85,13 @@ Make sure you already have [immudb installed](../running/download.md).
 1. Run the primary server:
 
    ```bash
-   $ immudb --dir data_master
+   $ immudb --dir data_primary
    ```
 
 2. In a new terminal, start replica server:
 
    ```bash
-   $ immudb --dir data_follower \
+   $ immudb --dir data_replica \
       --port=3324 \
       --pgsql-server=false \
       --metrics-server=false
@@ -104,9 +105,9 @@ Make sure you already have [immudb installed](../running/download.md).
    $ immuadmin login immudb
    ```
 
-   Create a database `db` that requires 1 confirmation from the synchronous followers to do the commit.
+   Create a database `db` that requires 1 confirmation from the synchronous replicas to do the commit.
 
-   > Note that the number of confirmations needed (`--replication-sync-acks` option) should be set to `ceil(number of followers/2)`
+   > Note that the number of confirmations needed (`--replication-sync-acks` option) should be set to `ceil(number of replicas/2)`
      to achieve majority-based quorum.
 
    ```shell
@@ -130,17 +131,17 @@ Make sure you already have [immudb installed](../running/download.md).
    ```shell
    $ immuadmin database create replicadb -p 3324 \
       --replication-is-replica \
-      --replication-master-address 127.0.0.1 \
-      --replication-master-database primarydb \
-      --replication-follower-username immudb \
-      --replication-follower-password immudb \
-      --replication-master-port 3322 \
+      --replication-primary-host 127.0.0.1 \
+      --replication-primary-port 3322 \
+      --replication-primary-database primarydb \
+      --replication-primary-username immudb \
+      --replication-primary-password immudb \
       --replication-sync-enabled \
       --replication-prefetch-tx-buffer-size 1000 \
       --replication-commit-concurrency 100
    ```
 
-   At this point, the `replicadb` has been created on the replica server to sync with the `primarydb` on master server.
+   At this point, the `replicadb` has been created on the replica server to sync with the `primarydb` on primary server.
 
 #### Step 2. Send a request
 
@@ -208,7 +209,7 @@ Make sure you already have [immudb installed](../running/download.md).
    $ immuclient safeset foo bar
    ```
 
-   The client will block. This is because the primarydb requires 1 sync follower, and since the replica server is down, there is no ack from the replica server, hence synchronous transaction is blocked.
+   The client will block. This is because the primarydb requires 1 sync replica, and since the replica server is down, there is no ack from the replica server, hence synchronous transaction is blocked.
 
 </WrappedSection>
 
@@ -226,11 +227,11 @@ the initial cluster setup, e.g.:
 ```shell
 $ immuadmin database create replicadb -p 3324 \
    --replication-is-replica \
-   --replication-master-address 127.0.0.1 \
-   --replication-master-database primarydb \
-   --replication-follower-username immudb \
-   --replication-follower-password immudb \
-   --replication-master-port 3322 \
+   --replication-primary-host 127.0.0.1 \
+   --replication-primary-port 3322 \
+   --replication-primary-database primarydb \
+   --replication-primary-username immudb \
+   --replication-primary-password immudb \
    --replication-sync-enabled \
    --replication-prefetch-tx-buffer-size 1000 \
    --replication-commit-concurrency 100
@@ -255,11 +256,11 @@ This should be done while the database is unloaded:
 ```shell
 $ immuadmin database create replicadb -p 3324 \
    --replication-is-replica \
-   --replication-master-address 127.0.0.1 \
-   --replication-master-database primarydb \
-   --replication-follower-username immudb \
-   --replication-follower-password immudb \
-   --replication-master-port 3322 \
+   --replication-primary-host 127.0.0.1 \
+   --replication-primary-port 3322 \
+   --replication-primary-database primarydb \
+   --replication-primary-username immudb \
+   --replication-primary-password immudb \
    --replication-sync-enabled \
    --replication-prefetch-tx-buffer-size 1000 \
    --replication-commit-concurrency 100
@@ -307,8 +308,8 @@ database 'replicadb' successfully unloaded
 Current immudb cluster setup requires the primary node to be always predefined.
 This means that in case of a primary node loss,
 it is necessary to manually promote a replica to become the primary node.
-Generally, electing the new master depends on the number of available instances,
-their precommit state, and the replication-sync-acks setting on the master.
+Generally, electing the new primary depends on the number of available instances,
+their precommit state, and the replication-sync-acks setting on the primary.
 
 #### Step 1. Inspect states of all replicas in the cluster and choose the new primary node
 
@@ -328,11 +329,11 @@ precommittedTxID: 734931
 precommittedHash: 5e2f2feec159bc19c952a7a93832338a178936c5b258d0c906b7c145faf3a4b5
 ```
 
-It's important to carefully choose the new master node in order to avoid losing committed transactions.
-It is generally a good idea to promote some instance as a master that has already precommitted the largest
+It's important to carefully choose the new primary node in order to avoid losing committed transactions.
+It is generally a good idea to promote some instance as a primary that has already precommitted the largest
 transaction contained in at least `replication-sync-acks` instances.
 
-In the following scenario, we consider a three-node cluster with an unreachable master:
+In the following scenario, we consider a three-node cluster with an unreachable primary:
 
 ```shell
 # state in replica1
@@ -344,9 +345,9 @@ precommittedTxID: 734920
 precommittedHash: 2a4f41c3d5b03ff014ca30b53d23ee3a098936c3b2a8a0d6e9b3b540cac166a1
 ```
 
-In the event that the primary node becomes unavailable, a replica with a higher precommittedTxID should be chosen as the master.
-If `replication-sync-acks` is 2, both replicas must acknowledge precommit before the master can commit.
-In the scenario above, this would mean 734920 was the most recent committed transaction. Therefore, replica2 could also be selected as the new master.
+In the event that the primary node becomes unavailable, a replica with a higher precommittedTxID should be chosen as the primary.
+If `replication-sync-acks` is 2, both replicas must acknowledge precommit before the primary can commit.
+In the scenario above, this would mean 734920 was the most recent committed transaction. Therefore, replica2 could also be selected as the new primary.
 
 #### Step 2. Switch the selected replica to become new primary
 
@@ -358,15 +359,15 @@ $ immuadmin database update replicadb -p 3324 \
 database 'replicadb' {replica: false} successfully updated
 ```
 
-> Note that the number of required sync followers may be temporarily lowered due to the loss of the primary node.
+> Note that the number of required sync replicas may be temporarily lowered due to the loss of the primary node.
 
 #### Step 3. Switch other replicas to follow new primary
 
 ```shell
 $ immuadmin database update replicadb -p 3325 \
-   --replication-master-address 127.0.0.1 \
-   --replication-master-database replicadb \
-   --replication-master-port 3324
+   --replication-primary-host 127.0.0.1 \
+   --replication-primary-port 3324 \
+   --replication-primary-database replicadb
 ```
 
 #### Step 4. Truncate precommitted transactions on other replicas if needed
@@ -375,7 +376,7 @@ It may happen that the new replica will reject synchronizing with the new primar
 In such case immudb will report an error in logs:
 
 ```text
-immudb 2022/10/11 15:57:42 ERROR: follower precommit state at 'replicadb' diverged from master's
+immudb 2022/10/11 15:57:42 ERROR: replica precommit state at 'replicadb' diverged from primary's
 ```
 
 To fix this issue the replica may need to discard precommited transactions.
