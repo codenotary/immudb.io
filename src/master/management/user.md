@@ -2,6 +2,8 @@
 
 <WrappedSection>
 
+## Creating users and assigning permissions
+
 User management is exposed with following methods:
 
 * CreateUser
@@ -235,3 +237,44 @@ If you're using another development language, please refer to the [immugw](../co
 ::::
 
 <br/>
+
+<WrappedSection>
+
+## Changing user's password
+
+Changing user's password can be done by either the sysadmin user (which can be done for any user in the database)
+or by user with Admin permission to at least one database that has created the user whose password is changed:
+
+```bash
+$ immuadmin user changepassword user
+Choose a password for user:
+Confirm password:
+user's password has been changed
+```
+
+The sysadmin user can change his own password the same way but it requires confirming the existing password:
+
+```bash
+$ immuadmin user changepassword immudb
+Old password:
+Choose a password for immudb:
+Confirm password:
+immudb's password has been changed
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+## Emergency reset of sysadmin user password
+
+If the current password of the sysadmin user is not known, it can be reset by running the immudb server with password reset option:
+
+```bash
+immudb --force-admin-password --admin-password <new-password>
+```
+
+The `--force-admin-password` flag ensures that the sysadmin user will have its password reset to the one given through
+the `--admin-password` option.
+
+</WrappedSection>
