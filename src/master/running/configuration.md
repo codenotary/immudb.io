@@ -24,6 +24,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `detached`                      | `false`    | run immudb in background                                                                             |
 | `devmode`                       | `false`    | enable dev mode: accept remote connections without auth                                              |
 | `dir`                           | `./data`   | data folder                                                                                          |
+| `force-admin-password`          | `false`    | if true, reset the admin password to the one passed through admin-password option upon startup       |
 | `logfile`                       | ``         | log path with filename. E.g. /tmp/immudb/immudb.log                                                  |
 | `logformat`                     | `text`     | log format e.g. text/json                                                                            |
 | `maintenance`                   | `false`    | override the authentication flag                                                                     |
