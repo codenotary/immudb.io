@@ -83,3 +83,78 @@ When running immudb as a service, `immudb service install` allows to specify the
 Settings specified via environment variables take override the configuration file. They are specified in the form of `IMMUDB_`, for example `IMMUDB_DIR` specifies the `dir` variable.
 
 </WrappedSection>
+
+<WrappedSection>
+
+### Logging Levels
+
+The `LOG_LEVEL` environment variable sets the log level to be emitted from immudb logs. Valid logging level settings are `error`, `warn`, `info`(default), and `debug`. Logs that are equal to, or above, the specified level will be emitted. Log level `error` has the highest level, `debug` being the lowest.
+
+You can set the `LOG_LEVEL` when running immudb either by setting the environment variable, or by running the command as below:
+
+```
+LOG_LEVEL=error ./immudb
+```
+
+#### Levels
+
+##### info
+
+The `info` severity is used for informational messages that do not require action.
+
+##### warn
+
+The `warn` severity is used for messages that may require special handling, but does not affect normal operation.
+
+##### error
+
+The `error` severity is used for messages that require special handling, where a normal database operation could not proceed as expected. It does not block the database.
+
+##### debug
+
+The `debug` severity is used for messages that are used for debugging purpose for the database.
+
+### Logging formats
+
+Two logging format options are available: `text` and `json`. The default logging format setting is the `text`. The `json` format is available when specified.
+
+#### Examples of log output:
+
+##### Normal
+
+###### Command:
+
+```
+./immudb
+```
+
+###### Output:
+
+```bash
+immudb 2022/11/17 14:30:02 INFO: Creating database 'systemdb' {replica = false}...
+immudb 2022/11/17 14:30:02 INFO: Binary Linking up to date at 'data/systemdb'
+immudb 2022/11/17 14:30:02 INFO: Index 'data/systemdb/index' {ts=0, discarded_snapshots=0} successfully loaded
+immudb 2022/11/17 14:30:02 INFO: Indexing in progress at 'data/systemdb'
+immudb 2022/11/17 14:30:02 INFO: Flushing index 'data/systemdb/index' {ts=0, cleanup_percentage=0.00/0.00, since_cleanup=0} requested via SnapshotSince...
+immudb 2022/11/17 14:30:02 INFO: Index 'data/systemdb/index' {ts=0, cleanup_percentage=0.00/0.00} successfully flushed
+```
+
+##### JSON
+
+###### Command:
+
+```
+./immudb --logformat=json
+```
+
+###### Output:
+
+```bash
+{"caller":"codenotary/immudb/pkg/database/database.go:179","component":"github.com/codenotary/immudb/pkg/database.OpenDB","level":"info","message":"Opening database 'systemdb' {replica = false}...","module":"immudb","timestamp":"2022-11-17T14:32:28.890774+05:30"}
+{"caller":"codenotary/immudb/embedded/store/immustore.go:553","component":"github.com/codenotary/immudb/embedded/store.OpenWith","level":"info","message":"Binary Linking up to date at 'data/systemdb'","module":"immudb","timestamp":"2022-11-17T14:32:28.898035+05:30"}
+{"caller":"codenotary/immudb/embedded/tbtree/tbtree.go:351","component":"github.com/codenotary/immudb/embedded/tbtree.Open","level":"info","message":"Reading snapshots at 'data/systemdb/index/commit'...","module":"immudb","timestamp":"2022-11-17T14:32:28.898296+05:30"}
+{"caller":"codenotary/immudb/embedded/tbtree/tbtree.go:669","component":"github.com/codenotary/immudb/embedded/tbtree.OpenWith","level":"info","message":"Index 'data/systemdb/index' {ts=2, discarded_snapshots=0} successfully loaded","module":"immudb","timestamp":"2022-11-17T14:32:28.904722+05:30"}
+```
+
+
+</WrappedSection>
