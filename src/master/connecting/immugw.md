@@ -4,11 +4,11 @@
 
 immugw is a REST proxy that connects to immudb and provides a RESTful interface for applications. We recommend running immudb and immugw on separate machines to enhance security. 
 
-You may download the immugw binary from [the latest releases on Github](https://github.com/codenotary/immugw/releases/latest). Once you have downloaded immugw, rename it to `immugw`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.1.0 for linux amd64:
+You may download the immugw binary from [the latest releases on Github](https://github.com/codenotary/immugw/releases/latest). Once you have downloaded immugw, rename it to `immugw`, make sure to mark it as executable, then run it. The following example shows how to obtain v1.3.0 for linux amd64:
 
 ```bash
-$ wget https://github.com/codenotary/immugw/releases/download/v1.1.0/immugw-v1.1.0-linux-amd64
-$ mv immugw-v1.1.0-linux-amd64 immugw
+$ wget https://github.com/codenotary/immugw/releases/download/v1.3.0/immugw-v1.3.0-linux-amd64
+$ mv immugw-v1.3.0-linux-amd64 immugw
 $ chmod +x immugw
 
 # run help to find out about possible arguments
@@ -96,13 +96,13 @@ immugw can be configured using environment variables, flags or a config file.
 
 You can find the swagger schema here:
 
-[swagger immugw](https://github.com/codenotary/immudb/blob/master/pkg/api/schema/schema.swagger.json)
+[swagger immugw](https://github.com/codenotary/immugw/blob/master/swagger.json)
 
 If you want to run the Swagger UI, simply run the following Docker command after you cloned this repo:
 
 ```bash
-$ wget https://github.com/codenotary/immudb/blob/master/pkg/api/schema/schema.swagger.json
-$ docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/schema.swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
+$ wget https://github.com/codenotary/immugw/blob/master/swagger.json
+$ docker run -d -it -p 8081:8080 --name swagger-immugw -v ${PWD}/swagger.json:/openapi.json -e SWAGGER_JSON=/openapi.json  swaggerapi/swagger-ui
 ```
 
 </WrappedSection>
