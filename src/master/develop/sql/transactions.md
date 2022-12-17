@@ -34,8 +34,75 @@ To commit a transaction, you must call the `Commit()` method.
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+```java
+package io.codenotary.immudb.helloworld;
+
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.sql.SQLQueryResult;
+import io.codenotary.immudb4j.sql.SQLValue;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            client.beginTransaction();
+
+            client.sqlExec(
+                    "CREATE TABLE IF NOT EXISTS mytable(id INTEGER, title VARCHAR[256], active BOOLEAN, PRIMARY KEY id)");
+
+            final int rows = 10;
+
+            for (int i = 0; i < rows; i++) {
+                client.sqlExec("UPSERT INTO mytable(id, title, active) VALUES (?, ?, ?)",
+                        new SQLValue(i),
+                        new SQLValue(String.format("title%d", i)),
+                        new SQLValue(i % 2 == 0));
+            }
+
+            SQLQueryResult res = client.sqlQuery("SELECT id, title, active FROM mytable");
+
+            while (res.next()) {
+                System.out.format("('%s', '%s')\n", res.getInt(0), res.getString(1), res.getBoolean(2));
+
+            }
+
+            client.commitTransaction();
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+}
+```
 :::
 
 ::: tab Python

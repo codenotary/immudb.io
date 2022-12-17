@@ -43,33 +43,65 @@ if __name__ == "__main__":
 ::: tab Java
 
 ```java
-// Using getAll:
-List<String> keys = Arrays.asList("key1", "key2", "key3");
-List<KV> got = immuClient.getAll(keys);
+package io.codenotary.immudb.helloworld;
 
-// Using execAll for setting multiple KVs at once:
-byte[] item1 = "execAll_key1".getBytes(StandardCharsets.UTF_8);
-byte[] item2 = "execAll_key2".getBytes(StandardCharsets.UTF_8);
+import java.util.Arrays;
+import java.util.List;
 
-immuClient.execAll(
-        Arrays.asList(                  // Providing just a kvList, which is a List< Pair<byte[], byte[]> >.
-                Pair.of(item1, item1),
-                Pair.of(item2, item2)
-        ),
-        null,                          // No refList provided.
-        null                           // No zaddList provided.
-);
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
 
-// Using execAll for setting multiple references and doing zAdd(s):
-immuClient.execAll(
-        null,                          // No kvList provided.
-        Arrays.asList(                 // The refList.
-                Pair.of("ref1".getBytes(StandardCharsets.UTF_8), item1),
-                Pair.of("ref2".getBytes(StandardCharsets.UTF_8), item2)
-        ),
-        // The zaddList.
-        Collections.singletonList(Triple.of("set1", 1.0, "execAll_key1"))
-);
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] value1 = { 0, 1, 2, 3 };
+            byte[] value2 = { 4, 5, 6, 7 };
+
+            client.set("key1", value1);
+            client.set("key2", value2);
+
+            List<String> keys = Arrays.asList("key1", "key2");
+            List<Entry> entries = client.getAll(keys);
+
+            for (Entry entry : entries) {
+                System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+}
 ```
 
 :::
@@ -152,16 +184,57 @@ if __name__ == "__main__":
 ::: tab Java
 
 ```java
-List<KV> kvs = Arrays.asList(
-    new KVPair("key1", "val1".getBytes(StandardCharsets.UTF_8)),
-    new KVPair("key2", "val2".getBytes(StandardCharsets.UTF_8)),
-);
+package io.codenotary.immudb.helloworld;
 
-KVList kvList = KVList.newBuilder().addAll(kvs).build();
-try {
-    immuClient.setAll(kvList);
-} catch (CorruptedDataException e) {
-    // ...
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.KVListBuilder;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] value1 = { 0, 1, 2, 3 };
+            byte[] value2 = { 4, 5, 6, 7 };
+
+            KVListBuilder kvListBuilder = KVListBuilder.newBuilder().
+                add("key1", value1).
+                add("key2", value2);
+
+            client.setAll(kvListBuilder.entries());
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 ```
 
@@ -261,30 +334,8 @@ if __name__ == "__main__":
 
 ::: tab Java
 
-```java
-byte[] item1 = "execAll_key1".getBytes(StandardCharsets.UTF_8);
-byte[] item2 = "execAll_key2".getBytes(StandardCharsets.UTF_8);
-
-// Using execAll just for setting multiple KVs:
-TxMetadata txMd = immuClient.execAll(
-        Arrays.asList(                 // The kvList.
-                Pair.of(item1, item1),
-                Pair.of(item2, item2)
-        ),
-        null,                         // No refList provided.
-        null                          // No zaddList provided.
-);
-
-immuClient.execAll(
-        null,                         // No kvList provided.
-        Arrays.asList(                // The refList.
-                Pair.of("ref1".getBytes(StandardCharsets.UTF_8), item1),
-                Pair.of("ref2".getBytes(StandardCharsets.UTF_8), item2)
-        ),
-        // The zaddList (even if it has one single entry).
-        Collections.singletonList(Triple.of("set1", 1.0, "execAll_key1"))
-);
-```
+This feature is not yet supported or not documented.
+Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
 
 :::
 
@@ -377,24 +428,64 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 ::: tab Java
 
 ```java
-String key = "txtest-t2";
-byte[] val1 = "immuRocks!".getBytes(StandardCharsets.UTF_8);
-byte[] val2 = "immuRocks! Again!".getBytes(StandardCharsets.UTF_8);
+package io.codenotary.immudb.helloworld;
 
-long initialTxId = 1;
-try {
-    TxMetadata txMd = immuClient.set(key, val1);
-    initialTxId = txMd.id;
-    txMd = immuClient.set(key, val2);
-} catch (CorruptedDataException e) {
-    Assert.fail("Failed at set.", e);
+import java.util.List;
+
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.Tx;
+import io.codenotary.immudb4j.TxHeader;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] value1 = { 0, 1, 2, 3 };
+            byte[] value2 = { 4, 5, 6, 7 };
+
+            TxHeader hdr = client.set("key1", value1);
+            client.set("key2", value2);
+
+            List<Tx> txs = client.txScanAll(hdr.getId());
+
+            for (Tx tx : txs) {
+                System.out.format("tx '%d'\n", tx.getHeader().getId());
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
-            // This is a .txScan(initialTxId, limit, desc)
-List<Tx> txs = immuClient.txScan(initialTxId, 1, false);
-// We expect one Tx entry in this list.
-
-txs = immuClient.txScan(initialTxId, 2, false);
-// We expect two Tx entries in this list.
 ```
 
 :::

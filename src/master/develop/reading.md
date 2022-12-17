@@ -106,19 +106,56 @@ if __name__ == "__main__":
 ::: tab Java
 
 ```java
-String key = "key1";
-byte[] value = new byte[]{1, 2, 3};
+package io.codenotary.immudb.helloworld;
 
-try {
-    immuClient.set(key, value);
-} catch (CorruptedDataException e) {
-    // ...
-}
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
 
-try {
-    value = immuClient.get(key);
-} catch (Exception e) {
-    // ...
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            client.set("myKey", "myValue".getBytes());
+
+            Entry entry = client.get("myKey");
+
+            byte[] value = entry.getValue();
+
+            System.out.format("('%s', '%s')\n", "myKey", new String(value));
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 ```
 
@@ -257,35 +294,61 @@ if __name__ == "__main__":
 ::: tab Java
 
 ```java
-byte[] key = "key1".getBytes(StandardCharsets.UTF_8);
-byte[] val = new byte[]{1, 2, 3, 4, 5};
-TxMetadata txMd = null;
+package io.codenotary.immudb.helloworld;
 
-try {
-    txMd = immuClient.set(key, val);
-} catch (CorruptedDataException e) {
-    // ...
-}
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
-// The standard (traditional) get options:
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.TxHeader;
 
-KV kv = immuClient.getAt(key, txMd.id);
+public class App {
 
-kv = immuClient.getSince(key, txMd.id);
+    public static void main(String[] args) {
 
-// The verified get flavours:
+        ImmuClient client = null;
 
-Entry vEntry = null;
-try {
-    vEntry = immuClient.verifiedGetAt(key, vEntry.txId);
-} catch (VerificationException e) {
-    // ...
-}
+        try {
 
-try {
-    vEntry = immuClient.verifiedGetSince(key, vEntry.txId);
-} catch (VerificationException e) {
-    // ...
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key = "key1".getBytes(StandardCharsets.UTF_8);
+            byte[] value = new byte[]{1, 2, 3, 4, 5};
+
+            TxHeader hdr = client.set(key, value);
+
+            Entry entry = client.getAtTx(key, hdr.getId());
+
+            System.out.format("('%s', '%s')\n", new String(key), Arrays.toString(entry.getValue()));
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 ```
 
@@ -378,8 +441,68 @@ Do you want to make a feature request or help out? Open an issue on [Python sdk 
 :::
 
 ::: tab Java
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+```java
+package io.codenotary.immudb.helloworld;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.TxHeader;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key = "myKey1".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[]{1, 2, 3, 4, 5};
+            byte[] value2 = new byte[]{5, 4, 3, 2, 1};
+
+            client.set(key, value1);
+            client.set(key, value2);
+
+            Entry entry1 = client.getAtRevision(key, 1);
+            Entry entry2 = client.getAtRevision(key, 2);
+
+            System.out.format("('%s', '%s')@rev%d\n", new String(key), Arrays.toString(entry1.getValue()), 1);
+            System.out.format("('%s', '%s')@rev%d\n", new String(key), Arrays.toString(entry2.getValue()), 2);
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+}
+```
 :::
 
 ::: tab .NET
@@ -483,17 +606,75 @@ if __name__ == "__main__":
 ::: tab Java
 
 ```java
-TxMetadata txMd = null;
-try {
-    txMd = immuClient.verifiedSet(key, val);
-} catch (VerificationException e) {
-    // ...
+package io.codenotary.immudb.helloworld;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import io.codenotary.immudb4j.TxEntry;
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.KVListBuilder;
+import io.codenotary.immudb4j.Tx;
+import io.codenotary.immudb4j.TxHeader;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key1 = "myKey1".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[]{1, 2, 3};
+
+            byte[] key2 = "myKey2".getBytes(StandardCharsets.UTF_8);
+            byte[] value2 = new byte[]{4, 5, 6};
+
+            KVListBuilder kvListBuilder = KVListBuilder.newBuilder().
+                add(key1, value1).
+                add(key2, value2);
+
+            TxHeader hdr = client.setAll(kvListBuilder.entries());
+
+            Tx tx = client.txById(hdr.getId());
+
+            for (TxEntry txEntry : tx.getEntries()) {
+                System.out.format("'%s'\n", new String(txEntry.getKey()));
+            }
+            
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
-try {
-    Tx tx = immuClient.txById(txMd.id);
-} catch (MaxWidthExceededException | NoSuchAlgorithmException e) {
-    // ...
-}
+
 ```
 
 :::

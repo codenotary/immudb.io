@@ -25,14 +25,69 @@ It's possible to retrieve all the values for a particular key with the history c
 ::: tab Java
 
 ```java
-try {
-    immuClient.set("hello", value1);
-    immuClient.set("hello", value2);
-} catch (CorruptedDataException e) {
-    // ...
+package io.codenotary.immudb.helloworld;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key1 = "myKey1".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[] { 1, 2, 3 };
+            byte[] value2 = new byte[] { 4, 5, 6 };
+
+            client.set(key1, value1);
+            client.set(key1, value2);
+
+            Iterator<Entry> it = client.history(key1, false, 0, 0);
+
+            while (it.hasNext()) {
+                Entry entry = it.next();
+
+                System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 
-List<KV> historyResponse1 = immuClient.history("hello", 10, 0, false, 1);
 ```
 Note that, similar with many other methods, `history` method is overloaded to allow different kinds/set of parameters.
 
@@ -212,19 +267,71 @@ An ordinary `scan` command and a reversed one.
 ::: tab Java
 
 ```java
-byte[] value1 = {0, 1, 2, 3};
-byte[] value2 = {4, 5, 6, 7};
+package io.codenotary.immudb.helloworld;
 
-try {
-    immuClient.set("scan1", value1);
-    immuClient.set("scan2", value2);
-} catch (CorruptedDataException e) {
-    // ...
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Iterator;
+
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key1 = "myKey1".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[] { 1, 2, 3 };
+
+            byte[] key2 = "myKey2".getBytes(StandardCharsets.UTF_8);
+            byte[] value2 = new byte[] { 4, 5, 6 };
+
+            client.set(key1, value1);
+            client.set(key2, value2);
+
+            Iterator<Entry> it = client.scan("myKey");
+
+            while (it.hasNext()) {
+                Entry entry = it.next();
+
+                System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 
-// Example of using scan(prefix, sinceTxId, limit, desc).
-List<KV> scanResult = immuClient.scan("scan", 1, 5, false);
-// We expect two entries in the result.
 ```
 
 `scan` is an overloaded method, therefore multiple flavours of it with different parameter options exist.
@@ -425,30 +532,66 @@ Example with verifications
 ::: tab Java
 
 ```java
-byte[] key = "testRef".getBytes(StandardCharsets.UTF_8);
-byte[] val = "abc".getBytes(StandardCharsets.UTF_8);
+package io.codenotary.immudb.helloworld;
 
-TxMetadata txMd = null;
-try {
-    txMd = immuClient.set(key, val);
-} catch (CorruptedDataException e) {
-    // ...
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key = "myKey".getBytes(StandardCharsets.UTF_8);
+            byte[] value = new byte[] { 1, 2, 3 };
+
+            byte[] myRef = "myRef".getBytes(StandardCharsets.UTF_8);
+            
+            client.set(key, value);
+
+            client.setReference(myRef, key);
+
+            Entry entry = client.get(myRef);
+
+            System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 
-byte[] ref1Key = "ref1_to_testRef".getBytes(StandardCharsets.UTF_8);
-byte[] ref2Key = "ref2_to_testRef".getBytes(StandardCharsets.UTF_8);
-
-try {
-    txMd = immuClient.setReference(ref1Key, key);
-} catch (CorruptedDataException e) {
-    // ...
-}
-
-try {
-    txMd = immuClient.verifiedSetReference(ref2Key, key);
-} catch (VerificationException e) {
-    // ...
-}
 ```
 :::
 
@@ -644,8 +787,69 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 
 ::: tab Java
 
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+```java
+package io.codenotary.immudb.helloworld;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key = "myKey".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[] { 1, 2, 3 };
+            byte[] value2 = new byte[] { 4, 5, 6 };
+
+            client.set(key, value1);
+
+            byte[] myRef = "myRef".getBytes(StandardCharsets.UTF_8);
+            client.setReference(myRef, key);
+
+            client.set(key, value2);
+
+            Entry entry = client.get(myRef);
+
+            System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+}
+```
 
 :::
 
@@ -794,29 +998,69 @@ It's possible to bind a reference to a key on a specific transaction using `SetR
 ::: tab Java
 
 ```java
-byte[] key = "testRef".getBytes(StandardCharsets.UTF_8);
-byte[] val = "abc".getBytes(StandardCharsets.UTF_8);
+package io.codenotary.immudb.helloworld;
 
-byte[] refKey = "ref1_to_testRef".getBytes(StandardCharsets.UTF_8);
-TxMetadata setTxMd = null;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
-try {
-    txMd = immuClient.set(key, val);
-} catch (CorruptedDataException e) {
-    // ...
+import io.codenotary.immudb4j.Entry;
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.TxHeader;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] key = "myKey".getBytes(StandardCharsets.UTF_8);
+            byte[] value1 = new byte[] { 1, 2, 3 };
+            byte[] value2 = new byte[] { 4, 5, 6 };
+
+            TxHeader hdr1 = client.set(key, value1);
+
+            byte[] myRef = "myRef".getBytes(StandardCharsets.UTF_8);
+            client.setReference(myRef, key, hdr1.getId());
+
+            client.set(key, value2);
+
+            Entry entry = client.get(myRef);
+
+            System.out.format("('%s', '%s')\n", new String(entry.getKey()), Arrays.toString(entry.getValue()));
+            
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 
-try {
-    immuClient.setReferenceAt(refKey, key, txMd.id);
-} catch (CorruptedDataException e) {
-    // ...
-}
-
-try {
-    txMd = immuClient.verifiedSetReferenceAt(refKey, key, txMd.id);
-} catch (VerificationException e) {
-    // ...
-}
 ```
 
 :::
