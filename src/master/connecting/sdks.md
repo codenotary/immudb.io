@@ -17,7 +17,7 @@ The most well-known and recommended immudb SDK is written in [Golang](https://go
 |----------|----------------------|----------------|---------------------|------------------------------|
 | `go`     | immudb team          | 1.4.0          | [link][sdk-go]      |                              |
 | `python` | immudb team          | 1.4.0          | [link][sdk-python]  |                              |
-| `JAVA`   | immudb team          | 0.9.10.12      | [link][sdk-java]    |                              |
+| `JAVA`   | immudb team          | 1.0.0          | [link][sdk-java]    |                              |
 | `.NET`   | immudb team          | 1.0.5          | [link][sdk-dotnet]  |                              |
 | `NODE`   | immudb team          | 1.0.4          | [link][sdk-node]    | Verification is not working  |
 | `ruby`   | Community ([Ankane]) | 0.1.1          | [link][sdk-ruby]    |                              |

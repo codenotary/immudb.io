@@ -13,9 +13,64 @@ It's possible to achieve deletion by using the `Delete` function. It provides lo
 :::
 
 ::: tab Java
+```java
+package io.codenotary.immudb.helloworld;
 
-This feature is not yet supported or not documented.
-Do you want to make a feature request or help out? Open an issue on [Java sdk github project](https://github.com/codenotary/immudb4j/issues/new)
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.exceptions.KeyNotFoundException;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] value1 = { 0, 1, 2, 3 };
+
+            client.set("key1", value1);
+
+            client.delete("key1");
+
+            try {
+                client.get("key1");
+                throw new RuntimeException("key not found expected");
+            } catch (KeyNotFoundException e) {
+                // exception is expected
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+}
+```
 :::
 
 ::: tab .NET

@@ -69,34 +69,69 @@ Reading data from the set can be done using the following operations:
 ::: tab Java
 
 ```java
-byte[] value1 = {0, 1, 2, 3};
-byte[] value2 = {4, 5, 6, 7};
+package io.codenotary.immudb.helloworld;
 
-try {
-    immuClient.set("zadd1", value1);
-    immuClient.set("zadd2", value2);
-} catch (CorruptedDataException e) {
-    // ...
+import java.util.Iterator;
+
+import io.codenotary.immudb4j.FileImmuStateHolder;
+import io.codenotary.immudb4j.ImmuClient;
+import io.codenotary.immudb4j.ZEntry;
+
+public class App {
+
+    public static void main(String[] args) {
+
+        ImmuClient client = null;
+
+        try {
+
+            FileImmuStateHolder stateHolder = FileImmuStateHolder.newBuilder()
+                    .withStatesFolder("./immudb_states")
+                    .build();
+
+            client = ImmuClient.newBuilder()
+                    .withServerUrl("127.0.0.1")
+                    .withServerPort(3322)
+                    .withStateHolder(stateHolder)
+                    .build();
+
+            client.openSession("defaultdb", "immudb", "immudb");
+
+            byte[] value1 = { 0, 1, 2, 3 };
+            byte[] value2 = { 4, 5, 6, 7 };
+
+            client.set("key1", value1);
+            client.set("key2", value2);
+
+            client.zAdd("set1", "key1", 1);
+
+            client.zAdd("set1", "key2", 2);
+
+            Iterator<ZEntry> it = client.zScan("set1");
+           
+            while (it.hasNext()) {
+                ZEntry zentry = it.next();
+                System.out.format("('%s', '%f')\n", new String(zentry.getKey()), zentry.getScore());
+            }
+
+            client.closeSession();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (client != null) {
+                try {
+                    client.shutdown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
 }
 
-TxMetadata set1TxMd = null;
-try {
-    immuClient.zAdd("set1", 1, "zadd1");
-    set1TxMd = immuClient.zAdd("set1", 2, "zadd2");
-
-    immuClient.zAddAt("set1", 3, "zadd3", set1TxMd.id);
-
-    immuClient.zAdd("set2", 2, "zadd1");
-    immuClient.zAdd("set2", 1, "zadd2");
-} catch (CorruptedDataException e) {
-    // ...
-}
-
-List<KV> zScan1 = immuClient.zScan("set1", set1TxMd.id, 5, false);
-// We expect two KVs with key names "zadd1" and "zadd2".
-
-List<KV> zScan2 = immuClient.zScan("set2", 5, false);
-// Same as before, we expect two KVs with key names "zadd2" and "zadd1".
 ```
 
 :::
