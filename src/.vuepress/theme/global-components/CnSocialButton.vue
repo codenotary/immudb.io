@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .social-button-icon {
   height: 20px;
   width: auto;
