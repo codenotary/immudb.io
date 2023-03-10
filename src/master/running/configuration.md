@@ -50,8 +50,10 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `replication-primary-password`  | ``         | password in the primary database used for replication of systemdb and defaultdb                      |
 | `replication-primary-port`      | `3322`     | primary database port (if replica=true) (default 3322)                                               |
 | `replication-primary-username`  | ``         | username in the primary database used for replication of systemdb and defaultdb                      |
+| `replication-skip-integrity-check` | `false` | disable integrity check when reading data during replication |
 | `replication-sync-acks`         | `0`        | set a minimum number of replica acknowledgements required before transactions can be committed       |
 | `replication-sync-enabled`      | `false`    | enable synchronous replication                                                                       |
+| `replication-wait-for-indexing` | `false` | wait for indexing to be up to date during replication |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |

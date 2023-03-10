@@ -1,4 +1,4 @@
-#!/bin/bash
+.#!/bin/bash
 
 set -euo pipefail
 
@@ -19,7 +19,7 @@ cd "$DIR/src"
 TMP_DIR="$(mktemp -d -t examples-check-XXXXXXXXXX)"
 cp -R "code-examples/go" "${TMP_DIR}"
 
-ls -1 | grep -E '^([0-9.]+|master)$' | while read N; do
+ls -1 | grep -E '^([0-9.]+)$' | while read N; do
 
     VER="$N"
     if [[ "$VER" != "master" ]]; then
