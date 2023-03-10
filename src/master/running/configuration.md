@@ -53,6 +53,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `replication-skip-integrity-check` | `false` | disable integrity check when reading data during replication |
 | `replication-sync-acks`         | `0`        | set a minimum number of replica acknowledgements required before transactions can be committed       |
 | `replication-sync-enabled`      | `false`    | enable synchronous replication                                                                       |
+| `replication-wait-for-indexing` | `false` | wait for indexing to be up to date during replication |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |
