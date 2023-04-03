@@ -87,6 +87,6 @@
     "got": "^11.8.5",
     "decode-uri-component": "^0.2.1",
     "http-cache-semantics": "^4.1.1",
-    "loader-utils": "^1.4.1"
+    "loader-utils": "^2.0.3"
   }
 }
