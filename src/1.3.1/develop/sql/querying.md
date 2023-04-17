@@ -337,7 +337,7 @@ Internally offsets are implemented by skipping entries from the result on the se
 ```sql
 SELECT *
 FROM products;
-OFFSET 30 LIMIT 10
+LIMIT 10 OFFSET 30
 ```
 
 ```sql
@@ -345,7 +345,7 @@ SELECT id, customer_name, email
 FROM customers
 WHERE country = 'SE' AND city = 'Arvika';
 ORDER BY customer_name
-OFFSET 100 LIMIT 50
+LIMIT 50 OFFSET 100
 ```
 
 </WrappedSection>
