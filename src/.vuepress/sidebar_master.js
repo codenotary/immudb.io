@@ -48,6 +48,7 @@ export default version => {
   immudbInProduction.children.push(`${version}/production/s3-storage`);
   immudbInProduction.children.push(`${version}/production/backwards-compatibility`);
   immudbInProduction.children.push(`${version}/production/performance-guide`);
+  immudbInProduction.children.push(`${version}/production/retention`);
   /* RUNNING IMMUDB IN PRODUCTION SECTION END */
 
   /* CONNECTING SECTION START */
