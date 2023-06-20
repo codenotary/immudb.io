@@ -39,7 +39,7 @@ Flags:
       --retention-period duration                    duration of time to retain data in storage
       --truncation-frequency duration                set the truncation frequency for the database (default 24h0m0s)
 ```
-In this process, a background process is setup on creation of the database which runs every `truncation-frequency` seconds, and then truncates the data beyong the `retention-period`
+A background process is setup on creation of the database which runs every `truncation-frequency` seconds, and then truncates the data beyond the `retention-period`
 
 Please note that the default value of the `truncation-frequency` is set to 24 hours, and it does not need to be set explicitly when creating/updating a database.
 
