@@ -46,6 +46,12 @@ To run full restore, execute `immuadmin hot-restore <database>` command, specify
 
 If database already exists, restore process fails.
 
+::: tip
+To boost performance while restoring from a backup, immudb could be run without strong durability warranties i.e. `./immudb --synced=false`. If a reboot or crash occurs while restoring from a backup, you may have to restart the restore process.
+
+Synced mode prevents data loss from unexpected crashes and shutdowns, but affects performance (default true), which is why you may want to restart immudb server with default settings after restoring.
+:::
+
 ### Incremental restore
 
 If database already exists, it is possible to append new data from backup file to the database. In this case user has to specify `--append` flag.
