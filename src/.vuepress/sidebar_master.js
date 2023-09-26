@@ -29,6 +29,17 @@ export default version => {
   runningImmudb.children.push(`${version}/running/configuration`);
   /* RUNNING IMMUDB SECTION END */
 
+  /* RUNNING SAMPLES SECTION START */
+  const samplesImmudb = {
+    title: 'Running samples',
+    collapsable: true,
+    children: [
+    ]
+  };
+
+  samplesImmudb.children.push(`${version}/samples/go`);
+  /* RUNNING SAMPLES SECTION END */
+
   /* IMMUDB IN PRODUCTION SECTION START */
   const immudbInProduction = {
     title: 'immudb in production',
@@ -144,6 +155,7 @@ export default version => {
 
   sidebar.push(introduction);
   sidebar.push(runningImmudb);
+  sidebar.push(samplesImmudb);
   sidebar.push(immudbInProduction);
   sidebar.push(connecting);
   sidebar.push(management);
