@@ -1,5 +1,11 @@
 # Indexes
 
+::: tip
+If you create lots of indexes, you may want to adjust default settings to reduce your memory footprint.
+
+Indexing parameters, including cache-size, flush-thresholds, and max-active-snapshots, can be lowered as needed, but take into account more IO reads and writes, which may lead to poor indexing performance.
+:::
+
 <WrappedSection>
 
 immudb indexes can be used for a quick search of rows

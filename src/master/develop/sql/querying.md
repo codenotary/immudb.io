@@ -329,6 +329,27 @@ SELECT * FROM mytable SINCE TX @initialTx BEFORE now()
 
 <WrappedSection>
 
+### Row History
+
+Historical queries over physical tables (row revisions) is also supported.
+Result sets over `history of <table>` will include the additional `_rev` column, denoting the row revision number,
+
+Historical queries can use the additional `_rev` column as usual:
+
+```sql
+SELECT _rev, price
+FROM (HISTORY OF products)
+WHERE id = 2;
+```
+
+```sql
+SELECT * FROM (HISTORY OF mytable) WHERE _rev = @rev
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
 ### Skipping entries with OFFSET clause
 
 Using `OFFSET` clause in SQL queries can be used to skip an initial list of entries from the result set.

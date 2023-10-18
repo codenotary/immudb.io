@@ -12,6 +12,20 @@ in such altered tables.
 
 <WrappedSection>
 
+### RENAME TABLE
+
+An existing table can be renamed.
+The table with the new name must not exist in the database
+when performing the alter operation.
+
+```sql
+ALTER TABLE customer RENAME TO customers;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
 ### ADD COLUMN
 
 A new column can be added to an existing table.

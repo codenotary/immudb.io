@@ -23,7 +23,7 @@ SQLQuery(sql, params) SQLQueryResult, error
 It's possible to rollback a transaction by calling the `Rollback()` method. In this case, the transaction object is no longer valid and should not be used anymore.
 To commit a transaction, you must call the `Commit()` method.
 
-**Note**: At the moment immudb support only 1 read-write transaction at a time, so it's up the application to ensure that only one read-write transaction is open at a time, or to handle read conflict error. In such case the error code returned by sdk will be `25P02` **CodInFailedSqlTransaction**.
+**Note**: immudb implements multi-version concurrency control. Thus multiple read-write transactions may be concurrently processed. It's up the application to handle read conflict errors. In case a read-write conflict is detected, the sdk will return the `25P02` **CodInFailedSqlTransaction** error code.
 
 </WrappedSection>
 
