@@ -76,24 +76,28 @@ The optional `ON CONFLICT` clause specifies an alternative action to raising a u
 
 <WrappedSection>
 
-### Timestamp, NOW() and CAST() built-in function
+### Built-in functions: now(), random_uuid() and cast() 
 
-The built-in `NOW()` function returns the transaction creation time as seen on the server.
+The built-in `now()` function returns the transaction creation time as seen on the server.
 In the scope of a single transaction, it always returns the same result time.
 
-The `CAST` function can be used to convert a string or an integer to a timestamp value.
+The built-in `random_uuid()` function returns the new UUID value each time.
+
+The `cast` function can be used to convert a string or an integer to a timestamp value.
+The casting expression can be shortened by using `::`
+e.g. the expression `100`::INTEGER converts the string `100` into an integer value.
 
 The integer value is interpreted as a Unix timestamp (number of seconds since the epoch time).
 
-The string value passed to the `CAST` function must be in one of the following formats:
+The string value passed to the `cast` function must be in one of the following formats:
 `2021-12-08`,  `2021-12-08 17:21`, `2021-12-08 17:21:59`, `2021-12-08 17:21:59.342516`.
 Time components not specified in the string are set to 0.
 
 ```sql
-UPSERT INTO products (id, product, price, created_at)
+UPSERT INTO products (xid, product, price, created_at)
 VALUES
-( 3, 'Bread', '$1.50', NOW() ),
-( 4, 'Spinach', '$0.99', CAST('2021-02-01' AS TIMESTAMP) )
+( random_uuid(), 'Bread', '$1.50', now() ),
+( 'c698d13a-68cd-11ee-8c99-0242ac120002'::UUID, 'Spinach', '$0.99', cast('2021-02-01' as TIMESTAMP) )
 ```
 
 ```sql

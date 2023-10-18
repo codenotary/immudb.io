@@ -7,6 +7,8 @@
 | VARCHAR   | UTF8-encoded text | Maximum number of bytes in the UTF-8 encoded representation of the string |
 | BLOB      | sequence of bytes | Maximum number of bytes in the sequence |
 | TIMESTAMP | datetime value with microsecond precision | - |
+| FLOAT     | IEEE-754 64-bit floating-point number | - |
+| UUID      | Universally Unique Identifier (UUID), 128-bit value | - |
 
 <br/><br/>
 

@@ -50,3 +50,15 @@ Note: If the index already exists, it is not compared against the provided index
       updated to match it.
 
 </WrappedSection>
+
+<WrappedSection>
+
+### DROP INDEX
+
+An index can be physically deleted. Table data is not deleted and can be queried using either the primary index or any other declared index. Non-unique indexes can be created at any time.
+
+```sql
+DROP INDEX ON customers(surname);
+```
+
+</WrappedSection>

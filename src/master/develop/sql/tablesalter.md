@@ -50,3 +50,17 @@ FROM customers;
 ```
 
 </WrappedSection>
+
+<WrappedSection>
+
+### DROP COLUMN
+
+An existing column can be deleted.
+Prior to removing the column, it is necessary to remove any associated indexes.
+
+```sql
+ALTER TABLE customers
+DROP COLUMN created_at;
+```
+
+</WrappedSection>

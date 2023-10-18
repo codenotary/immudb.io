@@ -121,6 +121,7 @@ export default version => {
   developSQL.children.push(`${version}/develop/sql/datatypes`);
   developSQL.children.push(`${version}/develop/sql/tablescreate`);
   developSQL.children.push(`${version}/develop/sql/tablesalter`);
+  developSQL.children.push(`${version}/develop/sql/tablesdrop`);
   developSQL.children.push(`${version}/develop/sql/insertupdate`);
   developSQL.children.push(`${version}/develop/sql/indexes`);
   developSQL.children.push(`${version}/develop/sql/querying`);
