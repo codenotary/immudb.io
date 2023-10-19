@@ -121,14 +121,28 @@ export default version => {
   developSQL.children.push(`${version}/develop/sql/datatypes`);
   developSQL.children.push(`${version}/develop/sql/tablescreate`);
   developSQL.children.push(`${version}/develop/sql/tablesalter`);
+  developSQL.children.push(`${version}/develop/sql/tablesdrop`);
   developSQL.children.push(`${version}/develop/sql/insertupdate`);
   developSQL.children.push(`${version}/develop/sql/indexes`);
   developSQL.children.push(`${version}/develop/sql/querying`);
   developSQL.children.push(`${version}/develop/sql/catalog`);
   developSQL.children.push(`${version}/develop/sql/sqlstdlib`);
   developSQL.children.push(`${version}/develop/sql/pg`);
-  
+    
   /* DEVELOP SQL SECTION END */
+
+  /* DEVELOP DOCUMENT SECTION START */
+  let developDocument = {
+      title: 'Develop with Document',
+      collapsable: true,
+      children: [
+      ]
+  };
+
+  developDocument.children.push(`${version}/develop/document/datamodel`);
+  developDocument.children.push(`${version}/develop/document/api`);
+
+  /* DEVELOP DOCUMENT SECTION END */
 
   /* EMBEDDED SECTION START */
   let embedded = {
@@ -161,6 +175,7 @@ export default version => {
   sidebar.push(management);
   sidebar.push(developKV);
   sidebar.push(developSQL);
+  sidebar.push(developDocument);
   sidebar.push(embedded);
   sidebar.push(releaseNotes);
   

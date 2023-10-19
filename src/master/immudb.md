@@ -6,7 +6,7 @@
 
 immudb is database with built-in cryptographic proof and verification. It can track changes in sensitive data and the integrity of the history will be protected by the clients, without the need to trust the server.
 
-immudb can operate both as a key-value or relational (SQL) database. You can add new transactions, but deletion or modification of older transactions isn’t allowed, thus making your data immutable. When a key record's value changes over time (such as a bank balance), you can get multiple instances with different timestamps to give you the complete history of that record's changes. You can store a variety of common data types, verification checksums, or JSON objects.
+immudb can operate as a key-value, relational (SQL) or document database, making it a truly no-SQL database. You can add new transactions, but deletion or modification of older transactions isn’t allowed, thus making your data immutable. When a key record's value changes over time (such as a bank balance), you can get multiple instances with different timestamps to give you the complete history of that record's changes. You can store a variety of common data types, verification checksums, or JSON objects.
 
 </WrappedSection>
 
@@ -46,11 +46,11 @@ Depending on your use case, immudb might function as your application's primary 
 
 <WrappedSection>
 
-## Key value and SQL
+## Key value, Document and SQL
 
-immudb can be used as a tamper-proof key value store or SQL database, with audit history capabilities. Within single immudb instance a user can have multiple databases of both types, it is even possible to have KV and SQL withing single database.
+immudb can be used as a tamper-proof key value, document or SQL database, with audit history capabilities. Within single immudb instance a user can have multiple databases of both types, it is even possible to have KV, Document and SQL withing single database.
 
-Key value is a foundation layer for SQL, meaning that SQL is using key value store capabilities underneath.
+Key value is a foundation layer for Document and SQL, meaning that both Document and SQL are using key value store capabilities underneath.
 
 </WrappedSection>
 

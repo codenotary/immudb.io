@@ -12,6 +12,20 @@ in such altered tables.
 
 <WrappedSection>
 
+### RENAME TABLE
+
+An existing table can be renamed.
+The table with the new name must not exist in the database
+when performing the alter operation.
+
+```sql
+ALTER TABLE customer RENAME TO customers;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
 ### ADD COLUMN
 
 A new column can be added to an existing table.
@@ -47,6 +61,20 @@ RENAME COLUMN created_time TO created_at;
 
 SELECT customer_name, created_at
 FROM customers;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### DROP COLUMN
+
+An existing column can be deleted.
+Prior to removing the column, it is necessary to remove any associated indexes.
+
+```sql
+ALTER TABLE customers
+DROP COLUMN created_at;
 ```
 
 </WrappedSection>

@@ -1,5 +1,11 @@
 # Indexes
 
+::: tip
+If you create lots of indexes, you may want to adjust default settings to reduce your memory footprint.
+
+Indexing parameters, including cache-size, flush-thresholds, and max-active-snapshots, can be lowered as needed, but take into account more IO reads and writes, which may lead to poor indexing performance.
+:::
+
 <WrappedSection>
 
 immudb indexes can be used for a quick search of rows
@@ -48,5 +54,17 @@ This includes a use case where the table is not empty which can be used to simpl
 
 Note: If the index already exists, it is not compared against the provided index definition neither it is
       updated to match it.
+
+</WrappedSection>
+
+<WrappedSection>
+
+### DROP INDEX
+
+An index can be physically deleted. Table data is not deleted and can be queried using either the primary index or any other declared index. Non-unique indexes can be created at any time.
+
+```sql
+DROP INDEX ON customers(surname);
+```
 
 </WrappedSection>
