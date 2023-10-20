@@ -70,6 +70,41 @@ curl -X 'POST' \
 }'
 ```
 
+The available types of fields are:
+- STRING
+- INTEGER
+- BOOLEAN
+- DOUBLE
+- UUID
+
+### Add field
+
+A new field can be added to an existing collection.
+
+```bash
+curl -X 'POST' \
+'http://localhost:8080/api/v2/collection/mycollection/field' \
+-H "sessionID: $sessionid" \
+-H 'accept: application/json' \
+-H 'Content-Type: application/json' \
+-d '{
+  "field": {
+    "name": "active",
+    "type": "BOOLEAN"
+  }
+}'
+```
+
+### Remove field
+
+An existing field can be deleted. Prior to removing the field, it is necessary to remove any associated indexes.
+
+```bash
+curl -X 'DELETE' \
+'http://localhost:8080/api/v2/collection/mycollection/field/active' \
+-H "sessionID: $sessionid"
+```
+
 ### Delete collection
 
 It is possible to delete collections, and the physical removal of any declared index will be carried out. The raw data in the transaction commit log have not been altered, but this operation cannot be reversed.
@@ -178,6 +213,17 @@ curl -X 'POST' \
 }'
 ```
 
+The supported operators are:
+
+- EQ: equals to
+- NE: not equals to
+- LT: less than
+- LE: less than or equal to
+- GT: greater than
+- GE: greater than or equal to
+- LIKE: search using regular expressions, for example "value":"(doc)|(flick)" would allow searching for either values containing "doc" or "flick". The syntax of golang regexp is described in [this GitHub repo](https://github.com/google/re2/wiki/Syntax).
+
+
 ### Replace documents
 
 A single or multiple documents can be atomically replaced.
@@ -240,6 +286,33 @@ curl -X 'POST' \
       }
     ],
     "limit": 1
+  }
+}'
+```
+
+### Count documents
+
+It is possible to retrieve the number of documents meeting a given criteria by using the document count endpoint.
+
+```bash
+curl -X 'POST' \
+  'http://localhost:8080/api/v2/collection/mycollection/documents/count' \
+  -H 'accept: application/json' \
+  -H "sessionID: $sessionid" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "query": {
+    "expressions": [
+      {
+        "fieldComparisons": [
+          {
+            "field": "first_name",
+            "operator": "EQ",
+            "value": "Jane"
+          }
+        ]
+      }
+    ]
   }
 }'
 ```
