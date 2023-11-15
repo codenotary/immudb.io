@@ -125,6 +125,7 @@ export default version => {
   developSQL.children.push(`${version}/develop/sql/insertupdate`);
   developSQL.children.push(`${version}/develop/sql/indexes`);
   developSQL.children.push(`${version}/develop/sql/querying`);
+  developSQL.children.push(`${version}/develop/sql/users`);
   developSQL.children.push(`${version}/develop/sql/catalog`);
   developSQL.children.push(`${version}/develop/sql/sqlstdlib`);
   developSQL.children.push(`${version}/develop/sql/pg`);
