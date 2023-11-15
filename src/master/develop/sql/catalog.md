@@ -23,6 +23,8 @@ This source can also be constrained using the `WHERE` clause and the set of colu
 SELECT name FROM DATABASES() WHERE name LIKE '.*db1.*';
 ```
 
+Alternatively, the `SHOW DATABASES` statement returns the list of databases that can be accessed by the current user.
+
 </WrappedSection>
 
 <WrappedSection>
@@ -42,6 +44,8 @@ This source can also be constrained using the `WHERE` clause and the set of colu
 SELECT name FROM TABLES()
 WHERE name like '.*est.*'
 ```
+
+Alternatively, the `SHOW TABLES` statement returns the list of tables in the currently selected database.
 
 </WrappedSection>
 
@@ -64,6 +68,8 @@ Note: because colum names can use reserved identifiers such as `table`, make sur
 SELECT "table", "name", "type" FROM COLUMNS('mytable');
 SELECT name FROM COLUMNS('mytable') WHERE type = 'VARCHAR';
 ```
+
+Alternatively, the `SHOW TABLE mytable` statement will returns the list of columns for the specified table.
 
 </WrappedSection>
 
