@@ -31,6 +31,7 @@ import getSidebarV1_4_0 from './sidebar_v1_4_0'
 import getSidebarV1_4_1 from './sidebar_v1_4_1'
 import getSidebarV1_5_0 from './sidebar_v1_5_0'
 import getSidebarV1_9DOM_0 from './sidebar_v1_9DOM_0'
+import getSidebarV1_9DOM_1 from './sidebar_v1_9DOM_1'
 import getSidebarMaster from './sidebar_master'
 
 const getSidebar = version => {
@@ -62,6 +63,10 @@ const getSidebar = version => {
 
   if (version == '/1.9DOM.0') {
     return getSidebarV1_9DOM_0(version);
+  }
+
+  if (version == '/1.9DOM.1') {
+    return getSidebarV1_9DOM_1(version);
   }
 
   return getSidebarMaster(version);
