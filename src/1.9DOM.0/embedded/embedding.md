@@ -11,6 +11,6 @@ The following example shows how to create or open a store, write some data and r
 
 <WrappedSection>
 
-<<< @/src/code-examples/go/embedded-kv/main.go
+<<< @/src/code-examples/go/embedded-kv-v1.5.0/main.go
 
 </WrappedSection>
