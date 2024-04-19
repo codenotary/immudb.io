@@ -50,7 +50,7 @@ Currently only one column can be used in the `ORDER BY` clause.
 
 The order may be either ascending (`ASC` suffix, default) or descending (`DESC` suffix).
 
-Ordering rows by a value of a column requires a matching index on that column.
+Although not required, adding an index on the column specified in the clause can drastically reduce query times.
 
 </WrappedSection>
 
