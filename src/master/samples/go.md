@@ -15,7 +15,7 @@ Although the applications are simple, they will provide fully functional samples
 
 The classical `Hello World` sample adapted to immudb.
 
-This simple application is using the [official immudb go sdk](github.com/codenotary/immudb/pkg/client) to connect, store and retrieve key-value data from immudb server. 
+This simple application is using the [official immudb go sdk](https://pkg.go.dev/github.com/codenotary/immudb/pkg/client) to connect, store and retrieve key-value data from immudb server. 
 
 The full source code of this sample can be found at [Hello Immutable World](https://github.com/codenotary/immudb-client-examples/tree/master/go/hello-immutable-world).
 
