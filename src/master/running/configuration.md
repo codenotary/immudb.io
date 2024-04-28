@@ -25,6 +25,7 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `devmode`                       | `false`    | enable dev mode: accept remote connections without auth                                              |
 | `dir`                           | `./data`   | data folder                                                                                          |
 | `force-admin-password`          | `false`    | if true, reset the admin password to the one passed through admin-password option upon startup       |
+| `grpc-reflection`               | `true`     | GRPC reflection server enabled                                                                       |
 | `logfile`                       | ``         | log path with filename. E.g. /tmp/immudb/immudb.log                                                  |
 | `logformat`                     | `text`     | log format e.g. text/json                                                                            |
 | `maintenance`                   | `false`    | override the authentication flag                                                                     |
@@ -50,23 +51,28 @@ Settings can be specified as command line options to immudb (see `immudb -h`), i
 | `replication-primary-password`  | ``         | password in the primary database used for replication of systemdb and defaultdb                      |
 | `replication-primary-port`      | `3322`     | primary database port (if replica=true) (default 3322)                                               |
 | `replication-primary-username`  | ``         | username in the primary database used for replication of systemdb and defaultdb                      |
-| `replication-skip-integrity-check` | `false` | disable integrity check when reading data during replication |
+| `replication-skip-integrity-check` | `false` | disable integrity check when reading data during replication                                         |
 | `replication-sync-acks`         | `0`        | set a minimum number of replica acknowledgements required before transactions can be committed       |
 | `replication-sync-enabled`      | `false`    | enable synchronous replication                                                                       |
-| `replication-wait-for-indexing` | `false` | wait for indexing to be up to date during replication |
+| `replication-wait-for-indexing` | `false`    | wait for indexing to be up to date during replication                                                |
 | `s3-access-key-id`              | ``         | s3 access key id                                                                                     |
 | `s3-bucket-name`                | ``         | s3 bucket name                                                                                       |
 | `s3-endpoint`                   | ``         | s3 endpoint                                                                                          |
+| `s3-external-identifier`        | ``         | use the remote identifier if there is no local identifier                                            |
+| `s3-instance-metadata-url`      | `http://169.254.169.254`         | s3 instance metadata url                                                       |
 | `s3-location`                   | ``         | s3 location (region)                                                                                 |
 | `s3-path-prefix`                | ``         | s3 path prefix (multiple immudb instances can share the same bucket if they have different prefixes) |
+| `s3-role`                       | ``         | role name for role-based authentication attempt for s3 storage                                       |
+| `s3-role-enabled`               | `false`    | enable role-based authentication for s3 storage                                                      |
 | `s3-secret-key`                 | ``         | s3 secret access key                                                                                 |
 | `s3-storage`                    | `false`    | enable or disable s3 storage                                                                         |
 | `session-timeout`               | `2m0s`     | session timeout is a duration after which an inactive session is forcibly closed by the server       |
 | `signingKey`                    | ``         | signature private key path. If a valid one is provided, it enables the cryptographic signature of the root. E.g. "./../test/signer/ec3.key" |
+| `swaggerui`                     | `true`     | Swagger UI enabled                                                                                   |
 | `synced`                        | `true`     | synced mode prevents data lost under unexpected crashes but affects performance                      |
 | `token-expiry-time`             | `1440`     | client authentication token expiration time. Minutes                                                 |
 | `web-server`                    | `true`     | enable or disable web/console server                                                                 |
-| `web-server-port`               | `8080`     | web/console server port   |
+| `web-server-port`               | `8080`     | web/console server port                                                                              |
 
 </WrappedSection>
 
