@@ -30,8 +30,84 @@ To commit a transaction, you must call the `Commit()` method.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-sql-transactions/main.go
+
+```golang
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	immudb "github.com/codenotary/immudb/pkg/client"
+)
+
+func handleErr(err error) {
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+
+func main() {
+	opts := immudb.DefaultOptions().
+		WithAddress("localhost").
+		WithPort(3322)
+
+	client := immudb.NewClient().WithOptions(opts)
+	err := immudb.OpenSession(
+		context.TODO(),
+		[]byte(`immudb`),
+		[]byte(`immudb`),
+		"defaultdb",
+	)
+	handleErr(err)
+
+	defer client.CloseSession(context.TODO())
+
+	tx, err := client.NewTx(context.TODO())
+	handleErr(err)
+
+	err = tx.SQLExec(
+		context.TODO(),
+		`CREATE TABLE IF NOT EXISTS mytable(id INTEGER AUTO_INCREMENT, title VARCHAR[256], active BOOLEAN, PRIMARY KEY id);`,
+		nil,
+	)
+	handleErr(err)
+
+	nRows := 10
+	for i := 0; i < nRows; i++ {
+		err := tx.SQLExec(
+			context.TODO(),
+			"INSERT INTO mytable(title, active) VALUES (@title, @active)",
+			map[string]interface{}{
+				"title":  fmt.Sprintf("title%d", i),
+				"active": i%2 == 0,
+			},
+		)
+		handleErr(err)
+	}
+
+	txh, err := tx.Commit(context.TODO())
+	handleErr(err)
+
+	fmt.Printf("Successfully committed rows %d\n", txh.UpdatedRows)
+
+	reader, err := client.SQLQueryReader(context.TODO(), "SELECT * FROM mytable", nil)
+    handleErr(err)
+
+	for {
+		row, err := reader.Read()
+		if err == sql.ErrNoMoreRows {
+			break
+		}
+		handleErr(err)
+
+		fmt.Println(row.Values[0].Value, row.Values[1].Value)
+	}
+}
+```
 :::
+
 
 ::: tab Java
 ```java
