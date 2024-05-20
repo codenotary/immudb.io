@@ -31,7 +31,7 @@ To commit a transaction, you must call the `Commit()` method.
 
 ::: tab Go
 
-```golang
+```go
 package main
 
 import (
