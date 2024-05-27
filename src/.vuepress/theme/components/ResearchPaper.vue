@@ -34,21 +34,17 @@
     </i-modal>
 </template>
 
-<style lang="scss">
-.subscribe-modal {
-    .close {
-        .icon {
-            display: none;
-        }
-
-        &::before {
-            font-family: Helvetica, monospace;
-            content: "x";
-            font-size: 12px;
-            display: inline-block;
-        }
-    }
+<style>
+.subscribe-modal .close .icon {
+	 display: none;
 }
+ .subscribe-modal .close::before {
+	 font-family: Helvetica, monospace;
+	 content: "x";
+	 font-size: 12px;
+	 display: inline-block;
+}
+
 </style>
 
 <script>
