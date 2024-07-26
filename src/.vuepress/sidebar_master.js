@@ -60,6 +60,7 @@ export default version => {
   immudbInProduction.children.push(`${version}/production/backwards-compatibility`);
   immudbInProduction.children.push(`${version}/production/performance-guide`);
   immudbInProduction.children.push(`${version}/production/retention`);
+  immudbInProduction.children.push(`${version}/production/request-metadata`);
   /* RUNNING IMMUDB IN PRODUCTION SECTION END */
 
   /* CONNECTING SECTION START */
@@ -126,10 +127,11 @@ export default version => {
   developSQL.children.push(`${version}/develop/sql/indexes`);
   developSQL.children.push(`${version}/develop/sql/querying`);
   developSQL.children.push(`${version}/develop/sql/users`);
+  developSQL.children.push(`${version}/develop/sql/privileges`);
   developSQL.children.push(`${version}/develop/sql/catalog`);
   developSQL.children.push(`${version}/develop/sql/sqlstdlib`);
   developSQL.children.push(`${version}/develop/sql/pg`);
-    
+
   /* DEVELOP SQL SECTION END */
 
   /* DEVELOP DOCUMENT SECTION START */
@@ -165,7 +167,7 @@ export default version => {
   };
 
   releaseNotes.children.push(`${version}/releasenotes`);
-  
+
   /* RELEASE NOTES SECTION END */
 
   sidebar.push(introduction);
@@ -179,6 +181,6 @@ export default version => {
   sidebar.push(developDocument);
   sidebar.push(embedded);
   sidebar.push(releaseNotes);
-  
+
   return sidebar;
 }

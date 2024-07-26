@@ -257,6 +257,7 @@ export const versions = [
   '1.9DOM.0',
   '1.9DOM.1',
   '1.9.3',
+  '1.9.4',
   'master'
 ]
 
