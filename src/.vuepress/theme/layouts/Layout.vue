@@ -156,7 +156,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .theme-container {
   min-height: 100vh;
 	display: flex;
