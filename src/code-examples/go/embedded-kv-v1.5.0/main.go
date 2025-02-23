@@ -23,7 +23,7 @@ func main() {
 	defer st.Close()
 
 	// create a transaction
-	tx, err := st.NewTx(context.Background(), &store.TxOptions{Mode: store.ReadWriteTx})
+	tx, err := st.NewTx(context.Background(), store.DefaultTxOptions().WithMode(store.ReadWriteTx))
 	handleErr(err)
 
 	// ensure tx is closed (it won't affect committed tx)
