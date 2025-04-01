@@ -51,6 +51,28 @@ WHERE country = 'SE' AND city = 'Arvika';
 
 <WrappedSection>
 
+### CASE Statements
+
+immudb supports SQL-style `CASE` expressions similar to PostgreSQL. This allows you to perform conditional logic within queries, making it easier to transform and categorize data dynamically.
+
+#### Example: Categorizing Age Groups
+
+The following example demonstrates how to use a CASE statement to categorize customers into different age groups:
+
+```sql
+SELECT id, customer_name, age,
+       CASE
+           WHEN age < 18 THEN 'Minor'
+           WHEN age >= 18 AND age <= 64 THEN 'Adult'
+           ELSE 'Senior'
+       END AS age_group
+FROM customers;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
 ### Ordering by column value
 
 ```sql
