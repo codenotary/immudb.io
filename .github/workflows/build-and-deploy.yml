@@ -29,7 +29,7 @@ jobs:
 
       # cache node_modules
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: node-modules-cache
         with:
           path: |
