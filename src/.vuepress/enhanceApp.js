@@ -19,7 +19,6 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import './styles/index.scss';
 import './theme/styles/grid.styl';
 
 import { getVersionFromRoute, versions, getDefaultVersion } from './theme/util'
