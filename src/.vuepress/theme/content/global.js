@@ -1,23 +1,8 @@
 const cnHost = 'https://codenotary.com'
-const cnProductURL = `${cnHost}/products`
 
 const GlobalContent = {
   footer: {
     tables: [
-      {
-        title: 'PRODUCTS',
-        links: [
-          {
-            label: 'CNIL (Self-Hosted)', href: `${cnProductURL}/immutable-ledger`,
-          },
-          {
-            label: 'CNIL (Cloud)', href: `${cnProductURL}/ci-cd`,
-          },
-          {
-            label: 'CNIL Metrics & Logs', href: `${cnProductURL}/immutable-ledger-metrics-and-logs`,
-          },
-        ],
-      },
       {
         title: 'RESOURCES',
         links: [
