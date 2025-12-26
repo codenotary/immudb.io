@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[41],{428:function(e,t,n){"use strict";n.r(t);var a=n(10),c={name:"RedirectToDefaultVersion",beforeMount(){this.$router.replace({path:Object(a.c)()})}},o=n(8),r=Object(o.a)(c,(function(){return(0,this._self._c)("div")}),[],!1,null,"3a5aaa7c",null);t.default=r.exports}}]);

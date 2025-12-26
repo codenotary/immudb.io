@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{418:function(n,t,i){"use strict";i.r(t);var o={name:"CnDiscordButton"},s=i(8),a=Object(s.a)(o,(function(){var n=this._self._c;return n("CnButton",{attrs:{variant:"social",bind:this.$attrs,inline:""}},[n("font-awesome-icon",{attrs:{icon:["fab","discord"]}})],1)}),[],!1,null,"0753b16c",null);t.default=a.exports}}]);
