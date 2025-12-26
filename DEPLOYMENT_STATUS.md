@@ -8,28 +8,20 @@ The VitePress build is working correctly:
 - **Build command:** `npm run docs:build`
 - **Output location:** `.vitepress/dist` → copied to `docs/`
 
-## ⚠️ Deployment Blocked: Repository Settings
+## ✅ Deployment Status: LIVE
 
-The deployment is failing with this error:
-```
-Invalid deployment branch and no branch protection rules set in the environment.
-Deployments are only allowed from gh-pages
-```
+The deployment is working successfully!
 
-### How to Fix (Required Action):
+**Live Site:** https://docs.immudb.io/
+- Root URL redirects to `/master/README`
+- All version directories accessible
+- Build and deployment pipeline working correctly
 
-**You must update the GitHub Pages settings manually:**
-
-1. Go to: https://github.com/codenotary/immudb.io/settings/pages
-
-2. Under **"Build and deployment"** section:
-   - Find **"Source"** dropdown
-   - Change from: ❌ **"Deploy from a branch" (gh-pages)**
-   - Change to: ✅ **"GitHub Actions"**
-
-3. Click **Save**
-
-4. The next push to `master` will automatically deploy!
+### Recent Fixes:
+1. ✅ Root redirect updated to `/master/README` (VitePress cleanUrls behavior)
+2. ✅ GitHub Pages settings changed to "GitHub Actions"
+3. ✅ Build output copied from `.vitepress/dist` to `docs/`
+4. ✅ All workflows upgraded and optimized
 
 ---
 
@@ -163,7 +155,10 @@ npm run docs:build
 
 ---
 
-**Last Updated:** 2025-12-26
+**Last Updated:** 2025-12-26 20:29 CET
 **Build Status:** ✅ Working
-**Deployment:** ⚠️ Awaiting repository settings update
-Deployment verified: Fri Dec 26 09:11:53 PM CET 2025
+**Deployment:** ✅ Live at https://docs.immudb.io/
+**Latest Fix:** Root redirect updated to /master/README (VitePress cleanUrls compatibility)
+**Verification:** Site tested and working correctly - all URLs accessible
+
+🎉 **MIGRATION COMPLETE** - VuePress (Vue 2) → VitePress (Vue 3) deployed successfully!
