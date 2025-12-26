@@ -25,9 +25,7 @@ immudb can be used both as a key-value store, or as a relational database (SQL).
 </WrappedSection>
   
 ### Help and Support
-Join our [Discord community](https://discord.gg/ThSJxNEHhZ)
 
-<CnSocialButton social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external" bottom-offset="15"></CnSocialbutton>
 
 ### External Resources
 

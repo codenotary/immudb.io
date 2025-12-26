@@ -17,9 +17,7 @@ immudb can be run as full database server with replicas or easily embedded as a 
 <WrappedSection>
   
 ### Help and Support
-Join our [Discord community](https://discord.gg/ThSJxNEHhZ)
 
-  <CnSocialButton social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external" bottom-offset="15"></CnSocialbutton>
 
   <CnSocialButton social="twitter" target="_blank" rel="external" href="https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb"></CnSocialButton>
 

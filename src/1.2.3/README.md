@@ -38,9 +38,7 @@ This section covers what you need to run immudb in a real server or production e
 Here you can find a comprehensive list of immudb configuration options and developer APIs.
 
 ### Help and Support
-Join our [Discord community](https://discord.gg/ThSJxNEHhZ)
 
-<CnSocialButton social="discord" href="https://discord.gg/ThSJxNEHhZ" target="_blank" rel="external" bottom-offset="15"></CnSocialbutton>
 
 ### External Resources
 
