@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
 import { useVersion } from './composables'
+import Footer from './components/Footer.vue'
 
 const { Layout } = DefaultTheme
 
@@ -29,8 +30,37 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
         </select>
       </div>
     </template>
+
+    <!-- Custom footer -->
+    <template #layout-bottom>
+      <Footer />
+    </template>
   </Layout>
 </template>
+
+<style>
+/* Fix navbar title overflow */
+:deep(.VPNavBarTitle .title span) {
+  white-space: nowrap;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+/* Ensure navbar container has proper width */
+:deep(.VPNavBarTitle.has-sidebar) {
+  flex-shrink: 0;
+}
+
+:deep(.VPNavBar .container) {
+  max-width: 100%;
+}
+
+:deep(.VPNavBar .title) {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+</style>
 
 <style scoped>
 /* Version Selector Styling */
