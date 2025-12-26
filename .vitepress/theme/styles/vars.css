@@ -35,13 +35,13 @@
   --vp-shadow-4: 0 14px 44px rgba(0, 0, 0, 0.12), 0 3px 9px rgba(0, 0, 0, 0.12);
   --vp-shadow-5: 0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16);
 
-  /* Z-index */
-  --vp-z-index-footer: 10;
+  /* Z-index - proper layering order */
+  --vp-z-index-footer: 5;
+  --vp-z-index-sidebar: 10;
   --vp-z-index-local-nav: 20;
   --vp-z-index-nav: 30;
   --vp-z-index-layout-top: 40;
   --vp-z-index-backdrop: 50;
-  --vp-z-index-sidebar: 60;
 
   /* Layout */
   --vp-layout-max-width: 1440px;

@@ -60,6 +60,15 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
   flex: 0 0 auto;
   overflow: visible;
 }
+
+/* Fix z-index stacking - navbar above sidebar */
+:deep(.VPNav) {
+  z-index: var(--vp-z-index-nav, 30);
+}
+
+:deep(.VPSidebar) {
+  z-index: var(--vp-z-index-sidebar, 10);
+}
 </style>
 
 <style scoped>
