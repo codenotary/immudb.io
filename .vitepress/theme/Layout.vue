@@ -1,27 +1,23 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { useDynamicSidebar, useVersion } from './composables'
+import { useVersion } from './composables'
 
 const { Layout } = DefaultTheme
 
-// Access to page data, frontmatter, etc.
-const { page, frontmatter, theme } = useData()
-
-// Use composables
-const { currentVersion, hasSidebar } = useDynamicSidebar()
-const { versions, switchVersion, getVersionDisplayName } = useVersion()
+// Use composables for version switching
+const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVersion()
 </script>
 
 <template>
   <Layout>
     <!-- Version selector in navbar -->
     <template #nav-bar-content-after>
-      <div class="version-selector">
+      <div v-if="versions && currentVersion" class="version-selector">
         <select
           :value="currentVersion"
-          @change="(e: Event) => switchVersion((e.target as HTMLSelectElement).value as any)"
+          @change="(e: Event) => switchVersion((e.target as HTMLSelectElement).value)"
           class="version-dropdown"
+          aria-label="Select documentation version"
         >
           <option
             v-for="version in versions"
@@ -32,38 +28,6 @@ const { versions, switchVersion, getVersionDisplayName } = useVersion()
           </option>
         </select>
       </div>
-    </template>
-
-    <!-- Custom sidebar content if needed -->
-    <template #sidebar-nav-before>
-      <div v-if="hasSidebar" class="sidebar-version-info">
-        <span class="version-badge">{{ currentVersion }}</span>
-      </div>
-    </template>
-
-    <!-- Custom footer content -->
-    <template #doc-footer-before>
-      <div class="custom-footer-content">
-        <!-- Additional footer content can go here -->
-      </div>
-    </template>
-
-    <!-- Home page customizations -->
-    <template #home-hero-before>
-      <!-- Custom hero section content -->
-    </template>
-
-    <template #home-features-after>
-      <!-- Additional features or content after main features -->
-    </template>
-
-    <!-- Layout-wide customizations -->
-    <template #layout-top>
-      <!-- Content at the very top of the layout -->
-    </template>
-
-    <template #layout-bottom>
-      <!-- Content at the very bottom of the layout -->
     </template>
   </Layout>
 </template>
@@ -77,63 +41,36 @@ const { versions, switchVersion, getVersionDisplayName } = useVersion()
 }
 
 .version-dropdown {
-  background: var(--cn-color-primary-dark);
-  color: white;
-  border: 1px solid var(--cn-color-primary);
-  border-radius: var(--cn-button-radius);
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
   padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .version-dropdown:hover {
-  background: var(--cn-color-primary);
-  border-color: var(--cn-color-secondary);
+  background: var(--vp-c-bg-elv);
+  border-color: var(--vp-c-brand-1);
 }
 
 .version-dropdown:focus {
-  outline: 2px solid var(--cn-color-secondary);
+  outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 2px;
 }
 
-/* Sidebar Version Badge */
-.sidebar-version-info {
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.version-badge {
-  display: inline-block;
-  background: var(--cn-color-primary);
-  color: var(--cn-color-dark);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--cn-border-radius-sm);
-  font-size: 0.875rem;
-  font-weight: bold;
-}
-
-/* Custom Footer Content */
-.custom-footer-content {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border-color);
-  margin-top: 2rem;
-}
-
 /* Responsive adjustments */
-@media (max-width: 920px) {
+@media (max-width: 768px) {
   .version-selector {
     margin-left: 0.5rem;
   }
 
   .version-dropdown {
-    padding: 0.375rem 0.75rem;
+    padding: 0.4rem 0.75rem;
     font-size: 0.8rem;
-  }
-
-  .sidebar-version-info {
-    padding: 0.5rem;
   }
 }
 </style>

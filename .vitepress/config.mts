@@ -32,9 +32,12 @@ export default defineConfig({
 
   // Use default output directory (.vitepress/dist)
   // We'll copy to docs/ in the GitHub Actions workflow
-  
+
   // Clean URLs (removes .html extension)
   cleanUrls: true,
+
+  // Force dark theme and disable appearance toggle
+  appearance: false,
 
   // Source directory
   srcDir: 'src',
