@@ -21,7 +21,7 @@ jobs:
           EOF
       - uses: actions/setup-node@v4
         with:
-          node-version: "14.18.3"
+          node-version: "20"
           cache: "npm"
 
       - name: Node version
