@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev src",
-    "prebuild": "npm run images",
+    "prebuild": "npm run images || true",
     "build": "vuepress build src",
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
@@ -79,9 +79,7 @@
     "scss-tokenizer": "^0.4.3",
     "highlight.js": "^10.4.1",
     "markdown-it": "^12.3.2",
-    "postcss": "^7.0.36",
     "trim-newlines": "^3.0.1",
-    "node-sass": "^7.0.0",
     "yargs-parser": "^13.1.2",
     "got": "^11.8.5",
     "@babel/traverse": "^7.26.0",
