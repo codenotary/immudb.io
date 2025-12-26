@@ -71,4 +71,50 @@
   --immudb-accent: #00c853;
   --immudb-bg-light: #ffffff;
   --immudb-bg-dark: #1a1a1a;
+
+  /* Codenotary theme variables for Footer */
+  --cn-color-dark: #0a1f2e;
+  --cn-color-primary: #00c8ff;
+  --cn-color-primary-light: #4dd9ff;
+  --cn-color-primary-dark: #153954;
+  --cn-color-secondary: #00ff9d;
+  --cn-md-padding: 140px;
+  --cn-sm-padding: 80px;
+  --cn-xs-padding: 40px;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Utility classes for flex layout */
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* Text utility classes */
+.cn-text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.cn-font-weight-bold {
+  font-weight: 700;
 }
