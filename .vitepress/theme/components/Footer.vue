@@ -63,10 +63,12 @@ const content = GlobalContent
 .footer {
   border-top: 1px solid var(--border-color);
   color: rgba(255, 255, 255, 0.75);
-  z-index: 5;
+  z-index: 1;
   background-color: var(--cn-color-dark);
   position: relative;
   width: 100%;
+  clear: both;
+  margin-left: 0 !important;
 }
 
 .footer .column {

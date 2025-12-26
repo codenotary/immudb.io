@@ -47,6 +47,16 @@ div[class*="language-"] {
   box-shadow: var(--cn-shadow-sm) !important;
 }
 
+/* Override Shiki dark theme colors for better contrast */
+.vp-code span {
+  color: var(--shiki-light) !important;
+}
+
+/* Force light theme colors in dark mode for better readability */
+html.dark .vp-code span[style*="--shiki-dark"] {
+  color: var(--shiki-light) !important;
+}
+
 div[class*="language-"] .highlight-lines {
   user-select: none;
   padding-top: 1.3rem;

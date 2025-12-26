@@ -69,6 +69,15 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 :deep(.VPSidebar) {
   z-index: var(--vp-z-index-sidebar, 10);
 }
+
+/* Ensure footer appears below all content and not covered by sidebar */
+:deep(.VPFooter) {
+  position: relative;
+  z-index: 1;
+  margin-left: 0 !important;
+  width: 100%;
+  clear: both;
+}
 </style>
 
 <style scoped>
