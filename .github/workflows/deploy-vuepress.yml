@@ -68,8 +68,8 @@ jobs:
         run: npm run images
         continue-on-error: true
 
-      - name: Build VuePress site
-        run: npm run build
+      - name: Build VitePress site
+        run: npm run docs:build
         env:
           NODE_ENV: production
 
