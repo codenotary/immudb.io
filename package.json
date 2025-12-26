@@ -10,8 +10,7 @@
     "images": "npm run images:fullsize && npm run images:thumbnail",
     "images:fullsize": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/fullsize/ resize 1920",
     "images:thumbnail": "sharp -i 'src/.vuepress/public/blog/*.{jpg,png,gif}' -o src/.vuepress/public/blog/thumbnail/ resize 560",
-    "algolia:index": "node src/.vuepress/algolia_index.js",
-    "preinstall": "npx npm-force-resolutions"
+    "algolia:index": "node src/.vuepress/algolia_index.js"
   },
   "repository": {
     "type": "git",
@@ -73,7 +72,7 @@
     "vue-recaptcha-v3": "^1.9.0",
     "vuepress-plugin-element-tabs": "^0.2.8"
   },
-  "resolutions": {
+  "overrides": {
     "glob-parent": "^5.1.2",
     "tar": "^6.2.1",
     "node-forge": "^1.3.0",
@@ -82,8 +81,6 @@
     "markdown-it": "^12.3.2",
     "postcss": "^7.0.36",
     "trim-newlines": "^3.0.1",
-    "nth-check": "^2.0.1",
-    "striptags": "^3.2.0",
     "node-sass": "^7.0.0",
     "yargs-parser": "^13.1.2",
     "got": "^11.8.5",
