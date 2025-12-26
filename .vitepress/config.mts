@@ -16,7 +16,7 @@ import {
 } from './sidebars'
 
 const websiteUrl = 'https://immudb.io'
-const title = 'immudb - The lightweight, high-speed immutable database'
+const title = 'immudb'
 const description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.'
 
 // Environment variables for Algolia and Analytics
@@ -131,6 +131,7 @@ export default defineConfig({
   // Theme configuration
   themeConfig: {
     logo: '/logo_white.svg',
+    siteTitle: false,  // Don't show title next to logo
 
     // Navigation
     nav: [

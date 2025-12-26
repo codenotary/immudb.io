@@ -9,7 +9,14 @@ import './styles/vars.css'
 // Import FontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faGithub, faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import {
+  faGithub,
+  faTwitter,
+  faLinkedin,
+  faGithubSquare,
+  faTwitterSquare,
+  faFacebookSquare
+} from '@fortawesome/free-brands-svg-icons'
 import {
   faBook,
   faCode,
@@ -65,6 +72,9 @@ library.add(
   faGithub,
   faTwitter,
   faLinkedin,
+  faGithubSquare,
+  faTwitterSquare,
+  faFacebookSquare,
   // Solid icons
   faBook,
   faCode,

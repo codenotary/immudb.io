@@ -45,6 +45,15 @@
 
   /* Layout */
   --vp-layout-max-width: 1440px;
+
+  /* Code block colors - override VitePress defaults for dark theme */
+  --vp-code-block-bg: #1e1e1e;
+  --vp-code-bg: #161618;
+  --vp-code-color: #e4e4e4;
+  --vp-code-line-highlight-color: rgba(101, 117, 133, 0.16);
+  --vp-code-line-number-color: #6e7681;
+  --vp-code-copy-code-bg: #1e1e1e;
+  --vp-code-copy-code-hover-bg: #2a2a2a;
 }
 
 /* Dark mode overrides */
