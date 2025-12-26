@@ -28,7 +28,7 @@ jobs:
         run: node --version
 
       - name: Node dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Build
         run: npm run build
