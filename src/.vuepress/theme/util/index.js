@@ -270,5 +270,5 @@ export function getVersionFromRoute(route = { fullPath: '' }) {
 }
 
 export function getDefaultVersion() {
-  return versions[versions.length - 1];
+  return '/' + versions[versions.length - 1] + '/';
 }
