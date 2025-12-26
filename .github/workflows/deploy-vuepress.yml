@@ -58,7 +58,7 @@ jobs:
           EOF
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci --legacy-peer-deps --ignore-scripts
 
       - name: Rebuild Sharp module
         run: npm rebuild sharp
@@ -133,7 +133,7 @@ jobs:
           EOF
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci --legacy-peer-deps --ignore-scripts
 
       - name: Index Algolia
         run: npm run algolia:index
