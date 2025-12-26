@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: create .env
         run: |
           cat <<EOF > .env
@@ -19,7 +19,7 @@ jobs:
           ALGOLIA_INDEX=immudb
           ALGOLIA_WRIGHT_API_KEY=${{secrets.ALGOLIA_WRIGHT_API_KEY}}
           EOF
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: "14.18.3"
           cache: "npm"
@@ -27,26 +27,14 @@ jobs:
       - name: Node version
         run: node --version
 
-      # cache node_modules
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        id: node-modules-cache
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-
-
       - name: Node dependencies
-        if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: npm i -f
+        run: npm ci
 
       - name: Build
         run: npm run build
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
