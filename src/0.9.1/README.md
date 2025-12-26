@@ -35,7 +35,7 @@ immudb!](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&lab
 - **immuadmin** is the admin CLI for immudb and immugw. You can install and manage the service installation for both components and get statistics as well as runtime information.
 - **immuclient** is the CLI client for immudb. You can read, write data into immudb from the commandline using direct or interactive mode.
 
-![immudb component overview](todo)
+<!-- TODO: Add component overview image -->
 
 
 The latest release binaries can be found [here](https://github.com/codenotary/immudb/releases )

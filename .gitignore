@@ -87,6 +87,10 @@ typings/
 # vuepress build output
 .vuepress/dist
 
+# VitePress build output
+.vitepress/cache
+.vitepress/dist
+
 # Serverless directories
 .serverless
 
@@ -101,3 +105,7 @@ algolia.config.js
 
 # docs (as it's re-created at build-time)
 /docs
+
+# Claude Flow coordination
+.swarm/
+.claude-flow/

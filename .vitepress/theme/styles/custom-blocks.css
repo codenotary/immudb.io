@@ -1,0 +1,120 @@
+/**
+ * Custom Block Styling (tip, warning, danger)
+ * Converted from custom-blocks.styl
+ */
+
+.custom-block .custom-block-title {
+  font-weight: 600;
+  margin-bottom: -0.4rem;
+  color: white;
+}
+
+.custom-block.tip,
+.custom-block.warning,
+.custom-block.danger {
+  padding: 0.1rem 1.5rem;
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  margin: 1rem 0;
+}
+
+.custom-block.tip {
+  background-color: var(--cn-color-primary);
+  border: none;
+  border-radius: var(--cn-border-radius-lg);
+  margin-right: 44px;
+  margin-left: 44px;
+  position: relative;
+  padding: 32px 48px;
+  color: var(--cn-color-dark);
+}
+
+@media (max-width: 1600px) {
+  .custom-block.tip {
+    padding: 16px 32px;
+    margin-left: 25px;
+    margin-right: 0;
+  }
+}
+
+.custom-block.tip .custom-block-title {
+  margin: 0;
+}
+
+.custom-block.tip > p:not(.custom-block-title) {
+  margin-bottom: 0;
+  margin-top: 7px;
+  line-height: 22px;
+}
+
+.custom-block.tip::after {
+  content: '';
+  left: -25px;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: calc(50% - 25px);
+  background-image: url('/star.svg');
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+}
+
+.custom-block.warning {
+  background-color: rgba(255, 229, 100, 0.3);
+  border-color: #947300;
+  color: #3d2f00;
+}
+
+.custom-block.warning .custom-block-title {
+  color: #5c4500;
+}
+
+.custom-block.warning a {
+  color: var(--text-color);
+}
+
+.custom-block.danger {
+  background-color: #ffe6e6;
+  border-color: #cc0000;
+  color: #4d0000;
+}
+
+.custom-block.danger .custom-block-title {
+  color: #990000;
+}
+
+.custom-block.danger a {
+  color: var(--text-color);
+}
+
+.custom-block.details {
+  display: block;
+  position: relative;
+  border-radius: 2px;
+  margin: 1.6em 0;
+  padding: 1.6em;
+  background-color: #eee;
+}
+
+.custom-block.details h4 {
+  margin-top: 0;
+}
+
+.custom-block.details figure:last-child,
+.custom-block.details p:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.custom-block.details summary {
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-block a {
+  color: white;
+}
+
+.custom-block a span {
+  display: none;
+}

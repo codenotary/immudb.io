@@ -1,5 +1,5 @@
 ---
-title: Running an Auditor with immuclient
+title: "Running an Auditor with immuclient"
 ---
 
 # Use immuclient as Auditor

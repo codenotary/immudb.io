@@ -1,0 +1,22 @@
+/**
+ * Content Wrapper Styles
+ * Converted from wrapper.styl
+ */
+
+.theme-default-content:not(.custom) {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2rem 2.5rem;
+}
+
+@media (max-width: 1600px) {
+  .theme-default-content:not(.custom) {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 419px) {
+  .theme-default-content:not(.custom) {
+    padding: 1.5rem;
+  }
+}

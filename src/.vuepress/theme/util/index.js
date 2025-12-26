@@ -245,36 +245,5 @@ function resolveItem(item, pages, base, groupDepth = 1) {
   }
 }
 
-export const versions = [
-  '0.8.1',
-  '0.9.2',
-  '1.0.0',
-  '1.1.0',
-  '1.2.1',
-  '1.2.2',
-  '1.2.3',
-  '1.2.4',
-  '1.3.0',
-  '1.3.1',
-  '1.3.2',
-  '1.4.0',
-  '1.4.1',
-  '1.5.0',
-  '1.9DOM.0',
-  '1.9DOM.1',
-  '1.9.3',
-  '1.9.4',
-  '1.9.5',
-  '1.9.6',
-  'master'
-]
-
-export function getVersionFromRoute(route = { fullPath: '' }) {
-  const matches = route.fullPath.match(/[^\/]+/)
-  const [version] = matches === null || !versions.includes(matches[0]) ? [] : matches
-  return version
-}
-
-export function getDefaultVersion() {
-  return '/' + versions[versions.length - 1] + '/';
-}
+// Re-export from centralized version configuration
+export { versions, getVersionFromRoute, getDefaultVersion } from '../versions';

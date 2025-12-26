@@ -46,7 +46,8 @@ import AlgoliaSearchBox from '@AlgoliaSearchBox'
 import SearchBox from '@SearchBox'
 import SidebarButton from '@theme/components/SidebarButton.vue'
 import NavLinks from '@theme/components/NavLinks.vue'
-import VersionsDropdown from '@theme/components/VersionsDropdown.vue'
+// Use enhanced version dropdown with 21-version support
+import VersionsDropdown from '@theme/components/EnhancedVersionsDropdown.vue'
 import CnButton from "../global-components/CnButton";
 
 export default {

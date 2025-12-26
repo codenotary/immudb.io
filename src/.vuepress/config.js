@@ -103,9 +103,46 @@ module.exports = {
         ['vuepress-plugin-reading-time'],
         ['vuepress-plugin-element-tabs']
     ],
-    configureWebpack: {
-        plugins: [
-            new webpack.EnvironmentPlugin({ ...process.env })
-        ]
+    configureWebpack: (config, isServer) => {
+        const optimizationConfig = {
+            plugins: [
+                new webpack.EnvironmentPlugin({ ...process.env })
+            ],
+            optimization: {
+                splitChunks: {
+                    chunks: 'all',
+                    cacheGroups: {
+                        vendor: {
+                            test: /[\\/]node_modules[\\/]/,
+                            name: 'vendor',
+                            priority: 10,
+                            reuseExistingChunk: true
+                        },
+                        common: {
+                            minChunks: 2,
+                            priority: 5,
+                            reuseExistingChunk: true
+                        }
+                    }
+                },
+                minimize: process.env.NODE_ENV === 'production',
+                runtimeChunk: {
+                    name: 'runtime'
+                }
+            },
+            performance: {
+                hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
+                maxEntrypointSize: 512000,
+                maxAssetSize: 512000
+            }
+        };
+
+        // Bundle analyzer for development
+        if (process.env.ANALYZE === 'true') {
+            const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+            optimizationConfig.plugins.push(new BundleAnalyzerPlugin());
+        }
+
+        return optimizationConfig;
     },
 };

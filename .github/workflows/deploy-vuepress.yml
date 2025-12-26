@@ -1,0 +1,195 @@
+name: Deploy VuePress Documentation
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_OPTIONS: --max-old-space-size=4096
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git-based features
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Cache VuePress build
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/.cache
+            src/.vuepress/.cache
+            src/.vuepress/.temp
+          key: ${{ runner.os }}-vuepress-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-vuepress-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-vuepress-
+
+      - name: Create environment file
+        run: |
+          cat <<EOF > .env
+          ALGOLIA_API_KEY=${{ secrets.ALGOLIA_API_KEY }}
+          ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_INDEX=immudb
+          ALGOLIA_WRIGHT_API_KEY=${{ secrets.ALGOLIA_WRIGHT_API_KEY }}
+          NODE_ENV=production
+          EOF
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Rebuild Sharp module
+        run: npm rebuild sharp
+        continue-on-error: true
+
+      - name: Process images
+        run: npm run images
+        continue-on-error: true
+
+      - name: Build VuePress site
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Generate sitemap
+        run: |
+          if [ -f "docs/sitemap.xml" ]; then
+            echo "✓ Sitemap generated successfully"
+          else
+            echo "⚠ Warning: Sitemap not found"
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vuepress-dist
+          path: docs/
+          retention-days: 7
+
+      - name: Upload to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  index-algolia:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Create environment file
+        run: |
+          cat <<EOF > .env
+          ALGOLIA_API_KEY=${{ secrets.ALGOLIA_API_KEY }}
+          ALGOLIA_APP_ID=${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_INDEX=immudb
+          ALGOLIA_WRIGHT_API_KEY=${{ secrets.ALGOLIA_WRIGHT_API_KEY }}
+          EOF
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Index Algolia
+        run: npm run algolia:index
+        continue-on-error: true
+
+  performance-report:
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: vuepress-dist
+          path: docs/
+
+      - name: Analyze bundle size
+        run: |
+          echo "## Build Performance Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Bundle Size Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          du -sh docs/ >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          find docs -name "*.js" -exec du -h {} \; | sort -rh | head -10 >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment PR
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            const totalSize = execSync('du -sh docs/').toString();
+            const jsFiles = execSync('find docs -name "*.js" -exec du -h {} \\; | sort -rh | head -5').toString();
+
+            const comment = `## 📊 Build Performance Report
+
+            **Total Build Size:** ${totalSize}
+
+            **Top 5 JavaScript Bundles:**
+            \`\`\`
+            ${jsFiles}
+            \`\`\`
+
+            *Generated by VuePress Build Pipeline*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

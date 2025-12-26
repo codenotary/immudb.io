@@ -1,5 +1,5 @@
 ---
-sidebar: false
+outline: false
 ---
 
 # QA Automation Engineer

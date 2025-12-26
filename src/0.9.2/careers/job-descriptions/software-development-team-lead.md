@@ -1,5 +1,5 @@
 ---
-sidebar: false
+outline: false
 ---
 
 # Software Development Team Lead
