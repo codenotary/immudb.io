@@ -1,0 +1,13 @@
+node_modules
+.git
+.github
+.vscode
+*.log
+npm-debug.log*
+.DS_Store
+dist
+.temp
+.cache
+coverage
+.vitepress/cache
+.vitepress/dist

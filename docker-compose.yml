@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  immudb-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    volumes:
+      # Mount only the built files for live preview
+      - ./.vitepress:/app/.vitepress
+      - ./src:/app/src
+      - ./public:/app/public
+    environment:
+      - NODE_ENV=production
