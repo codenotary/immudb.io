@@ -55,6 +55,11 @@ export default {
 }
 
 function renderLink (h, to, text, active, level) {
+  // Skip rendering if path is undefined or empty
+  if (!to) {
+    return h('span', { class: 'sidebar-link' }, text)
+  }
+
   const component = {
     props: {
       to,

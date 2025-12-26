@@ -4,12 +4,18 @@ export const endingSlashRE = /\/$/
 export const outboundRE = /^[a-z]+:/i
 
 export function normalize(path) {
+  if (!path) {
+    return ''
+  }
   return decodeURI(path)
     .replace(hashRE, '')
     .replace(extRE, '')
 }
 
 export function getHash(path) {
+  if (!path) {
+    return undefined
+  }
   const match = path.match(hashRE)
   if (match) {
     return match[0]
