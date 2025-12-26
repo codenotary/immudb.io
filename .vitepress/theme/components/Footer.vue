@@ -90,6 +90,13 @@ const content = GlobalContent
 .footer .main-section {
   padding: 40px var(--cn-md-padding);
   flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer .brand {
+  flex: 0 0 auto;
+  min-width: 340px;
+  margin-right: 3rem;
 }
 
 .footer .logo {
