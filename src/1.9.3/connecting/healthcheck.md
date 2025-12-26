@@ -9,7 +9,7 @@ HealthCheck return an error if `immudb` status is not ok.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/connect-healthcheck/main.go
+<<< @/code-examples/go/connect-healthcheck/main.go
 :::
 
 ::: tab Java

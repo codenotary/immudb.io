@@ -34,7 +34,7 @@ Here an example on how to send a large file and a regular key value to immudb.
 
 It's possible to specify the chunk size of the stream with `WithStreamChunkSize()` method.
 
-<<< @/src/code-examples/go/develop-kv-streams/main.go
+<<< @/code-examples/go/develop-kv-streams/main.go
 :::
 
 ::: tab Java
@@ -74,7 +74,7 @@ To read chunk by chunk the inner gRPC protobuffer client is needed.
 Then it's possible to use `kvStreamReceiver` to retrieve the key and a value reader. Such reader will fill provided byte array with received data and will return the number of read bytes or error.
 If no message is present it returns 0 and io.EOF. If the message is complete it returns 0 and nil, in that case successive calls to Read will returns a new message.
 > There are several receivers available (zStreamReceiver, vEntryStreamReceiver, execAllStreamReceiver) and also a primitive receiver MsgReceiver. The last one can be used to receive a simple row []byte message without additional logics.
-<<< @/src/code-examples/go/develop-kv-streams-chunked-reading/main.go
+<<< @/code-examples/go/develop-kv-streams-chunked-reading/main.go
 :::
 
 ::: tab Java

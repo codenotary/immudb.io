@@ -73,7 +73,13 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Generate sitemap
+      - name: Copy build to docs folder
+        run: |
+          rm -rf docs
+          cp -r .vitepress/dist docs
+          echo "✓ Build copied to docs/ folder"
+
+      - name: Verify sitemap
         run: |
           if [ -f "docs/sitemap.xml" ]; then
             echo "✓ Sitemap generated successfully"
@@ -84,7 +90,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: vuepress-dist
+          name: vitepress-dist
           path: docs/
           retention-days: 7
 

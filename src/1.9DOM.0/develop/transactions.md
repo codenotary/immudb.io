@@ -12,7 +12,7 @@
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-getall/main.go
+<<< @/code-examples/go/develop-kv-getall/main.go
 :::
 
 ::: tab Python
@@ -150,7 +150,7 @@ A more versatile atomic multi set operation
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-setall/main.go
+<<< @/code-examples/go/develop-kv-setall/main.go
 :::
 
 ::: tab Python
@@ -297,7 +297,7 @@ It's possible to persist and reference items that are already persisted on disk.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-execall/main.go
+<<< @/code-examples/go/develop-kv-execall/main.go
 :::
 
 ::: tab Python
@@ -414,7 +414,7 @@ The argument of a `TxScan` is an array of the following types:
 
 ::: tab Go
 
-<<< @/src/code-examples/go/develop-kv-txscan/main.go
+<<< @/code-examples/go/develop-kv-txscan/main.go
 
 > Remember to strip the first byte in the key (key prefix).
 > Remember that a transaction could contain sorted sets keys that should not be skipped.
@@ -541,7 +541,7 @@ With `TxScan` or `TxByIDWithSpec` operations it's possible to retrieve entries o
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-txfilter/main.go
+<<< @/code-examples/go/develop-kv-txfilter/main.go
 :::
 
 ::: tab Python

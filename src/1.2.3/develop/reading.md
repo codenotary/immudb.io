@@ -520,7 +520,7 @@ Preconditions are available on `SetAll`, `Reference` and `ExecAll` operations.
 In go sdk, the `schema` package contains convenient wrappers for creating constraint objects,
 such as `schema.PreconditionKeyMustNotExist`.
 
-<<< @/src/code-examples/go/develop-kv-preconditions/main.go
+<<< @/code-examples/go/develop-kv-preconditions/main.go
 :::
 
 ::: tab Java

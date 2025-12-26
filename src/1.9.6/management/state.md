@@ -11,7 +11,7 @@ Current state of immudb provides proof that clients can use to verify immudb:
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/state-current/main.go
+<<< @/code-examples/go/state-current/main.go
 :::
 
 ::: tab Python
@@ -291,7 +291,7 @@ openssl ec -in private.key -pubout -out public.key
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/state-verify-signature/main.go
+<<< @/code-examples/go/state-verify-signature/main.go
 :::
 
 ::: tab Python

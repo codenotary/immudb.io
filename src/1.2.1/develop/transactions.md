@@ -23,7 +23,7 @@ To commit a transaction, you must call the `Commit()` method.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-sql-transactions/main.go
+<<< @/code-examples/go/develop-sql-transactions/main.go
 :::
 
 ::: tab Java

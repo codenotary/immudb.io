@@ -6,7 +6,7 @@ It's possible to achieve deletion by using the `Delete` function. It provides lo
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-deleting/main.go
+<<< @/code-examples/go/develop-kv-deleting/main.go
 :::
 
 ::: tab Java

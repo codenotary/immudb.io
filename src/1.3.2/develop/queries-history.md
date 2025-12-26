@@ -18,7 +18,7 @@ It's possible to retrieve all the values for a particular key with the history c
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-history/main.go
+<<< @/code-examples/go/develop-kv-history/main.go
 :::
 
 ::: tab Java
@@ -182,7 +182,7 @@ To gain speed it's possible to specify `noWait=true`. The control will be return
 
 An ordinary `scan` command and a reversed one.
 
-<<< @/src/code-examples/go/develop-kv-scan/main.go
+<<< @/code-examples/go/develop-kv-scan/main.go
 :::
 
 ::: tab Java
@@ -367,11 +367,11 @@ Its ```VerifiedReference``` counterpart is the same except that it also produces
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-references/main.go
+<<< @/code-examples/go/develop-kv-references/main.go
 
 Example with verifications
 
-<<< @/src/code-examples/go/develop-kv-references-verified/main.go
+<<< @/code-examples/go/develop-kv-references-verified/main.go
 :::
 
 ::: tab Java
@@ -547,7 +547,7 @@ When reference is resolved with get or verifiedGet in case of multiples equals r
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-references-get/main.go
+<<< @/code-examples/go/develop-kv-references-get/main.go
 :::
 
 ::: tab Java
@@ -671,7 +671,7 @@ It's possible to bind a reference to a key on a specific transaction using `SetR
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-references-txid/main.go
+<<< @/code-examples/go/develop-kv-references-txid/main.go
 :::
 
 ::: tab Java

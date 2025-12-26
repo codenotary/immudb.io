@@ -9,7 +9,7 @@ It's possible to achieve data expiration by using the `ExpirableSet` function. I
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-expiration/main.go
+<<< @/code-examples/go/develop-kv-expiration/main.go
 :::
 
 ::: tab Java

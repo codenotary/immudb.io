@@ -8,7 +8,7 @@ The following illustrative example showcase how to initialize the SQL engine, wr
 
 <WrappedSection>
 
-<<< @/src/code-examples/go/embedded-sql/main.go
+<<< @/code-examples/go/embedded-sql/main.go
 
 If you need to change options like where things get stored by default, you can do that in the underlying store objects that the SQL engine is using.
 

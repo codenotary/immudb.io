@@ -15,7 +15,7 @@ Partial compaction may be triggered automatically by immudb. Database settings c
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/maintenance-index/main.go
+<<< @/code-examples/go/maintenance-index/main.go
 :::
 
 ::: tab Java

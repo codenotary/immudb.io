@@ -63,7 +63,7 @@ Reading data from the set can be done using the following operations:
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-indexes/main.go
+<<< @/code-examples/go/develop-kv-indexes/main.go
 :::
 
 ::: tab Java

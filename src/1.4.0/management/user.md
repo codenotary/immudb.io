@@ -26,7 +26,7 @@ Non-admin permissions are:
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/user-create/main.go
+<<< @/code-examples/go/user-create/main.go
 :::
 
 ::: tab Java

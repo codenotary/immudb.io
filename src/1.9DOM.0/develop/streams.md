@@ -34,7 +34,7 @@ Here an example on how to send a large file and a regular key value to immudb.
 
 It's possible to specify the chunk size of the stream with `WithStreamChunkSize()` method.
 
-<<< @/src/code-examples/go/develop-kv-streams/main.go
+<<< @/code-examples/go/develop-kv-streams/main.go
 :::
 
 ::: tab Java
@@ -129,7 +129,7 @@ If no message is present it returns 0 and io.EOF. If the message is complete it 
 
 > There are several receivers available (zStreamReceiver, vEntryStreamReceiver, execAllStreamReceiver) and also a primitive receiver MsgReceiver. The last one can be used to receive a simple row []byte message without additional logics.
 
-<<< @/src/code-examples/go/develop-kv-streams-chunked-reading/main.go
+<<< @/code-examples/go/develop-kv-streams-chunked-reading/main.go
 :::
 
 ::: tab Java

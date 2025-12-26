@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import { fileURLToPath, URL } from 'node:url'
 
 // Import version-specific sidebars
 import {
@@ -29,14 +30,14 @@ export default defineConfig({
   description,
   lang: 'en-US',
 
-  // Output directory
-  outDir: '../docs',
-
+  // Use default output directory (.vitepress/dist)
+  // We'll copy to docs/ in the GitHub Actions workflow
+  
   // Clean URLs (removes .html extension)
   cleanUrls: true,
 
-  // Source directory (default is root, we'll use root)
-  srcDir: '.',
+  // Source directory
+  srcDir: 'src',
 
   // Head configuration
   head: [
@@ -212,6 +213,12 @@ export default defineConfig({
 
   // Build optimization
   vite: {
+    publicDir: fileURLToPath(new URL('../public', import.meta.url)),  // Use root public folder
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('..', import.meta.url))  // Root of the project
+      }
+    },
     build: {
       chunkSizeWarningLimit: 1000,
       rollupOptions: {

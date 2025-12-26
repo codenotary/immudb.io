@@ -24,7 +24,7 @@ It's possible also to use dedicated [auditors](../production/auditor.md) to ensu
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-get-set/main.go
+<<< @/code-examples/go/develop-kv-get-set/main.go
 :::
 
 ::: tab Python
@@ -225,7 +225,7 @@ You can retrieve a key on a specific transaction with `GetAt`/`VerifiedGetAt`. I
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-get-at-since/main.go
+<<< @/code-examples/go/develop-kv-get-at-since/main.go
 :::
 
 ::: tab Python
@@ -432,7 +432,7 @@ e.g. -1 is the previous value, -2 is the one before and so on.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-get-at-revision/main.go
+<<< @/code-examples/go/develop-kv-get-at-revision/main.go
 :::
 
 ::: tab Python
@@ -555,7 +555,7 @@ It's possible to retrieve all the keys inside a specific transaction.
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/develop-kv-get-at-txid/main.go
+<<< @/code-examples/go/develop-kv-get-at-txid/main.go
 :::
 
 ::: tab Python
@@ -785,7 +785,7 @@ Preconditions are available on `SetAll`, `Reference` and `ExecAll` operations.
 In go sdk, the `schema` package contains convenient wrappers for creating constraint objects,
 such as `schema.PreconditionKeyMustNotExist`.
 
-<<< @/src/code-examples/go/develop-kv-preconditions/main.go
+<<< @/code-examples/go/develop-kv-preconditions/main.go
 :::
 
 ::: tab Python

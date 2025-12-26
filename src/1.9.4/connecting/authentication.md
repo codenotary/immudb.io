@@ -12,7 +12,7 @@ You can modify defaults on the immudb server in [immudb.toml](https://github.com
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/connect-with-auth/main.go
+<<< @/code-examples/go/connect-with-auth/main.go
 :::
 
 ::: tab Python
@@ -168,7 +168,7 @@ In order to generate certs, use the [generate.sh](https://github.com/codenotary/
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/connect-with-mtls/main.go
+<<< @/code-examples/go/connect-with-mtls/main.go
 :::
 
 ::: tab Python
@@ -235,7 +235,7 @@ $ ./immudb --auth=false
 :::: tabs
 
 ::: tab Go
-<<< @/src/code-examples/go/connect-with-no-auth/main.go
+<<< @/code-examples/go/connect-with-no-auth/main.go
 :::
 
 ::: tab Python
