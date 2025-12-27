@@ -83,6 +83,21 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 :deep(.VPNavScreen) {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  z-index: var(--vp-z-index-nav, 30) !important;
+}
+
+/* Mobile menu container must be above backdrop */
+:deep(.VPNavScreenMenu) {
+  position: relative;
+  z-index: 60 !important;
+  pointer-events: auto !important;
+}
+
+/* Mobile menu links must be clickable */
+:deep(.VPNavScreenMenuLink) {
+  position: relative;
+  z-index: 60 !important;
+  pointer-events: auto !important;
 }
 
 :deep(.VPSidebar.open) {
@@ -94,16 +109,32 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 /* Ensure mobile sidebar content is above backdrop */
 :deep(.VPSidebar .nav) {
   position: relative;
-  z-index: 20;
+  z-index: 60 !important;
+  pointer-events: auto !important;
 }
 
-/* Fix mobile backdrop to be clickable but not blur menu */
+/* Fix mobile backdrop - allow clicks to pass through to menu */
 @media (max-width: 960px) {
-  :deep(.VPNavScreenAppearance),
-  :deep(.VPNavScreenMenu),
-  :deep(.VPSidebar) {
+  .VPNavScreenAppearance,
+  .VPNavScreenMenu,
+  .VPSidebar {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+  }
+
+  /* Ensure backdrop doesn't block menu clicks */
+  .VPBackdrop {
+    pointer-events: none !important;
+  }
+
+  /* Menu content should capture clicks */
+  .VPNavScreen .container,
+  .VPNavScreenMenu .VPNavScreenMenuGroup,
+  .VPNavScreenMenuLink,
+  .VPSidebar .nav,
+  .VPSidebar .VPSidebarItem,
+  .VPSidebar .link {
+    pointer-events: auto !important;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 # local env files
 .env.local
 .env.*.local
+.mcp.json
 
 # Editor directories and files
 .idea
