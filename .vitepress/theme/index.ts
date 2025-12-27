@@ -63,7 +63,8 @@ import {
   ResearchPaper,
   DiscordChatWidget,
   Subscribe,
-  WrappedSection
+  WrappedSection,
+  RedirectToDefaultVersion
 } from './components'
 
 // Add icons to library
@@ -135,6 +136,7 @@ export default {
     app.component('DiscordChatWidget', DiscordChatWidget)
     app.component('Subscribe', Subscribe)
     app.component('WrappedSection', WrappedSection)
+    app.component('RedirectToDefaultVersion', RedirectToDefaultVersion)
 
     // Custom functionality can be added here
     // Example: Global filters, directives, etc.

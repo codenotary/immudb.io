@@ -143,18 +143,44 @@
 }
 
 /* Footer styling */
-.VPFooter {
+.VPFooter,
+.VPDocFooter {
   background: var(--cn-color-dark);
   border-top: 1px solid var(--cn-color-primary-darker);
 }
 
-.VPFooter a {
+.VPFooter a,
+.VPDocFooter a {
   color: var(--cn-color-primary);
   transition: color 0.3s ease;
 }
 
-.VPFooter a:hover {
+.VPFooter a:hover,
+.VPDocFooter a:hover {
   color: var(--cn-color-secondary);
+}
+
+/* Fix for sticky nav covering footer */
+/* Ensure main content area is tall enough to keep footer visible */
+.VPDoc {
+  min-height: 100vh !important;
+  padding-bottom: 600px !important;
+}
+
+/* Prevent the page from scrolling the footer above the viewport */
+html {
+  scroll-padding-bottom: 200px !important;
+}
+
+/* Mobile adjustments */
+@media (max-width: 960px) {
+  .VPDoc {
+    padding-bottom: 650px !important;
+  }
+
+  html {
+    scroll-padding-bottom: 250px !important;
+  }
 }
 
 /* Code blocks */
@@ -165,9 +191,19 @@
 }
 
 div[class*='language-'] {
-  background-color: var(--cn-color-primary-dark) !important;
+  background-color: #0d1117 !important;
   border-radius: var(--cn-border-radius-lg);
   box-shadow: var(--cn-shadow-sm);
+}
+
+/* Better line number visibility */
+div[class*="language-"] .line-numbers-wrapper {
+  color: #6e7681;
+  background-color: rgba(110, 118, 129, 0.05);
+}
+
+div[class*="language-"] .line-numbers-wrapper .line-number {
+  color: #6e7681;
 }
 
 /* Links */

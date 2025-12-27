@@ -69,6 +69,9 @@ const content = GlobalContent
   width: 100%;
   clear: both;
   margin-left: 0 !important;
+  /* Account for fixed sidebar like page content */
+  padding-left: var(--sidebar-width);
+  box-sizing: border-box;
 }
 
 .footer .column {
@@ -178,6 +181,11 @@ const content = GlobalContent
 }
 
 @media (max-width: 1600px) {
+  .footer {
+    /* Match page padding on tablet */
+    padding-left: var(--mobile-sidebar-width);
+  }
+
   .footer .main-section,
   .footer .copyright {
     padding-left: var(--cn-sm-padding) !important;
@@ -186,6 +194,11 @@ const content = GlobalContent
 }
 
 @media (max-width: 920px) {
+  .footer {
+    /* Remove sidebar padding on mobile (sidebar slides out) */
+    padding-left: 0;
+  }
+
   .footer .main-section,
   .footer .copyright {
     padding-left: var(--cn-xs-padding) !important;

@@ -3,13 +3,25 @@
  * Converted from code.styl
  */
 
+/* Import PrismJS theme (must be at top of file) */
+@import 'prismjs/themes/prism-tomorrow.css';
+
 .theme-default-content code {
-  color: rgba(255, 255, 255, 0.8);
+  color: #e6edf3;
   padding: 0.25rem 0.5rem;
   margin: 0;
   font-size: 0.85em;
-  background-color: rgba(27, 31, 35, 0.05);
+  background-color: rgba(110, 118, 129, 0.2);
   border-radius: 3px;
+}
+
+/* Inline code in documentation */
+.vp-doc code {
+  color: #e6edf3;
+  background-color: rgba(110, 118, 129, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.875em;
 }
 
 .theme-default-content code .token.deleted {
@@ -25,14 +37,15 @@
   line-height: 1.4;
   padding: 1.25rem 1.5rem;
   margin: 0.85rem 0;
-  background-color: var(--code-bg-color);
+  background-color: #0d1117;
   border-radius: 6px;
   overflow: auto;
+  color: #e6edf3 !important;
 }
 
 .theme-default-content pre code,
 .theme-default-content pre[class*="language-"] code {
-  color: #fff;
+  color: #e6edf3 !important;
   padding: 0;
   background-color: transparent;
   border-radius: 0;
@@ -40,21 +53,45 @@
 
 div[class*="language-"] {
   position: relative;
-  background-color: var(--code-bg-color);
+  background-color: #0d1117 !important;
   border-radius: var(--cn-border-radius-lg);
   margin: 8px !important;
   margin-top: 16px !important;
   box-shadow: var(--cn-shadow-sm) !important;
+  color: #e6edf3 !important;
 }
 
-/* Override Shiki dark theme colors for better contrast */
+/* Code syntax highlighting - force Shiki dark theme colors */
+.vp-code {
+  color: #e6edf3 !important;
+}
+
+.vp-code .line {
+  color: #e6edf3 !important;
+}
+
+/* Force Shiki to use its dark theme colors */
+.vp-code span[style*="--shiki-dark"] {
+  color: var(--shiki-dark) !important;
+}
+
+/* Fallback bright colors for any spans without Shiki styles */
 .vp-code span {
-  color: var(--shiki-light) !important;
+  color: #e6edf3 !important;
 }
 
-/* Force light theme colors in dark mode for better readability */
-html.dark .vp-code span[style*="--shiki-dark"] {
-  color: var(--shiki-light) !important;
+/* Override gray color from variables */
+div[class*="language-"] code,
+div[class*="language-"] pre,
+.vp-code,
+.vp-code span,
+.vp-code .line {
+  color: #e6edf3 !important;
+}
+
+/* Ensure Shiki syntax highlighting shows up */
+div[class*="language-"] span[style] {
+  color: var(--shiki-dark, #e6edf3) !important;
 }
 
 div[class*="language-"] .highlight-lines {
@@ -181,5 +218,3 @@ div[class~="language-typescript"]::before { content: "ts"; }
 div[class~="language-vue"]::before { content: "vue"; }
 div[class~="language-xml"]::before { content: "xml"; }
 div[class~="language-yaml"]::before { content: "yaml"; }
-
-@import 'prismjs/themes/prism-tomorrow.css';
