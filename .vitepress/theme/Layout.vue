@@ -78,6 +78,34 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
   width: 100%;
   clear: both;
 }
+
+/* Fix mobile menu - ensure it's not blurred and clickable */
+:deep(.VPNavScreen) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+:deep(.VPSidebar.open) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: var(--vp-z-index-sidebar, 10);
+}
+
+/* Ensure mobile sidebar content is above backdrop */
+:deep(.VPSidebar .nav) {
+  position: relative;
+  z-index: 20;
+}
+
+/* Fix mobile backdrop to be clickable but not blur menu */
+@media (max-width: 960px) {
+  :deep(.VPNavScreenAppearance),
+  :deep(.VPNavScreenMenu),
+  :deep(.VPSidebar) {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
 </style>
 
 <style scoped>
