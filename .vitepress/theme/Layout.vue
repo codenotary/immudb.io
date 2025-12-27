@@ -122,9 +122,9 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Ensure backdrop doesn't block menu clicks */
+  /* Ensure backdrop doesn't block menu clicks and is invisible */
   .VPBackdrop {
-    pointer-events: none !important;
+    display: none !important;
   }
 
   /* Menu content should capture clicks */
