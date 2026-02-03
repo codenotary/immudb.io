@@ -30,16 +30,6 @@ const schemaOrg = `{
     "description": "${description}"
 }`;
 
-const googleAnalytics = `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-ELLNP48DRV');`;
-
-const vgo = `(function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
-vgo('setAccount', '66487182');
-vgo('setTrackByDefault', true);
-vgo('process');`;
-
 module.exports = {
     base: '/',
     dest: 'docs',
@@ -72,9 +62,7 @@ module.exports = {
         ['meta', { name: "HandheldFriendly", content: "True" }],
         ['meta', { name: "viewport", content: "width=device-width, initial-scale=1.0" }],
         ['script', { type: "application/ld+json" }, schemaOrg],
-        ['script', { type: "text/javascript" }, vgo],
     ].concat(process.env.NODE_ENV === 'production' ? [
-        ['script', { async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-168112067-1" }],
         ['script', { async: true, src: "https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" }]
     ] : []),
     themeConfig: {
@@ -96,9 +84,6 @@ module.exports = {
     plugins: [
         ['sitemap', {
             hostname: 'https://immudb.io'
-        }],
-        ['@vuepress/google-analytics', {
-            ga: 'UA-168112067-1'
         }],
         ['vuepress-plugin-reading-time'],
         ['vuepress-plugin-element-tabs']

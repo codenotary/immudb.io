@@ -71,7 +71,6 @@
     "@vue/babel-preset-app": "^4.5.19",
     "@vue/test-utils": "^2.4.3",
     "@vuepress/plugin-blog": "^1.9.2",
-    "@vuepress/plugin-google-analytics": "^1.9.7",
     "ansi-regex": "^5.0.1",
     "dotenv": "^17.2.3",
     "happy-dom": "^12.10.3",

@@ -19,11 +19,10 @@ const websiteUrl = 'https://immudb.io'
 const title = 'immudb'
 const description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.'
 
-// Environment variables for Algolia and Analytics
+// Environment variables for Algolia
 const algoliaApiKey = process.env.ALGOLIA_API_KEY || ''
 const algoliaIndexName = process.env.ALGOLIA_INDEX || ''
 const algoliaAppId = process.env.ALGOLIA_APP_ID || ''
-const googleAnalyticsId = process.env.GOOGLE_ANALYTICS_ID || 'G-ELLNP48DRV'
 
 export default defineConfig({
   title,
@@ -92,23 +91,6 @@ export default defineConfig({
       },
       description
     })],
-
-    // Google Analytics
-    ['script', { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}` }],
-    ['script', {}, `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${googleAnalyticsId}');
-    `],
-
-    // VGO tracking
-    ['script', {}, `
-      (function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
-      vgo('setAccount', '66487182');
-      vgo('setTrackByDefault', true);
-      vgo('process');
-    `],
 
     // reCAPTCHA (production only)
     ...(process.env.NODE_ENV === 'production' ? [
