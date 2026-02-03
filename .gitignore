@@ -2,6 +2,7 @@
 .env.local
 .env.*.local
 .mcp.json
+trivy.json 
 
 # Editor directories and files
 .idea
@@ -110,3 +111,7 @@ algolia.config.js
 # Claude Flow coordination
 .swarm/
 .claude-flow/
+
+# Playwright test results
+playwright-report/
+test-results/
