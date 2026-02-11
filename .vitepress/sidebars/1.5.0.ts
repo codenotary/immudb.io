@@ -6,8 +6,7 @@ export const v150Sidebar: DefaultTheme.SidebarItem[] = [
     collapsed: false,
     items: [
       { text: 'Overview', link: '/1.5.0/' },
-      { text: 'About immudb', link: '/1.5.0/immudb' },
-      { text: 'Playground', link: '/1.5.0/playground' }
+      { text: 'About immudb', link: '/1.5.0/immudb' }
     ]
   },
   {

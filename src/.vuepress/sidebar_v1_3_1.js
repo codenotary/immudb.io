@@ -10,7 +10,6 @@ export default version => {
     children: [
       `${version}/`,
       `${version}/immudb`,
-      `${version}/playground`,
     ]
   };
   /* WELCOME SECTION END */

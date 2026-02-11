@@ -12,18 +12,6 @@ immudb can be used both as a key-value store, or as a relational database (SQL).
 
 </WrappedSection>
 
-### Playground
-
-  * Want to dive right in and play around? Get started with the [user quickstart](./getstarted/quickstart)
-  * Want to use immudb from your favourite programming language? head to the [developer jumpstart](./getstarted/jumpstart)
-  * .. or try the [**immudb Playground**, an interactive environment for learning about immudb](https://play.codenotary.com):
-
-<WrappedSection thin>
-
-  [![image](/playground.jpg)](https://play.codenotary.com)
-	
-</WrappedSection>
-  
 ### Help and Support
 
 

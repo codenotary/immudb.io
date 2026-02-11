@@ -6,8 +6,7 @@ export const masterSidebar: DefaultTheme.SidebarItem[] = [
     collapsed: false,
     items: [
       { text: 'Overview', link: '/master/' },
-      { text: 'About immudb', link: '/master/immudb' },
-      { text: 'Playground', link: '/master/playground' }
+      { text: 'About immudb', link: '/master/immudb' }
     ]
   },
   {
