@@ -16,7 +16,6 @@ export { default as TabPanel } from './TabPanel.vue'
 // Content components
 export { default as Footer } from './Footer.vue'
 export { default as PageEdit } from './PageEdit.vue'
-export { default as AlgoliaSearchBox } from './AlgoliaSearchBox.vue'
 export { default as DropdownLink } from './DropdownLink.vue'
 export { default as DropdownTransition } from './DropdownTransition.vue'
 

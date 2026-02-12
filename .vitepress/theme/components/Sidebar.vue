@@ -1,14 +1,8 @@
 <template>
   <aside class="sidebar">
-    <AlgoliaSearchBox
-      class="search-box"
-      inputId="sidebarSearchbox"
-      v-if="isAlgoliaSearch"
-      :options="algolia"
-    />
     <SearchBox
       class="search-box"
-      v-else-if="theme.search !== false && page.frontmatter.search !== false"
+      v-if="theme.search !== false && page.frontmatter.search !== false"
     />
 
     <div class="scrollable-area">
@@ -27,12 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useData } from 'vitepress'
 import SidebarLinks from './SidebarLinks.vue'
 import NavLinks from './NavLinks.vue'
 import SearchBox from './SearchBox.vue'
-import AlgoliaSearchBox from './AlgoliaSearchBox.vue'
 
 /**
  * Props
@@ -56,17 +48,6 @@ const props = defineProps<Props>()
  * VitePress data
  */
 const { theme, page } = useData()
-
-/**
- * Computed properties
- */
-const algolia = computed(() => {
-  return (theme.value as any).algolia || {}
-})
-
-const isAlgoliaSearch = computed(() => {
-  return algolia.value && algolia.value.apiKey && algolia.value.indexName
-})
 </script>
 
 <style scoped>

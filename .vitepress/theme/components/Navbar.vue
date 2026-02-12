@@ -25,14 +25,9 @@
     </div>
 
     <div class="actions flex row">
-      <AlgoliaSearchBox
-        class="can-hide"
-        v-if="isAlgoliaSearch"
-        :options="algolia"
-      />
       <SearchBox
         class="can-hide"
-        v-else-if="theme.search !== false && page.frontmatter.search !== false"
+        v-if="theme.search !== false && page.frontmatter.search !== false"
       />
       <VersionsDropdown />
     </div>
@@ -45,7 +40,6 @@ import { useData, withBase } from 'vitepress'
 import SidebarButton from './SidebarButton.vue'
 import NavLinks from './NavLinks.vue'
 import SearchBox from './SearchBox.vue'
-import AlgoliaSearchBox from './AlgoliaSearchBox.vue'
 import VersionsDropdown from './VersionsDropdown.vue'
 
 /**
@@ -79,14 +73,6 @@ const linksWrapMaxWidth = ref<number | null>(null)
  * Computed properties
  */
 const localePath = computed(() => '/')
-
-const algolia = computed(() => {
-  return (theme.value as any).algolia || {}
-})
-
-const isAlgoliaSearch = computed(() => {
-  return algolia.value && algolia.value.apiKey && algolia.value.indexName
-})
 
 /**
  * Lifecycle hooks

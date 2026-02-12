@@ -57,7 +57,6 @@ import {
   TabPanel,
   Footer,
   PageEdit,
-  AlgoliaSearchBox,
   DropdownLink,
   DropdownTransition,
   ResearchPaper,
@@ -127,7 +126,6 @@ export default {
     // Content components
     app.component('Footer', Footer)
     app.component('PageEdit', PageEdit)
-    app.component('AlgoliaSearchBox', AlgoliaSearchBox)
     app.component('DropdownLink', DropdownLink)
     app.component('DropdownTransition', DropdownTransition)
 

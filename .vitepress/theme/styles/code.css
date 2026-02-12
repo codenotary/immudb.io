@@ -3,9 +3,6 @@
  * Converted from code.styl
  */
 
-/* Import PrismJS theme (must be at top of file) */
-@import 'prismjs/themes/prism-tomorrow.css';
-
 .theme-default-content code {
   color: #e6edf3;
   padding: 0.25rem 0.5rem;
