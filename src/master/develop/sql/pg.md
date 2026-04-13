@@ -2,15 +2,36 @@
 
 <WrappedSection>
 
-immudb can talk the [pgsql wire protocol](https://www.postgresql.org/docs/9.3/protocol.html) which makes it compatible with a widely available set of clients and drivers.
+immudb implements the [PostgreSQL wire protocol](https://www.postgresql.org/docs/14/protocol.html), providing broad compatibility with PostgreSQL clients, ORMs, and tools. Connect with `psql`, pgAdmin, DBeaver, JDBC, SQLAlchemy, Django, GORM, ActiveRecord, and more.
 
-Note: immudb supports the pgsql wire protocol. It is *not* compatible with the SQL dialect. Check other topics in the `Develop with SQL` section to see what queries and operations are supported.
+immudb reports itself as **PostgreSQL 14.0** and supports:
 
-Some pgsql clients and browser application execute incompatible statements in the background or directly query the pgsql catalog. Those may not work with immudb.
+- **COPY FROM stdin** for bulk data import via `psql -f dump.sql`
+- **pg_catalog** query interception for tool compatibility (pgAdmin, DBeaver)
+- **PostgreSQL type aliases**: BIGINT, SERIAL, NUMERIC, DECIMAL, BYTEA, JSONB, TIMESTAMPTZ, TEXT, etc.
+- **LIKE with standard SQL wildcards** (`%` and `_`, not regex)
+- **75+ built-in functions** compatible with PostgreSQL
+- **Automatic type translation** from PostgreSQL DDL to immudb types
 
-immudb needs to be started with the `pgsql-server` option enabled (`IMMUDB_PGSQL_SERVER=true`).
+Start immudb with the `pgsql-server` option enabled:
 
-SSL is supported, if you configured immudb with a certificate.
+```bash
+./immudb --pgsql-server --pgsql-server-port 5433
+```
+
+Or via environment variable: `IMMUDB_PGSQL_SERVER=true`.
+
+SSL is supported if you configure immudb with a certificate. Without SSL, clients that send an SSL probe will gracefully fall back to plaintext.
+
+### Importing PostgreSQL databases
+
+You can import standard `pg_dump` output directly:
+
+```bash
+PGPASSWORD=immudb psql -h localhost -p 5433 -U immudb -d defaultdb -f mydatabase.sql
+```
+
+immudb automatically translates PostgreSQL types, handles `COPY FROM stdin` data, and silently skips unsupported DDL (CREATE FUNCTION, CREATE TRIGGER, GRANT, etc.).
 
 </WrappedSection>
 

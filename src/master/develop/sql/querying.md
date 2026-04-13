@@ -458,3 +458,121 @@ SELECT details->'1'->'price' as price FROM items;
 ```
 
 </WrappedSection>
+
+<WrappedSection>
+
+### LIKE and ILIKE pattern matching
+
+Use standard SQL wildcards: `%` matches any sequence of characters, `_` matches a single character.
+
+```sql
+-- Find names starting with 'A'
+SELECT * FROM customers WHERE name LIKE 'A%';
+
+-- Find 5-letter names starting with 'J'
+SELECT * FROM customers WHERE name LIKE 'J____';
+
+-- Case-insensitive search
+SELECT * FROM products WHERE name ILIKE '%widget%';
+
+-- Escape literal % or _ with backslash
+SELECT * FROM data WHERE code LIKE '100\%';
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### EXISTS and IN subqueries
+
+```sql
+-- Find customers who have placed orders
+SELECT * FROM customers c
+WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);
+
+-- Find products not in any order
+SELECT * FROM products
+WHERE id NOT IN (SELECT product_id FROM order_items);
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### EXCEPT and INTERSECT
+
+```sql
+-- Products in catalog but never ordered
+SELECT id, name FROM products
+EXCEPT
+SELECT p.id, p.name FROM products p
+INNER JOIN orders o ON p.id = o.product_id;
+
+-- Customers who are also employees
+SELECT name FROM customers
+INTERSECT
+SELECT name FROM employees;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### COUNT(DISTINCT) and STRING_AGG
+
+```sql
+-- Count unique categories
+SELECT COUNT(DISTINCT category) FROM products;
+
+-- Concatenate names per department
+SELECT department, STRING_AGG(name, ', ') AS members
+FROM employees
+GROUP BY department;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### ORDER BY alias
+
+You can reference SELECT aliases in ORDER BY:
+
+```sql
+SELECT department, COUNT(*) AS total
+FROM employees
+GROUP BY department
+ORDER BY total DESC;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### RETURNING clause
+
+Get back values from INSERT, UPDATE, or DELETE:
+
+```sql
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com')
+RETURNING id, name;
+
+UPDATE products SET price = price * 1.1 WHERE category = 'Electronics'
+RETURNING id, name, price;
+
+DELETE FROM sessions WHERE expired = true
+RETURNING session_id;
+```
+
+</WrappedSection>
+
+<WrappedSection>
+
+### ON CONFLICT (Upsert)
+
+```sql
+INSERT INTO settings (key, value) VALUES ('theme', 'dark')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+```
+
+</WrappedSection>

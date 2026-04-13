@@ -286,3 +286,32 @@ If you're using another development language, please refer to the [immugw](../..
 :::
 
 ::::
+
+<WrappedSection>
+
+### Savepoints
+
+Savepoints allow partial rollback within a transaction. This is essential for ORM compatibility (Django, Rails, etc.).
+
+```sql
+BEGIN TRANSACTION;
+
+INSERT INTO orders (id, product) VALUES (1, 'Widget');
+
+SAVEPOINT before_update;
+
+UPDATE orders SET product = 'Gadget' WHERE id = 1;
+
+-- Undo the update, keep the insert
+ROLLBACK TO SAVEPOINT before_update;
+
+COMMIT;
+-- Only the original insert (Widget) is committed
+```
+
+Supported statements:
+- `SAVEPOINT name` -- create a savepoint
+- `ROLLBACK TO SAVEPOINT name` -- rollback to a savepoint (also `ROLLBACK TO name`)
+- `RELEASE SAVEPOINT name` -- remove a savepoint
+
+</WrappedSection>

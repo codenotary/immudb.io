@@ -91,9 +91,14 @@ export const masterSidebar: DefaultTheme.SidebarItem[] = [
       { text: 'Insert & Update', link: '/master/develop/sql/insertupdate' },
       { text: 'Indexes', link: '/master/develop/sql/indexes' },
       { text: 'Querying', link: '/master/develop/sql/querying' },
+      { text: 'Joins', link: '/master/develop/sql/joins' },
+      { text: 'Window Functions', link: '/master/develop/sql/windowfunctions' },
+      { text: 'CTEs (WITH clause)', link: '/master/develop/sql/ctes' },
+      { text: 'Views & Sequences', link: '/master/develop/sql/views' },
       { text: 'Users', link: '/master/develop/sql/users' },
       { text: 'Privileges', link: '/master/develop/sql/privileges' },
       { text: 'Catalog', link: '/master/develop/sql/catalog' },
+      { text: 'Audit Logging', link: '/master/develop/sql/auditlog' },
       { text: 'SQL Standard Library', link: '/master/develop/sql/sqlstdlib' },
       { text: 'PostgreSQL Compatibility', link: '/master/develop/sql/pg' }
     ]
