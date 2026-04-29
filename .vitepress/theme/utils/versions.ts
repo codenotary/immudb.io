@@ -34,11 +34,18 @@ export const versionMetadata: Record<string, VersionMetadata> = {
     isDefault: true,
     order: 1000
   },
+  '1.11.0': {
+    label: 'v1.11.0',
+    status: VERSION_STATUS.STABLE,
+    releaseDate: '2026-04-23',
+    description: 'Latest stable release',
+    order: 1110
+  },
   '1.9.6': {
     label: 'v1.9.6',
     status: VERSION_STATUS.STABLE,
     releaseDate: '2024-12-01',
-    description: 'Latest stable release',
+    description: 'Stable release',
     order: 196
   },
   '1.9.5': {
