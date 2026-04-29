@@ -1,5 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 import { masterSidebar } from './master'
+import { v1110Sidebar } from './1.11.0'
 import { v196Sidebar } from './1.9.6'
 import { v195Sidebar } from './1.9.5'
 import { v194Sidebar } from './1.9.4'
@@ -32,6 +33,7 @@ export interface SidebarConfig {
  */
 export const sidebars: SidebarConfig = {
   '/master/': masterSidebar,
+  '/1.11.0/': v1110Sidebar,
   '/1.9.6/': v196Sidebar,
   '/1.9.5/': v195Sidebar,
   '/1.9.4/': v194Sidebar,
@@ -63,6 +65,7 @@ export function getVersions(): string[] {
 // Export individual sidebars for direct import
 export {
   masterSidebar,
+  v1110Sidebar,
   v196Sidebar,
   v195Sidebar,
   v194Sidebar,

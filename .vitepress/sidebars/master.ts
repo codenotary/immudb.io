@@ -91,6 +91,7 @@ export const masterSidebar: DefaultTheme.SidebarItem[] = [
       { text: 'Insert & Update', link: '/master/develop/sql/insertupdate' },
       { text: 'Indexes', link: '/master/develop/sql/indexes' },
       { text: 'Querying', link: '/master/develop/sql/querying' },
+      { text: 'SQL Diff Query', link: '/master/develop/sql/sqldiff' },
       { text: 'Joins', link: '/master/develop/sql/joins' },
       { text: 'Window Functions', link: '/master/develop/sql/windowfunctions' },
       { text: 'CTEs (WITH clause)', link: '/master/develop/sql/ctes' },

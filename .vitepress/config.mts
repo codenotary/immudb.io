@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 // Import version-specific sidebars
 import {
   masterSidebar,
+  v1110Sidebar,
   v196Sidebar,
   v195Sidebar,
   v194Sidebar,
@@ -125,6 +126,7 @@ export default defineConfig({
     // Multi-version sidebar configuration
     sidebar: {
       '/master/': masterSidebar,
+      '/1.11.0/': v1110Sidebar,
       '/1.9.6/': v196Sidebar,
       '/1.9.5/': v195Sidebar,
       '/1.9.4/': v194Sidebar,
