@@ -11,6 +11,7 @@ import { useRoute, useRouter } from 'vitepress'
  */
 export const VERSIONS = [
   'master',
+  '1.11.0',
   '1.9.6',
   '1.9.5',
   '1.9.4',
