@@ -16,4 +16,8 @@ The following illustrative example showcase how to initialize the SQL engine, wr
 
 If you need to change options like where things get stored by default, you can do that in the underlying store objects that the SQL engine is using.
 
+::: tip Multi-database operations
+The example above uses a single, default database — which is the typical setup for embedded usage. Statements like `CREATE DATABASE` and `USE DATABASE` are only available when the SQL engine is configured with a `MultiDBHandler` via `sql.DefaultOptions().WithMultiDBHandler(...)`. Without one, executing those statements will fail with `unspecified multidbHandler`. Note also that the underlying store must be opened with `store.DefaultOptions().WithMultiIndexing(true)` for the SQL engine to operate.
+:::
+
 </WrappedSection>
