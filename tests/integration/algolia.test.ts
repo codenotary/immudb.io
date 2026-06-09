@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { execSync } from 'child_process'
-import { readFileSync, existsSync } from 'fs'
+import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'path'
 
 /**

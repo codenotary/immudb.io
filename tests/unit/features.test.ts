@@ -49,7 +49,8 @@ class AlgoliaSearch {
  */
 function calculateReadingTime(text: string): { minutes: number, words: number } {
   const wordsPerMinute = 200
-  const words = text.trim().split(/\s+/).length
+  const trimmed = text.trim()
+  const words = trimmed === '' ? 0 : trimmed.split(/\s+/).length
   const minutes = Math.ceil(words / wordsPerMinute)
 
   return { minutes, words }
