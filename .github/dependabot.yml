@@ -1,0 +1,27 @@
+version: 2
+
+updates:
+  # Site build and test tooling.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      npm:
+        patterns:
+          - "*"
+
+  # The 40 documentation code examples under src/code-examples/go/. Without the
+  # wildcard directory and the group, each module opens its own PR for the same
+  # advisory -- which is how the backlog reached 30 open PRs and 855 alerts.
+  - package-ecosystem: gomod
+    directories:
+      - /src/code-examples/go/*
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      go-examples:
+        patterns:
+          - "*"
