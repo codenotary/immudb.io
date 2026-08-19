@@ -11,6 +11,14 @@ updates:
       npm:
         patterns:
           - "*"
+    ignore:
+      # Majors stay a human decision. VitePress 1.6.4 constrains vite to 5.x,
+      # and vue-tsc 3 / @lhci/cli / babel 8 each need their own verification
+      # pass, so an automated major bump here breaks the docs build rather than
+      # securing it. Security advisories are unaffected by this -- they are
+      # raised separately from version updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   # The 40 documentation code examples under src/code-examples/go/. Without the
   # wildcard directory and the group, each module opens its own PR for the same
