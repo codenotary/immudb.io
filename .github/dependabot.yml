@@ -25,3 +25,11 @@ updates:
       go-examples:
         patterns:
           - "*"
+    ignore:
+      # The immudb version an example pins is an editorial choice, not a
+      # maintenance one -- it has to match the release the surrounding doc page
+      # documents. embedded-kv (v1.4.1) and embedded-kv-v1.5.0 (v1.5.0) predate
+      # the context.Context parameters on the embedded store API, so bumping
+      # them breaks the build and misdocuments those pages. Bump this by hand
+      # alongside a docs release; Dependabot still patches everything below it.
+      - dependency-name: github.com/codenotary/immudb
