@@ -97,9 +97,9 @@ Check [auditor](production/auditor.md) section for additional details.
 
 immudb is an append-only, tamperproof database with key/value and SQL (Structured Query Language) application programming interfaces.
 
-The immudb core persistence layer consists of a cryptographically-immutable log. Transactions are sequentially stored and uniquely identified by unsigned 64-bit integer values, thus setting a theoretical limit of 18446744073709551615 transactions (1^64 - 1).
+The immudb core persistence layer consists of a cryptographically-immutable log. Transactions are sequentially stored and uniquely identified by unsigned 64-bit integer values, thus setting a theoretical limit of 18446744073709551615 transactions (2^64 - 1).
 
-In order to provide manageable limits, immudb is designed to set an upper bound to the number of key-value pairs included in a single transaction. The default value being 1024, so using default settings, the theoretical number of key-value pairs that can be stored in immudb is: 1024 * (1^64 - 1).
+In order to provide manageable limits, immudb is designed to set an upper bound to the number of key-value pairs included in a single transaction. The default value being 1024, so using default settings, the theoretical number of key-value pairs that can be stored in immudb is: 1024 * (2^64 - 1).
 
 We designed immudb to require stable resources but not imposing strong limitations as most of the settings can be adjusted based on the use-case requirements.
 
