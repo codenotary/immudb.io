@@ -3,18 +3,7 @@ import type { HeadConfig } from 'vitepress'
 import { fileURLToPath, URL } from 'node:url'
 
 // Import version-specific sidebars
-import {
-  masterSidebar,
-  v1110Sidebar,
-  v196Sidebar,
-  v195Sidebar,
-  v194Sidebar,
-  v150Sidebar,
-  v141Sidebar,
-  v140Sidebar,
-  v132Sidebar,
-  v131Sidebar
-} from './sidebars'
+import { versionSidebars } from './sidebars'
 
 const websiteUrl = 'https://immudb.io'
 const title = 'immudb'
@@ -125,35 +114,12 @@ export default defineConfig({
       { text: 'Github', link: 'https://github.com/codenotary/immudb' }
     ],
 
-    // Multi-version sidebar configuration
-    sidebar: {
-      '/master/': masterSidebar,
-      '/1.11.0/': v1110Sidebar,
-      '/1.9.6/': v196Sidebar,
-      '/1.9.5/': v195Sidebar,
-      '/1.9.4/': v194Sidebar,
-      '/1.5.0/': v150Sidebar,
-      '/1.4.1/': v141Sidebar,
-      '/1.4.0/': v140Sidebar,
-      '/1.3.2/': v132Sidebar,
-      '/1.3.1/': v131Sidebar,
-      // Older versions use v1.3.1 sidebar
-      '/1.3.0/': v131Sidebar,
-      '/1.2.4/': v131Sidebar,
-      '/1.2.3/': v131Sidebar,
-      '/1.2.2/': v131Sidebar,
-      '/1.2.1/': v131Sidebar,
-      '/1.2.0/': v131Sidebar,
-      '/1.1.0/': v131Sidebar,
-      '/1.0.5/': v131Sidebar,
-      '/1.0.1/': v131Sidebar,
-      '/1.0.0/': v131Sidebar,
-      '/0.9.2/': v131Sidebar,
-      '/0.9.1/': v131Sidebar,
-      '/0.9.0/': v131Sidebar,
-      '/0.8.1/': v131Sidebar,
-      '/0.8.0/': v131Sidebar
-    },
+    // Multi-version sidebar configuration.
+    // Curated where a sidebar exists, derived from the nearest one otherwise —
+    // previously every version older than 1.3.1 was handed v131Sidebar verbatim,
+    // so its links pointed at /1.3.1/ and navigating the old docs silently moved
+    // you to a different version. See .vitepress/sidebars/index.ts.
+    sidebar: versionSidebars,
 
     // Social links
     socialLinks: [
