@@ -228,16 +228,19 @@ div[class*="language-"] .line-numbers-wrapper .line-number {
 .vp-doc .custom-block.tip {
   border-color: var(--cn-color-primary);
   background-color: var(--cn-color-primary-dark);
+  color: var(--vp-c-white);
 }
 
 .vp-doc .custom-block.warning {
   border-color: var(--cn-color-secondary);
   background-color: var(--cn-color-primary-darker);
+  color: var(--vp-c-white);
 }
 
 .vp-doc .custom-block.danger {
   border-color: var(--cn-color-accent);
   background-color: var(--cn-color-primary-darker);
+  color: var(--vp-c-white);
 }
 
 /* Search */

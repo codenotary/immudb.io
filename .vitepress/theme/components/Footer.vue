@@ -11,16 +11,16 @@
           Immutable notarization for all your sensitive data. On-premise or in the cloud, easy to use tamperproof storage with cryptographic verification, processing millions of transactions a second.
         </p>
         <div class="social-links">
-          <a href="https://github.com/codenotary">
+          <a href="https://github.com/codenotary" aria-label="Codenotary on GitHub">
             <font-awesome-icon :icon="['fab', 'github-square']" />
           </a>
-          <a href="https://twitter.com/Codenotary">
+          <a href="https://twitter.com/Codenotary" aria-label="Codenotary on Twitter">
             <font-awesome-icon :icon="['fab', 'twitter-square']" />
           </a>
-          <a href="https://www.facebook.com/Codenotary-Inc-106257094666687">
+          <a href="https://www.facebook.com/Codenotary-Inc-106257094666687" aria-label="Codenotary on Facebook">
             <font-awesome-icon :icon="['fab', 'facebook-square']" />
           </a>
-          <a href="https://www.linkedin.com/company/codenotary/">
+          <a href="https://www.linkedin.com/company/codenotary/" aria-label="Codenotary on LinkedIn">
             <font-awesome-icon :icon="['fab', 'linkedin']" />
           </a>
         </div>

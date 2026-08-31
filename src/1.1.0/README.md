@@ -2,7 +2,7 @@
 
 <WrappedSection>
 
-<img align="right" src="/logos/immudb-mascot.svg" width="256px"/>
+<img align="right" src="/logos/immudb-mascot.svg" width="256px" alt="The immudb mascot"/>
 
 Welcome to the immudb documentation. Great to see you here!
 
@@ -29,7 +29,7 @@ This section covers what you need to run immudb in a real server or production e
 ### Reference
 Here you can find a comprehensive list of immudb configuration options and developer APIs.
 
-### Help and Support
+## Help and Support
 
 
 ### External Resources

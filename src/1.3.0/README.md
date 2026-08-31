@@ -2,7 +2,7 @@
 
 <WrappedSection>
 
-<img align="right" src="/logos/immudb-mascot.svg" width="256px"/>
+<img align="right" src="/logos/immudb-mascot.svg" width="256px" alt="The immudb mascot"/>
 
 Welcome to the immudb documentation. Great to see you here!
 
@@ -12,7 +12,7 @@ immudb can be used both as a key-value store, or as a relational database (SQL).
 
 </WrappedSection>
 
-### Help and Support
+## Help and Support
 
 
 ### External Resources

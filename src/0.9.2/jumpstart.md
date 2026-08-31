@@ -28,7 +28,7 @@ Depending on your use case, immudb might function as your application's primary 
 <WrappedSection>
 
 ## Why use immudb?
-<img align="right" src="/logos/immudb-mascot.svg" width="256px"/>
+<img align="right" src="/logos/immudb-mascot.svg" width="256px" alt="The immudb mascot"/>
 
 It ensures the integrity of your organization's data. While Cyber Security is an important part of your organization’s business plan, immudb provides another layer of security to ensure data integrity even in the event your perimeter is breached during an attack.  Data cannot be deleted or modified once stored into immudb. Additions of new data are logged and auditable, enabling you to view any suspect additions made during the intrusion.
 

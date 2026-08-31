@@ -53,7 +53,7 @@ This sample was written taking as a basis the tutorial [Building a simple app wi
 The full source code of this sample can be found at [WebApp using SQL](https://github.com/codenotary/immudb-client-examples/tree/master/go/todos-sample-stdlib)
 
 <WrappedSection>
-<img align="center" src="/samples/go_webapp_sql.jpg" />
+<img align="center" src="/samples/go_webapp_sql.jpg" alt="Screenshot of the Go web application querying immudb with SQL" />
 </WrappedSection>
 
 ### Prerequisites

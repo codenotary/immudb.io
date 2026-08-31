@@ -2,7 +2,7 @@
 
 <WrappedSection>
 
-<img align="right" src="/logos/immudb-mascot.svg" width="256px"/>
+<img align="right" src="/logos/immudb-mascot.svg" width="256px" alt="The immudb mascot"/>
 
 Welcome to the immudb documentation. Great to see you here!
 
@@ -16,7 +16,7 @@ immudb can be run as full database server with replicas or easily embedded as a 
 
 <WrappedSection>
   
-### Help and Support
+## Help and Support
 
   <CnSocialButton social="twitter" target="_blank" rel="external" href="https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb"></CnSocialButton>
 

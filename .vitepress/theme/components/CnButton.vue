@@ -1,16 +1,30 @@
 <template>
+  <!--
+    Render exactly one interactive element. Wrapping an <a> in a <button> nests
+    interactive controls, which is invalid HTML and made axe report the button as
+    obscured by its own link: the only part not covered was the 7px of vertical
+    padding. The router-link branch is gone with it — VitePress ships no
+    vue-router, so it could never have resolved.
+  -->
+  <a
+    v-if="href"
+    class="no-hover"
+    :class="dynamicClass"
+    :style="buttonStyle"
+    v-bind="$attrs"
+    :href="href"
+    :rel="rel ?? undefined"
+    :target="target"
+  >
+    <slot />
+  </a>
   <button
+    v-else
     :class="dynamicClass"
     :style="buttonStyle"
     v-bind="$attrs"
   >
-    <router-link v-if="to" class="table_link" :to="to">
-      <slot />
-    </router-link>
-    <a v-else-if="href" class="no-hover" :href="href" :rel="rel ?? undefined" :target="target">
-      <slot />
-    </a>
-    <slot v-else />
+    <slot />
   </button>
 </template>
 
@@ -20,7 +34,6 @@ import { computed } from 'vue'
 interface Props {
   variant?: 'secondary' | 'light' | 'primary' | 'primary-inverse' | 'social'
   href?: string | null
-  to?: object | null
   size?: string
   target?: string
   rel?: string | null
@@ -31,7 +44,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   variant: 'secondary',
   href: null,
-  to: null,
   size: 'lg',
   target: '_self',
   rel: null,
@@ -139,31 +151,7 @@ a:active {
   border: none;
   padding: 7px 15px;
   flex-direction: row;
-}
-
-.cn-button_social a {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.cn-button_social a > *:not(:first-child) {
-  border-left: 1px solid var(--cn-color-grey);
-  padding-left: 10px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cn-button_social a > *:not(:last-child) {
-  margin-right: 10px;
-}
-
-.cn-button_social a > *:last-child {
-  color: var(--cn-color-brand);
+  text-decoration: none;
 }
 
 .cn-button_social > *:not(:first-child) {

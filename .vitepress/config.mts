@@ -113,7 +113,9 @@ export default defineConfig({
 
   // Theme configuration
   themeConfig: {
-    logo: '/logo_white.svg',
+    // siteTitle is false, so the logo is the title link's only content — without
+    // alt text the link has no accessible name.
+    logo: { src: '/logo_white.svg', alt: 'immudb' },
     siteTitle: false,  // Don't show title next to logo
 
     // Navigation
