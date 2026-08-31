@@ -145,6 +145,8 @@ jobs:
         run: npm run algolia:index
         continue-on-error: true
 
+  # Pull-request only: it audits the built site with Lighthouse and comments
+  # the results, neither of which is meaningful on a push to master.
   performance-report:
     if: github.event_name == 'pull_request'
     needs: build
