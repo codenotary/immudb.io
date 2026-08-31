@@ -19,6 +19,10 @@ export { default as PageEdit } from './PageEdit.vue'
 export { default as DropdownLink } from './DropdownLink.vue'
 export { default as DropdownTransition } from './DropdownTransition.vue'
 
+// Button components
+export { default as CnButton } from './CnButton.vue'
+export { default as CnSocialButton } from './CnSocialButton.vue'
+
 // Special components
 export { default as ResearchPaper } from './ResearchPaper.vue'
 export { default as DiscordChatWidget } from './DiscordChatWidget.vue'

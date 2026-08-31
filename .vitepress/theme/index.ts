@@ -59,6 +59,8 @@ import {
   PageEdit,
   DropdownLink,
   DropdownTransition,
+  CnButton,
+  CnSocialButton,
   ResearchPaper,
   DiscordChatWidget,
   Subscribe,
@@ -128,6 +130,10 @@ export default {
     app.component('PageEdit', PageEdit)
     app.component('DropdownLink', DropdownLink)
     app.component('DropdownTransition', DropdownTransition)
+
+    // Button components (CnSocialButton renders CnButton internally)
+    app.component('CnButton', CnButton)
+    app.component('CnSocialButton', CnSocialButton)
 
     // Special components
     app.component('ResearchPaper', ResearchPaper)
