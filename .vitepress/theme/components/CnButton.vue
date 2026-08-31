@@ -13,7 +13,7 @@
     :style="buttonStyle"
     v-bind="$attrs"
     :href="href"
-    :rel="rel ?? undefined"
+    :rel="safeRel"
     :target="target"
   >
     <slot />
@@ -56,6 +56,17 @@ const dynamicClass = computed(() => ({
   [`cn-button_${props.variant}`]: true,
   'cn-button_inline': props.inline,
 }))
+
+// A link opening a new tab must not hand it window.opener. Callers pass things
+// like rel="external", so merge rather than replace.
+const safeRel = computed(() => {
+  const rel = props.rel ?? ''
+  if (props.target !== '_blank') return rel || undefined
+  const tokens = new Set(rel.split(/\s+/).filter(Boolean))
+  tokens.add('noopener')
+  tokens.add('noreferrer')
+  return [...tokens].join(' ')
+})
 
 const buttonStyle = computed(() => {
   const bottomMargin = props.bottomOffset === null

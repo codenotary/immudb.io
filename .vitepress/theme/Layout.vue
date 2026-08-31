@@ -67,9 +67,10 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
   z-index: var(--vp-z-index-nav, 30);
 }
 
-.VPSidebar {
-  z-index: var(--vp-z-index-sidebar, 10);
-}
+/*
+  No z-index override here: it only restated --vp-z-index-sidebar, the value
+  VitePress already applies to .VPSidebar itself.
+*/
 
 /* Ensure footer appears below all content and not covered by sidebar */
 .VPFooter {
@@ -104,7 +105,6 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 .VPSidebar.open {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  z-index: var(--vp-z-index-sidebar, 10);
 }
 
 /* Ensure mobile sidebar content is above backdrop */
@@ -126,6 +126,17 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
   /* Ensure backdrop doesn't block menu clicks and is invisible */
   .VPBackdrop {
     display: none !important;
+  }
+
+  /*
+    With the backdrop hidden, nothing separates the open sidebar
+    (--vp-z-index-sidebar: 10) from the local nav bar
+    (--vp-z-index-local-nav: 20), so the nav sat over the sidebar's top region
+    and swallowed taps on its first links and group carets. Lift the open
+    sidebar above it.
+  */
+  .VPSidebar.open {
+    z-index: calc(var(--vp-z-index-local-nav, 20) + 1);
   }
 
   /* Menu content should capture clicks */
