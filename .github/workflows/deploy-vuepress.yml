@@ -164,6 +164,54 @@ jobs:
           name: vitepress-dist
           path: docs/
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: Run Lighthouse CI
+        run: npm run lighthouse
+
+      - name: Summarize Lighthouse scores
+        if: always()
+        run: |
+          echo "## Lighthouse" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if compgen -G ".lighthouseci/*.report.json" > /dev/null; then
+            echo "| Page | Perf | A11y | Best practices | SEO |" >> $GITHUB_STEP_SUMMARY
+            echo "| --- | --- | --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+            node -e '
+              const fs = require("fs");
+              const pick = (c, k) => Math.round((c[k]?.score ?? 0) * 100);
+              const rows = new Map();
+              for (const f of fs.readdirSync(".lighthouseci").filter(f => f.endsWith(".report.json"))) {
+                const r = JSON.parse(fs.readFileSync(".lighthouseci/" + f, "utf8"));
+                const url = new URL(r.finalDisplayedUrl || r.finalUrl).pathname;
+                // several runs per URL: keep the median-ish last one, they are near identical
+                rows.set(url, [pick(r.categories, "performance"), pick(r.categories, "accessibility"),
+                               pick(r.categories, "best-practices"), pick(r.categories, "seo")]);
+              }
+              for (const [url, v] of [...rows].sort())
+                console.log("| `" + url + "` | " + v.join(" | ") + " |");
+            ' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "_No Lighthouse reports were produced._" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 7
+          if-no-files-found: ignore
+
       - name: Analyze bundle size
         run: |
           echo "## Build Performance Report" >> $GITHUB_STEP_SUMMARY
