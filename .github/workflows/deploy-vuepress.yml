@@ -199,7 +199,7 @@ jobs:
               }
               for (const [url, v] of [...rows].sort())
                 console.log("| `" + url + "` | " + v.join(" | ") + " |");
-            ' >> $GITHUB_STEP_SUMMARY
+            ' | tee -a $GITHUB_STEP_SUMMARY
           else
             echo "_No Lighthouse reports were produced._" >> $GITHUB_STEP_SUMMARY
           fi
@@ -212,7 +212,8 @@ jobs:
           name: lighthouse-reports
           path: .lighthouseci/
           retention-days: 7
-          if-no-files-found: ignore
+          include-hidden-files: true
+          if-no-files-found: warn
 
       - name: Analyze bundle size
         run: |
