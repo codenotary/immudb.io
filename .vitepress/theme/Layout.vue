@@ -41,7 +41,7 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 
 <style>
 /* Fix navbar title overflow */
-:deep(.VPNavBarTitle .title span) {
+.VPNavBarTitle .title span {
   white-space: nowrap;
   overflow: visible !important;
   text-overflow: clip !important;
@@ -49,30 +49,30 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 }
 
 /* Ensure navbar container has proper width */
-:deep(.VPNavBarTitle.has-sidebar) {
+.VPNavBarTitle.has-sidebar {
   flex-shrink: 0;
 }
 
-:deep(.VPNavBar .container) {
+.VPNavBar .container {
   max-width: 100%;
 }
 
-:deep(.VPNavBar .title) {
+.VPNavBar .title {
   flex: 0 0 auto;
   overflow: visible;
 }
 
 /* Fix z-index stacking - navbar above sidebar */
-:deep(.VPNav) {
+.VPNav {
   z-index: var(--vp-z-index-nav, 30);
 }
 
-:deep(.VPSidebar) {
+.VPSidebar {
   z-index: var(--vp-z-index-sidebar, 10);
 }
 
 /* Ensure footer appears below all content and not covered by sidebar */
-:deep(.VPFooter) {
+.VPFooter {
   position: relative;
   z-index: 1;
   margin-left: 0 !important;
@@ -81,34 +81,34 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
 }
 
 /* Fix mobile menu - ensure it's not blurred and clickable */
-:deep(.VPNavScreen) {
+.VPNavScreen {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   z-index: var(--vp-z-index-nav, 30) !important;
 }
 
 /* Mobile menu container must be above backdrop */
-:deep(.VPNavScreenMenu) {
+.VPNavScreenMenu {
   position: relative;
   z-index: 60 !important;
   pointer-events: auto !important;
 }
 
 /* Mobile menu links must be clickable */
-:deep(.VPNavScreenMenuLink) {
+.VPNavScreenMenuLink {
   position: relative;
   z-index: 60 !important;
   pointer-events: auto !important;
 }
 
-:deep(.VPSidebar.open) {
+.VPSidebar.open {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   z-index: var(--vp-z-index-sidebar, 10);
 }
 
 /* Ensure mobile sidebar content is above backdrop */
-:deep(.VPSidebar .nav) {
+.VPSidebar .nav {
   position: relative;
   z-index: 60 !important;
   pointer-events: auto !important;

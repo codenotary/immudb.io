@@ -231,10 +231,6 @@ watch(() => route.path, () => {
     display: block !important;
   }
 
-  .dropdown-wrapper.open:blur {
-    display: none;
-  }
-
   .dropdown-wrapper .dropdown-title .arrow {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
