@@ -20,11 +20,12 @@
     "types": ["vitepress/client", "node"],
     "paths": {
       "@/*": ["./*"],
-      "@theme/*": [".vitepress/theme/*"]
+      "@theme/*": ["./.vitepress/theme/*"]
     }
   },
   "include": [
     ".vitepress/**/*.ts",
+    ".vitepress/**/*.mts",
     ".vitepress/**/*.vue",
     ".vitepress/**/*.d.ts",
     "src/**/*.md"

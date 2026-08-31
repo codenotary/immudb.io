@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { data as posts } from '../../blog.data'
+import { data as posts } from '../../blog.data.mts'
 import BlogCard from './BlogCard.vue'
 
 interface Props {

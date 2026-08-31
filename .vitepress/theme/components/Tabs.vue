@@ -2,7 +2,7 @@
   <div class="vp-tabs">
     <div class="tabs-header" role="tablist">
       <button
-        v-for="(tab, index) in tabs"
+        v-for="tab in tabs"
         :key="tab.id"
         :class="['tab-button', { active: activeTabId === tab.id }]"
         :aria-selected="activeTabId === tab.id"
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onMounted, watch } from 'vue'
+import { ref, provide, watch } from 'vue'
 
 export interface TabItem {
   id: string

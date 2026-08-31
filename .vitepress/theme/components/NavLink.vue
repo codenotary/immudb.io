@@ -3,8 +3,8 @@
     v-if="isExternal(item.link)"
     :href="item.link"
     class="nav-link external"
-    :target="isMailto(item.link) || isTel(item.link) ? null : '_blank'"
-    :rel="isMailto(item.link) || isTel(item.link) ? null : 'noopener noreferrer'"
+    :target="isMailto(item.link) || isTel(item.link) ? undefined : '_blank'"
+    :rel="isMailto(item.link) || isTel(item.link) ? undefined : 'noopener noreferrer'"
     @focusout="$emit('focusout')"
   >
     {{ item.text }}
@@ -15,7 +15,7 @@
     :href="withBase(item.link)"
     class="nav-link"
     :class="{ active: isActive }"
-    :aria-current="isActive ? 'page' : null"
+    :aria-current="isActive ? 'page' : undefined"
     @focusout="$emit('focusout')"
   >
     {{ item.text }}

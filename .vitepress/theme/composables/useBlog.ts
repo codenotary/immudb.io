@@ -2,7 +2,7 @@
  * Blog Functionality Composable
  * Provides blog post listing, filtering, and reading time calculations
  */
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useData } from 'vitepress'
 
 export interface BlogPost {

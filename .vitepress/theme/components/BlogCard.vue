@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogPost } from '../../blog.data'
+import type { BlogPost } from '../../blog.data.mts'
 
 interface Props {
   post: BlogPost

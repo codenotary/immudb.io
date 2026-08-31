@@ -108,7 +108,7 @@ library.add(
 export default {
   extends: DefaultTheme,
   Layout,
-  enhanceApp({ app, router, siteData }) {
+  enhanceApp({ app }) {
     // Register FontAwesome component
     app.component('font-awesome-icon', FontAwesomeIcon)
 

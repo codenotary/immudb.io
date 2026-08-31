@@ -2,7 +2,7 @@
  * Version Management Composable
  * Handles version detection and switching for multi-version documentation
  */
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vitepress'
 
 /**

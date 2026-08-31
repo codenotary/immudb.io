@@ -1,6 +1,18 @@
 const cnHost = 'https://codenotary.com'
 
-const GlobalContent = {
+export interface FooterLink {
+  label: string
+  /** External URL, or null when the entry points inside the docs via internalLink. */
+  href: string | null
+  internalLink?: string
+}
+
+export interface FooterTable {
+  title: string
+  links: FooterLink[]
+}
+
+const GlobalContent: { footer: { tables: FooterTable[] } } = {
   footer: {
     tables: [
       {

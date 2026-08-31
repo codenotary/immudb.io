@@ -22,6 +22,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData } from 'vitepress'
+import type { PageData } from 'vitepress'
+
+// VitePress's PageData carries no raw markdown; `content` is only present when
+// a build plugin injects it, so read it as an optional field rather than assume it.
+type PageWithContent = PageData & { content?: string }
 
 interface Props {
   wordsPerMinute?: number
@@ -35,7 +40,7 @@ const { page } = useData()
 
 const readingTime = computed(() => {
   // Get the markdown content
-  const content = page.value.content || ''
+  const content = (page.value as PageWithContent).content || ''
 
   // Remove code blocks to avoid counting code
   const withoutCodeBlocks = content.replace(/```[\s\S]*?```/g, '')
@@ -68,7 +73,7 @@ const readingTime = computed(() => {
 })
 
 const wordCount = computed(() => {
-  const content = page.value.content || ''
+  const content = (page.value as PageWithContent).content || ''
   const withoutCodeBlocks = content.replace(/```[\s\S]*?```/g, '')
   const withoutInlineCode = withoutCodeBlocks.replace(/`[^`]+`/g, '')
   const plainText = withoutInlineCode

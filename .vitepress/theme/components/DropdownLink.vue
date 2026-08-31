@@ -91,8 +91,8 @@ const setOpen = (value: boolean) => {
   open.value = value
 }
 
-const isLastItemOfArray = (item: any, array: any[]) => {
-  return array[array.length - 1] === item
+const isLastItemOfArray = (item: any, array: any[] | undefined) => {
+  return !!array && array[array.length - 1] === item
 }
 
 watch(() => route.path, () => {

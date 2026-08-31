@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import type { DefaultTheme } from 'vitepress'
+import type { HeadConfig } from 'vitepress'
 import { fileURLToPath, URL } from 'node:url'
 
 // Import version-specific sidebars
@@ -95,8 +95,8 @@ export default defineConfig({
 
     // reCAPTCHA (production only)
     ...(process.env.NODE_ENV === 'production' ? [
-      ['script', { async: true, src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit' }]
-    ] : [])
+      ['script', { async: 'true', src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit' }]
+    ] as HeadConfig[] : [])
   ],
 
   // Markdown configuration
@@ -106,7 +106,7 @@ export default defineConfig({
       dark: 'github-dark'
     },
     lineNumbers: true,
-    config: (md) => {
+    config: (_md) => {
       // Custom markdown-it plugins can be added here
     }
   },

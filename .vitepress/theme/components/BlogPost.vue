@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useData } from 'vitepress'
-import { data as posts } from '../../blog.data'
+import { data as posts } from '../../blog.data.mts'
 import ReadingTime from './ReadingTime.vue'
 
 const { page, frontmatter } = useData()

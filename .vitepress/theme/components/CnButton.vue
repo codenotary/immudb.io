@@ -7,7 +7,7 @@
     <router-link v-if="to" class="table_link" :to="to">
       <slot />
     </router-link>
-    <a v-else-if="href" class="no-hover" :href="href" :rel="rel" :target="target">
+    <a v-else-if="href" class="no-hover" :href="href" :rel="rel ?? undefined" :target="target">
       <slot />
     </a>
     <slot v-else />

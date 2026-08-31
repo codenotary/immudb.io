@@ -52,10 +52,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import GlobalContent from '../content/global'
 
-const year = ref((new Date()).getFullYear())
 const content = GlobalContent
 </script>
 

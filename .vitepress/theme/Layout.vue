@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
 import { useVersion } from './composables'
+import type { Version } from './composables'
 import Footer from './components/Footer.vue'
 
 const { Layout } = DefaultTheme
@@ -16,7 +17,7 @@ const { versions, currentVersion, switchVersion, getVersionDisplayName } = useVe
       <div v-if="versions && currentVersion" class="version-selector">
         <select
           :value="currentVersion"
-          @change="(e: Event) => switchVersion((e.target as HTMLSelectElement).value)"
+          @change="(e: Event) => switchVersion((e.target as HTMLSelectElement).value as Version)"
           class="version-dropdown"
           aria-label="Select documentation version"
         >

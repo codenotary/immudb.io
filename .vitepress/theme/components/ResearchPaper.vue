@@ -67,7 +67,6 @@ const emailError = ref('')
 const recaptchaContainer = ref<HTMLElement | null>(null)
 const sitekey = '6LeHGL4ZAAAAALlN7PGMzqnNBM6GVwhlJ-ZeiCV8'
 
-let recaptchaWidgetId: number | null = null
 
 const validateEmail = (value: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -87,7 +86,7 @@ const loadRecaptcha = async () => {
 
   if (recaptchaContainer.value && window.grecaptcha.render) {
     try {
-      recaptchaWidgetId = window.grecaptcha.render(recaptchaContainer.value, {
+      window.grecaptcha.render(recaptchaContainer.value, {
         sitekey,
         callback: onVerify
       })
