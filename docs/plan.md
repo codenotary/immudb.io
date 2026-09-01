@@ -352,6 +352,14 @@ that were worth closing before merge:
 - `layouts/_default/_markup/render-link.html` does **not** pipe `.Destination`
   through `safeURL`. Hugo's own default hook does, which disables Go's href URL
   filter and lets `[x](javascript:…)` in a page render as a live handler.
+- A CI step fails the build on a `<script>` beyond the three the templates emit,
+  on any `javascript:` URL, and on any inline `on<event>=` handler in the output.
+  This is the gate that makes `unsafe = true` (above) safe to keep: it catches
+  raw HTML the link hook never sees, because Goldmark does not parse
+  `<a href="javascript:…">` as a link. Mirrored in `scripts/test-workflow.sh`.
+- `layouts/partials/icon.html` builds its `<svg>` tag without `safeHTMLAttr`, so
+  the caller-supplied class goes through normal attribute escaping; an unknown
+  icon name fails the build instead of rendering nothing.
 - `peaceiris/actions-hugo` is pinned to a commit SHA, and `dependabot.yml` gained
   the `github-actions` ecosystem so the pin cannot rot.
 - `pages: write` / `id-token: write` moved from workflow scope to the `deploy`

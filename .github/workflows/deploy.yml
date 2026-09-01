@@ -75,6 +75,46 @@ jobs:
           test -f public/CNAME || { echo "::error::CNAME missing from the build"; fail=1; }
           exit $fail
 
+      - name: Check no page carries injected script
+        # `unsafe = true` in hugo.toml lets raw HTML through from content/*.md,
+        # which the docs need for their `<img align>` blocks. This is the gate
+        # that keeps that door from being used for anything else: a <script>, a
+        # javascript: URL, or an inline event handler arriving through a merged
+        # markdown contribution.
+        #
+        # It covers a path the link render hook cannot. That hook neutralises
+        # `[x](javascript:…)` written as markdown, but a raw `<a href="javascript:…">`
+        # is passed straight through by `unsafe = true` -- Goldmark never parses
+        # it as a link. This step is what closes that.
+        #
+        # The templates emit exactly three <script> tags per page (the anti-FOUC
+        # theme script, the schema.org JSON-LD, and the module bundle), so a
+        # fourth came from content. If a page ever legitimately needs to *show*
+        # one of these strings, it trips this gate -- deliberately: raise the
+        # expectation here rather than widening the door.
+        run: |
+          fail=0
+          expected_scripts=3
+
+          while IFS= read -r f; do
+            n=$({ grep -o '<script' "$f" || true; } | wc -l)
+            if [ "$n" -gt "$expected_scripts" ]; then
+              echo "::error file=$f::page has $n <script> tags, expected at most $expected_scripts"
+              fail=1
+            fi
+          done < <(find public -name '*.html' -not -path '*/pagefind/*')
+
+          for pattern in 'javascript:' ' on[a-z]+='; do
+            hits=$({ grep -rlE "$pattern" public --include='*.html' || true; })
+            if [ -n "$hits" ]; then
+              echo "::error::built pages contain '$pattern':"
+              echo "$hits" | sed 's/^/  /'
+              fail=1
+            fi
+          done
+
+          exit $fail
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:

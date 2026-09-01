@@ -47,6 +47,32 @@ no_leaked_markup() {
     return $hits
 }
 
+# The same gate as the workflow's "Check no page carries injected script" step.
+# `unsafe = true` lets raw HTML through from content/*.md; this is what stops a
+# <script>, a javascript: URL or an inline handler riding in that way. It also
+# covers what the link render hook cannot -- a raw `<a href="javascript:...">`
+# is never parsed as a markdown link, so the hook never sees it.
+no_injected_script() {
+    local hits=0 n
+    while IFS= read -r f; do
+        n=$({ grep -o '<script' "$f" || true; } | wc -l)
+        if [ "$n" -gt 3 ]; then
+            echo "$f has $n <script> tags, expected at most 3"
+            hits=1
+        fi
+    done < <(find public -name '*.html' -not -path '*/pagefind/*')
+    local found
+    for pattern in 'javascript:' ' on[a-z]+='; do
+        found=$({ grep -rlE "$pattern" public --include='*.html' || true; })
+        if [ -n "$found" ]; then
+            echo "pages contain '$pattern':"
+            echo "$found" | sed 's/^/    /'
+            hits=1
+        fi
+    done
+    return $hits
+}
+
 echo "Building the site the way CI does"
 echo
 
@@ -55,6 +81,7 @@ check "npm dependencies install" npm ci
 check "hugo builds" hugo --minify --gc
 check "pagefind indexes the build" npx pagefind --site public
 check "no leaked container markup" no_leaked_markup
+check "no injected script in the output" no_injected_script
 check "CNAME survives the build" test -f public/CNAME
 check "robots.txt survives the build" test -f public/robots.txt
 check "sitemap points at docs.immudb.io" grep -q 'docs.immudb.io' public/sitemap.xml

@@ -43,6 +43,20 @@ migration from quietly undoing itself.
 It also asserts `public/CNAME` survives the build, since GitHub Pages drops the custom
 domain without it.
 
+A second step, **Check no page carries injected script**, guards the other thing the
+migration turned on: `unsafe = true` in `hugo.toml`, which the docs need for their
+raw `<img align>` blocks and which otherwise lets any merged markdown emit arbitrary
+HTML. It fails the build on a `<script>` beyond the three the templates emit (the
+anti-FOUC theme script, the JSON-LD, the module bundle), on any `javascript:` URL, and
+on any inline `on<event>=` handler.
+
+That covers a path the link render hook cannot reach: the hook neutralises
+`[x](javascript:…)` written as markdown, but a raw `<a href="javascript:…">` is passed
+straight through, because Goldmark never parses it as a link.
+
+If a page ever legitimately needs to *show* one of those strings, the gate trips. Raise
+the expectation in the step rather than widening the door.
+
 ## Secrets
 
 None. Search is Pagefind, which is static files — the four Algolia secrets the old
