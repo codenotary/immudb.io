@@ -41,3 +41,16 @@ updates:
       # them breaks the build and misdocuments those pages. Bump this by hand
       # alongside a docs release; Dependabot still patches everything below it.
       - dependency-name: github.com/codenotary/immudb
+
+  # The workflow actions. Needed because the third-party Hugo action is pinned to
+  # a commit SHA rather than a tag -- without this, that pin would never move and
+  # would silently rot on an old release.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"

@@ -42,7 +42,11 @@ jobs:
         run: npm ci
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+        # Pinned to a commit, not a tag: this job holds pages:write and
+        # id-token:write, so a moved tag or a compromised release here could
+        # publish to docs.immudb.io and mint an OIDC token. Dependabot's
+        # github-actions ecosystem keeps the pin current.
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
