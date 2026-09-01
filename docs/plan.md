@@ -304,6 +304,20 @@ keeps its default display — WebKit stops honouring the click that opens a
 disclosure once its summary is laid out as a flex box — so the row inside it
 does the layout.
 
+### The anti-FOUC script handles a third theme state
+
+The plan quotes the inline `<head>` script to port "verbatim", and that quote
+tests one thing: `localStorage.getItem('amon-theme') === 'dark'`. The shipped
+script also resolves `'system'` against `prefers-color-scheme`.
+
+That is deliberate, and it follows from the decision the plan itself records —
+match AgentMon exactly, sharing the `amon-theme` key. AgentMon's preference has
+three states, and `'system'` is a value it writes. Testing only for `'dark'`
+would leave a reader whose stored preference is `'system'`, on a dark OS, with
+a flash of the light theme on every page load — the exact failure the script
+exists to prevent. The plan's quote was written before that third state was
+accounted for.
+
 ### The home page headline is written, not migrated
 
 The plan says the home page's content comes from `src/master/index.md` "so
@@ -323,7 +337,9 @@ descriptions of the toolchain being replaced:
 | `.github/DEPLOYMENT.md` | 406 lines duplicating `CI-CD-SETUP.md` for the old pipeline; its still-true parts (Pages settings, rollback, failure modes) were folded in |
 | `predeploy.sh` | regenerated `package-lock.json` for the removed dependency tree |
 | `tests/{README,QUICKSTART,SUMMARY}.md` | documented the vitest suite that this branch deletes |
-| `tests/unit/`, `tests/integration/` | the whole vitest tree, not only `components.test.ts` — the rest tested Algolia, the version switcher, and a mock markdown parser |
+| `tests/unit/`, `tests/integration/`, `tests/setup.ts` | the whole vitest tree, not only `components.test.ts` — the rest tested Algolia, the version switcher, and a mock markdown parser |
+| `scripts/build-performance.js` | measured the VitePress build and read its `docs/` output |
+| `scripts/migrate-frontmatter.js`, `scripts/validate-migration.js` | one-shot helpers for the *previous* migration (VuePress → VitePress) |
 
 `SECURITY_PATCH_SUMMARY.md` and `SECURITY_REMEDIATION_REPORT.md` were left
 alone: they record past incidents rather than describe the toolchain.
