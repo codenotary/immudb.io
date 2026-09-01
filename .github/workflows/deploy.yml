@@ -7,10 +7,13 @@ on:
     branches: [master]
   workflow_dispatch:
 
+# Least privilege by default: only the job that actually publishes gets more,
+# and it declares that itself. Previously these were workflow-scoped, so the
+# pull_request-only Lighthouse and Playwright jobs -- which run `npm ci` and a
+# browser over PR-authored code -- inherited the right to deploy the site and
+# mint an OIDC token.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -89,6 +92,12 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
+    # A job-level block REPLACES the workflow default rather than merging with
+    # it, so this is the complete set. actions/deploy-pages documents these two
+    # as its minimum, and the job checks nothing out, so it needs no more.
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
