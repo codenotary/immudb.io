@@ -160,26 +160,19 @@
   color: var(--cn-color-secondary);
 }
 
-/* Fix for sticky nav covering footer */
-/* Ensure main content area is tall enough to keep footer visible */
-.VPDoc {
-  min-height: 100vh !important;
-  padding-bottom: 600px !important;
+/*
+  Reading column. The width reclaimed by --vp-layout-max-width: 100% goes to the
+  article rather than to gutters, capped so line length stays readable. The
+  !important beats VitePress's scoped .VPDoc.has-aside .content-container[data-v-*].
+*/
+.VPDoc.has-aside .content-container {
+  max-width: 1100px !important;
 }
 
-/* Prevent the page from scrolling the footer above the viewport */
-html {
-  scroll-padding-bottom: 200px !important;
-}
-
-/* Mobile adjustments */
-@media (max-width: 960px) {
-  .VPDoc {
-    padding-bottom: 650px !important;
-  }
-
-  html {
-    scroll-padding-bottom: 250px !important;
+@media (min-width: 1280px) {
+  /* Hug the sidebar instead of floating in the middle of the wide column. */
+  .VPDoc .container {
+    justify-content: flex-start !important;
   }
 }
 

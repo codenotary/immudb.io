@@ -43,8 +43,14 @@
   --vp-z-index-layout-top: 40;
   --vp-z-index-backdrop: 50;
 
-  /* Layout */
-  --vp-layout-max-width: 1440px;
+  /*
+    Layout - full width. VitePress centres everything inside this width above
+    1440px via calc((100% - (var(--vp-layout-max-width) - 64px)) / 2), which
+    left a dead gutter beside the sidebar and beside the content. Feeding 100%
+    through those same formulas collapses them to the left-aligned geometry
+    VitePress already uses between 960px and 1440px.
+  */
+  --vp-layout-max-width: 100%;
 
   /* Code block colors - high contrast for readability */
   --vp-code-block-bg: #0d1117;

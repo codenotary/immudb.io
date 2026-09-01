@@ -67,9 +67,21 @@ const content = GlobalContent
   width: 100%;
   clear: both;
   margin-left: 0 !important;
-  /* Account for fixed sidebar like page content */
-  padding-left: var(--sidebar-width);
+  padding-left: 0;
   box-sizing: border-box;
+}
+
+/*
+  Clear the fixed sidebar, using VitePress's own docking breakpoint and its own
+  width variable. The previous rules guessed both (--sidebar-width at >1600px,
+  --mobile-sidebar-width at <=1600px, 0 at <=920px), so the footer was hidden
+  under the sidebar on wide screens and reserved empty space for an off-canvas
+  sidebar between 921px and 959px.
+*/
+@media (min-width: 960px) {
+  .footer {
+    padding-left: var(--vp-sidebar-width);
+  }
 }
 
 .footer .column {
@@ -179,11 +191,6 @@ const content = GlobalContent
 }
 
 @media (max-width: 1600px) {
-  .footer {
-    /* Match page padding on tablet */
-    padding-left: var(--mobile-sidebar-width);
-  }
-
   .footer .main-section,
   .footer .copyright {
     padding-left: var(--cn-sm-padding) !important;
@@ -192,11 +199,6 @@ const content = GlobalContent
 }
 
 @media (max-width: 920px) {
-  .footer {
-    /* Remove sidebar padding on mobile (sidebar slides out) */
-    padding-left: 0;
-  }
-
   .footer .main-section,
   .footer .copyright {
     padding-left: var(--cn-xs-padding) !important;

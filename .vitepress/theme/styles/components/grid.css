@@ -3,42 +3,14 @@
  * Converted from grid.styl
  */
 
-.container {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 0) and (max-width: 791px) {
-  .container {
-    margin-right: 20px !important;
-    margin-left: 20px !important;
-    max-width: calc(100% - 40px) !important;
-  }
-}
-
-@media (min-width: 792px) {
-  .container {
-    max-width: 516px !important;
-  }
-}
-
-@media (min-width: 855px) {
-  .container {
-    max-width: 568px !important;
-  }
-}
-
-@media (min-width: 1060px) {
-  .container {
-    max-width: 700px !important;
-  }
-}
-
-@media (min-width: 1440px) {
-  .container {
-    max-width: 820px !important;
-  }
-}
+/*
+  The `.container` sizing utility that used to live here was a VuePress-era
+  helper whose only consumer, src/.vuepress/theme/global-components/
+  CnContainer.vue, is part of the pre-migration tree and is not registered in
+  .vitepress/theme/index.ts. VitePress emits its own `.container` inside VPDoc,
+  VPNavBar, VPNavScreen, VPLocalNav and VPFooter, so all the rule did was clamp
+  those to 516/568/700/820px with !important. Removed.
+*/
 
 .flex {
   display: flex;
