@@ -1,161 +1,188 @@
-import { test, expect } from '@playwright/test'
-import { openSidebar, clickableSidebarLink } from './helpers'
+import { test, expect, type Page } from '@playwright/test'
 
 /**
- * E2E Navigation Tests
+ * End-to-end coverage for the Hugo site.
  *
- * These target the VitePress theme. The pre-migration versions of these tests
- * used VuePress selectors (`.sidebar`, `.versions-dropdown`, `.page`) and pages
- * that do not exist in this site (`/master/quickstart`), so every one of them
- * timed out. Selectors below are the ones the built site actually emits.
- *
- * Note on URLs: only `master` and `1.11.0` ship an `index.html`. Every other
- * version directory contains `README.html` only, so `/1.9.6/` is a 404 and
- * version-scoped paths must be spelled out in full.
+ * These replace the VitePress-era specs, which asserted on `.VPSidebar`, the
+ * version dropdown and a root redirect — none of which exist any more. The site
+ * is now a plain static build: the rail is server-rendered, `/` is a real page,
+ * and the only client-side behaviour is the theme switch, the tab groups, the
+ * copy button and search.
  */
 
-const MASTER_PAGE = '/master/README.html'
+const DOC_PAGE = '/develop/reading/'
 
-test.describe('Basic Navigation', () => {
-  test('should load homepage', async ({ page }) => {
-    await page.goto('/')
+/** Below `lg` the rail sits behind a disclosure; on a wide window this is a no-op. */
+async function openRail(page: Page) {
+  const summary = page.locator('nav[aria-label="Main"] summary')
+  if (await summary.isVisible()) await summary.click()
+}
+
+test.describe('Pages and navigation', () => {
+  test('the home page is the overview, not a redirect', async ({ page }) => {
+    const response = await page.goto('/')
+    expect(response?.status()).toBe(200)
     await expect(page).toHaveTitle(/immudb/)
+    await expect(page.locator('h1')).toBeVisible()
+    // The old site served a meta-refresh stub here.
+    expect(page.url()).toMatch(/\/$/)
   })
 
-  test('should redirect root to master version', async ({ page }) => {
+  test('the rail lists every group and navigates', async ({ page }) => {
     await page.goto('/')
-    await page.waitForURL(/\/master\//)
-    expect(page.url()).toContain('/master/')
+    const rail = page.locator('nav[aria-label="Main"]')
+    await expect(rail.locator('[role="group"]')).toHaveCount(11)
+    await openRail(page)
+
+    await rail.getByRole('link', { name: 'Replication', exact: true }).click()
+    await expect(page).toHaveURL(/\/production\/replication\/$/)
+    await expect(page.locator('h1')).toContainText('Replication')
   })
 
-  test('should render the sidebar with links', async ({ page }) => {
-    await page.goto('/master/')
-    await page.waitForSelector('.VPSidebar')
-    expect(await page.locator('.VPSidebar a').count()).toBeGreaterThan(0)
+  test('the current page is marked in the rail', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    const current = page.locator('nav[aria-label="Main"] a[aria-current="page"]')
+    await expect(current).toHaveCount(1)
+    await expect(current).toHaveAttribute('href', DOC_PAGE)
   })
 
-  test('should navigate using the sidebar', async ({ page }) => {
-    await page.goto('/master/')
-    await page.waitForSelector('.VPSidebar')
-    await openSidebar(page)
-
-    // Take a sidebar link that goes somewhere other than the current page.
-    const link = await clickableSidebarLink(page, '/master/')
-    const href = await link.getAttribute('href')
-    await link.click()
-    await page.waitForLoadState('networkidle')
-
-    expect(page.url()).toContain('/master/')
-    expect(page.url()).toContain((href ?? '').replace(/\.html$/, ''))
+  test('previous and next follow the rail order', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    const pagination = page.getByRole('navigation', { name: 'Pagination' })
+    await expect(pagination.getByRole('link')).toHaveCount(2)
+    await pagination.getByRole('link').last().click()
+    await expect(page).toHaveURL(/\/develop\/queries-history\/$/)
   })
 
-  test('should mark the current page in the sidebar', async ({ page }) => {
-    await page.goto('/master/connecting/sdks.html')
-    await page.waitForSelector('.VPSidebar')
-    await expect(page.locator('.VPSidebar a.active, .VPSidebar .is-active').first()).toBeVisible()
-  })
-})
-
-test.describe('Version Switching', () => {
-  // The switcher builds `/<version>/<path-without-version>`, so it only lands on
-  // a real page when the current path has a segment after the version.
-  test('should switch version using the dropdown', async ({ page }) => {
-    await page.goto(MASTER_PAGE)
-    await page.selectOption('select.version-dropdown', '1.9.6')
-    await page.waitForURL(/\/1\.9\.6\//)
-    expect(page.url()).toContain('/1.9.6/')
+  test('an old /master/ URL still points at its page', async ({ request }) => {
+    // Hugo writes an alias as a meta-refresh to the page's absolute permalink,
+    // which is the production host. Following it locally would leave the site
+    // under test, so this checks the stub rather than the navigation.
+    const response = await request.get('/master/develop/reading/')
+    expect(response.status()).toBe(200)
+    expect(await response.text()).toContain('https://docs.immudb.io/develop/reading/')
   })
 
-  test('should preserve the page path when switching versions', async ({ page }) => {
-    await page.goto(MASTER_PAGE)
-    await page.selectOption('select.version-dropdown', '1.9.6')
-    await page.waitForURL(/\/1\.9\.6\//)
-    expect(page.url()).toContain('README')
-  })
-
-  test('should reflect the current version in the dropdown', async ({ page }) => {
-    await page.goto('/1.9.6/README.html')
-    await expect(page.locator('select.version-dropdown')).toHaveValue('1.9.6')
-  })
-
-  test('should keep a populated sidebar after switching', async ({ page }) => {
-    await page.goto(MASTER_PAGE)
-    await page.selectOption('select.version-dropdown', '1.9.6')
-    await page.waitForURL(/\/1\.9\.6\//)
-    await page.waitForSelector('.VPSidebar')
-    expect(await page.locator('.VPSidebar a').count()).toBeGreaterThan(0)
+  test('an unknown path serves the 404 page', async ({ page }) => {
+    const response = await page.goto('/1.9.6/README.html')
+    expect(response?.status()).toBe(404)
   })
 })
 
-test.describe('Search Navigation', () => {
-  // Search is only configured when ALGOLIA_API_KEY is present at build time
-  // (see config.mts), so a local build without secrets ships no search UI.
-  test('should expose search when it is configured', async ({ page }) => {
-    await page.goto('/master/')
-    const search = page.locator('.VPNavBarSearch button, .DocSearch-Button').first()
-    test.skip(await search.count() === 0, 'site built without ALGOLIA_API_KEY')
-    await expect(search).toBeVisible()
+test.describe('Migrated markup', () => {
+  test('tab groups render as tabs, not as literal colons', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    const group = page.locator('.tabs').first()
+    await expect(group).toHaveAttribute('data-enhanced', 'true')
+
+    const tabs = group.getByRole('tab')
+    expect(await tabs.count()).toBeGreaterThan(1)
+    await expect(group.locator('.tab-panel:not([hidden])')).toHaveCount(1)
+
+    // The bug this migration exists to fix.
+    await expect(page.locator('body')).not.toContainText(':::')
+    await expect(page.locator('body')).not.toContainText('<<< @')
+  })
+
+  test('the chosen language persists to the next page', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    await page.locator('.tabs').first().getByRole('tab', { name: 'Java' }).click()
+
+    await page.goto('/develop/transactions/')
+    const active = page.locator('.tabs').first().locator('[role="tab"][aria-selected="true"]')
+    await expect(active).toHaveText('Java')
+  })
+
+  test('without JavaScript the panels stack under readable labels', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false })
+    const page = await context.newPage()
+    await page.goto(DOC_PAGE)
+
+    const group = page.locator('.tabs').first()
+    await expect(group).not.toHaveAttribute('data-enhanced', 'true')
+    // Every panel is present and labelled, so the page still reads.
+    const panels = group.locator('.tab-panel')
+    expect(await panels.count()).toBeGreaterThan(1)
+    await expect(panels.first().locator('.tab-fallback-label')).toBeVisible()
+    await context.close()
+  })
+
+  test('code snippets are included, not left as an include directive', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    const blocks = page.locator('.code-block')
+    expect(await blocks.count()).toBeGreaterThan(0)
+    await expect(blocks.first().locator('pre')).toBeVisible()
+  })
+
+  test('a callout renders as a panel', async ({ page }) => {
+    await page.goto('/production/replication/')
+    await expect(page.locator('.callout').first()).toBeVisible()
   })
 })
 
-test.describe('Mobile Navigation', () => {
-  test.use({ viewport: { width: 390, height: 844 } })
+test.describe('Theme', () => {
+  test('the toggle switches themes and the choice survives a reload', async ({ page }) => {
+    await page.goto('/')
+    const html = page.locator('html')
+    await expect(html).not.toHaveClass(/dark/)
 
-  test('should open the nav screen from the hamburger', async ({ page }) => {
-    await page.goto('/master/')
-    await page.locator('.VPNavBarHamburger').click()
-    await expect(page.locator('.VPNavScreen')).toBeVisible()
+    await page.locator('[data-theme-toggle]').click()
+    await expect(html).toHaveClass(/dark/)
+
+    await page.reload()
+    // Applied in <head>, so there is no flash of the wrong theme to catch.
+    await expect(html).toHaveClass(/dark/)
   })
 
-  test('should offer reachable links in the nav screen', async ({ page }) => {
-    await page.goto('/master/')
-    await page.locator('.VPNavBarHamburger').click()
-    const link = page.locator('.VPNavScreenMenuLink, .VPNavScreenMenuGroupLink').first()
-    await expect(link).toBeVisible()
-    await link.click() // must not be intercepted by the backdrop
-  })
-})
-
-test.describe('Link Validation', () => {
-  test('should give external links a safe rel', async ({ page }) => {
-    await page.goto(MASTER_PAGE)
-    const external = page.locator('a[href^="http"]:not([href*="localhost"])')
-    const count = await external.count()
-    expect(count).toBeGreaterThan(0)
-
-    for (let i = 0; i < Math.min(count, 10); i++) {
-      const rel = (await external.nth(i).getAttribute('rel')) ?? ''
-      const target = await external.nth(i).getAttribute('target')
-      // Only links that open a new tab can leak window.opener.
-      if (target === '_blank') expect(rel).toMatch(/noopener|noreferrer/)
-    }
-  })
-
-  test('should resolve in-page hash links', async ({ page }) => {
-    await page.goto('/master/connecting/sdks.html')
-    const anchor = page.locator('.vp-doc a[href^="#"]').first()
-    test.skip(await anchor.count() === 0, 'page has no in-content anchors')
-    const href = await anchor.getAttribute('href')
-    await anchor.click()
-    expect(page.url()).toContain(href ?? '#')
+  test('the accent stays the same orange in both themes', async ({ page }) => {
+    await page.goto('/')
+    const accent = () =>
+      page.evaluate(() =>
+        getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim(),
+      )
+    const light = await accent()
+    await page.locator('[data-theme-toggle]').click()
+    expect(await accent()).toBe(light)
+    expect(light).toBe('245 147 0')
   })
 })
 
-test.describe('Performance', () => {
-  test('should load a page within budget', async ({ page }) => {
-    const start = Date.now()
-    await page.goto(MASTER_PAGE, { waitUntil: 'domcontentloaded' })
-    expect(Date.now() - start).toBeLessThan(10000)
-  })
+test.describe('Search', () => {
+  test('finds the replication page', async ({ page }) => {
+    await page.goto('/')
+    await page.locator('[data-search-open]').first().click()
 
-  test('should navigate between pages within budget', async ({ page }) => {
-    await page.goto('/master/')
-    await page.waitForSelector('.VPSidebar')
-    await openSidebar(page)
-    const link = await clickableSidebarLink(page, '/master/')
-    const start = Date.now()
-    await link.click()
-    await page.waitForLoadState('domcontentloaded')
-    expect(Date.now() - start).toBeLessThan(10000)
+    const dialog = page.getByRole('dialog', { name: /search/i })
+    await expect(dialog).toBeVisible()
+    await dialog.locator('input').fill('replication')
+
+    // Both /production/replication/ and /production/sync-replication/ match the
+    // query, and either order is a fine ranking; the page has to be in there.
+    const hits = dialog.getByRole('link', { name: /replication/i })
+    await expect(hits.first()).toBeVisible({ timeout: 15000 })
+    await expect(dialog.locator('a[href="/production/replication/"]')).toHaveCount(1)
+  })
+})
+
+test.describe('Narrow viewport', () => {
+  test.use({ viewport: { width: 375, height: 720 } })
+
+  test('the rail collapses and the band does not cover the content', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+
+    const rail = page.locator('nav[aria-label="Main"]')
+    const summary = rail.locator('summary')
+    await expect(summary).toBeVisible()
+    // Collapsed: the group headings are not laid out until it is opened.
+    await expect(rail.locator('[role="group"]').first()).toBeHidden()
+
+    await summary.click()
+    await expect(rail.locator('[role="group"]').first()).toBeVisible()
+
+    // The page must not scroll sideways at this width.
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    )
+    expect(overflow).toBeLessThanOrEqual(1)
   })
 })

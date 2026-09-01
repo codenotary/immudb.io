@@ -86,12 +86,10 @@ typings/
 # nuxt.js build output
 .nuxt
 
-# vuepress build output
-.vuepress/dist
-
-# VitePress build output
-.vitepress/cache
-.vitepress/dist
+# Hugo build output and asset cache
+/public
+/resources
+.hugo_build.lock
 
 # Serverless directories
 .serverless
@@ -102,11 +100,6 @@ sw.*
 # MacOS
 .DS_Store
 
-# Algolia configuration
-algolia.config.js
-
-# docs (as it's re-created at build-time)
-/docs
 
 # Claude Flow coordination
 .swarm/

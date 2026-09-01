@@ -1,0 +1,9 @@
+{{/* Two-state switch over the same `amon-theme` key AgentMon writes. The label and
+     the visible glyph are set by assets/js/theme.js; without JS the control is
+     inert, so it stays out of the tab order until the script claims it. */}}
+<button type="button" data-theme-toggle hidden
+  class="rounded-[6px] p-1.5 text-strip-ink transition-colors hover:bg-strip-action/20"
+  aria-label="Switch to dark theme">
+  <span data-theme-icon="light">{{ partial "icon.html" (dict "name" "moon" "class" "h-4 w-4") }}</span>
+  <span data-theme-icon="dark" hidden>{{ partial "icon.html" (dict "name" "sun" "class" "h-4 w-4") }}</span>
+</button>

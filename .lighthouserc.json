@@ -1,14 +1,14 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npx http-server docs -p 8080",
+      "startServerCommand": "npx http-server public -p 8080",
       "startServerReadyPattern": "Available on",
       "url": [
-        "http://localhost:8080/master/README.html",
-        "http://localhost:8080/master/samples/go.html",
-        "http://localhost:8080/master/connecting/sdks.html",
-        "http://localhost:8080/master/production/performance-guide.html",
-        "http://localhost:8080/1.9.6/README.html"
+        "http://localhost:8080/",
+        "http://localhost:8080/samples/go/",
+        "http://localhost:8080/connecting/sdks/",
+        "http://localhost:8080/production/performance-guide/",
+        "http://localhost:8080/develop/reading/"
       ],
       "numberOfRuns": 3,
       "settings": {

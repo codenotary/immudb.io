@@ -1,14 +1,11 @@
 import { defineConfig, devices } from '@playwright/test'
 
 /**
- * VitePress Migration E2E Testing Configuration
+ * End-to-end coverage for the Hugo site.
  *
- * Tests critical functionality:
- * - Multi-version routing and switching
- * - Content rendering and navigation
- * - Search functionality
- * - Blog listing and posts
- * - Performance benchmarks
+ * The suite runs against a real build rather than `hugo server`, because the two
+ * things most worth guarding — the Pagefind index and the fingerprinted assets —
+ * only exist after `hugo --minify` and `pagefind --site public` have both run.
  */
 export default defineConfig({
   testDir: './tests/e2e',
@@ -30,32 +27,18 @@ export default defineConfig({
   },
 
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'Mobile Chrome', use: { ...devices['Pixel 5'] } },
+    { name: 'Mobile Safari', use: { ...devices['iPhone 12'] } },
   ],
 
   webServer: {
-    command: 'npm run dev',
+    // In CI the artifact is already in public/; locally this builds it first.
+    command: process.env.CI ? 'npx http-server public -p 8080' : 'npm run preview',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
   },
 })

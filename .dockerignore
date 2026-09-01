@@ -5,9 +5,9 @@ node_modules
 *.log
 npm-debug.log*
 .DS_Store
-dist
-.temp
-.cache
-coverage
-.vitepress/cache
-.vitepress/dist
+public
+resources
+.hugo_build.lock
+.lighthouseci
+playwright-report
+test-results

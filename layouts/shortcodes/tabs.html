@@ -1,0 +1,4 @@
+{{- /* Replaces VuePress's `:::: tabs`. Every panel is emitted; assets/js/tabs.js
+       upgrades the group into a tab bar. Percent-delimited, so .Inner is already
+       rendered markdown by the time it arrives. */ -}}
+<div class="tabs">{{ .Inner }}</div>

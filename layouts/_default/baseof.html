@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en-US" }}">
+<head>
+  {{- partial "head.html" . -}}
+</head>
+{{/* The shell is AgentMon's: page ground, a 1600px column of surface, the dark
+     command band, then rail beside content with the footer pinned to the bottom. */}}
+<body class="bg-page">
+  <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-cell focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-ink">Skip to content</a>
+  <div class="flex min-h-screen flex-col bg-page">
+    {{/* Past this width the page grows margins, not columns. */}}
+    <div class="mx-auto flex w-full max-w-[1600px] flex-1 flex-col bg-surface-0">
+      {{- partial "command-strip.html" . -}}
+      {{/* Stacks below lg: a fixed 246px rail beside content forces the page sideways on a phone. */}}
+      <div class="flex flex-1 flex-col lg:flex-row">
+        {{- partial "rail.html" . -}}
+        <div class="flex min-w-0 flex-1 flex-col">
+          {{- block "main" . }}{{ end -}}
+          {{- partial "footer.html" . -}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{- partial "scripts.html" . -}}
+</body>
+</html>

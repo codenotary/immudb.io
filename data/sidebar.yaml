@@ -1,0 +1,85 @@
+# The rail, ported from .vitepress/sidebars/master.ts. Order here is the order it
+# renders in, and it is also where each page's `weight` comes from — the migration
+# script reads this file. Every `/master/x` link became `/x/`.
+- title: Introduction
+  items:
+    - { title: Overview, url: / }
+    - { title: About immudb, url: /immudb/ }
+- title: Running immudb
+  items:
+    - { title: Download, url: /running/download/ }
+    - { title: Service, url: /running/service/ }
+    - { title: Build, url: /running/build/ }
+    - { title: Configuration, url: /running/configuration/ }
+- title: Running samples
+  items:
+    - { title: Go Samples, url: /samples/go/ }
+- title: immudb in production
+  items:
+    - { title: Planning, url: /production/planning/ }
+    - { title: Monitoring, url: /production/monitoring/ }
+    - { title: Auditor, url: /production/auditor/ }
+    - { title: Index Maintenance, url: /production/index-maintenance/ }
+    - { title: Backup, url: /production/backup/ }
+    - { title: Replication, url: /production/replication/ }
+    - { title: Sync Replication, url: /production/sync-replication/ }
+    - { title: FIPS, url: /production/fips/ }
+    - { title: S3 Storage, url: /production/s3-storage/ }
+    - { title: Backwards Compatibility, url: /production/backwards-compatibility/ }
+    - { title: Performance Guide, url: /production/performance-guide/ }
+    - { title: Retention, url: /production/retention/ }
+    - { title: Request Metadata, url: /production/request-metadata/ }
+- title: Connecting with immudb
+  items:
+    - { title: Web Console, url: /connecting/webconsole/ }
+    - { title: CLI Tools, url: /connecting/clitools/ }
+    - { title: SDKs, url: /connecting/sdks/ }
+    - { title: immu Gateway, url: /connecting/immugw/ }
+    - { title: Authentication, url: /connecting/authentication/ }
+    - { title: Health Check, url: /connecting/healthcheck/ }
+- title: Management
+  items:
+    - { title: User Management, url: /management/user/ }
+    - { title: Database Management, url: /management/database/ }
+    - { title: State Management, url: /management/state/ }
+- title: Develop with Key Value
+  items:
+    - { title: Reading, url: /develop/reading/ }
+    - { title: Queries & History, url: /develop/queries-history/ }
+    - { title: Indexes, url: /develop/indexes/ }
+    - { title: Transactions, url: /develop/transactions/ }
+    - { title: Deleting, url: /develop/deleting/ }
+    - { title: Expiration, url: /develop/expiration/ }
+    - { title: Streams, url: /develop/streams/ }
+- title: Develop with SQL
+  items:
+    - { title: Transactions, url: /develop/sql/transactions/ }
+    - { title: Data Types, url: /develop/sql/datatypes/ }
+    - { title: Create Tables, url: /develop/sql/tablescreate/ }
+    - { title: Alter Tables, url: /develop/sql/tablesalter/ }
+    - { title: Drop Tables, url: /develop/sql/tablesdrop/ }
+    - { title: Insert & Update, url: /develop/sql/insertupdate/ }
+    - { title: Indexes, url: /develop/sql/indexes/ }
+    - { title: Querying, url: /develop/sql/querying/ }
+    - { title: SQL Diff Query, url: /develop/sql/sqldiff/ }
+    - { title: Joins, url: /develop/sql/joins/ }
+    - { title: Window Functions, url: /develop/sql/windowfunctions/ }
+    - { title: CTEs (WITH clause), url: /develop/sql/ctes/ }
+    - { title: Views & Sequences, url: /develop/sql/views/ }
+    - { title: Users, url: /develop/sql/users/ }
+    - { title: Privileges, url: /develop/sql/privileges/ }
+    - { title: Catalog, url: /develop/sql/catalog/ }
+    - { title: Audit Logging, url: /develop/sql/auditlog/ }
+    - { title: SQL Standard Library, url: /develop/sql/sqlstdlib/ }
+    - { title: PostgreSQL Compatibility, url: /develop/sql/pg/ }
+- title: Develop with Document
+  items:
+    - { title: Data Model, url: /develop/document/datamodel/ }
+    - { title: API, url: /develop/document/api/ }
+- title: Embedded
+  items:
+    - { title: Embedding immudb, url: /embedded/embedding/ }
+    - { title: Embedding SQL, url: /embedded/embeddingSQL/ }
+- title: Release Notes
+  items:
+    - { title: Version History, url: /releasenotes/ }

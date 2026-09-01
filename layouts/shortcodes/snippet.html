@@ -1,0 +1,13 @@
+{{- /* Replaces `<<< @/code-examples/…`. The path is repo-root relative, which is
+       what VuePress's `@` alias meant once srcDir stopped existing. */ -}}
+{{- $path := strings.TrimPrefix "/" (.Get 0) -}}
+{{- $lang := path.Ext $path | strings.TrimPrefix "." -}}
+{{- with (os.ReadFile $path) -}}
+  {{- $code := . | strings.TrimRight "\n" -}}
+  <div class="code-block" data-lang="{{ $lang }}">
+    <span class="code-lang" aria-hidden="true">{{ $lang }}</span>
+    {{ highlight $code $lang "" }}
+  </div>
+{{- else -}}
+  {{- errorf "snippet: %q not found (called from %s)" $path $.Page.File.Path -}}
+{{- end -}}

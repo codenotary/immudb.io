@@ -1,0 +1,13 @@
+{{/* On-this-page. Only worth a column when the page has more than one section;
+     assets/js/toc.js marks the entry the reader is inside. */}}
+{{- $toc := .TableOfContents -}}
+{{- if gt (len (findRE "<li>" $toc)) 1 -}}
+<aside class="hidden w-[212px] shrink-0 xl:block">
+  <div class="sticky top-[calc(var(--header-h,49px)+26px)] max-h-[calc(100vh-var(--header-h,49px)-52px)] overflow-y-auto pb-6">
+    <div class="pb-2 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">On this page</div>
+    <div class="toc text-[13px] leading-[1.5]">
+      {{ $toc }}
+    </div>
+  </div>
+</aside>
+{{- end -}}

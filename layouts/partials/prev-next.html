@@ -1,0 +1,33 @@
+{{/* Reading order is the rail's order, so the pair comes from data/sidebar.yaml
+     rather than from Hugo's section-scoped .Prev/.Next. */}}
+{{- $cur := .RelPermalink -}}
+{{- $flat := slice -}}
+{{- range hugo.Data.sidebar -}}
+  {{- range .items -}}{{ $flat = $flat | append . }}{{- end -}}
+{{- end -}}
+{{- $i := -1 -}}
+{{- range $n, $item := $flat -}}{{ if eq $item.url $cur }}{{ $i = $n }}{{ end }}{{- end -}}
+{{- if ge $i 0 -}}
+  {{- $prev := cond (gt $i 0) (index $flat (sub $i 1)) false -}}
+  {{- $next := cond (lt $i (sub (len $flat) 1)) (index $flat (add $i 1)) false -}}
+  {{- if or $prev $next -}}
+  <nav class="mt-12 grid gap-3 border-t border-border pt-6 sm:grid-cols-2" aria-label="Pagination">
+    {{- with $prev }}
+    <a href="{{ .url }}" class="group flex flex-col gap-1 rounded-card border border-border bg-surface-0 px-4 py-3 transition-colors hover:bg-surface-1">
+      <span class="flex items-center gap-1 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+        {{ partial "icon.html" (dict "name" "chevron-left" "class" "h-3 w-3") }} Previous
+      </span>
+      <span class="text-sm font-bold text-text-primary group-hover:text-accent-deep">{{ .title }}</span>
+    </a>
+    {{ else }}<span></span>{{ end -}}
+    {{- with $next }}
+    <a href="{{ .url }}" class="group flex flex-col items-end gap-1 rounded-card border border-border bg-surface-0 px-4 py-3 transition-colors hover:bg-surface-1 sm:col-start-2">
+      <span class="flex items-center gap-1 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+        Next {{ partial "icon.html" (dict "name" "chevron-right" "class" "h-3 w-3") }}
+      </span>
+      <span class="text-sm font-bold text-text-primary group-hover:text-accent-deep">{{ .title }}</span>
+    </a>
+    {{ end -}}
+  </nav>
+  {{- end -}}
+{{- end -}}

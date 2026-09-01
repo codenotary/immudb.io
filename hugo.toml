@@ -1,0 +1,43 @@
+baseURL = 'https://docs.immudb.io/'
+locale = 'en-US'
+title = 'immudb'
+enableGitInfo = true
+
+[params]
+  description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.'
+  editURL = 'https://github.com/codenotary/immudb.io/edit/master/content/'
+  twitter = '@immudb'
+  github = 'https://github.com/codenotary/immudb'
+  dockerCommand = 'docker run -d --net host -it --name immudb codenotary/immudb:latest'
+
+[markup.goldmark.renderer]
+  # Required: raw <img align> blocks in the prose and angle-bracket placeholders.
+  # Every placeholder outside a tag is inside a code fence, which Goldmark never touches.
+  unsafe = true
+
+[markup.highlight]
+  noClasses = false
+  lineNos = true
+  lineNumbersInTable = false
+  tabWidth = 4
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[outputs]
+  home = ['HTML', 'RSS', 'SITEMAP']
+
+[sitemap]
+  filename = 'sitemap.xml'
+
+[build]
+  [[build.cachebusters]]
+    source = 'assets/css/.*\.css'
+    target = 'css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
+  [[build.cachebusters]]
+    source = 'layouts/.*'
+    target = 'css'

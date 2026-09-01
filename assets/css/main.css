@@ -1,0 +1,467 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The three faces AgentMon ships, vendored as WOFF2 into static/fonts rather than
+   pulled from node_modules, so the CSS has no build-time path coupling. */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-800-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-sans-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/dm-sans-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/dm-sans-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+}
+
+/*
+ * Design tokens as CSS variables. LIGHT is the default (`:root`); DARK overrides
+ * apply under `html.dark` (Tailwind darkMode:'class', toggled by assets/js/theme.js).
+ * Copied from AgentMon's src/index.css; the auth-screen violet ramp and the chart
+ * ramps are left out — this site has neither sign-in screens nor charts.
+ */
+:root {
+  /* Backgrounds (layered) — light */
+  --color-page: 247 249 252;
+  --color-surface-0: 255 255 255;
+  --color-surface-1: 251 252 254;
+  --color-surface-2: 240 243 248;
+  --color-surface-3: 233 238 245;
+  --color-header: 255 255 255;
+  /* The install strip is the same dark band in both themes, so its scale lives here only. */
+  --color-strip: 44 47 54;
+  --color-strip-ink: 207 212 222;
+  --color-strip-action: 255 255 255;
+  --color-strip-action-ink: 27 29 35;
+
+  /* Borders — light */
+  --color-border: 233 238 245;
+  --color-border-subtle: 240 243 248;
+  /* Fields carry a heavier edge than cards so an empty input still reads as one. */
+  --color-border-input: 217 224 236;
+
+  /* Text ramp — light (dark ink on light bg) */
+  --color-text-primary: 15 23 41;
+  --color-text-secondary: 74 85 104;
+  --color-text-tertiary: 107 118 136;
+  /* The pack's lighter grey, for uppercase micro-labels only — 2.9:1, too faint for prose. */
+  --color-text-faint: 138 148 166;
+  --color-text-muted: 152 162 179;
+  --color-text-heading: 43 47 54;
+
+  /* Accent — light */
+  --color-accent: 245 147 0;
+  --color-accent-hover: 234 115 23;
+  --color-accent-deep: 184 75 31;
+  --color-accent-muted: #fdf1e2;
+  /* The pack's warm notice pair, for panels that ask for attention without alarming. */
+  --color-notice: 253 246 238;
+  --color-notice-border: 242 211 182;
+  /* The quieter of the two warm fills: for a panel inside a page, where the rail's card would shout. */
+  --color-notice-soft: 253 250 245;
+  /* A cool pair for statements of fact, so they do not read as something to act on. */
+  --color-info: 243 248 253;
+  --color-info-border: 217 229 242;
+  --color-info-ink: 74 127 181;
+  /* White on the accent is 2.3:1, so filled controls take a near-black ink instead. */
+  --color-accent-ink: 27 29 35;
+
+  /* Status — light */
+  --color-success: 22 163 74;
+  --color-warning: 217 119 6;
+  --color-error: 220 38 38;
+  /* The alarming counterpart of the notice pair, for a row that reports a breach. */
+  --color-error-soft: 253 246 244;
+  --color-error-border: 246 207 200;
+
+  /* The CommandStrip is sticky and everything under it pins to its lower edge.
+     AgentMon measures the band; here it is a constant with a wrapped-case override. */
+  --header-h: 49px;
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Backgrounds (layered) — dark */
+  --color-page: 11 14 20;
+  --color-surface-0: 17 21 32;
+  --color-surface-1: 22 27 39;
+  --color-surface-2: 28 35 51;
+  --color-surface-3: 35 43 62;
+  --color-header: 8 10 16;
+
+  /* Borders — dark */
+  --color-border: 42 50 71;
+  --color-border-subtle: 30 37 54;
+  --color-border-input: 42 50 71;
+
+  /* Text ramp — dark */
+  --color-text-primary: 232 236 244;
+  --color-text-secondary: 139 149 170;
+  --color-text-tertiary: 91 101 128;
+  --color-text-faint: 91 101 128;
+  --color-text-muted: 61 74 102;
+  --color-text-heading: 232 236 244;
+
+  /* Accent — dark. The same orange as light: the product has one accent, and a
+     blue here made every button and the open rail item a different brand. The
+     deep tone inverts — on a dark surface the readable warm is a light one. */
+  --color-accent: 245 147 0;
+  --color-accent-hover: 250 176 63;
+  --color-accent-deep: 253 208 138;
+  --color-accent-muted: rgba(245, 147, 0, 0.16);
+  --color-notice: 30 37 54;
+  --color-notice-border: 52 62 86;
+  --color-notice-soft: 24 30 44;
+  --color-info: 22 32 48;
+  --color-info-border: 44 60 84;
+  --color-info-ink: 125 168 214;
+  /* White on the accent is 2.3:1 in either theme, so the filled button keeps its near-black ink. */
+  --color-accent-ink: 27 29 35;
+
+  /* Status — dark */
+  --color-success: 34 197 94;
+  --color-warning: 245 158 11;
+  --color-error: 239 68 68;
+  --color-error-soft: 44 24 26;
+  --color-error-border: 88 44 46;
+
+  color-scheme: dark;
+}
+
+/* Below `sm` the strip's command and its controls wrap onto two rows. */
+@media (max-width: 639px) {
+  :root {
+    --header-h: 82px;
+  }
+}
+
+* {
+  border-color: rgb(var(--color-border));
+}
+
+/* The UA's `[hidden] { display: none }` is an attribute selector, so any Tailwind
+   display utility on the same element outranks it by source order. The search
+   dialog is `fixed inset-0` and hidden by default, which without this left an
+   invisible full-page sheet swallowing every click on the site. */
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored headings otherwise land under the sticky band. */
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  background-color: rgb(var(--color-page));
+  color: rgb(var(--color-text-primary));
+  @apply font-sans antialiased;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-surface-0));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border));
+  border-radius: 999px;
+}
+
+/* ---------------------------------------------------------------------------
+   Prose. Markdown emits bare tags, so the document styles live here rather than
+   as classes on the elements. Every value comes from the token set above.
+   --------------------------------------------------------------------------- */
+
+.prose {
+  @apply text-[15px] leading-[1.7] text-text-secondary;
+}
+
+.prose > :first-child {
+  @apply mt-0;
+}
+
+.prose h1 {
+  @apply mb-4 mt-0 font-display text-4xl font-extrabold leading-[1.1] tracking-[-.025em] text-text-heading;
+}
+.prose h2 {
+  @apply mb-3.5 mt-11 scroll-mt-24 border-b border-border pb-2.5 font-display text-[26px] font-extrabold leading-tight tracking-[-.02em] text-text-heading;
+}
+.prose h3 {
+  @apply mb-3 mt-8 scroll-mt-24 font-display text-[19px] font-bold leading-snug text-text-heading;
+}
+.prose h4 {
+  @apply mb-2 mt-6 scroll-mt-24 font-display text-base font-bold text-text-heading;
+}
+.prose h5,
+.prose h6 {
+  @apply mb-2 mt-5 font-display text-sm font-bold text-text-heading;
+}
+
+/* The heading anchor stays out of the way until the heading is hovered. */
+.prose .heading-anchor {
+  @apply ml-2 align-middle text-[.75em] font-normal text-text-faint opacity-0 transition-opacity;
+}
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor,
+.prose .heading-anchor:focus-visible {
+  @apply opacity-100;
+}
+
+.prose p {
+  @apply my-4;
+}
+
+/* The deep tone, not the accent: #F59300 as link text on white is 2.3:1. */
+.prose a {
+  @apply font-medium text-accent-deep underline decoration-accent/40 underline-offset-[3px] transition-colors hover:decoration-accent;
+}
+.prose a.heading-anchor {
+  @apply no-underline;
+}
+
+.prose strong {
+  @apply font-bold text-text-primary;
+}
+
+.prose ul {
+  @apply my-4 list-disc space-y-1.5 pl-6;
+}
+.prose ol {
+  @apply my-4 list-decimal space-y-1.5 pl-6;
+}
+.prose li::marker {
+  @apply text-text-muted;
+}
+.prose li > ul,
+.prose li > ol {
+  @apply my-1.5;
+}
+
+.prose blockquote {
+  @apply my-5 border-l-[3px] border-notice-border bg-notice-soft py-2.5 pl-4 pr-3 text-text-secondary;
+}
+.prose blockquote > :first-child {
+  @apply mt-0;
+}
+.prose blockquote > :last-child {
+  @apply mb-0;
+}
+
+.prose hr {
+  @apply my-9 border-t border-border;
+}
+
+.prose img {
+  @apply max-w-full rounded-card;
+}
+/* The one raw-HTML pattern the docs use: a mascot floated beside the intro. */
+.prose img[align='right'] {
+  @apply ml-6 mb-4 hidden md:block;
+  float: right;
+}
+
+/* Inline code — not the terminal band, which is for blocks. */
+.prose :not(pre) > code {
+  @apply rounded-[5px] border border-border bg-surface-2 px-[5px] py-[2px] font-mono text-[.86em] text-accent-deep;
+}
+
+.prose table {
+  @apply my-6 w-full border-collapse text-sm;
+}
+.prose thead th {
+  @apply border-b border-border px-3 py-2.5 text-left text-[11px] font-bold uppercase tracking-[.1em] text-text-faint;
+}
+.prose tbody td {
+  @apply border-b border-border-subtle px-3 py-2.5 align-top text-text-secondary;
+}
+.prose tbody tr:hover {
+  @apply bg-surface-1;
+}
+/* A wide table scrolls inside its own box rather than pushing the page sideways. */
+.table-scroll {
+  @apply -mx-1 overflow-x-auto px-1;
+}
+
+/* ---------------------------------------------------------------------------
+   Code blocks. Chroma paints the tokens (assets/css/chroma.css); the band, the
+   gutter and the copy control are here. The band is the same dark strip in both
+   themes, so the syntax theme never has to switch.
+   --------------------------------------------------------------------------- */
+
+.code-block {
+  @apply relative my-5;
+}
+
+.code-block .highlight {
+  @apply overflow-hidden rounded-card bg-strip;
+}
+
+.code-block pre {
+  @apply overflow-x-auto px-4 py-3.5 font-mono text-[12.5px] leading-[1.65];
+  background: transparent;
+}
+
+.code-block pre code {
+  @apply bg-transparent p-0;
+}
+
+/* Chroma's line-number span, when lineNumbersInTable is off. */
+.code-block .lnt,
+.code-block .ln {
+  @apply select-none pr-4 text-strip-ink/40;
+}
+
+.code-block .code-copy {
+  @apply absolute right-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-[6px] bg-strip-action/10 px-2.5 py-1 text-[11px] font-bold text-strip-ink opacity-0 transition-colors hover:bg-strip-action/20 focus-visible:opacity-100;
+}
+.code-block:hover .code-copy {
+  @apply opacity-100;
+}
+/* No hover on touch, so the control is always there. */
+@media (hover: none) {
+  .code-block .code-copy {
+    @apply opacity-100;
+  }
+}
+
+.code-block .code-lang {
+  @apply absolute right-2.5 top-2.5 font-mono text-[10px] uppercase tracking-[.1em] text-strip-ink/45 transition-opacity;
+}
+.code-block:hover .code-lang {
+  @apply opacity-0;
+}
+
+/* ---------------------------------------------------------------------------
+   Tabs. The shortcode emits every panel; assets/js/tabs.js upgrades them into
+   the underline bar. Without JS the panels stack under visible labels.
+   --------------------------------------------------------------------------- */
+
+.tabs {
+  @apply my-6;
+}
+
+/* Only shown while the group is un-upgraded, i.e. when JS never ran. */
+.tab-panel > .tab-fallback-label {
+  @apply mb-2 mt-5 font-display text-sm font-bold text-text-heading;
+}
+.tabs[data-enhanced='true'] .tab-fallback-label {
+  @apply hidden;
+}
+.tabs[data-enhanced='true'] .tab-panel {
+  @apply pt-4;
+}
+.tabs[data-enhanced='true'] .tab-panel > :first-child {
+  @apply mt-0;
+}
+
+/* The pack's two warm washes, AgentMon's ground for a page that opens with a
+   pitch. The stops are literal rather than tokens: on the dark ground the same
+   warm has to be a low-alpha glow, not a wash of cream. */
+.hero-wash {
+  background-image:
+    radial-gradient(1100px 520px at 12% -8%, #fdf1e2 0%, rgba(253, 241, 226, 0) 62%),
+    radial-gradient(900px 480px at 96% 6%, rgba(253, 241, 226, 0.7) 0%, rgba(253, 241, 226, 0) 60%);
+}
+.dark .hero-wash {
+  background-image:
+    radial-gradient(1100px 520px at 12% -8%, rgba(245, 147, 0, 0.1) 0%, rgba(245, 147, 0, 0) 62%),
+    radial-gradient(900px 480px at 96% 6%, rgba(245, 147, 0, 0.07) 0%, rgba(245, 147, 0, 0) 60%);
+}
+
+/* The "on this page" rail. Hugo emits a bare nested <ul>. */
+.toc ul {
+  @apply flex flex-col gap-1.5 border-l border-border pl-3;
+}
+.toc ul ul {
+  @apply mt-1.5 border-0 pl-3;
+}
+.toc a {
+  @apply block text-text-tertiary transition-colors hover:text-text-primary;
+}
+.toc a.is-current {
+  @apply font-bold text-accent-deep;
+}
+
+/* The disclosure draws its own chevron, so neither the standard marker nor
+   WebKit's private one should appear. */
+summary {
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The tab bar carries up to six language names; on a phone that is wider than
+   the viewport, so it scrolls itself rather than pushing the page sideways. */
+.tabs [role='tablist'] {
+  @apply max-w-full overflow-x-auto;
+}

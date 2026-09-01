@@ -1,0 +1,14 @@
+{{/* The file this page came from, so a reader who spots a mistake can fix it.
+     .File is nil for pages Hugo generates rather than reads from disk. */}}
+{{- with .File -}}
+<div class="mt-10 flex flex-wrap items-center justify-between gap-3 text-[13px] text-text-tertiary">
+  <a href="{{ site.Params.editURL }}{{ .Path }}" rel="noopener"
+     class="inline-flex items-center gap-1.5 font-medium text-accent-deep hover:underline">
+    {{ partial "icon.html" (dict "name" "pencil" "class" "h-3.5 w-3.5") }}
+    Edit this page on GitHub
+  </a>
+  {{- with $.Lastmod }}
+  <span>Last updated <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 January 2006" }}</time></span>
+  {{- end }}
+</div>
+{{- end -}}

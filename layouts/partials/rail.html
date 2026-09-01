@@ -1,0 +1,52 @@
+{{/* The grouped left navigation, rendered from data/sidebar.yaml.
+
+     The disclosure ships OPEN and assets/js/rail.js closes it below `lg`. That
+     order matters: a rail that starts closed is empty on a desktop without
+     JavaScript, whereas one that starts open is merely long on a phone without
+     it. Only the <details> element's own open/closed state does the hiding —
+     `display: contents` on a closed <details> leaves the desktop rail blank, and
+     driving a sibling from `details[open] ~ …` is not invalidated in WebKit, so
+     neither is used here. */}}
+{{- $cur := .RelPermalink -}}
+<nav aria-label="Main"
+  class="flex w-full shrink-0 flex-col border-b border-border bg-surface-1 lg:sticky lg:top-[var(--header-h,49px)] lg:h-[calc(100vh-var(--header-h,49px))] lg:w-[246px] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:py-[18px]">
+
+  <div class="hidden border-b border-border px-[18px] pb-4 lg:block">
+    <div class="font-display text-base font-bold text-text-primary">immudb</div>
+    {{/* Secondary, not tertiary: the rail sits on surface-1, where the tertiary
+         grey lands at 4.47:1 — just under AA for 12px text. */}}
+    <div class="text-xs text-text-secondary">Documentation</div>
+  </div>
+
+  <details class="group" open>
+    {{/* The summary keeps its default display: WebKit stops honouring the click
+         that opens a disclosure once its summary is laid out as a flex box, so
+         the row inside it does the layout instead. */}}
+    <summary class="cursor-pointer px-4 py-3 lg:hidden">
+      <span class="flex items-center gap-2 text-sm font-bold text-text-primary">
+        {{ partial "icon.html" (dict "name" "menu" "class" "h-4 w-4") }}
+        Documentation
+        <span class="ml-auto transition-transform group-open:rotate-180">{{ partial "icon.html" (dict "name" "chevron-down" "class" "h-4 w-4") }}</span>
+      </span>
+    </summary>
+
+    <div class="pb-3 lg:pb-0">
+      {{- range $i, $group := hugo.Data.sidebar -}}
+        <div role="group" aria-labelledby="rail-g{{ $i }}">
+          <div id="rail-g{{ $i }}" class="px-5 pb-2 pt-5 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+            {{ $group.title }}
+          </div>
+          <div class="flex flex-col gap-0.5 px-3">
+            {{- range $group.items -}}
+              {{- $on := eq .url $cur -}}
+              <a href="{{ .url }}"{{ if $on }} aria-current="page"{{ end }}
+                class="flex items-center gap-2.5 rounded-chip px-3 text-sm transition-colors {{ if $on }}bg-accent-muted py-[9px] font-bold text-accent-deep{{ else }}py-2 text-text-secondary hover:bg-surface-2 hover:text-text-primary{{ end }}">
+                {{ .title }}
+              </a>
+            {{- end -}}
+          </div>
+        </div>
+      {{- end -}}
+    </div>
+  </details>
+</nav>
