@@ -143,9 +143,9 @@ enableGitInfo = true
   ```
   Drop the reCAPTCHA script (only existed for the removed `Subscribe.vue`).
 - `partials/command-strip.html` — sticky dark band, `sticky top-0 z-40 … bg-strip px-4 py-[9px]`, holding the logo, the `docker run` one-liner with an orange `$`, the Pagefind search trigger, the theme toggle and the GitHub/Twitter links. Set `--header-h: 49px` in CSS with a media query for the wrapped case rather than porting AgentMon's `useLayoutEffect` measurement.
-- `partials/rail.html` — renders `data/sidebar.yaml`; active item `bg-accent-muted py-[9px] font-bold text-accent-deep`, idle `py-2 text-text-secondary hover:bg-surface-2 hover:text-text-primary`, group headings `text-[11px] font-bold uppercase tracking-[.1em] text-text-faint`. Collapses to a `<details>` disclosure below `lg`.
+- `partials/rail.html` — renders `data/sidebar.yaml`; active item `bg-accent-muted py-[9px] font-bold text-accent-deep`, idle `py-2 text-text-secondary hover:bg-surface-2 hover:text-text-primary`, group headings `text-[11px] font-bold uppercase tracking-[.1em] text-text-faint`. Collapses to a `<details>` disclosure below `lg` — see [Deviations](#deviations-from-this-plan) for how that had to be wired.
 - `partials/toc.html`, `partials/prev-next.html`, `partials/edit-link.html`, `partials/footer.html`, `partials/theme-toggle.html`.
-- `index.html` — home. Uses the AgentMon hero: the two-tone headline (line 1 `text-text-heading`, line 2 `<span class="text-accent-deep">`), the radial wash background, the free-tier-style pill, and a feature card grid built from existing `static/features/` and `static/logos/immudb-mascot.svg` assets. Content comes from the current `src/master/index.md` welcome copy, so nothing is invented.
+- `index.html` — home. Uses the AgentMon hero: the two-tone headline (line 1 `text-text-heading`, line 2 `<span class="text-accent-deep">`), the radial wash background, the free-tier-style pill, and a feature card grid built from existing `static/features/` and `static/logos/immudb-mascot.svg` assets. Body copy comes from the current `src/master/index.md` welcome text; the two-tone headline is the one piece written for this page — see [Deviations](#deviations-from-this-plan).
 - `404.html`.
 
 ### Shortcodes (`layouts/shortcodes/`)
@@ -157,7 +157,7 @@ enableGitInfo = true
 | `snippet.html` | `<<< @/code-examples/…` | `readFile` + `highlight`, path relative to the repo root |
 
 ### `data/sidebar.yaml`
-Straight port of `.vitepress/sidebars/master.ts` (130 lines, 8 groups: Introduction, Running immudb, Running samples, immudb in production, Connecting with immudb, Develop, Embedded, Management…), rewriting every `/master/x` link to `/x`:
+Straight port of `.vitepress/sidebars/master.ts` (130 lines, 11 groups: Introduction, Running immudb, Running samples, immudb in production, Connecting with immudb, Management, Develop with Key Value, Develop with SQL, Develop with Document, Embedded, Release Notes), rewriting every `/master/x` link to `/x`:
 ```yaml
 - title: Introduction
   open: true
@@ -199,9 +199,9 @@ Replaces `deploy-vuepress.yml`. Jobs: checkout (`fetch-depth: 0` for `enableGitI
 | `public/` | move → `static/`; drop `blog/`, `blog/fullsize/`, `blog/thumbnail/`; keep `CNAME`, `robots.txt`, both Google verification files |
 | `src/master/immudb.md:22` | rewrite the blockchain-comparison sentence |
 | `package.json` | drop `vitepress`/`vue`/`@fortawesome/*`/`algoliasearch`/`axios`/`sharp*` and the `images:*`, `algolia:index`, `docs:*`, `typecheck` scripts; add `tailwindcss@^3.4`, `postcss`, `postcss-cli`, `autoprefixer`, `pagefind`; add `dev`/`build` wrapping Hugo |
-| `tests/unit/components.test.ts`, `tests/e2e/blog.spec.ts`, `tests/e2e/versions.spec.ts` | delete (all couple to the Vue theme or to removed features) |
+| `tests/unit/`, `tests/integration/`, `tests/e2e/blog.spec.ts`, `tests/e2e/versions.spec.ts`, `tests/e2e/helpers.ts` | delete (all couple to the Vue theme, to Algolia, or to removed features) |
 | `tests/e2e/navigation.spec.ts` | rewrite against the Hugo build |
-| `playwright.config.ts` | `webServer` → `hugo server -D --port 1313` |
+| `playwright.config.ts` | `webServer` → a full build served statically, not `hugo server` — see [Deviations](#deviations-from-this-plan) |
 | `vitest.config.ts`, `tsconfig.json`, `.github/workflows/deploy-vuepress.yml`, `MIGRATION_COMPLETE.md`, `VITEPRESS_MIGRATION_COMPLETE.md`, `MULTI_VERSION_IMPLEMENTATION.md` | delete |
 | `Dockerfile`, `docker-compose.yml`, `predeploy.sh`, `README.md`, `CI-CD-SETUP.md` | update for the Hugo toolchain |
 
@@ -215,7 +215,7 @@ Each step ends with a check that must pass before moving on.
 2. **Scaffold + Tailwind pipeline.** `hugo.toml`, `assets/css/main.css` (AgentMon tokens copied verbatim), `tailwind.config.js`, `postcss.config.js`, a stub `baseof.html`. → `hugo server` renders a page whose computed `background-color` is `#F7F9FC` light / `#0B0E14` dark.
 3. **Fonts + Chroma.** Vendor WOFF2s, generate `chroma.css`. → a fenced Go block renders on the `bg-strip` band in Manrope/DM Sans/JetBrains Mono.
 4. **Layouts + partials + shortcodes.** Full shell, rail, TOC, footer, theme toggle, the four shortcodes. → hand-write one test page exercising tabs, callout, snippet and a table; all four render.
-5. **Sidebar data.** Port `master.ts` → `data/sidebar.yaml`. → rail shows 8 groups, active item is orange-tinted.
+5. **Sidebar data.** Port `master.ts` → `data/sidebar.yaml`. → rail shows 11 groups, active item is orange-tinted.
 6. **Content migration.** Move `code-examples/`, run `scripts/migrate-to-hugo.mjs`, hand-fix the 5 remaining Vue tags, rewrite the blockchain sentence. → script exits 0; `grep -rn ':::' content/` is empty.
 7. **Search.** Pagefind + the AgentMon-styled UI in the CommandStrip. → build, search "replication", get the right page.
 8. **Home page.** → `/` renders the hero with the two-tone headline, no redirect.
@@ -259,3 +259,87 @@ Manual pass in the browser at `hugo server`:
 - Disable JS: tab panels stack with visible language labels and remain readable.
 - Narrow to 375px: the rail collapses, the CommandStrip wraps without covering content.
 - Every filled orange button has near-black ink; no orange text on a light surface.
+
+---
+
+## Deviations from this plan
+
+Written after the fact. Everything above is the plan as it stood before
+implementation; this section records where the build diverged from it and why,
+so the reasoning is not lost to a silent edit. Corrections to the plan's own
+factual errors — the sidebar has 11 groups, not 8 — were made in place above
+rather than listed here, since those were never decisions.
+
+### Playwright runs against a full build, not `hugo server`
+
+The action table says `webServer` → `hugo server -D --port 1313`. It is
+`npm run preview` instead — `hugo --minify --gc`, then `pagefind --site public`,
+then `http-server public -p 8080` (in CI, just the static server over the
+already-built artifact).
+
+`hugo server` produces neither the Pagefind index nor fingerprinted assets, and
+the suite asserts on both: one test searches for "replication" and checks the
+hit's URL, and the anti-FOUC and bundle-integrity behaviour only exists in a
+production build. Testing the dev server would have meant testing something the
+deploy never ships. The plan's command is still available as `npm run dev`.
+
+### The rail disclosure ships open, and JavaScript closes it
+
+The plan says the rail "collapses to a `<details>` disclosure below `lg`", which
+implied the obvious CSS-only construction. Two browser behaviours ruled that out,
+both found by the e2e suite rather than by reading:
+
+- `display: contents` on a **closed** `<details>` does not reveal its children —
+  the UA hides them through a shadow root that author CSS cannot reach. The
+  desktop rail rendered empty.
+- Moving the groups to a sibling and driving them from `details[open] ~ .groups`
+  works in Chromium and Firefox but **not in WebKit**, which does not invalidate
+  that selector when the `open` attribute changes. Verified directly: `open`
+  became `true` while the computed `display` stayed `none`, and stayed that way.
+
+So the markup ships `open` and `assets/js/rail.js` closes it below `lg`. That
+ordering is deliberate: without JavaScript a phone gets a long rail, which reads
+fine, whereas the alternative gave a desktop an empty one. A `<summary>` also
+keeps its default display — WebKit stops honouring the click that opens a
+disclosure once its summary is laid out as a flex box — so the row inside it
+does the layout.
+
+### The home page headline is written, not migrated
+
+The plan says the home page's content comes from `src/master/index.md` "so
+nothing is invented". The body copy does. The two-tone headline — *"immudb keeps
+a history / nobody can rewrite."* — does not; the old page's only heading was
+"Welcome", which cannot carry the AgentMon hero. It is the one piece of new copy
+on the site and should be reviewed as copy, not as a migration.
+
+### Deletions beyond the action table
+
+The plan's Deleted list named specific files. These went too, all stale
+descriptions of the toolchain being replaced:
+
+| Path | Why |
+|---|---|
+| `DEPLOYMENT_STATUS.md` | a point-in-time status report on the VitePress build |
+| `.github/DEPLOYMENT.md` | 406 lines duplicating `CI-CD-SETUP.md` for the old pipeline; its still-true parts (Pages settings, rollback, failure modes) were folded in |
+| `predeploy.sh` | regenerated `package-lock.json` for the removed dependency tree |
+| `tests/{README,QUICKSTART,SUMMARY}.md` | documented the vitest suite that this branch deletes |
+| `tests/unit/`, `tests/integration/` | the whole vitest tree, not only `components.test.ts` — the rest tested Algolia, the version switcher, and a mock markdown parser |
+
+`SECURITY_PATCH_SUMMARY.md` and `SECURITY_REMEDIATION_REPORT.md` were left
+alone: they record past incidents rather than describe the toolchain.
+
+### Hardening added after the pre-merge review
+
+Not in the plan, and not migration work — findings from `/codenotary:review`
+that were worth closing before merge:
+
+- `layouts/_default/_markup/render-link.html` does **not** pipe `.Destination`
+  through `safeURL`. Hugo's own default hook does, which disables Go's href URL
+  filter and lets `[x](javascript:…)` in a page render as a live handler.
+- `peaceiris/actions-hugo` is pinned to a commit SHA, and `dependabot.yml` gained
+  the `github-actions` ecosystem so the pin cannot rot.
+- `pages: write` / `id-token: write` moved from workflow scope to the `deploy`
+  job, so the PR-only Lighthouse and Playwright jobs no longer hold them while
+  running PR-authored code.
+- `assets/js/storage.js` — one safe-storage helper, ported from AgentMon's
+  `lib/storage.ts`, shared by the theme switch and the tab groups.
