@@ -1,15 +1,13 @@
 // The theme switch. The class is already on <html> by the time this runs — the
 // anti-FOUC script in head.html put it there — so this only owns the control and
 // the write-back. Same storage key as AgentMon, so the two products agree.
+import { safeGet, safeSet } from './storage.js';
+
 const KEY = 'amon-theme';
 
 function readPreference() {
-  try {
-    const v = localStorage.getItem(KEY);
-    return v === 'dark' || v === 'light' || v === 'system' ? v : 'light';
-  } catch {
-    return 'light';
-  }
+  const v = safeGet(localStorage, KEY);
+  return v === 'dark' || v === 'light' || v === 'system' ? v : 'light';
 }
 
 function systemTheme() {
@@ -45,11 +43,7 @@ export function initTheme() {
   toggle.hidden = false;
   toggle.addEventListener('click', () => {
     preference = resolve(preference) === 'dark' ? 'light' : 'dark';
-    try {
-      localStorage.setItem(KEY, preference);
-    } catch {
-      /* private mode: the choice holds for this page only */
-    }
+    safeSet(localStorage, KEY, preference);
     apply(preference, toggle);
   });
 }

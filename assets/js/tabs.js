@@ -1,23 +1,9 @@
 // Progressive enhancement for the {{% tabs %}} shortcode. The page ships every
 // panel stacked under a visible language heading; this turns each group into the
 // underline tab bar and remembers the language across pages.
+import { safeGet, safeSet } from './storage.js';
+
 const KEY = 'immudb-tab-lang';
-
-function remembered() {
-  try {
-    return localStorage.getItem(KEY);
-  } catch {
-    return null;
-  }
-}
-
-function remember(label) {
-  try {
-    localStorage.setItem(KEY, label);
-  } catch {
-    /* private mode: the choice holds for this page only */
-  }
-}
 
 const LIST_CLASS = 'inline-flex items-center gap-1 border-b border-border';
 const TRIGGER_CLASS =
@@ -66,7 +52,7 @@ function enhance(group, index) {
     trigger.setAttribute('aria-controls', panel.id);
     trigger.textContent = label;
     trigger.addEventListener('click', () => {
-      remember(label);
+      safeSet(localStorage, KEY, label);
       // Every group on the page follows, so a reader picking Go once reads Go.
       document.querySelectorAll('.tabs[data-enhanced="true"]').forEach((g) => select(g, label));
     });
@@ -88,7 +74,7 @@ function enhance(group, index) {
 export function initTabs() {
   const groups = document.querySelectorAll('.tabs');
   groups.forEach(enhance);
-  const label = remembered();
+  const label = safeGet(localStorage, KEY);
   document
     .querySelectorAll('.tabs[data-enhanced="true"]')
     .forEach((group) => select(group, label));
