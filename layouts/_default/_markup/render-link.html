@@ -1,3 +1,9 @@
-{{- /* Outbound links open in the same tab but never hand the target a window handle. */ -}}
+{{- /* Outbound links open in the same tab but never hand the target a window handle.
+
+       `.Destination` is deliberately NOT piped through `safeURL`, which is what
+       Hugo's own default hook does: `safeURL` marks the value pre-sanitised and
+       disables Go's href URL filter, so `[x](javascript:…)` in a page would
+       render as a live `javascript:` href. Without it the filter neutralises
+       that to `#ZgotmplZ` and leaves every ordinary link untouched. */ -}}
 {{- $ext := or (strings.HasPrefix .Destination "http://") (strings.HasPrefix .Destination "https://") -}}
-<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $ext }} rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>
+<a href="{{ .Destination }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $ext }} rel="noopener"{{ end }}>{{ .Text | safeHTML }}</a>
