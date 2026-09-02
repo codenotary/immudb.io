@@ -19,4 +19,4 @@ immudb can be run as full database server with replicas or easily embedded as a 
 
 ## Help and Support
 
-Ask a question or report a problem on the [immudb issue tracker](https://github.com/codenotary/immudb/issues), or [share immudb on Twitter](https://twitter.com/intent/tweet?text=immudb:%20lightweight,%20high-speed%20immutable%20database!&url=https://github.com/codenotary/immudb).
+Ask a question or report a problem on the [immudb issue tracker](https://github.com/codenotary/immudb/issues).

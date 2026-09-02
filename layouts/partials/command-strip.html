@@ -31,11 +31,12 @@
 
     {{ partial "theme-toggle.html" . }}
 
-    <a href="{{ site.Params.github }}" rel="noopener" class="rounded-[6px] p-1.5 text-strip-ink transition-colors hover:bg-strip-action/20" aria-label="immudb on GitHub">
+    {{- $stars := partial "github-stars.html" . }}
+    <a href="{{ site.Params.github }}" rel="noopener"
+       class="inline-flex items-center gap-1.5 rounded-[6px] px-2 py-1.5 text-strip-ink transition-colors hover:bg-strip-action/20"
+       aria-label="immudb on GitHub{{ with $stars }} — {{ . }} stars{{ end }}">
       {{ partial "icon.html" (dict "name" "github" "class" "h-4 w-4") }}
-    </a>
-    <a href="https://twitter.com/immudb" rel="noopener" class="rounded-[6px] p-1.5 text-strip-ink transition-colors hover:bg-strip-action/20" aria-label="immudb on Twitter">
-      {{ partial "icon.html" (dict "name" "twitter" "class" "h-4 w-4") }}
+      {{- with $stars }}<span class="text-[12px] font-bold tabular-nums" aria-hidden="true">{{ . }}</span>{{ end }}
     </a>
   </div>
 </div>

@@ -6,9 +6,17 @@ enableGitInfo = true
 [params]
   description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.'
   editURL = 'https://github.com/codenotary/immudb.io/edit/master/content/'
-  twitter = '@immudb'
   github = 'https://github.com/codenotary/immudb'
   dockerCommand = 'docker run -d --net host -it --name immudb codenotary/immudb:latest'
+
+# The blog posts carry tags for display only. Without this, Hugo generates a term
+# page per tag plus an empty /categories/ index -- pages nothing links to.
+[taxonomies]
+
+# One unauthenticated GitHub API call per build supplies the star count; a day's
+# cache keeps local rebuilds from repeating it.
+[caches.getresource]
+  maxAge = '24h'
 
 [markup.goldmark.renderer]
   # Required: raw <img align> blocks in the prose and angle-bracket placeholders.
