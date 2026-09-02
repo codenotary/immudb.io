@@ -1,348 +1,111 @@
-# CI/CD Pipeline Setup Summary
+# CI/CD
 
-## What Was Created
+Everything lives in `.github/workflows/deploy.yml`. It replaced
+`deploy-vuepress.yml` when the site moved from VitePress to Hugo.
 
-This document summarizes the VuePress build pipeline and GitHub Actions deployment setup created on 2025-12-26.
+## Jobs
 
-## Files Created/Modified
+| Job | Runs on | What it does |
+| --- | --- | --- |
+| `build` | every push and pull request | Builds the site and the search index, checks the output, uploads it as an artifact. |
+| `deploy` | pushes to `master` | Publishes the artifact to GitHub Pages. |
+| `performance-report` | pull requests | Lighthouse over five representative pages; scores land in the run summary. |
+| `e2e` | pull requests | Playwright against the built artifact, in Chromium and Firefox. |
 
-### 1. GitHub Actions Workflow
-**File**: `.github/workflows/deploy-vuepress.yml`
+## The build
 
-A production-ready CI/CD pipeline with:
-- ✅ Automated builds on push to master
-- ✅ Pull request validation
-- ✅ GitHub Pages deployment
-- ✅ Algolia search indexing
-- ✅ Performance reporting
-- ✅ Build caching (30-50% faster builds)
-- ✅ Artifact retention (7 days)
-
-### 2. Package Scripts
-**File**: `package.json` (updated)
-
-New scripts added:
 ```bash
-npm run build:analyze      # Build with bundle analysis
-npm run build:no-cache     # Clean build without cache
-npm run preview            # Build and preview locally
-npm run perf:build         # Performance monitoring
+npm ci
+hugo --minify --gc          # Hugo, pinned by HUGO_VERSION
+npx pagefind --site public  # writes public/pagefind/
 ```
 
-### 3. Performance Monitoring
-**File**: `scripts/build-performance.js`
+Two things about it are load-bearing:
 
-Features:
-- Bundle size analysis
-- File type breakdown
-- Performance warnings
-- Historical tracking
-- Largest files detection
+- **`node-version: 22` or newer.** Hugo's PostCSS step runs node with `--permission`,
+  which Node 20 does not support, so the whole build dies with
+  `node: bad option: --permission`. This is the one version pin that is not cosmetic.
+- **`extended: true`** on `peaceiris/actions-hugo`. Not strictly required — the editions
+  differ only in LibSass and cloud deploy, and this site uses neither — but it is a
+  superset and costs nothing, so it stays.
+- **`fetch-depth: 0`** on the checkout. `enableGitInfo` reads each page's last commit
+  for its "last updated" date; a shallow clone leaves every date wrong.
 
-### 4. Test Script
-**File**: `scripts/test-workflow.sh`
+`HUGO_VERSION` is pinned rather than tracking `latest`, so a Hugo release cannot break
+a deploy without someone choosing it. Keep it in step with the version in
+`Dockerfile`, `docker-compose.yml` and the README.
 
-Validates:
-- Environment configuration
-- Dependencies
-- Directory structure
-- Build process
-- Output validation
-- Workflow syntax
+## The output check
 
-### 5. Documentation
-**Files**:
-- `docs/build-guide.md` - Comprehensive build documentation
-- `.github/DEPLOYMENT.md` - Deployment procedures and troubleshooting
-- `.env.example` - Environment variables template
+The build fails if any page ships `<p>:::`, `&lt;&lt;&lt; @` or `WrappedSection`.
 
-### 6. Webpack Optimization
-**File**: `src/.vuepress/config.js` (updated)
+That is not a stylistic rule. Under VitePress those three strings appeared as literal
+text on 291, 195 and 250 pages respectively, because VitePress has no equivalent of the
+VuePress `element-tabs` plugin and nothing noticed. The check is what keeps the
+migration from quietly undoing itself.
 
-Improvements:
-- Code splitting (vendor, common, runtime)
-- Bundle minimization
-- Performance hints
-- Optional bundle analysis
+It also asserts `public/CNAME` survives the build, since GitHub Pages drops the custom
+domain without it.
 
-## Quick Start
+A second step, **Check no page carries injected script**, guards the other thing the
+migration turned on: `unsafe = true` in `hugo.toml`, which the docs need for their
+raw `<img align>` blocks and which otherwise lets any merged markdown emit arbitrary
+HTML. It fails the build on a `<script>` beyond the three the templates emit (the
+anti-FOUC theme script, the JSON-LD, the module bundle), on any `javascript:` URL, and
+on any inline `on<event>=` handler.
 
-### Local Development
+That covers a path the link render hook cannot reach: the hook neutralises
+`[x](javascript:…)` written as markdown, but a raw `<a href="javascript:…">` is passed
+straight through, because Goldmark never parses it as a link.
+
+If a page ever legitimately needs to *show* one of those strings, the gate trips. Raise
+the expectation in the step rather than widening the door.
+
+## Secrets
+
+None. Search is Pagefind, which is static files — the four Algolia secrets the old
+pipeline needed (`ALGOLIA_API_KEY`, `ALGOLIA_APP_ID`, `ALGOLIA_INDEX`,
+`ALGOLIA_WRIGHT_API_KEY`) can be deleted from the repository settings.
+
+## Running the gates locally
 
 ```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
 npm run build
-
-# Preview build
-npm run preview
-
-# Check performance
-npm run perf:build
+npm run lighthouse   # .lighthouserc.json holds the thresholds and the URLs
+npm run test:e2e     # builds first, then drives the built site
 ```
 
-### Testing Before Deploy
+## GitHub Pages settings
+
+Pages must be set to **Source: GitHub Actions** in the repository settings. The
+`deploy` job publishes with `actions/deploy-pages`, which the "Deploy from a branch"
+setting ignores.
+
+The custom domain comes from `static/CNAME`, which Hugo copies to `public/CNAME`. If
+that file goes missing the domain resets to `codenotary.github.io/immudb.io` on the
+next deploy, which is what the output check guards against.
+
+## Rolling back
+
+The deployed artifact is built from the commit, so a rollback is a revert:
 
 ```bash
-# Run comprehensive tests
-./scripts/test-workflow.sh
-```
-
-### Deployment
-
-Automatic deployment triggers on push to master:
-
-```bash
-git add .
-git commit -m "Your changes"
+git log --oneline -10
+git revert <commit>
 git push origin master
 ```
 
-Monitor deployment at: https://github.com/your-org/immudb.io/actions
+A push to `master` redeploys, so the revert is live once the workflow finishes —
+usually about two minutes. `workflow_dispatch` can also re-run the deploy from any
+commit without pushing, from the Actions tab.
 
-## Configuration
+## When the build fails
 
-### Required Secrets
-
-Set these in GitHub repository settings (Settings → Secrets → Actions):
-
-- `ALGOLIA_API_KEY` - Algolia write API key
-- `ALGOLIA_APP_ID` - Algolia application ID
-- `ALGOLIA_WRIGHT_API_KEY` - Wright API key (optional)
-
-### Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your credentials.
-
-## Workflow Stages
-
-### 1. Build Job
-- Checkout code (full history for git features)
-- Setup Node.js 20 with caching
-- Cache VuePress artifacts
-- Install dependencies
-- Process images
-- Build site
-- Upload artifacts
-
-### 2. Deploy Job (master only)
-- Deploy to GitHub Pages
-- Update deployment environment
-
-### 3. Algolia Index (master only)
-- Index content for search
-- Update search index
-
-### 4. Performance Report (PRs only)
-- Analyze bundle size
-- Compare with base
-- Comment on PR
-
-## Performance Features
-
-### Caching
-- npm packages cached
-- VuePress build cache
-- Restores on hash match
-
-### Code Splitting
-- Vendor bundle separation
-- Common chunks extraction
-- Runtime chunk isolation
-
-### Monitoring
-```bash
-# Analyze bundle
-npm run build:analyze
-
-# Performance report
-npm run perf:build
-```
-
-## Testing
-
-### Pre-deployment Validation
-
-```bash
-# Full test suite
-./scripts/test-workflow.sh
-```
-
-Tests:
-- ✅ Node.js version (v20+)
-- ✅ Dependencies installed
-- ✅ Scripts available
-- ✅ Directory structure
-- ✅ Build success
-- ✅ Output validation
-- ✅ Workflow syntax
-
-## Troubleshooting
-
-### Build Failures
-
-**Memory issues:**
-```bash
-export NODE_OPTIONS="--max-old-space-size=8192"
-npm run build
-```
-
-**Sharp module errors:**
-```bash
-npm rebuild sharp
-```
-
-**Cache issues:**
-```bash
-npm run build:no-cache
-```
-
-### Deployment Issues
-
-1. Check workflow logs in Actions tab
-2. Verify GitHub Pages is enabled
-3. Check DNS/CNAME configuration
-4. Clear browser cache
-
-### Performance Issues
-
-```bash
-# Analyze bundle
-npm run build:analyze
-
-# Check performance
-npm run perf:build
-```
-
-## File Locations
-
-```
-.
-├── .github/
-│   ├── workflows/
-│   │   └── deploy-vuepress.yml      # Main CI/CD workflow
-│   └── DEPLOYMENT.md                 # Deployment docs
-├── scripts/
-│   ├── build-performance.js          # Performance monitoring
-│   └── test-workflow.sh              # Validation script
-├── docs/
-│   └── build-guide.md                # Build documentation
-├── .env.example                      # Environment template
-└── CI-CD-SETUP.md                    # This file
-```
-
-## Next Steps
-
-1. **Install Dependencies** (if not done):
-   ```bash
-   npm install
-   ```
-
-2. **Add webpack-bundle-analyzer** (if analyzing):
-   ```bash
-   npm install -D webpack-bundle-analyzer
-   ```
-
-3. **Configure Secrets** in GitHub:
-   - Go to Settings → Secrets → Actions
-   - Add required API keys
-
-4. **Test Locally**:
-   ```bash
-   ./scripts/test-workflow.sh
-   ```
-
-5. **Deploy**:
-   ```bash
-   git push origin master
-   ```
-
-## Monitoring
-
-### Build Status
-- GitHub Actions: https://github.com/your-org/immudb.io/actions
-- Deployments: Repository → Environments → github-pages
-
-### Performance
-- Bundle analyzer: `npm run build:analyze`
-- Performance report: `npm run perf:build`
-- Historical data: `build-performance.json`
-
-### Logs
-- Workflow logs in Actions tab
-- Build artifacts (7 day retention)
-- Deployment environment logs
-
-## Support
-
-### Documentation
-- Build Guide: `docs/build-guide.md`
-- Deployment: `.github/DEPLOYMENT.md`
-- VuePress: https://vuepress.vuejs.org/
-
-### Resources
-- [GitHub Actions Docs](https://docs.github.com/en/actions)
-- [GitHub Pages Docs](https://docs.github.com/en/pages)
-- [VuePress Docs](https://vuepress.vuejs.org/)
-
-## Migration Notes
-
-### VitePress Ready
-The project now includes VitePress (v1.0.0-rc.36) for future migration:
-
-```bash
-# VitePress commands (future use)
-npm run dev:vitepress
-npm run build:vitepress
-npm run preview:vitepress
-```
-
-Current deployment uses VuePress (v1.9.7). VitePress migration can be done incrementally.
-
-## Performance Benchmarks
-
-Expected improvements:
-- 30-50% faster builds (with caching)
-- Parallel job execution
-- Optimized bundle sizes
-- Smart caching strategy
-
-## Security
-
-- ✅ Secrets managed via GitHub Secrets
-- ✅ No credentials in code
-- ✅ HTTPS enforced on Pages
-- ✅ Branch protection recommended
-- ✅ Minimal workflow permissions
-
-## Maintenance
-
-### Regular Tasks
-- Monitor build times weekly
-- Review performance monthly
-- Update dependencies quarterly
-- Audit security regularly
-
-### Updates
-- Node.js version in workflow
-- Action versions (use Dependabot)
-- Dependencies via `npm update`
-
----
-
-**Created**: 2025-12-26
-**Agent**: GitHub CI/CD Pipeline Engineer
-**Status**: Production Ready ✅
-
-For questions or issues, refer to the documentation or create a GitHub issue.
+| Symptom | Cause |
+| --- | --- |
+| `node: bad option: --permission` | Node is older than 22. Hugo's PostCSS step needs it; bump `node-version`. |
+| `this feature is not available in your current Hugo version` | A feature compiled out of the binary — LibSass, i.e. `css.Sass`. This site does not use it; PostCSS does **not** need the extended edition. |
+| `n page(s) still contain unrendered '<p>:::'` | A container in `content/` is not one of the four shortcodes. Search the page for `:::`. |
+| `snippet: "code-examples/…" not found` | A page includes an example that was moved or deleted. `./checks/examples-go.sh` lists every path the docs reference. |
+| Every "last updated" date is the same | The checkout was shallow. `enableGitInfo` needs `fetch-depth: 0`. |
+| Search finds nothing | `pagefind --site public` did not run, or ran before Hugo. It reads the built HTML. |

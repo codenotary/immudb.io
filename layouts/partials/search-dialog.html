@@ -1,0 +1,10 @@
+{{/* Pagefind's index is built after Hugo, over `public`, so the UI is mounted at
+     runtime by assets/js/search.js rather than rendered here. This is the shell it
+     mounts into; it stays out of the accessibility tree until it is opened. */}}
+<div data-search-dialog hidden
+  class="fixed inset-0 z-50 flex items-start justify-center bg-strip/60 px-4 pt-[12vh] backdrop-blur-sm">
+  <div role="dialog" aria-modal="true" aria-label="Search the documentation"
+    class="flex max-h-[70vh] w-full max-w-[620px] flex-col overflow-hidden rounded-panel border border-border bg-surface-0 shadow-lift">
+    <div data-search-mount class="min-h-0 flex-1 overflow-y-auto"></div>
+  </div>
+</div>

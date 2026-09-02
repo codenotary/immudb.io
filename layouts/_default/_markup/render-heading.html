@@ -1,0 +1,4 @@
+{{- /* Every heading gets an id and a quiet anchor, so a reader can link a section. */ -}}
+<h{{ .Level }} id="{{ .Anchor }}">{{ .Text }}
+  {{- if ge .Level 2 }}<a class="heading-anchor" href="#{{ .Anchor }}" aria-label="Link to this section">#</a>{{ end -}}
+</h{{ .Level }}>

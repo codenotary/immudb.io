@@ -1,16 +1,19 @@
-version: '3.8'
-
 services:
-  immudb-docs:
+  # A live-reloading Hugo server over the working tree, for editing docs without
+  # a local Hugo install. `docker compose up docs` then serves localhost:1313.
+  docs:
+    image: hugomods/hugo:debian-node-git-0.165.0
+    working_dir: /src
+    command: sh -c "npm ci && hugo server --bind 0.0.0.0 --port 1313 --baseURL http://localhost:1313/"
+    ports:
+      - "1313:1313"
+    volumes:
+      - .:/src
+
+  # The production build, served the way GitHub Pages serves it.
+  preview:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4173:4173"
-    volumes:
-      # Mount only the built files for live preview
-      - ./.vitepress:/app/.vitepress
-      - ./src:/app/src
-      - ./public:/app/public
-    environment:
-      - NODE_ENV=production
+      - "8080:80"

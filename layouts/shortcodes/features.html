@@ -1,0 +1,16 @@
+{{- /* What `<FeatureTable/>` drew: the three properties immudb claims, as cards.
+       The marks are the ones the old theme used, already in static/icons. */ -}}
+{{- $features := slice
+  (dict "icon" "immutable-sm.svg" "title" "Immutable" "body" "Data is never overwritten. See the history of data updates.")
+  (dict "icon" "auditable-sm.svg" "title" "Auditable" "body" "Tamper-evident history system ensures data authenticity.")
+  (dict "icon" "secure-sm.svg" "title" "Secure" "body" "Data ownership is verifiable by clients and auditors.")
+-}}
+<div class="my-6 grid gap-3 sm:grid-cols-3">
+  {{- range $features }}
+  <div class="flex flex-col items-center rounded-card border border-border bg-surface-1 px-4 py-5 text-center">
+    <img src="/icons/{{ .icon }}" alt="" aria-hidden="true" width="48" height="48" class="h-12 w-12">
+    <p class="mb-1 mt-3 font-display text-[15px] font-bold text-text-heading">{{ .title }}</p>
+    <p class="text-[13px] leading-[1.5] text-text-tertiary">{{ .body }}</p>
+  </div>
+  {{- end }}
+</div>

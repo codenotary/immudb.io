@@ -1,0 +1,6 @@
+{{- /* Replaces `::: tab <Language>`. The heading is what a reader without JS sees;
+       the enhanced group hides it and puts the label in the bar instead. */ -}}
+{{- $label := .Get 0 -}}
+<div class="tab-panel" data-label="{{ $label }}"><p class="tab-fallback-label">{{ $label }}</p>
+
+{{ .Inner }}</div>

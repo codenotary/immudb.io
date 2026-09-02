@@ -1,0 +1,24 @@
+{{ define "main" }}
+<main id="content" class="flex flex-1 items-center px-4 pb-6 pt-[26px] sm:px-8">
+  <div class="mx-auto max-w-[560px] py-16 text-center">
+    <p class="text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">Error 404</p>
+    <h1 class="mt-3 font-display text-4xl font-extrabold leading-[1.1] tracking-[-.025em] text-text-heading">
+      This page isn't here.<br><span class="text-accent-deep">The docs still are.</span>
+    </h1>
+    <p class="mt-3.5 text-[15px] leading-[1.5] text-text-secondary">
+      The documentation now covers the current release only, at the site root — older version
+      paths such as <code class="font-mono text-[.9em]">/1.9.6/…</code> no longer resolve.
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-2.5">
+      <a href="/" class="inline-flex items-center gap-2 rounded-cell bg-accent px-[15px] py-[9px] text-[13px] font-bold text-accent-ink transition-colors hover:bg-accent-hover">
+        Go to the overview
+        {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-3.5 w-3.5") }}
+      </a>
+      <button type="button" data-search-open class="inline-flex items-center gap-2 rounded-cell border border-border-input bg-surface-0 px-[15px] py-[9px] text-[13px] font-semibold text-text-primary transition-colors hover:bg-surface-1">
+        {{ partial "icon.html" (dict "name" "search" "class" "h-3.5 w-3.5") }}
+        Search the docs
+      </button>
+    </div>
+  </div>
+</main>
+{{ end }}

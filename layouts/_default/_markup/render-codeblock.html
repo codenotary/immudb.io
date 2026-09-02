@@ -1,0 +1,6 @@
+{{- /* The dark band, its language tag, and the hook assets/js/copy.js attaches to. */ -}}
+{{- $lang := .Type | default "text" -}}
+<div class="code-block" data-lang="{{ $lang }}">
+  <span class="code-lang" aria-hidden="true">{{ $lang }}</span>
+  {{ highlight (strings.TrimRight "\n" .Inner) $lang .Options }}
+</div>

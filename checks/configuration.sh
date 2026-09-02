@@ -18,7 +18,7 @@ echo "$FLAGLIST_DOCKER" | sed 's/^/  /g'
 echo
 
 FLAGLIST_DOC="$(
-    cat ../src/master/running/configuration.md \
+    cat ../content/running/configuration.md \
     | grep -E '^\| `' \
     | awk '{ print $2 }' \
     | tr -d '`' \

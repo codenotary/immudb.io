@@ -1,0 +1,260 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+# Least privilege by default: only the job that actually publishes gets more,
+# and it declares that itself. Previously these were workflow-scoped, so the
+# pull_request-only Lighthouse and Playwright jobs -- which run `npm ci` and a
+# browser over PR-authored code -- inherited the right to deploy the site and
+# mint an OIDC token.
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # Pinned rather than `latest`: a silent Hugo bump is not worth a broken deploy.
+  # NOTE: Hugo 0.165's PostCSS step invokes node with `--permission`, which only
+  # exists from Node 22. On Node 20 every build dies with
+  # `node: bad option: --permission`, so the node-version pins below are load-bearing.
+  HUGO_VERSION: 0.165.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # enableGitInfo reads each page's last commit, so a shallow clone
+          # leaves every "last updated" date wrong.
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Hugo
+        # Pinned to a commit, not a tag: this job holds pages:write and
+        # id-token:write, so a moved tag or a compromised release here could
+        # publish to docs.immudb.io and mint an OIDC token. Dependabot's
+        # github-actions ecosystem keeps the pin current.
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3.2.1
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build site
+        run: hugo --minify --gc
+        env:
+          HUGO_ENVIRONMENT: production
+
+      - name: Build search index
+        run: npx pagefind --site public
+
+      - name: Check the migrated containers did not regress
+        run: |
+          fail=0
+          for pattern in '<p>:::' '&lt;&lt;&lt; @' 'WrappedSection'; do
+            hits=$(grep -rl "$pattern" public --include='*.html' | wc -l)
+            if [ "$hits" -ne 0 ]; then
+              echo "::error::$hits page(s) still contain unrendered '$pattern'"
+              fail=1
+            fi
+          done
+          test -f public/CNAME || { echo "::error::CNAME missing from the build"; fail=1; }
+          exit $fail
+
+      - name: Check no page carries injected script
+        # `unsafe = true` in hugo.toml lets raw HTML through from content/*.md,
+        # which the docs need for their `<img align>` blocks. This is the gate
+        # that keeps that door from being used for anything else: a <script>, a
+        # javascript: URL, or an inline event handler arriving through a merged
+        # markdown contribution.
+        #
+        # It covers a path the link render hook cannot. That hook neutralises
+        # `[x](javascript:…)` written as markdown, but a raw `<a href="javascript:…">`
+        # is passed straight through by `unsafe = true` -- Goldmark never parses
+        # it as a link. This step is what closes that.
+        #
+        # The templates emit exactly three <script> tags per page (the anti-FOUC
+        # theme script, the schema.org JSON-LD, and the module bundle), so a
+        # fourth came from content. If a page ever legitimately needs to *show*
+        # one of these strings, it trips this gate -- deliberately: raise the
+        # expectation here rather than widening the door.
+        run: |
+          fail=0
+          expected_scripts=3
+
+          while IFS= read -r f; do
+            n=$({ grep -o '<script' "$f" || true; } | wc -l)
+            if [ "$n" -gt "$expected_scripts" ]; then
+              echo "::error file=$f::page has $n <script> tags, expected at most $expected_scripts"
+              fail=1
+            fi
+          done < <(find public -name '*.html' -not -path '*/pagefind/*')
+
+          for pattern in 'javascript:' ' on[a-z]+='; do
+            hits=$({ grep -rlE "$pattern" public --include='*.html' || true; })
+            if [ -n "$hits" ]; then
+              echo "::error::built pages contain '$pattern':"
+              echo "$hits" | sed 's/^/  /'
+              fail=1
+            fi
+          done
+
+          exit $fail
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: public/
+          retention-days: 7
+
+      - name: Upload to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    # A job-level block REPLACES the workflow default rather than merging with
+    # it, so this is the complete set. actions/deploy-pages documents these two
+    # as its minimum, and the job checks nothing out, so it needs no more.
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Pull-request only: it audits the built site with Lighthouse and summarises the
+  # results, neither of which is meaningful on a push to master.
+  performance-report:
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lighthouse CI
+        run: npm run lighthouse
+
+      - name: Summarize Lighthouse scores
+        if: always()
+        run: |
+          echo "## Lighthouse" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if compgen -G ".lighthouseci/*.report.json" > /dev/null; then
+            echo "| Page | Perf | A11y | Best practices | SEO |" >> $GITHUB_STEP_SUMMARY
+            echo "| --- | --- | --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+            node -e '
+              const fs = require("fs");
+              const pick = (c, k) => Math.round((c[k]?.score ?? 0) * 100);
+              const rows = new Map();
+              for (const f of fs.readdirSync(".lighthouseci").filter(f => f.endsWith(".report.json"))) {
+                const r = JSON.parse(fs.readFileSync(".lighthouseci/" + f, "utf8"));
+                const url = new URL(r.finalDisplayedUrl || r.finalUrl).pathname;
+                // several runs per URL: keep the last one, they are near identical
+                rows.set(url, [pick(r.categories, "performance"), pick(r.categories, "accessibility"),
+                               pick(r.categories, "best-practices"), pick(r.categories, "seo")]);
+              }
+              for (const [url, v] of [...rows].sort())
+                console.log("| `" + url + "` | " + v.join(" | ") + " |");
+            ' | tee -a $GITHUB_STEP_SUMMARY
+          else
+            echo "_No Lighthouse reports were produced._" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: warn
+
+      - name: Report build size
+        run: |
+          echo "## Build size" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          du -sh public/ >> $GITHUB_STEP_SUMMARY
+          find public -name '*.js' -exec du -h {} \; | sort -rh | head -5 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  e2e:
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: public/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium firefox
+
+      - name: Run end-to-end tests
+        run: npx playwright test --project=chromium --project=firefox
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

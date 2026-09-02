@@ -1,0 +1,350 @@
+#!/usr/bin/env node
+/**
+ * One idempotent pass over the markdown under src/master, writing Hugo content
+ * into content/.
+ *
+ * The VuePress container syntax (`:::: tabs`, `::: tab`, `::: tip`) and the
+ * `<<< @` snippet include have no VitePress equivalent, which is why the live
+ * site ships literal `:::` text. Rewriting them into shortcodes is the point of
+ * this script, so the audit below refuses to finish while any of that syntax
+ * survives outside a code fence.
+ *
+ * Kept as the record of how content/ was produced, not as part of the build: its
+ * input, src/master, was deleted once the output was checked in. Re-running it
+ * means restoring that tree from history first.
+ *
+ * Usage: node scripts/migrate-to-hugo.mjs [--dry-run]
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const SRC = path.join(ROOT, 'src', 'master');
+const OUT = path.join(ROOT, 'content');
+const DRY = process.argv.includes('--dry-run');
+
+/* ------------------------------------------------------------------ sidebar */
+
+/**
+ * data/sidebar.yaml in its authored shape: `- title: Group` lines, each followed
+ * by `- { title: Page, url: /path/ }` flow maps. A parser for that one shape is
+ * less machinery than a YAML dependency for a file this repo writes itself.
+ */
+function readSidebar() {
+  const text = fs.readFileSync(path.join(ROOT, 'data', 'sidebar.yaml'), 'utf8');
+  const groups = [];
+  for (const line of text.split('\n')) {
+    const group = line.match(/^- title: (.+)$/);
+    if (group) {
+      groups.push({ title: group[1].trim(), items: [] });
+      continue;
+    }
+    const item = line.match(/^\s*- \{ title: (.+), url: (\S+) \}\s*$/);
+    if (item) {
+      if (!groups.length) throw new Error(`sidebar.yaml: item before any group: ${line}`);
+      groups.at(-1).items.push({ title: item[1].trim(), url: item[2].trim() });
+    }
+  }
+  if (!groups.length) throw new Error('sidebar.yaml: no groups parsed');
+  return groups;
+}
+
+const GROUPS = readSidebar();
+
+/** url -> { weight, title, group }. Weight is the reading order across all groups. */
+const ORDER = new Map();
+{
+  let weight = 0;
+  for (const group of GROUPS) {
+    for (const item of group.items) {
+      weight += 10;
+      ORDER.set(item.url, { weight, title: item.title, group: group.title });
+    }
+  }
+}
+
+/* -------------------------------------------------------------------- paths */
+
+/** A src/master-relative markdown path, as the URL it gets at the site root. */
+function urlFor(rel) {
+  const noExt = rel.replace(/\.md$/, '');
+  return noExt === 'index' ? '/' : `/${noExt}/`;
+}
+
+/** The path this page had on the old site, which becomes its alias. */
+function oldUrl(rel) {
+  const noExt = rel.replace(/\.md$/, '');
+  return noExt === 'index' ? '/master/' : `/master/${noExt}/`;
+}
+
+/** Where the page lands under content/: index.md becomes the branch bundle root. */
+function outFor(rel) {
+  return rel === 'index.md' ? '_index.md' : rel;
+}
+
+function walk(dir, base = dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walk(full, base);
+    return entry.name.endsWith('.md') ? [path.relative(base, full)] : [];
+  });
+}
+
+/* ------------------------------------------------------- fence-aware helpers */
+
+/**
+ * Split a document into runs, flagging the ones inside a fenced code block.
+ * Goldmark never touches fenced code, and neither may we: the docs are full of
+ * shell, Go and SQL that happens to contain the characters we rewrite.
+ */
+function partition(text) {
+  const runs = [];
+  let buffer = [];
+  let fence = null;
+
+  const flush = (code) => {
+    if (buffer.length) runs.push({ code, lines: buffer });
+    buffer = [];
+  };
+
+  for (const line of text.split('\n')) {
+    const open = line.match(/^\s*(`{3,}|~{3,})/);
+    if (!fence && open) {
+      flush(false);
+      fence = open[1];
+      buffer.push(line);
+      continue;
+    }
+    if (fence) {
+      buffer.push(line);
+      if (new RegExp(`^\\s*\\${fence[0]}{${fence.length},}\\s*$`).test(line)) {
+        flush(true);
+        fence = null;
+      }
+      continue;
+    }
+    buffer.push(line);
+  }
+  flush(Boolean(fence));
+  return runs;
+}
+
+/** Apply `fn` to every line outside a code fence, leaving fenced runs untouched. */
+function mapProse(text, fn) {
+  return partition(text)
+    .flatMap((run) => (run.code ? run.lines : run.lines.map(fn)))
+    .join('\n');
+}
+
+/* --------------------------------------------------------------- conversions */
+
+/**
+ * `:::: tabs` / `::: tab X` / `::: tip [title]` into shortcodes.
+ *
+ * The containers nest, and a `:::` closes whichever of the two is innermost, so
+ * a stack decides what each closing marker means rather than a regex.
+ */
+function convertContainers(text, file) {
+  const stack = [];
+  const out = mapProse(text, (line) => {
+    if (/^::::\s*tabs\s*$/.test(line)) {
+      stack.push('tabs');
+      return '{{% tabs %}}';
+    }
+    if (/^::::\s*$/.test(line)) {
+      const open = stack.pop();
+      if (open !== 'tabs') throw new Error(`${file}: '::::' closes ${open ?? 'nothing'}`);
+      return '{{% /tabs %}}';
+    }
+    const tab = line.match(/^:::\s*tab\s+(.+?)\s*$/);
+    if (tab) {
+      stack.push('tab');
+      return `{{% tab "${tab[1]}" %}}`;
+    }
+    const notice = line.match(/^:::\s*(tip|info|note|warning|danger|caution)(?:\s+(.+?))?\s*$/);
+    if (notice) {
+      stack.push('callout');
+      const kind = { info: 'tip', note: 'tip', caution: 'warning' }[notice[1]] ?? notice[1];
+      return notice[2] ? `{{% callout "${kind}" "${notice[2]}" %}}` : `{{% callout "${kind}" %}}`;
+    }
+    if (/^:::\s*$/.test(line)) {
+      const open = stack.pop();
+      if (open === 'tab') return '{{% /tab %}}';
+      if (open === 'callout') return '{{% /callout %}}';
+      throw new Error(`${file}: ':::' closes ${open ?? 'nothing'}`);
+    }
+    return line;
+  });
+  if (stack.length) throw new Error(`${file}: unclosed container(s): ${stack.join(', ')}`);
+  return out;
+}
+
+/** `<<< @/code-examples/x/main.go`, as the snippet shortcode over the same file. */
+function convertSnippets(text) {
+  return mapProse(text, (line) =>
+    line.replace(/^<<<\s*@(\/\S+)\s*$/, (_, p) => `{{< snippet "${p}" >}}`),
+  );
+}
+
+/** `<WrappedSection>` was a layout div; the prose container is that div now. */
+function stripWrappedSection(text) {
+  const MARK = '__WRAPPED_SECTION_DROP__';
+  return mapProse(text, (line) => (/^\s*<\/?WrappedSection>\s*$/.test(line) ? MARK : line))
+    .split('\n')
+    .filter((l) => l !== MARK)
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n');
+}
+
+/** `foo.md`, `./x/foo.md`, `../x/foo.md#anchor`, as the absolute URL of that page. */
+function rewriteLinks(text, rel) {
+  const dir = path.posix.dirname(rel);
+  return mapProse(text, (line) =>
+    line.replace(/\]\((\.{0,2}[^):]*?)\.md(#[^)]*)?\)/g, (whole, target, anchor = '') => {
+      if (target.startsWith('/')) return whole;
+      const resolved = path.posix.normalize(path.posix.join(dir === '.' ? '' : dir, target));
+      if (resolved.startsWith('..')) {
+        throw new Error(`${rel}: link escapes the docs root: ${whole}`);
+      }
+      return resolved === 'index' ? `](/${anchor})` : `](/${resolved}/${anchor})`;
+    }),
+  );
+}
+
+/** The H1 becomes the front-matter title; the layout renders it, so it leaves the body. */
+function extractTitle(text, rel) {
+  const lines = text.split('\n');
+  const i = lines.findIndex((l) => /^#\s+\S/.test(l));
+  if (i < 0) throw new Error(`${rel}: no H1 to take a title from`);
+  const title = lines[i].replace(/^#\s+/, '').trim();
+  lines.splice(i, 1);
+  return { title, body: lines.join('\n') };
+}
+
+function quote(s) {
+  return `"${s.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
+/* ------------------------------------------------------------------ the pass */
+
+function convert(rel) {
+  const raw = fs.readFileSync(path.join(SRC, rel), 'utf8');
+  const entry = ORDER.get(urlFor(rel));
+
+  let body = raw;
+  body = convertContainers(body, rel);
+  body = convertSnippets(body);
+  body = stripWrappedSection(body);
+  body = rewriteLinks(body, rel);
+
+  const { title, body: withoutH1 } = extractTitle(body, rel);
+  const aliases = [oldUrl(rel)];
+  // README.md and index.md were byte-identical, and each had a URL of its own.
+  if (rel === 'index.md') aliases.push('/master/README/');
+
+  const front = [
+    '---',
+    `title: ${quote(entry?.title ?? title)}`,
+    ...(entry ? [`weight: ${entry.weight}`] : []),
+    `aliases: [${aliases.map(quote).join(', ')}]`,
+    '---',
+    '',
+  ].join('\n');
+
+  return `${front}${withoutH1.replace(/^\n+/, '').replace(/\n*$/, '')}\n`;
+}
+
+/**
+ * A landing page for each section, so `/production/` is a page rather than a 404.
+ * The heading is the rail group whose pages live in that directory.
+ */
+function sectionIndexes(files) {
+  const dirs = [...new Set(files.map((f) => path.posix.dirname(f)))].filter((d) => d !== '.');
+  return dirs.sort().map((dir) => {
+    const owner = GROUPS.find((g) =>
+      g.items.some((i) => path.posix.dirname(i.url.replace(/\/$/, '')) === `/${dir}`),
+    );
+    if (!owner) throw new Error(`no sidebar group owns content/${dir}/`);
+    const weight = ORDER.get(owner.items[0].url).weight;
+    return {
+      rel: path.posix.join(dir, '_index.md'),
+      text: [
+        '---',
+        `title: ${quote(owner.title)}`,
+        // Just above its first page, so the section heads its own group.
+        `weight: ${weight - 1}`,
+        `aliases: [${quote(`/master/${dir}/`)}]`,
+        '---',
+        '',
+      ].join('\n'),
+    };
+  });
+}
+
+/* -------------------------------------------------------------------- guards */
+
+const RESIDUE = [
+  { name: 'container syntax', re: /(^|\s):{3,}/ },
+  { name: 'snippet include', re: /<<<\s*@/ },
+  { name: 'Vue component tag', re: /<\/?[A-Z][A-Za-z0-9]*[\s/>]/ },
+];
+
+function audit(rel, text) {
+  const problems = [];
+  let lineNo = 0;
+  for (const run of partition(text)) {
+    for (const line of run.lines) {
+      lineNo += 1;
+      if (run.code) continue;
+      for (const { name, re } of RESIDUE) {
+        if (re.test(line)) problems.push(`content/${rel}:${lineNo}: ${name}: ${line.trim()}`);
+      }
+    }
+  }
+  return problems;
+}
+
+/* ---------------------------------------------------------------------- main */
+
+function main() {
+  const files = walk(SRC).sort();
+  const written = [];
+  const problems = [];
+
+  for (const rel of files) {
+    // index.md and README.md are byte-identical in master; the index one wins.
+    if (rel.endsWith('README.md') && files.includes(rel.replace(/README\.md$/, 'index.md'))) {
+      continue;
+    }
+    const text = convert(rel);
+    problems.push(...audit(outFor(rel), text));
+    written.push({ rel: outFor(rel), text });
+  }
+
+  written.push(...sectionIndexes(files.filter((f) => !f.endsWith('README.md'))));
+
+  if (problems.length) {
+    console.error('Unconverted markup survived the pass:\n');
+    for (const p of problems) console.error(`  ${p}`);
+    console.error(
+      `\n${problems.length} problem(s). This is exactly what ships as literal text on the live` +
+        ' site today; the migration stops rather than reproduce it.',
+    );
+    process.exit(1);
+  }
+
+  for (const { rel, text } of written) {
+    const dest = path.join(OUT, rel);
+    if (DRY) {
+      console.log(`would write ${path.relative(ROOT, dest)} (${text.length} bytes)`);
+      continue;
+    }
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, text);
+  }
+
+  console.log(`${DRY ? 'Would write' : 'Wrote'} ${written.length} pages into content/.`);
+}
+
+main();

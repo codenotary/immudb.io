@@ -1,0 +1,57 @@
+{{- $title := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) -}}
+{{- $description := or .Params.description .Summary site.Params.description -}}
+{{- $description = $description | plainify | truncate 180 | chomp -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="HandheldFriendly" content="True">
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $description }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Applied before first paint so a dark reader never sees the light ground flash.
+     Reads the same key AgentMon writes, so the two products agree on the choice. */}}
+<script>try{var p=localStorage.getItem('amon-theme');if(p==='dark'||(p==='system'&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}</script>
+
+<link rel="shortcut icon" type="image/png" href="/favicon/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#4d4d4d">
+<meta name="apple-mobile-web-app-title" content="immudb">
+<meta name="application-name" content="immudb">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<meta property="og:site_name" content="immudb">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="article:publisher" content="{{ site.BaseURL }}">
+
+{{/* The two faces the first screen needs: body copy and the heading it sits under. */}}
+<link rel="preload" href="/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+{{- $css := resources.Get "css/main.css" | css.PostCSS -}}
+{{- $chroma := resources.Get "css/chroma.css" -}}
+{{- $styles := slice $css $chroma | resources.Concat "css/site.css" -}}
+{{- if hugo.IsProduction -}}
+  {{- $styles = $styles | minify | fingerprint -}}
+{{- end -}}
+<link rel="stylesheet" href="{{ $styles.RelPermalink }}"{{ with $styles.Data.Integrity }} integrity="{{ . }}"{{ end }}>
+
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "WebSite"
+  "url" site.BaseURL
+  "description" site.Params.description
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" site.BaseURL)
+  "publisher" (dict
+    "@type" "Organization"
+    "name" site.Title
+    "url" site.BaseURL
+    "logo" (dict "@type" "ImageObject" "url" (printf "%slogo.png" site.BaseURL) "width" 1036 "height" 367)
+  ) | jsonify | safeJS }}</script>

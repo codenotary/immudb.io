@@ -1,0 +1,22 @@
+{{- /* Replaces `::: tip|warning|danger [title]`. Two tones: the warm notice pair
+       for something to know, the error pair for something that can go wrong.
+
+       The blank lines around `.Inner` are load-bearing. A `%`-delimited
+       shortcode splices its output back into the page's markdown, and Goldmark
+       treats an unbroken run of raw HTML as one block and leaves its contents
+       alone — so without them a callout renders its links and lists as literal
+       markdown text. */ -}}
+{{- $kind := .Get 0 | default "tip" -}}
+{{- $title := .Get 1 -}}
+{{- $danger := eq $kind "danger" -}}
+{{- $tone := cond $danger "border-error-border bg-error-soft" "border-notice-border bg-notice-soft" -}}
+{{- $ink := cond $danger "text-error" "text-accent-deep" -}}
+{{- $icon := cond $danger "alert" "info" -}}
+<div class="callout my-5 rounded-card border {{ $tone }} px-4 py-3.5">
+<p class="mb-1.5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.1em] {{ $ink }}">{{ partial "icon.html" (dict "name" $icon "class" "h-3.5 w-3.5") }} {{ $title | default (title $kind) }}</p>
+<div class="callout-body text-[14px] leading-[1.65] text-text-secondary">
+
+{{ .Inner }}
+
+</div>
+</div>

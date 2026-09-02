@@ -1,0 +1,44 @@
+{{/* The dark band above the shell: the one command that starts immudb, the search,
+     the theme switch and the two places the project lives. Pinned, because the rail
+     pins under it — a band that scrolled away left a band-high strip of nothing. */}}
+<div class="sticky top-0 z-40 flex flex-wrap items-center gap-x-4 gap-y-2 bg-strip px-4 py-[9px]">
+  <a href="/" class="flex shrink-0 items-center" aria-label="immudb home">
+    <img src="/logo_white.svg" alt="immudb" width="96" height="24" class="block h-5 w-auto">
+  </a>
+
+  {{/* The site is more than the docs now, so the band carries the top-level nav.
+       `aria-current` marks the section the reader is in. */}}
+  <nav aria-label="Sections" class="flex shrink-0 items-center gap-1">
+    {{- range slice (dict "t" "Docs" "u" "/docs/" "s" "docs") (dict "t" "Blog" "u" "/blog/" "s" "blog") }}
+    {{- $on := eq $.Section .s }}
+    <a href="{{ .u }}"{{ if $on }} aria-current="true"{{ end }}
+       class="rounded-[6px] px-2.5 py-1 text-[13px] font-medium transition-colors {{ if $on }}bg-strip-action/15 text-strip-action{{ else }}text-strip-ink hover:bg-strip-action/10{{ end }}">{{ .t }}</a>
+    {{- end }}
+  </nav>
+
+  <span class="min-w-0 flex-1 truncate font-mono text-[13px] text-strip-ink">
+    <span class="text-accent" aria-hidden="true">$</span>
+    <span class="select-all">{{ site.Params.dockerCommand }}</span>
+  </span>
+
+  <div class="flex shrink-0 items-center gap-2">
+    <button type="button" data-search-open
+      class="inline-flex items-center gap-2 rounded-[6px] bg-strip-action/10 px-2.5 py-1 text-[12px] font-medium text-strip-ink transition-colors hover:bg-strip-action/20">
+      {{ partial "icon.html" (dict "name" "search" "class" "h-3.5 w-3.5") }}
+      <span class="hidden sm:inline">Search</span>
+      <kbd class="hidden font-sans text-[10px] font-bold text-strip-ink/60 md:inline">/</kbd>
+    </button>
+
+    {{ partial "theme-toggle.html" . }}
+
+    {{- $stars := partial "github-stars.html" . }}
+    <a href="{{ site.Params.github }}" rel="noopener"
+       class="inline-flex items-center gap-1.5 rounded-[6px] px-2 py-1.5 text-strip-ink transition-colors hover:bg-strip-action/20"
+       aria-label="immudb on GitHub{{ with $stars }} — {{ . }} stars{{ end }}">
+      {{ partial "icon.html" (dict "name" "github" "class" "h-4 w-4") }}
+      {{- with $stars }}<span class="text-[12px] font-bold tabular-nums" aria-hidden="true">{{ . }}</span>{{ end }}
+    </a>
+  </div>
+</div>
+
+{{- partial "search-dialog.html" . -}}

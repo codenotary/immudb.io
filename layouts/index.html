@@ -1,0 +1,144 @@
+{{ define "main" }}
+{{/* The marketing home page. Every string comes from content/_index.md so the
+     copy is editable without touching this file; every image is already in
+     static/. The docs landing page is a different template entirely —
+     layouts/_default/docs-home.html, selected by content/docs/_index.md. */}}
+<main id="content" class="flex-1">
+
+  {{/* Hero — `.hero-wash` is the pack's warm radial pair (assets/css/main.css). */}}
+  {{- with .Params.hero }}
+  <section class="hero-wash px-4 pb-14 pt-12 sm:px-8">
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_300px]">
+      <div class="min-w-0 max-w-[720px]">
+        {{- with .pill }}
+        <span class="inline-flex items-center gap-2 rounded-full border border-notice-border bg-notice px-3.5 py-1.5 text-xs font-bold text-accent-deep">
+          <span aria-hidden="true" class="inline-block h-[7px] w-[7px] rounded-full bg-accent"></span>{{ . }}
+        </span>
+        {{- end }}
+        <h1 class="mt-5 font-display text-[44px] font-extrabold leading-[1.05] tracking-[-.03em] text-text-heading sm:text-[52px]">
+          {{ .headline }}<br><span class="text-accent-deep">{{ .headline_accent }}</span>
+        </h1>
+        <p class="mt-4 max-w-[580px] text-base leading-[1.6] text-text-secondary">{{ .lede }}</p>
+        <div class="mt-7 flex flex-wrap items-center gap-2.5">
+          <a href="{{ .primary.url }}" class="inline-flex items-center gap-2 rounded-cell bg-accent px-[17px] py-[10px] text-sm font-bold text-accent-ink transition-colors hover:bg-accent-hover">
+            {{ .primary.text }}
+            {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-4 w-4") }}
+          </a>
+          <a href="{{ .secondary.url }}" class="inline-flex items-center gap-2 rounded-cell border border-border-input bg-surface-0 px-[17px] py-[10px] text-sm font-semibold text-text-primary transition-colors hover:bg-surface-1">
+            {{ .secondary.text }}
+          </a>
+        </div>
+      </div>
+      <img src="/logos/immudb-mascot.svg" alt="" aria-hidden="true" width="300" height="300"
+           class="hidden w-[300px] justify-self-end lg:block">
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* Why immudb — the claim grid. */}}
+  {{- with .Params.why }}
+  <section class="border-t border-border px-4 py-14 sm:px-8">
+    <h2 class="font-display text-[30px] font-extrabold leading-tight tracking-[-.02em] text-text-heading">{{ .heading }}</h2>
+    <p class="mt-3 max-w-[680px] text-[15px] leading-[1.6] text-text-secondary">{{ .lede }}</p>
+    <div class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      {{- range .items }}
+      <div class="rounded-card border border-border bg-surface-1 p-5">
+        <p class="flex items-center gap-2 font-display text-[15px] font-bold text-text-heading">
+          <span class="text-accent-deep">{{ partial "icon.html" (dict "name" "info" "class" "h-4 w-4") }}</span>
+          {{ .title }}
+        </p>
+        <p class="mt-2 text-[14px] leading-[1.6] text-text-secondary">{{ .body }}</p>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* Feature trio, using the SVGs already in static/features/. */}}
+  {{- with .Params.features }}
+  <section class="border-t border-border bg-surface-1 px-4 py-14 sm:px-8">
+    <h2 class="font-display text-[30px] font-extrabold leading-tight tracking-[-.02em] text-text-heading">{{ .heading }}</h2>
+    <div class="mt-8 grid gap-4 lg:grid-cols-3">
+      {{- range .items }}
+      <div class="flex flex-col rounded-card border border-border bg-surface-0 p-6">
+        <img src="/features/{{ .icon }}" alt="" aria-hidden="true" width="64" height="64" class="h-16 w-16">
+        <p class="mt-4 font-display text-[17px] font-bold text-text-heading">{{ .title }}</p>
+        <p class="mt-2 flex-1 text-[14px] leading-[1.6] text-text-secondary">{{ .body }}</p>
+        {{- with .link }}
+        <a href="{{ .url }}" class="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-deep hover:underline">
+          {{ .text }}
+          {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-3.5 w-3.5") }}
+        </a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* Use cases + SDKs, side by side. */}}
+  <section class="grid gap-10 border-t border-border px-4 py-14 sm:px-8 lg:grid-cols-2">
+    {{- with .Params.usecases }}
+    <div>
+      <h2 class="font-display text-[26px] font-extrabold leading-tight tracking-[-.02em] text-text-heading">{{ .heading }}</h2>
+      <ul class="mt-5 flex flex-col gap-2.5">
+        {{- range .items }}
+        <li class="flex gap-2.5 text-[14px] leading-[1.6] text-text-secondary">
+          <span class="mt-[3px] shrink-0 text-accent-deep">{{ partial "icon.html" (dict "name" "chevron-right" "class" "h-4 w-4") }}</span>
+          <span>{{ . }}</span>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+    {{- with .Params.sdks }}
+    <div>
+      <h2 class="font-display text-[26px] font-extrabold leading-tight tracking-[-.02em] text-text-heading">{{ .heading }}</h2>
+      <p class="mt-3 text-[14px] leading-[1.6] text-text-secondary">{{ .lede }}</p>
+      <ul class="mt-5 flex flex-wrap gap-2">
+        {{- range .items }}
+        <li class="rounded-chip border border-border bg-surface-1 px-3 py-1.5 text-[13px] font-medium text-text-primary">{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- with .link }}
+      <a href="{{ .url }}" class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-deep hover:underline">
+        {{ .text }}
+        {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-3.5 w-3.5") }}
+      </a>
+      {{- end }}
+    </div>
+    {{- end }}
+  </section>
+
+  {{/* Latest posts — pulled live from content/blog/, so it cannot go stale. */}}
+  {{- $posts := where site.RegularPages "Section" "blog" }}
+  {{- with $posts.ByDate.Reverse }}
+  <section class="border-t border-border bg-surface-1 px-4 py-14 sm:px-8">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="font-display text-[30px] font-extrabold leading-tight tracking-[-.02em] text-text-heading">Latest posts</h2>
+      <a href="/blog/" class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-deep hover:underline">
+        All posts
+        {{ partial "icon.html" (dict "name" "arrow-right" "class" "h-3.5 w-3.5") }}
+      </a>
+    </div>
+    <div class="mt-7 grid gap-4 md:grid-cols-3">
+      {{- range first 3 . }}{{ partial "blog-card.html" (dict "page" . "level" 3) }}{{ end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{/* Used by — logos already in static/logos/. */}}
+  {{- with .Params.usedby }}
+  <section class="border-t border-border px-4 py-12 sm:px-8">
+    <p class="text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">{{ .heading }}</p>
+    <ul class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-6">
+      {{- range .logos }}
+      <li><img src="/logos/{{ .file }}" alt="{{ .alt }}" loading="lazy"
+               class="h-7 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0 dark:invert dark:opacity-70"></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+</main>
+{{ end }}

@@ -1,27 +1,19 @@
-# Dockerfile for testing VitePress build locally
-FROM node:20-alpine
+# Builds the documentation the way CI does, for checking a change locally without
+# installing Hugo. This image carries Hugo, Node and git; git is required because
+# `enableGitInfo` reads each page's last commit, and Node 22+ because Hugo's
+# PostCSS step invokes node with `--permission` (Node 20 fails the build).
+FROM hugomods/hugo:debian-node-git-0.165.0 AS build
 
-# Install build dependencies for native modules and git for VitePress
-RUN apk add --no-cache python3 make g++ git
+WORKDIR /src
 
-# Set working directory
-WORKDIR /app
+# npm supplies tailwindcss/postcss/autoprefixer for the PostCSS step and pagefind
+# for the search index; the layer is cached on the lockfile alone.
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies with legacy peer deps and skip building native modules (node-sass)
-# We use modern sass (Dart Sass) which doesn't need compilation
-RUN npm ci --legacy-peer-deps --ignore-scripts
-
-# Copy all files
 COPY . .
+RUN hugo --minify --gc && npx pagefind --site public
 
-# Build the documentation
-RUN npm run docs:build
-
-# Expose port for preview
-EXPOSE 4173
-
-# Start preview server
-CMD ["npm", "run", "docs:preview", "--", "--host", "0.0.0.0"]
+FROM nginx:alpine
+COPY --from=build /src/public /usr/share/nginx/html
+EXPOSE 80

@@ -12,20 +12,20 @@ updates:
         patterns:
           - "*"
     ignore:
-      # Majors stay a human decision. VitePress 1.6.4 constrains vite to 5.x,
-      # and vue-tsc 3 / @lhci/cli / babel 8 each need their own verification
-      # pass, so an automated major bump here breaks the docs build rather than
-      # securing it. Security advisories are unaffected by this -- they are
-      # raised separately from version updates.
+      # Majors stay a human decision. Tailwind 4 is a rewrite of the config
+      # format the design system depends on, and @lhci/cli and pagefind each
+      # need their own verification pass, so an automated major bump here breaks
+      # the docs build rather than securing it. Security advisories are
+      # unaffected by this -- they are raised separately from version updates.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
 
-  # The 40 documentation code examples under src/code-examples/go/. Without the
+  # The documentation code examples under code-examples/go/. Without the
   # wildcard directory and the group, each module opens its own PR for the same
   # advisory -- which is how the backlog reached 30 open PRs and 855 alerts.
   - package-ecosystem: gomod
     directories:
-      - /src/code-examples/go/*
+      - /code-examples/go/*
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
@@ -41,3 +41,16 @@ updates:
       # them breaks the build and misdocuments those pages. Bump this by hand
       # alongside a docs release; Dependabot still patches everything below it.
       - dependency-name: github.com/codenotary/immudb
+
+  # The workflow actions. Needed because the third-party Hugo action is pinned to
+  # a commit SHA rather than a tag -- without this, that pin would never move and
+  # would silently rot on an old release.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"

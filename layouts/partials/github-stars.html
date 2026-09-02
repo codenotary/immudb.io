@@ -1,0 +1,26 @@
+{{/* The repository's star count, fetched at BUILD time and rendered as text.
+
+     Deliberately not a shields.io image or GitHub's buttons script: the first
+     adds a third-party request on every page view, and the second adds a
+     <script>, which this site's CI gate rejects (it allows exactly the three the
+     templates emit). This costs one API call per build and nothing at runtime.
+
+     The API is unauthenticated, so it can rate-limit. Every failure path returns
+     an empty string and the caller falls back to a plain link — a star count is
+     never worth failing a deploy over. */}}
+{{- $stars := "" -}}
+{{- with try (resources.GetRemote "https://api.github.com/repos/codenotary/immudb") -}}
+  {{- with .Err -}}
+    {{- warnf "github-stars: %s (falling back to a plain link)" . -}}
+  {{- else with .Value -}}
+    {{- with (unmarshal .Content).stargazers_count -}}
+      {{- $n := . -}}
+      {{- if ge $n 1000 -}}
+        {{- $stars = printf "%.1fk" (div (float $n) 1000.0) -}}
+      {{- else -}}
+        {{- $stars = printf "%d" $n -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $stars -}}
