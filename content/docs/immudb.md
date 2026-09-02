@@ -87,6 +87,3 @@ Theoretical limits may be determined by a couple of elements:
 - max value length: 32 MB (max size: 2^56-1 bytes)
 - max key length: 1024 Bytes (max length: 2^31-1 bytes)
 
-{{% callout "tip" %}}
-Download the [immudb short research paper](https://codenotary.s3.amazonaws.com/Research-Paper-immudb-CodeNotary_v3.0.pdf) to learn about the technical foundations of immudb.
-{{% /callout %}}
