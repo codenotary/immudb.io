@@ -84,8 +84,11 @@ check "no leaked container markup" no_leaked_markup
 check "no injected script in the output" no_injected_script
 check "CNAME survives the build" test -f public/CNAME
 check "robots.txt survives the build" test -f public/robots.txt
-check "sitemap points at docs.immudb.io" grep -q 'docs.immudb.io' public/sitemap.xml
+check "sitemap points at immudb.io" grep -q 'immudb.io' public/sitemap.xml
 check "old /master URLs still resolve" test -f public/master/develop/reading/index.html
+check "old bare docs URLs still resolve" test -f public/develop/reading/index.html
+check "docs live under /docs/" test -f public/docs/develop/reading/index.html
+check "marketing home is not the docs" grep -q "immutable database." public/index.html
 
 echo
 echo "$passed passed, $failed failed"

@@ -5,10 +5,10 @@
       "startServerReadyPattern": "Available on",
       "url": [
         "http://localhost:8080/",
-        "http://localhost:8080/samples/go/",
-        "http://localhost:8080/connecting/sdks/",
-        "http://localhost:8080/production/performance-guide/",
-        "http://localhost:8080/develop/reading/"
+        "http://localhost:8080/docs/",
+        "http://localhost:8080/docs/develop/reading/",
+        "http://localhost:8080/docs/production/performance-guide/",
+        "http://localhost:8080/blog/"
       ],
       "numberOfRuns": 3,
       "settings": {

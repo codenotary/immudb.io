@@ -1,42 +1,53 @@
-{{/* The grouped left navigation, rendered from data/sidebar.yaml.
+{{/* The documentation rail, rendered from data/sidebar.yaml.
 
-     The disclosure ships OPEN and assets/js/rail.js closes it below `lg`. That
-     order matters: a rail that starts closed is empty on a desktop without
-     JavaScript, whereas one that starts open is merely long on a phone without
-     it. Only the <details> element's own open/closed state does the hiding —
-     `display: contents` on a closed <details> leaves the desktop rail blank, and
-     driving a sibling from `details[open] ~ …` is not invalidated in WebKit, so
-     neither is used here. */}}
+     Two nested disclosures, and the nesting is why the Tailwind groups are
+     NAMED. A bare `group-open:` compiles to `.group[open] &`, which matches any
+     open `.group` ancestor — so with anonymous groups every section chevron
+     would rotate whenever the outer mobile disclosure was open.
+
+     Outer (`group/rail`, `[data-rail-root]`): the mobile menu. It ships `open`
+     and assets/js/rail.js closes it below `lg`; a rail that shipped closed would
+     be empty for a desktop reader without JavaScript.
+
+     Inner (`group/section`): one per sidebar group, shipping CLOSED except the
+     group holding the current page, so a reader always sees where they are
+     without opening anything. rail.js reopens whatever else they had open.
+     Native <details> means all of this still works with no JS. */}}
 {{- $cur := .RelPermalink -}}
 <nav aria-label="Main"
   class="flex w-full shrink-0 flex-col border-b border-border bg-surface-1 lg:sticky lg:top-[var(--header-h,49px)] lg:h-[calc(100vh-var(--header-h,49px))] lg:w-[246px] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:py-[18px]">
 
   <div class="hidden border-b border-border px-[18px] pb-4 lg:block">
     <div class="font-display text-base font-bold text-text-primary">immudb</div>
-    {{/* Secondary, not tertiary: the rail sits on surface-1, where the tertiary
-         grey lands at 4.47:1 — just under AA for 12px text. */}}
     <div class="text-xs text-text-secondary">Documentation</div>
   </div>
 
-  <details class="group" open>
+  <details class="group/rail" open data-rail-root>
     {{/* The summary keeps its default display: WebKit stops honouring the click
          that opens a disclosure once its summary is laid out as a flex box, so
-         the row inside it does the layout instead. */}}
+         the row inside it does the layout. */}}
     <summary class="cursor-pointer px-4 py-3 lg:hidden">
       <span class="flex items-center gap-2 text-sm font-bold text-text-primary">
         {{ partial "icon.html" (dict "name" "menu" "class" "h-4 w-4") }}
         Documentation
-        <span class="ml-auto transition-transform group-open:rotate-180">{{ partial "icon.html" (dict "name" "chevron-down" "class" "h-4 w-4") }}</span>
+        <span class="ml-auto transition-transform group-open/rail:rotate-180">{{ partial "icon.html" (dict "name" "chevron-down" "class" "h-4 w-4") }}</span>
       </span>
     </summary>
 
     <div class="pb-3 lg:pb-0">
       {{- range $i, $group := hugo.Data.sidebar -}}
-        <div role="group" aria-labelledby="rail-g{{ $i }}">
-          <div id="rail-g{{ $i }}" class="px-5 pb-2 pt-5 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
-            {{ $group.title }}
-          </div>
-          <div class="flex flex-col gap-0.5 px-3">
+        {{/* Does this group hold the page being read? Decided server-side, so the
+             answer survives a reader with JavaScript disabled. */}}
+        {{- $here := false -}}
+        {{- range $group.items -}}{{ if eq .url $cur }}{{ $here = true }}{{ end }}{{- end -}}
+        <details class="group/section" data-rail-group="{{ $group.title | urlize }}"{{ if $here }} open{{ end }}>
+          <summary class="cursor-pointer px-5 pb-2 pt-5">
+            <span class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+              {{ $group.title }}
+              <span class="ml-auto transition-transform group-open/section:rotate-180">{{ partial "icon.html" (dict "name" "chevron-down" "class" "h-3.5 w-3.5") }}</span>
+            </span>
+          </summary>
+          <div class="flex flex-col gap-0.5 px-3 pb-1">
             {{- range $group.items -}}
               {{- $on := eq .url $cur -}}
               <a href="{{ .url }}"{{ if $on }} aria-current="page"{{ end }}
@@ -45,7 +56,7 @@
               </a>
             {{- end -}}
           </div>
-        </div>
+        </details>
       {{- end -}}
     </div>
   </details>

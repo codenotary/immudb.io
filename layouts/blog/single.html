@@ -1,0 +1,26 @@
+{{ define "main" }}
+<main id="content" class="flex-1 px-4 pb-10 pt-[26px] sm:px-8">
+  <article class="prose mx-auto max-w-[760px]" data-pagefind-body>
+    <p class="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+      <a href="/blog/" class="no-underline hover:text-accent-deep">Blog</a>
+      <span aria-hidden="true">·</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+      {{- with .Params.author }}<span aria-hidden="true">·</span><span>{{ . }}</span>{{ end }}
+    </p>
+    <h1>{{ .Title }}</h1>
+    {{- with .Params.tags }}
+    <ul class="not-prose mb-6 flex flex-wrap gap-1.5 p-0">
+      {{- range . }}
+      <li class="list-none rounded-chip bg-surface-2 px-2.5 py-1 text-[12px] font-medium text-text-secondary">{{ . }}</li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{ .Content }}
+    {{- with .Params.source }}
+    <p class="mt-10 border-t border-border pt-5 text-[13px] text-text-tertiary">
+      Originally published at <a href="{{ . }}" rel="noopener">immudb.io</a>.
+    </p>
+    {{- end }}
+  </article>
+</main>
+{{ end }}

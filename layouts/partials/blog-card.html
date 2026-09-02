@@ -1,0 +1,34 @@
+{{/* One post in a listing. Used by the blog index and the home page's teaser, so
+     the two can never drift apart. The heading level is a parameter because the
+     two callers sit under different headings, and skipping a level is an
+     accessibility failure (Lighthouse `heading-order`).
+
+     Call with (dict "page" $page "level" 2). */}}
+{{- $level := .level | default 3 -}}
+{{- with .page -}}
+<article class="flex flex-col overflow-hidden rounded-card border border-border bg-surface-0 transition-shadow hover:shadow-hover">
+  {{- with .Params.image }}
+  <a href="{{ $.RelPermalink }}" tabindex="-1" aria-hidden="true" class="block bg-surface-2">
+    <img src="{{ . }}" alt="" loading="lazy" class="h-40 w-full object-cover">
+  </a>
+  {{- end }}
+  <div class="flex flex-1 flex-col p-5">
+    <p class="text-[11px] font-bold uppercase tracking-[.1em] text-text-faint">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    </p>
+    <h{{ $level }} class="mt-2 font-display text-[17px] font-bold leading-snug text-text-heading">
+      <a href="{{ .RelPermalink }}" class="hover:text-accent-deep">{{ .Title }}</a>
+    </h{{ $level }}>
+    {{- with .Params.excerpt }}
+    <p class="mt-2 flex-1 text-[14px] leading-[1.6] text-text-secondary">{{ . }}</p>
+    {{- end }}
+    {{- with .Params.tags }}
+    <ul class="mt-4 flex flex-wrap gap-1.5">
+      {{- range . }}
+      <li class="rounded-chip bg-surface-2 px-2 py-0.5 text-[11px] font-medium text-text-secondary">{{ . }}</li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </div>
+</article>
+{{- end -}}

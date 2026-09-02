@@ -10,32 +10,54 @@ import { test, expect, type Page } from '@playwright/test'
  * copy button and search.
  */
 
-const DOC_PAGE = '/develop/reading/'
+const DOC_PAGE = '/docs/develop/reading/'
 
-/** Below `lg` the rail sits behind a disclosure; on a wide window this is a no-op. */
-async function openRail(page: Page) {
-  const summary = page.locator('nav[aria-label="Main"] summary')
-  if (await summary.isVisible()) await summary.click()
+/**
+ * Reveal a rail link. Two disclosures now stand between the reader and an item:
+ * below `lg` the whole rail is behind a menu, and every section ships collapsed
+ * except the one holding the current page.
+ */
+async function openRail(page: Page, group?: string) {
+  const root = page.locator('[data-rail-root]')
+  const rootSummary = page.locator('[data-rail-root] > summary')
+  // Idempotent: without JavaScript the menu already ships open, so an
+  // unconditional click would close it.
+  if ((await rootSummary.isVisible()) && !(await root.evaluate((e: HTMLDetailsElement) => e.open))) {
+    await rootSummary.click()
+  }
+  if (group) {
+    const section = page.locator(`[data-rail-group="${group}"]`)
+    if (!(await section.evaluate((e: HTMLDetailsElement) => e.open))) {
+      await section.locator('summary').click()
+    }
+  }
 }
 
 test.describe('Pages and navigation', () => {
-  test('the home page is the overview, not a redirect', async ({ page }) => {
+  test('the home page is the marketing site, not the docs', async ({ page }) => {
     const response = await page.goto('/')
     expect(response?.status()).toBe(200)
     await expect(page).toHaveTitle(/immudb/)
     await expect(page.locator('h1')).toBeVisible()
-    // The old site served a meta-refresh stub here.
-    expect(page.url()).toMatch(/\/$/)
+    // The docs rail belongs to /docs/ only.
+    await expect(page.locator('nav[aria-label="Main"]')).toHaveCount(0)
+    await expect(page.getByRole('link', { name: 'Get started' }).first()).toBeVisible()
+  })
+
+  test('the docs landing page is under /docs/', async ({ page }) => {
+    const response = await page.goto('/docs/')
+    expect(response?.status()).toBe(200)
+    await expect(page.locator('nav[aria-label="Main"]')).toBeVisible()
   })
 
   test('the rail lists every group and navigates', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/docs/')
     const rail = page.locator('nav[aria-label="Main"]')
-    await expect(rail.locator('[role="group"]')).toHaveCount(11)
-    await openRail(page)
+    await expect(rail.locator('[data-rail-group]')).toHaveCount(11)
+    await openRail(page, 'immudb-in-production')
 
     await rail.getByRole('link', { name: 'Replication', exact: true }).click()
-    await expect(page).toHaveURL(/\/production\/replication\/$/)
+    await expect(page).toHaveURL(/\/docs\/production\/replication\/$/)
     await expect(page.locator('h1')).toContainText('Replication')
   })
 
@@ -51,16 +73,18 @@ test.describe('Pages and navigation', () => {
     const pagination = page.getByRole('navigation', { name: 'Pagination' })
     await expect(pagination.getByRole('link')).toHaveCount(2)
     await pagination.getByRole('link').last().click()
-    await expect(page).toHaveURL(/\/develop\/queries-history\/$/)
+    await expect(page).toHaveURL(/\/docs\/develop\/queries-history\/$/)
   })
 
   test('an old /master/ URL still points at its page', async ({ request }) => {
     // Hugo writes an alias as a meta-refresh to the page's absolute permalink,
     // which is the production host. Following it locally would leave the site
     // under test, so this checks the stub rather than the navigation.
-    const response = await request.get('/master/develop/reading/')
-    expect(response.status()).toBe(200)
-    expect(await response.text()).toContain('https://docs.immudb.io/develop/reading/')
+    for (const old of ['/master/develop/reading/', '/develop/reading/']) {
+      const response = await request.get(old)
+      expect(response.status()).toBe(200)
+      expect(await response.text()).toContain('https://immudb.io/docs/develop/reading/')
+    }
   })
 
   test('an unknown path serves the 404 page', async ({ page }) => {
@@ -88,7 +112,7 @@ test.describe('Migrated markup', () => {
     await page.goto(DOC_PAGE)
     await page.locator('.tabs').first().getByRole('tab', { name: 'Java' }).click()
 
-    await page.goto('/develop/transactions/')
+    await page.goto('/docs/develop/transactions/')
     const active = page.locator('.tabs').first().locator('[role="tab"][aria-selected="true"]')
     await expect(active).toHaveText('Java')
   })
@@ -115,8 +139,85 @@ test.describe('Migrated markup', () => {
   })
 
   test('a callout renders as a panel', async ({ page }) => {
-    await page.goto('/production/replication/')
+    await page.goto('/docs/production/replication/')
     await expect(page.locator('.callout').first()).toBeVisible()
+  })
+})
+
+test.describe('Rail sections', () => {
+  test('ships collapsed except the section holding the current page', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    await openRail(page)
+    const rail = page.locator('nav[aria-label="Main"]')
+    await expect(rail.locator('[data-rail-group]')).toHaveCount(11)
+    // Exactly one open, and it is the one containing the reader's page.
+    await expect(rail.locator('[data-rail-group][open]')).toHaveCount(1)
+    await expect(rail.locator('[data-rail-group][open] a[aria-current="page"]')).toHaveCount(1)
+    // The current item is reachable without opening anything.
+    await expect(page.locator('a[aria-current="page"]')).toBeVisible()
+    // A different section keeps its links hidden.
+    await expect(
+      rail.locator('[data-rail-group="immudb-in-production"] a').first(),
+    ).toBeHidden()
+  })
+
+  test('an opened section survives navigation', async ({ page }) => {
+    await page.goto(DOC_PAGE)
+    await openRail(page)
+    const other = '[data-rail-group="immudb-in-production"]'
+    await page.locator(`${other} summary`).click()
+    await expect(page.locator(other)).toHaveAttribute('open', '')
+
+    // `toggle` fires on a later task than the click, so the write to storage can
+    // lose a race with navigation. Wait for the stored value, which also asserts
+    // the persistence mechanism directly rather than by its effect.
+    await expect
+      .poll(() =>
+        page.evaluate(() => JSON.parse(localStorage.getItem('immudb-rail-open') || '[]')),
+      )
+      .toContain('immudb-in-production')
+
+    await page.goto('/docs/develop/transactions/')
+    // Persisted through a full page load, which every rail click is.
+    await expect(page.locator(other)).toHaveAttribute('open', '')
+  })
+
+  test('without JavaScript the sections still expand', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false })
+    const page = await context.newPage()
+    await page.goto(DOC_PAGE)
+    await openRail(page)
+    await expect(page.locator('a[aria-current="page"]')).toBeVisible()
+    const section = page.locator('[data-rail-group="embedded"]')
+    await section.locator('summary').click()
+    await expect(section.locator('a').first()).toBeVisible()
+    await context.close()
+  })
+})
+
+test.describe('Blog', () => {
+  test('the index lists the imported posts', async ({ page }) => {
+    await page.goto('/blog/')
+    const cards = page.locator('main article')
+    expect(await cards.count()).toBeGreaterThanOrEqual(3)
+    await expect(page.getByRole('heading', { name: /immudb 1\.11\.0/ })).toBeVisible()
+  })
+
+  test('a post renders with its image served locally', async ({ page }) => {
+    await page.goto('/blog/immudb-v1.9.6-released-enhanced-security-and-performance/')
+    await expect(page.locator('h1')).toContainText('v1.9.6')
+    // Nothing may still be hotlinked to the old CMS.
+    const srcs = await page.locator('main img').evaluateAll((els) =>
+      els.map((e) => (e as HTMLImageElement).getAttribute('src') ?? ''),
+    )
+    expect(srcs.length).toBeGreaterThan(0)
+    expect(srcs.every((s) => !s.includes('hubfs') && !s.includes('immudb.io/hs-'))).toBe(true)
+  })
+
+  test('the home page teases the latest posts', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.getByRole('heading', { name: 'Latest posts' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'All posts' })).toBeVisible()
   })
 })
 
@@ -160,7 +261,7 @@ test.describe('Search', () => {
     // query, and either order is a fine ranking; the page has to be in there.
     const hits = dialog.getByRole('link', { name: /replication/i })
     await expect(hits.first()).toBeVisible({ timeout: 15000 })
-    await expect(dialog.locator('a[href="/production/replication/"]')).toHaveCount(1)
+    await expect(dialog.locator('a[href="/docs/production/replication/"]')).toHaveCount(1)
   })
 })
 
@@ -171,13 +272,13 @@ test.describe('Narrow viewport', () => {
     await page.goto(DOC_PAGE)
 
     const rail = page.locator('nav[aria-label="Main"]')
-    const summary = rail.locator('summary')
+    const summary = rail.locator('[data-rail-root] > summary')
     await expect(summary).toBeVisible()
-    // Collapsed: the group headings are not laid out until it is opened.
-    await expect(rail.locator('[role="group"]').first()).toBeHidden()
+    // Collapsed: the section headings are not laid out until the menu is opened.
+    await expect(rail.locator('[data-rail-group]').first()).toBeHidden()
 
     await summary.click()
-    await expect(rail.locator('[role="group"]').first()).toBeVisible()
+    await expect(rail.locator('[data-rail-group]').first()).toBeVisible()
 
     // The page must not scroll sideways at this width.
     const overflow = await page.evaluate(

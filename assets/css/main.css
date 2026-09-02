@@ -465,3 +465,12 @@ summary::-webkit-details-marker {
 .tabs [role='tablist'] {
   @apply max-w-full overflow-x-auto;
 }
+
+/* WebKit still paints a nested <details>'s summary when an ancestor <details>
+   is closed, so with the mobile menu shut all eleven section headings stayed on
+   screen in Safari while Chromium collapsed them. Hiding the sections
+   explicitly fixes it in both. A descendant selector is safe here: it is the
+   general-sibling form (`details[open] ~ x`) that WebKit fails to invalidate. */
+[data-rail-root]:not([open]) [data-rail-group] {
+  display: none;
+}

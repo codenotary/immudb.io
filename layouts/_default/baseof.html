@@ -11,9 +11,11 @@
     {{/* Past this width the page grows margins, not columns. */}}
     <div class="mx-auto flex w-full max-w-[1600px] flex-1 flex-col bg-surface-0">
       {{- partial "command-strip.html" . -}}
-      {{/* Stacks below lg: a fixed 246px rail beside content forces the page sideways on a phone. */}}
+      {{/* The rail is the documentation's table of contents, so it appears only
+           under /docs/. The marketing home and the blog get the full width. */}}
+      {{- $withRail := eq .Section "docs" -}}
       <div class="flex flex-1 flex-col lg:flex-row">
-        {{- partial "rail.html" . -}}
+        {{- if $withRail }}{{ partial "rail.html" . }}{{ end -}}
         <div class="flex min-w-0 flex-1 flex-col">
           {{- block "main" . }}{{ end -}}
           {{- partial "footer.html" . -}}

@@ -3,83 +3,83 @@
 # script reads this file. Every `/master/x` link became `/x/`.
 - title: Introduction
   items:
-    - { title: Overview, url: / }
-    - { title: About immudb, url: /immudb/ }
+    - { title: Overview, url: /docs/ }
+    - { title: About immudb, url: /docs/immudb/ }
 - title: Running immudb
   items:
-    - { title: Download, url: /running/download/ }
-    - { title: Service, url: /running/service/ }
-    - { title: Build, url: /running/build/ }
-    - { title: Configuration, url: /running/configuration/ }
+    - { title: Download, url: /docs/running/download/ }
+    - { title: Service, url: /docs/running/service/ }
+    - { title: Build, url: /docs/running/build/ }
+    - { title: Configuration, url: /docs/running/configuration/ }
 - title: Running samples
   items:
-    - { title: Go Samples, url: /samples/go/ }
+    - { title: Go Samples, url: /docs/samples/go/ }
 - title: immudb in production
   items:
-    - { title: Planning, url: /production/planning/ }
-    - { title: Monitoring, url: /production/monitoring/ }
-    - { title: Auditor, url: /production/auditor/ }
-    - { title: Index Maintenance, url: /production/index-maintenance/ }
-    - { title: Backup, url: /production/backup/ }
-    - { title: Replication, url: /production/replication/ }
-    - { title: Sync Replication, url: /production/sync-replication/ }
-    - { title: FIPS, url: /production/fips/ }
-    - { title: S3 Storage, url: /production/s3-storage/ }
-    - { title: Backwards Compatibility, url: /production/backwards-compatibility/ }
-    - { title: Performance Guide, url: /production/performance-guide/ }
-    - { title: Retention, url: /production/retention/ }
-    - { title: Request Metadata, url: /production/request-metadata/ }
+    - { title: Planning, url: /docs/production/planning/ }
+    - { title: Monitoring, url: /docs/production/monitoring/ }
+    - { title: Auditor, url: /docs/production/auditor/ }
+    - { title: Index Maintenance, url: /docs/production/index-maintenance/ }
+    - { title: Backup, url: /docs/production/backup/ }
+    - { title: Replication, url: /docs/production/replication/ }
+    - { title: Sync Replication, url: /docs/production/sync-replication/ }
+    - { title: FIPS, url: /docs/production/fips/ }
+    - { title: S3 Storage, url: /docs/production/s3-storage/ }
+    - { title: Backwards Compatibility, url: /docs/production/backwards-compatibility/ }
+    - { title: Performance Guide, url: /docs/production/performance-guide/ }
+    - { title: Retention, url: /docs/production/retention/ }
+    - { title: Request Metadata, url: /docs/production/request-metadata/ }
 - title: Connecting with immudb
   items:
-    - { title: Web Console, url: /connecting/webconsole/ }
-    - { title: CLI Tools, url: /connecting/clitools/ }
-    - { title: SDKs, url: /connecting/sdks/ }
-    - { title: immu Gateway, url: /connecting/immugw/ }
-    - { title: Authentication, url: /connecting/authentication/ }
-    - { title: Health Check, url: /connecting/healthcheck/ }
+    - { title: Web Console, url: /docs/connecting/webconsole/ }
+    - { title: CLI Tools, url: /docs/connecting/clitools/ }
+    - { title: SDKs, url: /docs/connecting/sdks/ }
+    - { title: immu Gateway, url: /docs/connecting/immugw/ }
+    - { title: Authentication, url: /docs/connecting/authentication/ }
+    - { title: Health Check, url: /docs/connecting/healthcheck/ }
 - title: Management
   items:
-    - { title: User Management, url: /management/user/ }
-    - { title: Database Management, url: /management/database/ }
-    - { title: State Management, url: /management/state/ }
+    - { title: User Management, url: /docs/management/user/ }
+    - { title: Database Management, url: /docs/management/database/ }
+    - { title: State Management, url: /docs/management/state/ }
 - title: Develop with Key Value
   items:
-    - { title: Reading, url: /develop/reading/ }
-    - { title: Queries & History, url: /develop/queries-history/ }
-    - { title: Indexes, url: /develop/indexes/ }
-    - { title: Transactions, url: /develop/transactions/ }
-    - { title: Deleting, url: /develop/deleting/ }
-    - { title: Expiration, url: /develop/expiration/ }
-    - { title: Streams, url: /develop/streams/ }
+    - { title: Reading, url: /docs/develop/reading/ }
+    - { title: Queries & History, url: /docs/develop/queries-history/ }
+    - { title: Indexes, url: /docs/develop/indexes/ }
+    - { title: Transactions, url: /docs/develop/transactions/ }
+    - { title: Deleting, url: /docs/develop/deleting/ }
+    - { title: Expiration, url: /docs/develop/expiration/ }
+    - { title: Streams, url: /docs/develop/streams/ }
 - title: Develop with SQL
   items:
-    - { title: Transactions, url: /develop/sql/transactions/ }
-    - { title: Data Types, url: /develop/sql/datatypes/ }
-    - { title: Create Tables, url: /develop/sql/tablescreate/ }
-    - { title: Alter Tables, url: /develop/sql/tablesalter/ }
-    - { title: Drop Tables, url: /develop/sql/tablesdrop/ }
-    - { title: Insert & Update, url: /develop/sql/insertupdate/ }
-    - { title: Indexes, url: /develop/sql/indexes/ }
-    - { title: Querying, url: /develop/sql/querying/ }
-    - { title: SQL Diff Query, url: /develop/sql/sqldiff/ }
-    - { title: Joins, url: /develop/sql/joins/ }
-    - { title: Window Functions, url: /develop/sql/windowfunctions/ }
-    - { title: CTEs (WITH clause), url: /develop/sql/ctes/ }
-    - { title: Views & Sequences, url: /develop/sql/views/ }
-    - { title: Users, url: /develop/sql/users/ }
-    - { title: Privileges, url: /develop/sql/privileges/ }
-    - { title: Catalog, url: /develop/sql/catalog/ }
-    - { title: Audit Logging, url: /develop/sql/auditlog/ }
-    - { title: SQL Standard Library, url: /develop/sql/sqlstdlib/ }
-    - { title: PostgreSQL Compatibility, url: /develop/sql/pg/ }
+    - { title: Transactions, url: /docs/develop/sql/transactions/ }
+    - { title: Data Types, url: /docs/develop/sql/datatypes/ }
+    - { title: Create Tables, url: /docs/develop/sql/tablescreate/ }
+    - { title: Alter Tables, url: /docs/develop/sql/tablesalter/ }
+    - { title: Drop Tables, url: /docs/develop/sql/tablesdrop/ }
+    - { title: Insert & Update, url: /docs/develop/sql/insertupdate/ }
+    - { title: Indexes, url: /docs/develop/sql/indexes/ }
+    - { title: Querying, url: /docs/develop/sql/querying/ }
+    - { title: SQL Diff Query, url: /docs/develop/sql/sqldiff/ }
+    - { title: Joins, url: /docs/develop/sql/joins/ }
+    - { title: Window Functions, url: /docs/develop/sql/windowfunctions/ }
+    - { title: CTEs (WITH clause), url: /docs/develop/sql/ctes/ }
+    - { title: Views & Sequences, url: /docs/develop/sql/views/ }
+    - { title: Users, url: /docs/develop/sql/users/ }
+    - { title: Privileges, url: /docs/develop/sql/privileges/ }
+    - { title: Catalog, url: /docs/develop/sql/catalog/ }
+    - { title: Audit Logging, url: /docs/develop/sql/auditlog/ }
+    - { title: SQL Standard Library, url: /docs/develop/sql/sqlstdlib/ }
+    - { title: PostgreSQL Compatibility, url: /docs/develop/sql/pg/ }
 - title: Develop with Document
   items:
-    - { title: Data Model, url: /develop/document/datamodel/ }
-    - { title: API, url: /develop/document/api/ }
+    - { title: Data Model, url: /docs/develop/document/datamodel/ }
+    - { title: API, url: /docs/develop/document/api/ }
 - title: Embedded
   items:
-    - { title: Embedding immudb, url: /embedded/embedding/ }
-    - { title: Embedding SQL, url: /embedded/embeddingSQL/ }
+    - { title: Embedding immudb, url: /docs/embedded/embedding/ }
+    - { title: Embedding SQL, url: /docs/embedded/embeddingSQL/ }
 - title: Release Notes
   items:
-    - { title: Version History, url: /releasenotes/ }
+    - { title: Version History, url: /docs/releasenotes/ }

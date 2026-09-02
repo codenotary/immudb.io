@@ -2,9 +2,19 @@
      the theme switch and the two places the project lives. Pinned, because the rail
      pins under it — a band that scrolled away left a band-high strip of nothing. */}}
 <div class="sticky top-0 z-40 flex flex-wrap items-center gap-x-4 gap-y-2 bg-strip px-4 py-[9px]">
-  <a href="/" class="flex shrink-0 items-center" aria-label="immudb documentation home">
+  <a href="/" class="flex shrink-0 items-center" aria-label="immudb home">
     <img src="/logo_white.svg" alt="immudb" width="96" height="24" class="block h-5 w-auto">
   </a>
+
+  {{/* The site is more than the docs now, so the band carries the top-level nav.
+       `aria-current` marks the section the reader is in. */}}
+  <nav aria-label="Sections" class="flex shrink-0 items-center gap-1">
+    {{- range slice (dict "t" "Docs" "u" "/docs/" "s" "docs") (dict "t" "Blog" "u" "/blog/" "s" "blog") }}
+    {{- $on := eq $.Section .s }}
+    <a href="{{ .u }}"{{ if $on }} aria-current="true"{{ end }}
+       class="rounded-[6px] px-2.5 py-1 text-[13px] font-medium transition-colors {{ if $on }}bg-strip-action/15 text-strip-action{{ else }}text-strip-ink hover:bg-strip-action/10{{ end }}">{{ .t }}</a>
+    {{- end }}
+  </nav>
 
   <span class="min-w-0 flex-1 truncate font-mono text-[13px] text-strip-ink">
     <span class="text-accent" aria-hidden="true">$</span>

@@ -1,4 +1,4 @@
-baseURL = 'https://docs.immudb.io/'
+baseURL = 'https://immudb.io/'
 locale = 'en-US'
 title = 'immudb'
 enableGitInfo = true
