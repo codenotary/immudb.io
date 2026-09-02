@@ -9,6 +9,7 @@
     "search:index": "pagefind --site public",
     "preview": "npm run build && http-server public -p 8080",
     "serve": "http-server public -p 8080",
+    "serve:lan": "rm -rf public resources && hugo --minify --gc -b \"http://$(hostname -I | awk '{print $1}'):8080/\" && npm run search:index && http-server public -p 8080",
     "test": "npm run test:e2e",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
