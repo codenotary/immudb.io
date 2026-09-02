@@ -2,7 +2,7 @@ services:
   # A live-reloading Hugo server over the working tree, for editing docs without
   # a local Hugo install. `docker compose up docs` then serves localhost:1313.
   docs:
-    image: hugomods/hugo:exts-0.165.0
+    image: hugomods/hugo:debian-node-git-0.165.0
     working_dir: /src
     command: sh -c "npm ci && hugo server --bind 0.0.0.0 --port 1313 --baseURL http://localhost:1313/"
     ports:

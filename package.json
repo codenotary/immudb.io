@@ -38,6 +38,9 @@
     "url": "https://github.com/codenotary/immudb.io/issues"
   },
   "homepage": "https://github.com/codenotary/immudb.io#readme",
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.62.1",

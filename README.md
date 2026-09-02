@@ -33,14 +33,18 @@ in the right place.
 
 ## Requirements
 
-- **Hugo extended**, v0.165.0 or later. The plain build cannot run the PostCSS step and
-  will fail with `this feature is not available in your current Hugo version`.
+- **Hugo**, v0.165.0 or later. The *extended* edition is what CI uses and what the
+  Docker image carries, but it is not required: the editions differ only in LibSass
+  and direct cloud deploy, and this site uses neither. Verified — the standard
+  edition builds it.
   ```bash
   curl -sL https://github.com/gohugoio/hugo/releases/download/v0.165.0/hugo_extended_0.165.0_linux-amd64.tar.gz \
     | tar -xz -C ~/.local/bin hugo
-  hugo version   # must print "+extended"
+  hugo version
   ```
-- **Node.js 20+**, for Tailwind, PostCSS and Pagefind.
+- **Node.js 22 or newer**, for Tailwind, PostCSS and Pagefind. 22 is a hard floor, not
+  a preference: Hugo's PostCSS step runs node with `--permission`, a flag Node 20 does
+  not have, so on Node 20 every build fails with `node: bad option: --permission`.
 
 If you would rather not install either, `docker compose up docs` serves the site on
 <http://localhost:1313> with live reload.

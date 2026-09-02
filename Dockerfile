@@ -1,7 +1,8 @@
 # Builds the documentation the way CI does, for checking a change locally without
-# installing Hugo. The extended build is required: the stylesheet goes through
-# Hugo Pipes' PostCSS, which the plain build does not carry.
-FROM hugomods/hugo:exts-0.165.0 AS build
+# installing Hugo. This image carries Hugo, Node and git; git is required because
+# `enableGitInfo` reads each page's last commit, and Node 22+ because Hugo's
+# PostCSS step invokes node with `--permission` (Node 20 fails the build).
+FROM hugomods/hugo:debian-node-git-0.165.0 AS build
 
 WORKDIR /src
 

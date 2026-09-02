@@ -16,14 +16,18 @@ Everything lives in `.github/workflows/deploy.yml`. It replaced
 
 ```bash
 npm ci
-hugo --minify --gc          # Hugo extended, pinned by HUGO_VERSION
+hugo --minify --gc          # Hugo, pinned by HUGO_VERSION
 npx pagefind --site public  # writes public/pagefind/
 ```
 
 Two things about it are load-bearing:
 
-- **`extended: true`** on `peaceiris/actions-hugo`. The stylesheet goes through Hugo
-  Pipes' PostCSS, which the plain build does not carry.
+- **`node-version: 22` or newer.** Hugo's PostCSS step runs node with `--permission`,
+  which Node 20 does not support, so the whole build dies with
+  `node: bad option: --permission`. This is the one version pin that is not cosmetic.
+- **`extended: true`** on `peaceiris/actions-hugo`. Not strictly required — the editions
+  differ only in LibSass and cloud deploy, and this site uses neither — but it is a
+  superset and costs nothing, so it stays.
 - **`fetch-depth: 0`** on the checkout. `enableGitInfo` reads each page's last commit
   for its "last updated" date; a shallow clone leaves every date wrong.
 
@@ -99,7 +103,8 @@ commit without pushing, from the Actions tab.
 
 | Symptom | Cause |
 | --- | --- |
-| `this feature is not available in your current Hugo version` | The plain Hugo build. `extended: true` on `peaceiris/actions-hugo`. |
+| `node: bad option: --permission` | Node is older than 22. Hugo's PostCSS step needs it; bump `node-version`. |
+| `this feature is not available in your current Hugo version` | A feature compiled out of the binary — LibSass, i.e. `css.Sass`. This site does not use it; PostCSS does **not** need the extended edition. |
 | `n page(s) still contain unrendered '<p>:::'` | A container in `content/` is not one of the four shortcodes. Search the page for `:::`. |
 | `snippet: "code-examples/…" not found` | A page includes an example that was moved or deleted. `./checks/examples-go.sh` lists every path the docs reference. |
 | Every "last updated" date is the same | The checkout was shallow. `enableGitInfo` needs `fetch-depth: 0`. |

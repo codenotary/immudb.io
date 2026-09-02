@@ -20,8 +20,10 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # Pinned rather than `latest`: the layouts use css.PostCSS, which needs the
-  # extended build, and a silent version bump is not worth a broken deploy.
+  # Pinned rather than `latest`: a silent Hugo bump is not worth a broken deploy.
+  # NOTE: Hugo 0.165's PostCSS step invokes node with `--permission`, which only
+  # exists from Node 22. On Node 20 every build dies with
+  # `node: bad option: --permission`, so the node-version pins below are load-bearing.
   HUGO_VERSION: 0.165.0
 
 jobs:
@@ -38,7 +40,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -165,7 +167,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -237,7 +239,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
