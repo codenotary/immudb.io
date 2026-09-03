@@ -10,7 +10,7 @@ enableGitInfo = true
   ogImage = '/header.jpg'
   editURL = 'https://github.com/codenotary/immudb.io/edit/master/content/'
   github = 'https://github.com/codenotary/immudb'
-  dockerCommand = 'docker run -d --net host -it --name immudb codenotary/immudb:latest'
+  dockerCommand = 'docker run -d -p 3322:3322 -p 8080:8080 -it --name immudb codenotary/immudb:latest'
 
 # The blog posts carry tags for display only. Without this, Hugo generates a term
 # page per tag plus an empty /categories/ index -- pages nothing links to.
