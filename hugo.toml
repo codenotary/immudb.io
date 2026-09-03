@@ -5,6 +5,9 @@ enableGitInfo = true
 
 [params]
   description = 'immudb - the lightweight, high-speed immutable database for systems and applications. Open Source and easy to integrate into any existing application.'
+  # Fallback social-share image for pages that set no `image` of their own.
+  # A page's front-matter `image` wins; see layouts/partials/head.html.
+  ogImage = '/header.jpg'
   editURL = 'https://github.com/codenotary/immudb.io/edit/master/content/'
   github = 'https://github.com/codenotary/immudb'
   dockerCommand = 'docker run -d --net host -it --name immudb codenotary/immudb:latest'

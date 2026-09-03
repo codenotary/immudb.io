@@ -25,10 +25,24 @@
 <meta name="referrer" content="no-referrer-when-downgrade">
 
 <meta property="og:site_name" content="immudb">
-<meta property="og:type" content="website">
+{{/* Blog posts are articles; everything else -- docs included -- is a plain page.
+     Feeding every URL the same "website" type flattens how link unfurlers and
+     crawlers classify them, but docs pages are undated reference material, not
+     dated articles, so the distinction is drawn on the blog section alone. */}}
+{{- $isArticle := and .IsPage (eq .Section "blog") -}}
+<meta property="og:type" content="{{ cond $isArticle "article" "website" }}">
+{{- if and $isArticle (not .Date.IsZero) }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
+{{/* A page's own image when it has one (blog posts set it), else the site default
+     from hugo.toml. Absolute: unfurlers do not resolve relative paths. */}}
+{{- with or .Params.image site.Params.ogImage }}
+<meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:alt" content="{{ $title }}">
+{{- end }}
 <meta property="article:publisher" content="{{ site.BaseURL }}">
 
 {{/* The two faces the first screen needs: body copy and the heading it sits under. */}}

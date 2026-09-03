@@ -1,0 +1,22 @@
+{{- /* Hugo's built-in sitemap ranges over `.Pages`, which on the home page resolves
+       to top-level sections only -- so the generated sitemap declared /docs/ and
+       /blog/ and nothing beneath them, hiding every doc page and blog post from
+       crawlers that trust the sitemap. Range over site.Pages instead, which is every
+       page of every kind.
+
+       Taxonomies are disabled in hugo.toml, so no term pages exist to filter today;
+       the kind guard keeps that true if taxonomies are ever switched back on.
+       Set `sitemap_exclude: true` in a page's front matter to keep it out. */ -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range site.Pages }}
+  {{- if and (not .Params.sitemap_exclude) (ne .Kind "taxonomy") (ne .Kind "term") }}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>
+    {{- end }}
+  </url>
+  {{- end }}
+  {{- end }}
+</urlset>
