@@ -4,13 +4,13 @@ date: 2026-09-03
 description: "immudb 1.11.2 fixes three ways a running server could be taken out of service: a snapshot leak from parse errors, a panic on an empty query, and a panic during shutdown."
 excerpt: "immudb 1.11.2 is a small release with an outsized operational payoff. Versions 1.11.0 and 1.11.1 shipped three distinct ways to take a running server out of service — and this release closes all three."
 tags: ["immudb", "release"]
-image: "/blog/immudb.png"
+image: "/blog/immudb-1.11.2-release.png"
 ---
 immudb 1.11.2 is deliberately not a feature-heavy release. There is no new SQL surface and no new server capability. What it does contain is worth more than a feature list: versions 1.11.0 and 1.11.1 shipped three separate ways to take a running server out of service, and 1.11.2 closes all three.
 
 None of them required a hostile client. One was triggered by a mistyped column name, one by a database driver saying hello, and one by a database that failed to open. If you are running 1.11.0 or 1.11.1, this is an upgrade worth scheduling.
 
-![immudb](/blog/immudb.png)
+![immudb 1.11.2 release](/blog/immudb-1.11.2-release.png)
 
 ## The transaction leak that needed a restart
 
