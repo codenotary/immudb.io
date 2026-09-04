@@ -62,7 +62,9 @@ sdks:
 usedby:
   heading: "Used by"
   logos:
-    - { file: "codenotary.png", alt: "Codenotary" }
+    - { file: "codenotary.svg", alt: "Codenotary" }
+    - { file: "emblem-of-india.png", alt: "Ministry of Housing and Urban Affairs, Government of India", label: "Government of India" }
+    - { file: "usagov.png", alt: "USAGov" }
     - { file: "opvizor.png", alt: "Opvizor" }
     - { file: "tacapital.png", alt: "TA Capital" }
     - { file: "esoftthings.png", alt: "eSoftThings" }
