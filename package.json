@@ -43,11 +43,11 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.62.1",
-    "autoprefixer": "^10.4.20",
+    "@playwright/test": "^1.63.0",
+    "autoprefixer": "^10.5.6",
     "http-server": "^14.1.1",
     "pagefind": "^1.4.0",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^3.4.17"
   },
