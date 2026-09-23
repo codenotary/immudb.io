@@ -5,7 +5,7 @@ description: "immudb is a ledger database with built-in cryptographic proof and 
 # layouts/index.html. Wording follows the live immudb.io; the assets are the
 # ones already in static/, so nothing is fetched from the old CMS.
 hero:
-  pill: "Open source · Apache 2.0"
+  pill: "Source available · BUSL 1.1"
   headline: "The open-source"
   headline_accent: "immutable database."
   lede: "immudb is a database with built-in cryptographic proof and verification. It tracks changes to sensitive data, and the integrity of that history is verified by the clients — without having to trust the server."
