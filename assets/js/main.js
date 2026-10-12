@@ -4,6 +4,7 @@ import { initCopy } from './copy.js';
 import { initSearch } from './search.js';
 import { initToc } from './toc.js';
 import { initRail } from './rail.js';
+import { initConsent } from './consent.js';
 
 initTheme();
 initTabs();
@@ -11,3 +12,4 @@ initCopy();
 initSearch();
 initToc();
 initRail();
+initConsent();

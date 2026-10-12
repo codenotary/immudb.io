@@ -1,0 +1,19 @@
+{{/* Google Analytics, opt-in only. Nothing here talks to Google: the meta tag
+     hands the measurement ID to assets/js/consent.js, which loads gtag after
+     the visitor accepts. Dev and LAN-preview builds emit nothing. */}}
+{{- if and hugo.IsProduction site.Params.googleAnalytics }}
+<meta name="ga-id" content="{{ site.Params.googleAnalytics }}">
+<div data-consent-banner role="region" aria-label="Cookie consent" hidden
+     class="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-surface-1 px-4 py-4 shadow-lg sm:px-8">
+  <div class="mx-auto flex max-w-[1600px] flex-wrap items-center gap-4">
+    <p class="min-w-0 flex-1 text-sm text-text-secondary">
+      We use Google Analytics cookies to understand how the site is used. Nothing is loaded unless you accept.
+      <a href="https://codenotary.com/privacy-policy" rel="noopener" class="text-text-primary underline">Privacy policy</a>
+    </p>
+    <div class="flex gap-2">
+      <button type="button" data-consent="denied" class="inline-flex items-center rounded-cell border border-border-input bg-surface-0 px-[17px] py-[10px] text-sm font-semibold text-text-primary transition-colors hover:bg-surface-1">Decline</button>
+      <button type="button" data-consent="granted" class="inline-flex items-center rounded-cell bg-accent px-[17px] py-[10px] text-sm font-bold text-accent-ink transition-colors hover:bg-accent-hover">Accept</button>
+    </div>
+  </div>
+</div>
+{{- end }}

@@ -9,5 +9,8 @@
     <a href="https://codenotary.io/technologies/immudb" rel="noopener" class="hover:text-text-primary hover:underline">Codenotary</a>
     <a href="https://codenotary.com/privacy-policy" rel="noopener" class="hover:text-text-primary hover:underline">Privacy</a>
     <a href="https://codenotary.com/terms-of-service" rel="noopener" class="hover:text-text-primary hover:underline">Terms</a>
+    {{- if and hugo.IsProduction site.Params.googleAnalytics }}
+    <button type="button" data-consent-reopen class="hover:text-text-primary hover:underline">Cookie settings</button>
+    {{- end }}
   </span>
 </footer>
