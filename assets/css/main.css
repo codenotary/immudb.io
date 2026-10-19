@@ -1,6 +1,74 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Tailwind 4 has no darkMode:'class' switch; the variant is declared here. The
+   class is toggled on <html> by assets/js/theme.js. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Theme. Ported from AgentMon's tailwind.config.ts; the values live in the token
+ * variables below (`--tok-*`) so the `.dark` block can swap them at runtime, and
+ * `inline` makes every utility reference that variable rather than a copy of it.
+ * The /opacity modifier works on any colour value in Tailwind 4 (color-mix), so
+ * the tokens are plain rgb() colours rather than channel triplets.
+ */
+@theme inline {
+  --color-page: var(--tok-page);
+  --color-header: var(--tok-header);
+  --color-strip: var(--tok-strip);
+  --color-strip-ink: var(--tok-strip-ink);
+  --color-strip-action: var(--tok-strip-action);
+  --color-strip-action-ink: var(--tok-strip-action-ink);
+  --color-surface-0: var(--tok-surface-0);
+  --color-surface-1: var(--tok-surface-1);
+  --color-surface-2: var(--tok-surface-2);
+  --color-surface-3: var(--tok-surface-3);
+  --color-border: var(--tok-border);
+  --color-border-subtle: var(--tok-border-subtle);
+  --color-border-input: var(--tok-border-input);
+  --color-text-primary: var(--tok-text-primary);
+  --color-text-secondary: var(--tok-text-secondary);
+  --color-text-tertiary: var(--tok-text-tertiary);
+  --color-text-faint: var(--tok-text-faint);
+  --color-text-muted: var(--tok-text-muted);
+  --color-text-heading: var(--tok-text-heading);
+  --color-accent: var(--tok-accent);
+  --color-accent-hover: var(--tok-accent-hover);
+  --color-accent-deep: var(--tok-accent-deep);
+  --color-accent-ink: var(--tok-accent-ink);
+  --color-accent-muted: var(--tok-accent-muted);
+  --color-notice: var(--tok-notice);
+  --color-notice-border: var(--tok-notice-border);
+  --color-notice-soft: var(--tok-notice-soft);
+  --color-info: var(--tok-info);
+  --color-info-border: var(--tok-info-border);
+  --color-info-ink: var(--tok-info-ink);
+  --color-success: var(--tok-success);
+  --color-warning: var(--tok-warning);
+  --color-error: var(--tok-error);
+  --color-error-soft: var(--tok-error-soft);
+  --color-error-border: var(--tok-error-border);
+
+  --font-display: Manrope, sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-panel: 14px;
+  --radius-card: 12px;
+  --radius-chip: 10px;
+  --radius-cell: 8px;
+
+  --shadow-hover: 0 10px 26px rgba(15, 23, 41, 0.1);
+  --shadow-lift: 0 20px 50px rgba(15, 23, 41, 0.1);
+}
+
+/* Tailwind 4's preflight gives buttons `cursor: default`; the site's controls
+   were designed under v3's pointer. */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 /* The three faces AgentMon ships, vendored as WOFF2 into static/fonts rather than
    pulled from node_modules, so the CSS has no build-time path coupling. */
@@ -70,63 +138,63 @@
 
 /*
  * Design tokens as CSS variables. LIGHT is the default (`:root`); DARK overrides
- * apply under `html.dark` (Tailwind darkMode:'class', toggled by assets/js/theme.js).
+ * apply under `html.dark` (the `dark` variant above, toggled by assets/js/theme.js).
  * Copied from AgentMon's src/index.css; the auth-screen violet ramp and the chart
  * ramps are left out — this site has neither sign-in screens nor charts.
  */
 :root {
   /* Backgrounds (layered) — light */
-  --color-page: 247 249 252;
-  --color-surface-0: 255 255 255;
-  --color-surface-1: 251 252 254;
-  --color-surface-2: 240 243 248;
-  --color-surface-3: 233 238 245;
-  --color-header: 255 255 255;
+  --tok-page: rgb(247 249 252);
+  --tok-surface-0: rgb(255 255 255);
+  --tok-surface-1: rgb(251 252 254);
+  --tok-surface-2: rgb(240 243 248);
+  --tok-surface-3: rgb(233 238 245);
+  --tok-header: rgb(255 255 255);
   /* The install strip is the same dark band in both themes, so its scale lives here only. */
-  --color-strip: 44 47 54;
-  --color-strip-ink: 207 212 222;
-  --color-strip-action: 255 255 255;
-  --color-strip-action-ink: 27 29 35;
+  --tok-strip: rgb(44 47 54);
+  --tok-strip-ink: rgb(207 212 222);
+  --tok-strip-action: rgb(255 255 255);
+  --tok-strip-action-ink: rgb(27 29 35);
 
   /* Borders — light */
-  --color-border: 233 238 245;
-  --color-border-subtle: 240 243 248;
+  --tok-border: rgb(233 238 245);
+  --tok-border-subtle: rgb(240 243 248);
   /* Fields carry a heavier edge than cards so an empty input still reads as one. */
-  --color-border-input: 217 224 236;
+  --tok-border-input: rgb(217 224 236);
 
   /* Text ramp — light (dark ink on light bg) */
-  --color-text-primary: 15 23 41;
-  --color-text-secondary: 74 85 104;
-  --color-text-tertiary: 107 118 136;
+  --tok-text-primary: rgb(15 23 41);
+  --tok-text-secondary: rgb(74 85 104);
+  --tok-text-tertiary: rgb(107 118 136);
   /* The pack's lighter grey, for uppercase micro-labels only — 2.9:1, too faint for prose. */
-  --color-text-faint: 138 148 166;
-  --color-text-muted: 152 162 179;
-  --color-text-heading: 43 47 54;
+  --tok-text-faint: rgb(138 148 166);
+  --tok-text-muted: rgb(152 162 179);
+  --tok-text-heading: rgb(43 47 54);
 
   /* Accent — light */
-  --color-accent: 245 147 0;
-  --color-accent-hover: 234 115 23;
-  --color-accent-deep: 184 75 31;
-  --color-accent-muted: #fdf1e2;
+  --tok-accent: rgb(245 147 0);
+  --tok-accent-hover: rgb(234 115 23);
+  --tok-accent-deep: rgb(184 75 31);
+  --tok-accent-muted: #fdf1e2;
   /* The pack's warm notice pair, for panels that ask for attention without alarming. */
-  --color-notice: 253 246 238;
-  --color-notice-border: 242 211 182;
+  --tok-notice: rgb(253 246 238);
+  --tok-notice-border: rgb(242 211 182);
   /* The quieter of the two warm fills: for a panel inside a page, where the rail's card would shout. */
-  --color-notice-soft: 253 250 245;
+  --tok-notice-soft: rgb(253 250 245);
   /* A cool pair for statements of fact, so they do not read as something to act on. */
-  --color-info: 243 248 253;
-  --color-info-border: 217 229 242;
-  --color-info-ink: 74 127 181;
+  --tok-info: rgb(243 248 253);
+  --tok-info-border: rgb(217 229 242);
+  --tok-info-ink: rgb(74 127 181);
   /* White on the accent is 2.3:1, so filled controls take a near-black ink instead. */
-  --color-accent-ink: 27 29 35;
+  --tok-accent-ink: rgb(27 29 35);
 
   /* Status — light */
-  --color-success: 22 163 74;
-  --color-warning: 217 119 6;
-  --color-error: 220 38 38;
+  --tok-success: rgb(22 163 74);
+  --tok-warning: rgb(217 119 6);
+  --tok-error: rgb(220 38 38);
   /* The alarming counterpart of the notice pair, for a row that reports a breach. */
-  --color-error-soft: 253 246 244;
-  --color-error-border: 246 207 200;
+  --tok-error-soft: rgb(253 246 244);
+  --tok-error-border: rgb(246 207 200);
 
   /* The CommandStrip is sticky and everything under it pins to its lower edge.
      AgentMon measures the band; here it is a constant with a wrapped-case override. */
@@ -137,48 +205,48 @@
 
 .dark {
   /* Backgrounds (layered) — dark */
-  --color-page: 11 14 20;
-  --color-surface-0: 17 21 32;
-  --color-surface-1: 22 27 39;
-  --color-surface-2: 28 35 51;
-  --color-surface-3: 35 43 62;
-  --color-header: 8 10 16;
+  --tok-page: rgb(11 14 20);
+  --tok-surface-0: rgb(17 21 32);
+  --tok-surface-1: rgb(22 27 39);
+  --tok-surface-2: rgb(28 35 51);
+  --tok-surface-3: rgb(35 43 62);
+  --tok-header: rgb(8 10 16);
 
   /* Borders — dark */
-  --color-border: 42 50 71;
-  --color-border-subtle: 30 37 54;
-  --color-border-input: 42 50 71;
+  --tok-border: rgb(42 50 71);
+  --tok-border-subtle: rgb(30 37 54);
+  --tok-border-input: rgb(42 50 71);
 
   /* Text ramp — dark */
-  --color-text-primary: 232 236 244;
-  --color-text-secondary: 139 149 170;
-  --color-text-tertiary: 91 101 128;
-  --color-text-faint: 91 101 128;
-  --color-text-muted: 61 74 102;
-  --color-text-heading: 232 236 244;
+  --tok-text-primary: rgb(232 236 244);
+  --tok-text-secondary: rgb(139 149 170);
+  --tok-text-tertiary: rgb(91 101 128);
+  --tok-text-faint: rgb(91 101 128);
+  --tok-text-muted: rgb(61 74 102);
+  --tok-text-heading: rgb(232 236 244);
 
   /* Accent — dark. The same orange as light: the product has one accent, and a
      blue here made every button and the open rail item a different brand. The
      deep tone inverts — on a dark surface the readable warm is a light one. */
-  --color-accent: 245 147 0;
-  --color-accent-hover: 250 176 63;
-  --color-accent-deep: 253 208 138;
-  --color-accent-muted: rgba(245, 147, 0, 0.16);
-  --color-notice: 30 37 54;
-  --color-notice-border: 52 62 86;
-  --color-notice-soft: 24 30 44;
-  --color-info: 22 32 48;
-  --color-info-border: 44 60 84;
-  --color-info-ink: 125 168 214;
+  --tok-accent: rgb(245 147 0);
+  --tok-accent-hover: rgb(250 176 63);
+  --tok-accent-deep: rgb(253 208 138);
+  --tok-accent-muted: rgba(245, 147, 0, 0.16);
+  --tok-notice: rgb(30 37 54);
+  --tok-notice-border: rgb(52 62 86);
+  --tok-notice-soft: rgb(24 30 44);
+  --tok-info: rgb(22 32 48);
+  --tok-info-border: rgb(44 60 84);
+  --tok-info-ink: rgb(125 168 214);
   /* White on the accent is 2.3:1 in either theme, so the filled button keeps its near-black ink. */
-  --color-accent-ink: 27 29 35;
+  --tok-accent-ink: rgb(27 29 35);
 
   /* Status — dark */
-  --color-success: 34 197 94;
-  --color-warning: 245 158 11;
-  --color-error: 239 68 68;
-  --color-error-soft: 44 24 26;
-  --color-error-border: 88 44 46;
+  --tok-success: rgb(34 197 94);
+  --tok-warning: rgb(245 158 11);
+  --tok-error: rgb(239 68 68);
+  --tok-error-soft: rgb(44 24 26);
+  --tok-error-border: rgb(88 44 46);
 
   color-scheme: dark;
 }
@@ -191,7 +259,7 @@
 }
 
 * {
-  border-color: rgb(var(--color-border));
+  border-color: var(--tok-border);
 }
 
 /* The UA's `[hidden] { display: none }` is an attribute selector, so any Tailwind
@@ -214,8 +282,8 @@ html {
 }
 
 body {
-  background-color: rgb(var(--color-page));
-  color: rgb(var(--color-text-primary));
+  background-color: var(--tok-page);
+  color: var(--tok-text-primary);
   @apply font-sans antialiased;
 }
 
@@ -228,10 +296,10 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: rgb(var(--color-surface-0));
+  background: var(--tok-surface-0);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-border));
+  background: var(--tok-border);
   border-radius: 999px;
 }
 

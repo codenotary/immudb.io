@@ -50,8 +50,16 @@ enableGitInfo = true
     source = 'assets/css/.*\.css'
     target = 'css'
   [[build.cachebusters]]
-    source = '(postcss|tailwind)\.config\.js'
+    source = 'postcss\.config\.js'
     target = 'css'
   [[build.cachebusters]]
     source = 'layouts/.*'
     target = 'css'
+
+[security]
+  [security.node.permissions]
+    # Hugo runs Node under its permission model. Tailwind 4's PostCSS plugin loads
+    # native addons (@tailwindcss/oxide, lightningcss), which Hugo only grants to
+    # its own `tailwindcss` command by default; without this the build fails with
+    # "Cannot find module '../lightningcss.linux-x64-gnu.node'".
+    allowAddons = ['tailwindcss', 'postcss']
