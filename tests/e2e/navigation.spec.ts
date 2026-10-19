@@ -239,12 +239,12 @@ test.describe('Theme', () => {
     await page.goto('/')
     const accent = () =>
       page.evaluate(() =>
-        getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim(),
+        getComputedStyle(document.documentElement).getPropertyValue('--tok-accent').trim(),
       )
     const light = await accent()
     await page.locator('[data-theme-toggle]').click()
     expect(await accent()).toBe(light)
-    expect(light).toBe('245 147 0')
+    expect(light).toBe('rgb(245 147 0)')
   })
 })
 

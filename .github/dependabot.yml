@@ -12,11 +12,12 @@ updates:
         patterns:
           - "*"
     ignore:
-      # Majors stay a human decision. Tailwind 4 is a rewrite of the config
-      # format the design system depends on, and @lhci/cli and pagefind each
-      # need their own verification pass, so an automated major bump here breaks
-      # the docs build rather than securing it. Security advisories are
-      # unaffected by this -- they are raised separately from version updates.
+      # Majors stay a human decision. The Tailwind theme lives in CSS now, but
+      # a Tailwind major still reshapes the preflight and the utility names, and
+      # @lhci/cli and pagefind each need their own verification pass, so an
+      # automated major bump here breaks the docs build rather than securing it.
+      # Security advisories are unaffected by this -- they are raised separately
+      # from version updates.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
 
