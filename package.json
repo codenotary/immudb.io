@@ -53,8 +53,12 @@
   },
   "overrides": {
     "brace-expansion": "^2.1.7",
+    "compression": "^1.8.2",
     "cross-spawn": "^7.0.5",
+    "ip-address": "^10.7.1",
     "nanoid": "^3.3.18",
+    "proxy-addr": "^2.0.8",
+    "source-map-js": "^1.2.2",
     "tar-fs": "^2.1.4",
     "tmp": "^0.2.7"
   }
