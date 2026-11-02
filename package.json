@@ -39,7 +39,8 @@
   },
   "homepage": "https://github.com/codenotary/immudb.io#readme",
   "engines": {
-    "node": ">=22"
+    "node": ">=22",
+    "npm": "^10.9 || >=11.21"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
