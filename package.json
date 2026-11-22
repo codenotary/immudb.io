@@ -43,12 +43,12 @@
     "npm": "^10.9 || >=11.21"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.16.0",
-    "@playwright/test": "^1.65.0",
-    "@tailwindcss/postcss": "^4.3.4",
+    "@lhci/cli": "^0.16.1",
+    "@playwright/test": "^1.65.1",
+    "@tailwindcss/postcss": "^4.3.5",
     "http-server": "^14.1.1",
     "pagefind": "^1.6.0",
-    "postcss": "^8.5.32",
+    "postcss": "^8.5.33",
     "postcss-cli": "^11.0.1",
     "tailwindcss": "^4.3.3"
   },
